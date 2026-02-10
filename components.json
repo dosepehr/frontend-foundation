@@ -16,9 +16,6 @@
         "components": "@/components",
         "ui": "@/components/ui",
         "utils": "@/utils"
-    },
-    "menuColor": "default",
-    "menuAccent": "subtle",
-    "registries": {}
+    }
 }
 
