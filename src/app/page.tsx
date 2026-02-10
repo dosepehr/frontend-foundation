@@ -1,40 +1,15 @@
-import AccordionGroup from '@/components/ui/Accordion';
-import {
-    Accordion,
-    AccordionItem,
-    AccordionTrigger,
-    AccordionContent,
-} from '@/components/ui/Accordion/components';
+import AlertGroup from '@/components/ui/Alert';
+
+import { CheckCircle2Icon } from 'lucide-react';
 
 const page = () => {
     return (
-        <Accordion
-            type='single'
-            collapsible
-            defaultValue='shipping'
-        >
-            <AccordionGroup value='shipping' trigger={<p>trigger</p>}>
-                Returns accepted within 30 days. Items must be unused and in
-                original packaging. Refunds processed within 5-7 business days.
-            </AccordionGroup>
-            <AccordionItem value='returns'>
-                <AccordionTrigger>What is your return policy?</AccordionTrigger>
-                <AccordionContent>
-                    Returns accepted within 30 days. Items must be unused and in
-                    original packaging. Refunds processed within 5-7 business
-                    days.
-                </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value='support'>
-                <AccordionTrigger>
-                    How can I contact customer support?
-                </AccordionTrigger>
-                <AccordionContent>
-                    Reach us via email, live chat, or phone. We respond within
-                    24 hours during business days.
-                </AccordionContent>
-            </AccordionItem>
-        </Accordion>
+        <div className='grid w-full max-w-md items-start gap-4'>
+            <AlertGroup title='fkfkkf' Icon={CheckCircle2Icon}>
+                Your payment of $29.99 has been processed. A receipt has been
+                sent to your email address.
+            </AlertGroup>
+        </div>
     );
 };
 
