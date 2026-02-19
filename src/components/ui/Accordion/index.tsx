@@ -6,11 +6,22 @@ import {
 } from './components';
 import { AccordionProps } from './accordion.props';
 
-const AccordionGroup: FC<AccordionProps> = ({ value, trigger, children }) => {
+const AccordionGroup: FC<AccordionProps> = ({
+    value,
+    trigger,
+    children,
+    contentClasses,
+    itemClasses,
+    triggerClasses,
+}) => {
     return (
-        <AccordionItem value={value}>
-            <AccordionTrigger>{trigger}</AccordionTrigger>
-            <AccordionContent>{children}</AccordionContent>
+        <AccordionItem value={value} className={itemClasses}>
+            <AccordionTrigger className={triggerClasses}>
+                {trigger}
+            </AccordionTrigger>
+            <AccordionContent className={contentClasses}>
+                {children}
+            </AccordionContent>
         </AccordionItem>
     );
 };
