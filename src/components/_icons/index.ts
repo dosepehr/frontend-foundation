@@ -1,0 +1,14 @@
+export { default as Check } from "./check";
+export { default as CircleArrowRight } from "./circle-arrow-right";
+export { default as CircleCheck } from "./circle-check";
+export { default as CircleQuestionMark } from "./circle-question-mark";
+export { default as CircleX } from "./circle-x";
+export { default as Download } from "./download";
+export { default as EyeClosed } from "./eye-closed";
+export { default as Eye } from "./eye";
+export { default as Info } from "./info";
+export { default as Menu } from "./menu";
+export { default as Search } from "./search";
+export { default as Trash } from "./trash";
+export { default as TriangleAlert } from "./triangle-alert";
+export { default as X } from "./x";

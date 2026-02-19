@@ -1,7 +1,8 @@
+import { X } from '@/components/_icons';
 import ThemeChange from '@/components/common/ThemeChange';
 import AlertDialogGroup from '@/components/ui/AlertDialog';
 import { Button } from '@/components/ui/Button';
-
+import { XIcon } from 'lucide-react';
 const page = () => {
     return (
         <>
@@ -13,6 +14,8 @@ const page = () => {
             >
                 <input />
             </AlertDialogGroup>
+            <X />
+            <XIcon />
         </>
     );
 };
