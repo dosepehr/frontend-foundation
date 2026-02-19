@@ -124,6 +124,16 @@
         @apply bg-background text-foreground;
     }
 }
+html {
+    font-family: var(--font-estedad);
+    scroll-behavior: smooth;
+}
+
 svg {
     flex-shrink: 0;
 }
+
+:lang(en) {
+    font-family: var(--font-lato);
+}
+
