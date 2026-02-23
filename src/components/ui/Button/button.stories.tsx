@@ -1,9 +1,9 @@
-import { Download, Mail, Trash2 } from 'lucide-react';
+import { ArrowRightCircle, Download, Mail, Trash2 } from 'lucide-react';
 import { Button } from '.';
 import { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 const meta = {
-    title: 'UI/Button',
+    title: 'COMPONENTS/Button',
     component: Button,
     parameters: { layout: 'centered' },
     tags: ['autodocs'],
@@ -24,40 +24,66 @@ const meta = {
         },
         size: {
             control: 'select',
-            options: ['default', 'xs', 'sm', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg'],
+            options: [
+                'default',
+                'xs',
+                'sm',
+                'lg',
+                'icon',
+                'icon-xs',
+                'icon-sm',
+                'icon-lg',
+            ],
         },
-        disabled:    { control: 'boolean' },
-        isLoading:   { control: 'boolean' },
-        showArrow:   { control: 'boolean' },
+        disabled: { control: 'boolean' },
+        isLoading: { control: 'boolean' },
+        showArrow: { control: 'boolean' },
         loadingText: { control: 'text' },
-        asChild:     { control: 'boolean' },
-        children:    { control: 'text' },
+        asChild: { control: 'boolean' },
+        children: { control: 'text' },
     },
     args: {
-        children:    'Button',
-        disabled:    false,
-        isLoading:   false,
-        showArrow:   false,
+        children: 'Button',
+        disabled: false,
+        isLoading: false,
+        showArrow: false,
         loadingText: 'loading...',
-        asChild:     false,
+        asChild: false,
     },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// ─────────────────────────────────────────────
-// Playground — full control via Args Panel
-// ─────────────────────────────────────────────
 export const Playground: Story = {
     args: { variant: 'default', size: 'default', children: 'Click me' },
 };
 
-// ─────────────────────────────────────────────
-// All Variants × All Text Sizes
-// ─────────────────────────────────────────────
-export const AllVariantsAndSizes: Story = {
-    name: 'All Variants & Sizes',
+export const AllSizes: Story = {
+    render: () => {
+        const sizes = [
+            'xs',
+            'sm',
+            'default',
+            'lg',
+            'icon-xs',
+            'icon-sm',
+            'icon',
+            'icon-lg',
+        ] as const;
+
+        return (
+            <div className='flex items-center gap-2 flex-wrap'>
+                {sizes.map((s) => (
+                    <Button key={s} variant='outline' size={s}>
+                        {s.startsWith('icon') ? <ArrowRightCircle /> : s}
+                    </Button>
+                ))}
+            </div>
+        );
+    },
+};
+export const AllVariants: Story = {
     render: () => {
         const variants = [
             'default',
@@ -67,51 +93,20 @@ export const AllVariantsAndSizes: Story = {
             'ghost',
             'link',
         ] as const;
-        const sizes = ['xs', 'sm', 'default', 'lg'] as const;
 
         return (
-            <div className='overflow-auto'>
-                <table className='border-separate border-spacing-2 text-sm'>
-                    <thead>
-                        <tr>
-                            <th className='text-muted-foreground pr-4 text-left font-normal'>
-                                variant \ size
-                            </th>
-                            {sizes.map((s) => (
-                                <th
-                                    key={s}
-                                    className='text-muted-foreground px-2 text-center font-normal capitalize'
-                                >
-                                    {s}
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {variants.map((v) => (
-                            <tr key={v}>
-                                <td className='text-muted-foreground pr-4 capitalize'>{v}</td>
-                                {sizes.map((s) => (
-                                    <td key={s} className='text-center'>
-                                        <Button variant={v} size={s}>
-                                            Label
-                                        </Button>
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+            <div className='flex items-center gap-2 flex-wrap'>
+                {variants.map((v) => (
+                    <Button key={v} variant={v} size='default'>
+                        {v}
+                    </Button>
+                ))}
             </div>
         );
     },
 };
 
-// ─────────────────────────────────────────────
-// All Icon Sizes
-// ─────────────────────────────────────────────
 export const IconSizes: Story = {
-    name: 'Icon Sizes',
     render: () => (
         <div className='flex flex-wrap items-end gap-3'>
             {(['icon-xs', 'icon-sm', 'icon', 'icon-lg'] as const).map((s) => (
@@ -123,11 +118,7 @@ export const IconSizes: Story = {
     ),
 };
 
-// ─────────────────────────────────────────────
-// With Icons (leading / trailing)
-// ─────────────────────────────────────────────
 export const WithIcons: Story = {
-    name: 'With Icons',
     render: () => (
         <div className='flex flex-wrap items-center gap-3'>
             <Button>
@@ -147,9 +138,6 @@ export const WithIcons: Story = {
     ),
 };
 
-// ─────────────────────────────────────────────
-// showArrow prop
-// ─────────────────────────────────────────────
 export const WithArrow: Story = {
     name: 'Show Arrow',
     render: () => (
@@ -165,11 +153,7 @@ export const WithArrow: Story = {
     ),
 };
 
-// ─────────────────────────────────────────────
-// States — Disabled & Loading
-// ─────────────────────────────────────────────
 export const States: Story = {
-    name: 'States',
     render: () => (
         <div className='flex flex-wrap items-center gap-3'>
             <Button disabled>Disabled</Button>
@@ -180,7 +164,7 @@ export const States: Story = {
             <Button isLoading loadingText='Uploading…' variant='secondary'>
                 Upload
             </Button>
-            <Button isLoading size='icon' aria-label='Loading' />
+            <Button isLoading size='icon' aria-label='Loading' loadingText='' />
         </div>
     ),
 };

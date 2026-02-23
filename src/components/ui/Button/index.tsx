@@ -7,20 +7,20 @@ import { ArrowRightCircle } from 'lucide-react';
 import { Spinner } from '../Spinner';
 
 const buttonVariants = cva(
-    "cursor-pointer focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none group/button select-none",
+    "cursor-pointer focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 rounded-lg border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none group/button select-none group",
     {
         variants: {
             variant: {
                 default:
-                    'bg-primary text-primary-foreground [a]:hover:bg-primary/80',
+                    'bg-primary text-primary-foreground [a]:hover:bg-primary/80 active:scale-[0.97] active:brightness-90',
                 outline:
-                    'border-border bg-background hover:bg-muted hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground',
+                    'border-border bg-background text-foreground hover:bg-muted dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground active:scale-[0.97] active:bg-muted/80 dark:active:bg-input/70',
                 secondary:
-                    'bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground',
-                ghost: 'hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground',
+                    'bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground active:scale-[0.97] active:bg-secondary/60',
+                ghost: 'border-transparent text-foreground hover:bg-muted dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground active:scale-[0.97] active:bg-muted/80 dark:active:bg-muted/40',
                 destructive:
-                    'bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30',
-                link: 'text-primary underline-offset-4 hover:underline',
+                    'bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30 active:scale-[0.97] active:bg-destructive/30 dark:active:bg-destructive/40',
+                link: 'text-primary underline-offset-4 hover:underline active:opacity-70',
             },
             size: {
                 default:
@@ -42,6 +42,7 @@ const buttonVariants = cva(
         },
     }
 );
+
 function Button({
     className,
     variant,
