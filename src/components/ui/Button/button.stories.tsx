@@ -1,6 +1,18 @@
-import { ArrowRightCircle, Download, Mail, Trash2 } from 'lucide-react';
+import {
+    ArrowRightCircle,
+    Download,
+    Mail,
+    MinusIcon,
+    PlusIcon,
+    Trash2,
+} from 'lucide-react';
 import { Button } from '.';
 import { Meta, StoryObj } from '@storybook/nextjs-vite';
+import {
+    ButtonGroup,
+    ButtonGroupSeparator,
+    ButtonGroupText,
+} from '../ButtonGroup';
 
 const meta = {
     title: 'COMPONENTS/Button',
@@ -166,6 +178,37 @@ export const States: Story = {
             </Button>
             <Button isLoading size='icon' aria-label='Loading' loadingText='' />
         </div>
+    ),
+};
+
+export const Grouped: Story = {
+    render: () => (
+        <ButtonGroup>
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+        </ButtonGroup>
+    ),
+};
+
+export const GroupedVertical: Story = {
+    render: () => (
+        <ButtonGroup orientation={'vertical'}>
+            <Button variant='outline' size='icon'>
+                <PlusIcon />
+            </Button>
+            <Button variant='outline' size='icon'>
+                <MinusIcon />
+            </Button>
+        </ButtonGroup>
+    ),
+};
+export const GroupedWithSeperator: Story = {
+    render: () => (
+        <ButtonGroup>
+            <Button>Button 1</Button>
+            <ButtonGroupSeparator />
+            <Button>Button 2</Button>
+        </ButtonGroup>
     ),
 };
 
