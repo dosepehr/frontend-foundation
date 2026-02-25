@@ -1,7 +1,6 @@
 import { Meta, StoryObj } from '@storybook/nextjs-vite';
 import AccordionGroup from '.';
 import { Accordion } from './components';
-import { X } from '@/components/_icons';
 
 type Story = StoryObj<typeof AccordionGroup>;
 

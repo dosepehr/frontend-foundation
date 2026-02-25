@@ -4,7 +4,7 @@ import BreadcrumbGroup from '.';
 import type { BreadcrumbItemDef } from './breadcrumb.props';
 
 const meta: Meta<typeof BreadcrumbGroup> = {
-    title: 'Components/BreadcrumbGroup',
+    title: 'Components/Breadcrumb',
     component: BreadcrumbGroup,
     tags: ['autodocs'],
     parameters: {
@@ -71,7 +71,6 @@ export const CollapsedMaxThree: Story = {
 };
 
 export const CustomSeparatorText: Story = {
-    name: 'Custom Separator — Text /',
     args: {
         items: threeItems,
         separator: <span className='text-xs text-muted-foreground'>/</span>,

@@ -1,4 +1,3 @@
-import { CheckIcon, BellIcon, StarIcon, ShieldIcon } from 'lucide-react';
 import { AvatarItem } from './avatar.props';
 import AvatarGroup from '.';
 import { Meta, StoryObj } from '@storybook/nextjs-vite';
@@ -49,7 +48,7 @@ const fallbackOnlyAvatars: AvatarItem[] = [
 ];
 
 const meta: Meta<typeof AvatarGroup> = {
-    title: 'Components/AvatarGroup',
+    title: 'Components/Avatar',
     component: AvatarGroup,
     tags: ['autodocs'],
     parameters: {

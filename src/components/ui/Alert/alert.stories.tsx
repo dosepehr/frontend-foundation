@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from '@storybook/nextjs-vite';
 import AlertGroup from '.';
-import { LucideIcon } from 'lucide-react';
 
 type Story = StoryObj<typeof AlertGroup>;
 
