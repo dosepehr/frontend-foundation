@@ -1,4 +1,3 @@
-// index.tsx
 import {
     AlertDialog,
     AlertDialogAction,
@@ -15,30 +14,24 @@ import { FC } from 'react';
 import { AlertDialogGroupProps } from './alert-dialog.type';
 
 const AlertDialogGroup: FC<AlertDialogGroupProps> = ({
-    // Root
     open,
     defaultOpen,
     onOpenChange,
 
-    // Trigger
     trigger,
 
-    // Content structure
     title,
     description,
     media,
     children,
 
-    // Structural prop overrides
     contentProps,
     headerProps,
     footerProps,
 
-    // Action
     actionText = 'Continue',
     actionProps,
 
-    // Cancel
     cancelText = 'Cancel',
     cancelProps,
 }) => {

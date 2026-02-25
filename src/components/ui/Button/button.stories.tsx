@@ -1,6 +1,7 @@
 import {
     ArrowRightCircle,
     Download,
+    Info,
     Mail,
     MinusIcon,
     PlusIcon,
@@ -8,11 +9,7 @@ import {
 } from 'lucide-react';
 import { Button } from '.';
 import { Meta, StoryObj } from '@storybook/nextjs-vite';
-import {
-    ButtonGroup,
-    ButtonGroupSeparator,
-    ButtonGroupText,
-} from '../ButtonGroup';
+import { ButtonGroup, ButtonGroupSeparator } from '../ButtonGroup';
 
 const meta = {
     title: 'COMPONENTS/Button',
@@ -26,13 +23,13 @@ const meta = {
                 'default',
                 'secondary',
                 'success',
-                'warning',
+                'info',
                 'destructive',
                 'outline',
                 'ghost',
                 'link',
-                'shadow',
             ],
+            description: 'Visual style variant of the button',
         },
         size: {
             control: 'select',
@@ -46,20 +43,39 @@ const meta = {
                 'icon-sm',
                 'icon-lg',
             ],
+            description: 'Size of the button',
         },
-        disabled: { control: 'boolean' },
-        isLoading: { control: 'boolean' },
-        showArrow: { control: 'boolean' },
-        loadingText: { control: 'text' },
-        asChild: { control: 'boolean' },
-        children: { control: 'text' },
+        disabled: {
+            control: 'boolean',
+            description: 'Whether the button is disabled',
+        },
+        isLoading: {
+            control: 'boolean',
+            description: 'Shows a loading spinner and optionally replaces the label',
+        },
+        showArrow: {
+            control: 'boolean',
+            description: 'Appends a directional arrow icon to the button',
+        },
+        loadingText: {
+            control: 'text',
+            description: 'Text displayed while the button is in loading state',
+        },
+        asChild: {
+            control: 'boolean',
+            description: 'Renders the button as its child element using Radix Slot',
+        },
+        children: {
+            control: 'text',
+            description: 'Button label or content',
+        },
     },
     args: {
         children: 'Button',
         disabled: false,
         isLoading: false,
         showArrow: false,
-        loadingText: 'loading...',
+        loadingText: 'Loading...',
         asChild: false,
     },
 } satisfies Meta<typeof Button>;
@@ -69,6 +85,31 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
     args: { variant: 'default', size: 'default', children: 'Click me' },
+};
+
+export const AllVariants: Story = {
+    render: () => {
+        const variants = [
+            'default',
+            'secondary',
+            'success',
+            'info',
+            'destructive',
+            'outline',
+            'ghost',
+            'link',
+        ] as const;
+
+        return (
+            <div className='flex items-center gap-2 flex-wrap'>
+                {variants.map((v) => (
+                    <Button key={v} variant={v} size='default'>
+                        {v.charAt(0).toUpperCase() + v.slice(1)}
+                    </Button>
+                ))}
+            </div>
+        );
+    },
 };
 
 export const AllSizes: Story = {
@@ -89,28 +130,6 @@ export const AllSizes: Story = {
                 {sizes.map((s) => (
                     <Button key={s} variant='outline' size={s}>
                         {s.startsWith('icon') ? <ArrowRightCircle /> : s}
-                    </Button>
-                ))}
-            </div>
-        );
-    },
-};
-export const AllVariants: Story = {
-    render: () => {
-        const variants = [
-            'default',
-            'secondary',
-            'destructive',
-            'outline',
-            'ghost',
-            'link',
-        ] as const;
-
-        return (
-            <div className='flex items-center gap-2 flex-wrap'>
-                {variants.map((v) => (
-                    <Button key={v} variant={v} size='default'>
-                        {v}
                     </Button>
                 ))}
             </div>
@@ -146,12 +165,19 @@ export const WithIcons: Story = {
                 Both sides
                 <Download />
             </Button>
+            <Button variant='success'>
+                <Info />
+                Success action
+            </Button>
+            <Button variant='info'>
+                <Info />
+                Info action
+            </Button>
         </div>
     ),
 };
 
 export const WithArrow: Story = {
-    name: 'Show Arrow',
     render: () => (
         <div className='flex flex-wrap items-center gap-3'>
             <Button showArrow>Continue</Button>
@@ -160,6 +186,12 @@ export const WithArrow: Story = {
             </Button>
             <Button variant='ghost' showArrow>
                 See all
+            </Button>
+            <Button variant='success' showArrow>
+                Confirm
+            </Button>
+            <Button variant='info' showArrow>
+                Details
             </Button>
         </div>
     ),
@@ -177,6 +209,9 @@ export const States: Story = {
                 Upload
             </Button>
             <Button isLoading size='icon' aria-label='Loading' loadingText='' />
+            <Button variant='success' isLoading loadingText='Processing…'>
+                Submit
+            </Button>
         </div>
     ),
 };
@@ -192,7 +227,7 @@ export const Grouped: Story = {
 
 export const GroupedVertical: Story = {
     render: () => (
-        <ButtonGroup orientation={'vertical'}>
+        <ButtonGroup orientation='vertical'>
             <Button variant='outline' size='icon'>
                 <PlusIcon />
             </Button>
@@ -202,7 +237,8 @@ export const GroupedVertical: Story = {
         </ButtonGroup>
     ),
 };
-export const GroupedWithSeperator: Story = {
+
+export const GroupedWithSeparator: Story = {
     render: () => (
         <ButtonGroup>
             <Button>Button 1</Button>
@@ -211,4 +247,3 @@ export const GroupedWithSeperator: Story = {
         </ButtonGroup>
     ),
 };
-

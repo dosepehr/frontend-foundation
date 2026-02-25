@@ -4,7 +4,7 @@ import AlertDialogGroup from '.';
 import { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 const meta: Meta<typeof AlertDialogGroup> = {
-    title: 'UI/AlertDialog',
+    title: 'COMPONENTS/AlertDialog',
     component: AlertDialogGroup,
     parameters: {
         layout: 'centered',
