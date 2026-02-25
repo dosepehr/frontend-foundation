@@ -1,15 +1,19 @@
 'use client';
-import { Checkbox } from '@/components/ui/Checkbox';
-import { ComboboxPopup } from '@/components/ui/ComboBox';
-import { Label } from '@/components/ui/Label';
+import ThemeChange from '@/components/common/ThemeChange';
+import { Input } from '@/components/ui/Input';
 const page = () => {
     return (
         <>
-            <div className='flex gap-2'>
-                <Checkbox id='terms' checked='indeterminate' />
-                <Label htmlFor='terms'>Accept terms and conditions</Label>
+            <ThemeChange />
+            <div className='max-w-40 mx-40 w-full'>
+                <Input
+                    label='name'
+                    id='name'
+                    required
+                    description='llf'
+                    placeholder='fkfk'
+                />
             </div>
-            <ComboboxPopup />
         </>
     );
 };
