@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/utils/context/ThemeProvider';
 import { estedad, lato } from 'public/fonts';
+import { TooltipProvider } from '@/components/ui/Tooltip/components';
 
 export const metadata: Metadata = {
     title: 'Frontend foundation',
@@ -19,9 +20,11 @@ export default function RootLayout({
             className={`antialiased overflow-x-hidden ${estedad.variable} ${lato.variable}`}
         >
             <body>
-                <ThemeProvider defaultTheme='system' storageKey='ui-theme'>
-                    {children}
-                </ThemeProvider>
+                <TooltipProvider>
+                    <ThemeProvider defaultTheme='system' storageKey='ui-theme'>
+                        {children}
+                    </ThemeProvider>
+                </TooltipProvider>
             </body>
         </html>
     );
