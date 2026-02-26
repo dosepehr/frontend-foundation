@@ -17,16 +17,13 @@ const buttonVariants = cva(
                     'border-border bg-background text-foreground hover:bg-muted dark:bg-input/30 dark:border-input dark:hover:bg-input/50 aria-expanded:bg-muted aria-expanded:text-foreground active:scale-[0.97] active:bg-muted/80 dark:active:bg-input/70',
                 secondary:
                     'bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground active:scale-[0.97] active:bg-secondary/60',
-                ghost:
-                    'border-transparent text-foreground hover:bg-muted dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground active:scale-[0.97] active:bg-muted/80 dark:active:bg-muted/40',
+                ghost: 'border-transparent text-foreground hover:bg-muted dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground active:scale-[0.97] active:bg-muted/80 dark:active:bg-muted/40',
                 destructive:
                     'bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30 active:scale-[0.97] active:bg-destructive/30 dark:active:bg-destructive/40',
                 success:
                     'bg-green-500/10 hover:bg-green-500/20 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/40 dark:bg-green-500/20 text-green-600 dark:text-green-400 focus-visible:border-green-500/40 dark:hover:bg-green-500/30 active:scale-[0.97] active:bg-green-500/30 dark:active:bg-green-500/40',
-                info:
-                    'bg-blue-500/10 hover:bg-blue-500/20 focus-visible:ring-blue-500/20 dark:focus-visible:ring-blue-500/40 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 focus-visible:border-blue-500/40 dark:hover:bg-blue-500/30 active:scale-[0.97] active:bg-blue-500/30 dark:active:bg-blue-500/40',
-                link:
-                    'text-primary underline-offset-4 hover:underline active:opacity-70',
+                info: 'bg-blue-500/10 hover:bg-blue-500/20 focus-visible:ring-blue-500/20 dark:focus-visible:ring-blue-500/40 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 focus-visible:border-blue-500/40 dark:hover:bg-blue-500/30 active:scale-[0.97] active:bg-blue-500/30 dark:active:bg-blue-500/40',
+                link: 'text-primary underline-offset-4 hover:underline active:opacity-70',
             },
             size: {
                 default:
@@ -65,14 +62,8 @@ function Button({
     ButtonProps) {
     const Comp = asChild ? Slot.Root : 'button';
 
-    return (
-        <Comp
-            data-slot='button'
-            className={cn(buttonVariants({ variant, size, className }))}
-            disabled={disabled || isLoading}
-            type='button'
-            {...props}
-        >
+    const content = (
+        <>
             {isLoading ? (
                 <>
                     <Spinner />
@@ -84,6 +75,18 @@ function Button({
             {showArrow && (
                 <ArrowRightCircle className='group-hover:translate-x-1 duration-150' />
             )}
+        </>
+    );
+
+    return (
+        <Comp
+            data-slot='button'
+            className={cn(buttonVariants({ variant, size, className }))}
+            disabled={disabled || isLoading}
+            type='button'
+            {...props}
+        >
+            {content}
         </Comp>
     );
 }
