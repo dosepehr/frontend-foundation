@@ -1,77 +1,38 @@
 'use client';
 import ThemeChange from '@/components/common/ThemeChange';
 import { Button } from '@/components/ui/Button';
+import { Calendar } from '@/components/ui/Calendar';
+import { useState } from 'react';
 import { toast } from 'sonner';
-const page = () => {
+import { addDays } from 'date-fns';
+import { DateRange } from 'react-day-picker';
+
+const Page = () => {
+    const [date, setDate] = useState<Date | undefined>(new Date());
+    const [dateRange, setDateRange] = useState<DateRange | undefined>({
+        from: new Date(new Date().getFullYear(), 0, 12),
+        to: addDays(new Date(new Date().getFullYear(), 0, 12), 30),
+    });
     return (
         <>
             <ThemeChange />
 
-            <div className='flex flex-wrap gap-2'>
-                <Button
-                    variant='outline'
-                    onClick={() => toast('Event has been created')}
-                >
-                    Default
-                </Button>
-                <Button
-                    variant='outline'
-                    onClick={() => toast.success('Event has been created')}
-                >
-                    Success
-                </Button>
-                <Button
-                    variant='outline'
-                    onClick={() =>
-                        toast.info(
-                            'Be at the area 10 minutes before the event time'
-                        )
-                    }
-                >
-                    Info
-                </Button>
-                <Button
-                    variant='outline'
-                    onClick={() =>
-                        toast.warning(
-                            'Event start time cannot be earlier than 8am'
-                        )
-                    }
-                >
-                    Warning
-                </Button>
-                <Button
-                    variant='outline'
-                    onClick={() => toast.error('Event has not been created')}
-                >
-                    Error
-                </Button>
-                <Button
-                    variant='outline'
-                    onClick={() => {
-                        toast.promise<{ name: string }>(
-                            () =>
-                                new Promise((resolve,reject) =>
-                                    setTimeout(
-                                        () => reject({ name: 'Event' }),
-                                        2000
-                                    )
-                                ),
-                            {
-                                loading: 'Loading...',
-                                success: (data) =>
-                                    `${data.name} has been created`,
-                                error: 'Error',
-                            }
-                        );
-                    }}
-                >
-                    Promise
-                </Button>
-            </div>
+            <Calendar mode='single' selected={date} onSelect={setDate} />
+
+            <Calendar
+                mode='range'
+                defaultMonth={dateRange?.from}
+                selected={dateRange}
+                onSelect={setDateRange}
+                numberOfMonths={2}
+                disabled={(date) =>
+                    date > new Date() || date < new Date('1900-01-01')
+                }
+                captionLayout='dropdown'
+            />
         </>
     );
 };
 
-export default page;
+export default Page;
 
