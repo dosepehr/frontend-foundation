@@ -15,19 +15,18 @@ import {
     InputOTPGroup,
     InputOTPSlot,
 } from '@/components/ui/OtpInput';
+import SelectGroup from '@/components/ui/Select';
+import { SelectTrigger } from '@/components/ui/Select/components';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { Textarea } from '@/components/ui/Textarea';
 const page = () => {
     return (
         <>
             <ThemeChange />
-    <div className="flex w-fit items-center gap-4">
-      <Skeleton className="size-10 shrink-0 rounded-full" />
-      <div className="grid gap-2">
-        <Skeleton className="h-4 w-[150px]" />
-        <Skeleton className="h-4 w-[100px]" />
-      </div>
-    </div>
+
+            <div className='py-20'>
+                <SelectGroup />
+            </div>
         </>
     );
 };
