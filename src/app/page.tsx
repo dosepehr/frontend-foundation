@@ -15,36 +15,19 @@ import {
     InputOTPGroup,
     InputOTPSlot,
 } from '@/components/ui/OtpInput';
+import { Skeleton } from '@/components/ui/Skeleton';
 import { Textarea } from '@/components/ui/Textarea';
 const page = () => {
     return (
         <>
             <ThemeChange />
-            <div className='max-w-40 mx-40 w-full'>
-                <Textarea
-                    label='name'
-                    id='name'
-                    required
-                    description='llf'
-                    placeholder='fkfk'
-                />
-            </div>
-            <CheckboxWrapper title='fff' id='1' description='kfkf' />
-            <Field className='w-fit'>
-                <FieldLabel htmlFor='digits-only' required>
-                    Digits Only
-                </FieldLabel>
-                <InputOTP id='digits-only' maxLength={6}>
-                    <InputOTPGroup>
-                        <InputOTPSlot index={0} />
-                        <InputOTPSlot index={1} />
-                        <InputOTPSlot index={2} />
-                        <InputOTPSlot index={3} />
-                        <InputOTPSlot index={4} />
-                        <InputOTPSlot index={5} />
-                    </InputOTPGroup>
-                </InputOTP>
-            </Field>
+    <div className="flex w-fit items-center gap-4">
+      <Skeleton className="size-10 shrink-0 rounded-full" />
+      <div className="grid gap-2">
+        <Skeleton className="h-4 w-[150px]" />
+        <Skeleton className="h-4 w-[100px]" />
+      </div>
+    </div>
         </>
     );
 };
