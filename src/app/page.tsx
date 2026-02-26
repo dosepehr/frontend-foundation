@@ -15,6 +15,7 @@ import {
     InputOTPGroup,
     InputOTPSlot,
 } from '@/components/ui/OtpInput';
+import SelectField from '@/components/ui/Select';
 import SelectGroup from '@/components/ui/Select';
 import { SelectTrigger } from '@/components/ui/Select/components';
 import { Skeleton } from '@/components/ui/Skeleton';
@@ -25,7 +26,19 @@ const page = () => {
             <ThemeChange />
 
             <div className='py-20'>
-                <SelectGroup />
+                <SelectField
+                    id='theme-select'
+                    label='Theme'
+                    description='Choose your preferred theme'
+                    placeholder='Select a theme'
+                    options={[
+                        { label: 'Light', value: 'light' },
+                        { label: 'Dark', value: 'dark' },
+                        { label: 'System', value: 'system', disabled: true },
+                    ]}
+                    onValueChange={(val) => console.log(val)}
+                    required
+                />
             </div>
         </>
     );
