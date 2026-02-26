@@ -33,6 +33,9 @@ export const ThemeProviderContext =
     createContext<ThemeProviderState>(initialThemeState);
 
 const resolveAppliedTheme = (t: Theme): 'light' | 'dark' => {
+    if (typeof window == 'undefined') {
+        return 'dark';
+    }
     if (t === 'system') {
         return window.matchMedia('(prefers-color-scheme: dark)').matches
             ? 'dark'
@@ -104,5 +107,4 @@ export function ThemeProvider({
         </ThemeProviderContext.Provider>
     );
 }
-
 
