@@ -1,44 +1,73 @@
 'use client';
-import CheckboxWrapper from '@/components/common/CheckboxWrapper';
 import ThemeChange from '@/components/common/ThemeChange';
-import { Checkbox } from '@/components/ui/Checkbox';
-import {
-    Field,
-    FieldContent,
-    FieldDescription,
-    FieldLabel,
-    FieldTitle,
-} from '@/components/ui/Field';
-import { Input } from '@/components/ui/Input';
-import {
-    InputOTP,
-    InputOTPGroup,
-    InputOTPSlot,
-} from '@/components/ui/OtpInput';
-import SelectField from '@/components/ui/Select';
-import SelectGroup from '@/components/ui/Select';
-import { SelectTrigger } from '@/components/ui/Select/components';
-import { Skeleton } from '@/components/ui/Skeleton';
-import { Textarea } from '@/components/ui/Textarea';
+import { Button } from '@/components/ui/Button';
+import { toast } from 'sonner';
 const page = () => {
     return (
         <>
             <ThemeChange />
 
-            <div className='py-20'>
-                <SelectField
-                    id='theme-select'
-                    label='Theme'
-                    description='Choose your preferred theme'
-                    placeholder='Select a theme'
-                    options={[
-                        { label: 'Light', value: 'light' },
-                        { label: 'Dark', value: 'dark' },
-                        { label: 'System', value: 'system', disabled: true },
-                    ]}
-                    onValueChange={(val) => console.log(val)}
-                    required
-                />
+            <div className='flex flex-wrap gap-2'>
+                <Button
+                    variant='outline'
+                    onClick={() => toast('Event has been created')}
+                >
+                    Default
+                </Button>
+                <Button
+                    variant='outline'
+                    onClick={() => toast.success('Event has been created')}
+                >
+                    Success
+                </Button>
+                <Button
+                    variant='outline'
+                    onClick={() =>
+                        toast.info(
+                            'Be at the area 10 minutes before the event time'
+                        )
+                    }
+                >
+                    Info
+                </Button>
+                <Button
+                    variant='outline'
+                    onClick={() =>
+                        toast.warning(
+                            'Event start time cannot be earlier than 8am'
+                        )
+                    }
+                >
+                    Warning
+                </Button>
+                <Button
+                    variant='outline'
+                    onClick={() => toast.error('Event has not been created')}
+                >
+                    Error
+                </Button>
+                <Button
+                    variant='outline'
+                    onClick={() => {
+                        toast.promise<{ name: string }>(
+                            () =>
+                                new Promise((resolve,reject) =>
+                                    setTimeout(
+                                        () => reject({ name: 'Event' }),
+                                        2000
+                                    )
+                                ),
+                            {
+                                loading: 'Loading...',
+                                success: (data) =>
+                                    `${data.name} has been created`,
+                                error: 'Error',
+                            }
+                        );
+                    }}
+                >
+                    Promise
+                </Button>
             </div>
         </>
     );

@@ -3,6 +3,7 @@ import './globals.css';
 import { ThemeProvider } from '@/utils/context/ThemeProvider';
 import { estedad, lato } from 'public/fonts';
 import { TooltipProvider } from '@/components/ui/Tooltip/components';
+import { Toaster } from '@/components/ui/Toast';
 
 export const metadata: Metadata = {
     title: 'Frontend foundation',
@@ -24,6 +25,7 @@ export default function RootLayout({
                     <ThemeProvider defaultTheme='system' storageKey='ui-theme'>
                         {children}
                     </ThemeProvider>
+                    <Toaster richColors />
                 </TooltipProvider>
             </body>
         </html>
