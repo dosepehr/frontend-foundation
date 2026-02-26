@@ -24,7 +24,7 @@ function Label({
             {...props}
         >
             {children}
-            {required && <Asteriks />}
+            {required && children && <Asteriks />}
         </LabelPrimitive.Root>
     );
 }
