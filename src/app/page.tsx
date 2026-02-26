@@ -1,5 +1,14 @@
 'use client';
+import CheckboxWrapper from '@/components/common/CheckboxWrapper';
 import ThemeChange from '@/components/common/ThemeChange';
+import { Checkbox } from '@/components/ui/Checkbox';
+import {
+    Field,
+    FieldContent,
+    FieldDescription,
+    FieldLabel,
+    FieldTitle,
+} from '@/components/ui/Field';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 const page = () => {
@@ -15,6 +24,7 @@ const page = () => {
                     placeholder='fkfk'
                 />
             </div>
+            <CheckboxWrapper title='fff' id='1' description='kfkf' />
         </>
     );
 };
