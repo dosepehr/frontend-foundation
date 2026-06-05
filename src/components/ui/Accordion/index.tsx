@@ -28,3 +28,6 @@ const AccordionWrapper: FC<AccordionWrapperProps> = ({
 
 export default AccordionWrapper;
 
+export { Accordion } from './components';
+export type { AccordionWrapperProps } from './accordion.types';
+

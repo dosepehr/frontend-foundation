@@ -32,24 +32,3 @@ const CardWrapper: FC<CardWrapperProps> = ({
 }
 
 export default CardWrapper
-
-export {
-    Card,
-    CardHeader,
-    CardTitle,
-    CardDescription,
-    CardAction,
-    CardContent,
-    CardFooter,
-} from './components'
-
-export type {
-    CardProps,
-    CardHeaderProps,
-    CardTitleProps,
-    CardDescriptionProps,
-    CardActionProps,
-    CardContentProps,
-    CardFooterProps,
-    CardWrapperProps,
-} from './card.types'

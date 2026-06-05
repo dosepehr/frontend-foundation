@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components';
 import CardWrapper from '../Card';
-import AccordionWrapper from '.';
+import AccordionWrapper, { Accordion } from '.';
 
 const meta: Meta<typeof AccordionWrapper> = {
     title: 'UI/Accordion',
@@ -96,26 +95,17 @@ export const WithCustomClasses: Story = {
 export const Disabled: Story = {
     render: () => (
         <Accordion type='single' collapsible className='w-full'>
-            <AccordionItem value='item-1'>
-                <AccordionTrigger>Can I access my account history?</AccordionTrigger>
-                <AccordionContent>
-                    Yes, you can view your complete account history including all transactions,
-                    plan changes, and support tickets in the Account History section of your dashboard.
-                </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value='item-2' disabled>
-                <AccordionTrigger>Premium feature information</AccordionTrigger>
-                <AccordionContent>
-                    This section contains information about premium features. Upgrade your plan to access this content.
-                </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value='item-3'>
-                <AccordionTrigger>How do I update my email address?</AccordionTrigger>
-                <AccordionContent>
-                    You can update your email address in your account settings. You&apos;ll receive a
-                    verification email at your new address to confirm the change.
-                </AccordionContent>
-            </AccordionItem>
+            <AccordionWrapper value='item-1' trigger='Can I access my account history?'>
+                Yes, you can view your complete account history including all transactions,
+                plan changes, and support tickets in the Account History section of your dashboard.
+            </AccordionWrapper>
+            <AccordionWrapper value='item-2' trigger='Premium feature information' disabled>
+                This section contains information about premium features. Upgrade your plan to access this content.
+            </AccordionWrapper>
+            <AccordionWrapper value='item-3' trigger='How do I update my email address?'>
+                You can update your email address in your account settings. You&apos;ll receive a
+                verification email at your new address to confirm the change.
+            </AccordionWrapper>
         </Accordion>
     ),
     args: {},
@@ -129,10 +119,14 @@ export const Borders: Story = {
                 { value: 'security', trigger: 'Is my data secure?', content: 'Yes. We use end-to-end encryption, SOC 2 Type II compliance, and regular third-party security audits.' },
                 { value: 'integration', trigger: 'What integrations do you support?', content: 'We integrate with 500+ popular tools including Slack, Zapier, Salesforce, HubSpot, and more.' },
             ].map((item) => (
-                <AccordionItem key={item.value} value={item.value} className='border-b px-4 last:border-b-0'>
-                    <AccordionTrigger>{item.trigger}</AccordionTrigger>
-                    <AccordionContent>{item.content}</AccordionContent>
-                </AccordionItem>
+                <AccordionWrapper
+                    key={item.value}
+                    value={item.value}
+                    itemProps={{ className: 'border-b px-4 last:border-b-0' }}
+                    trigger={item.trigger}
+                >
+                    {item.content}
+                </AccordionWrapper>
             ))}
         </Accordion>
     ),

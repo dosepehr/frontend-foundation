@@ -8,7 +8,7 @@ type AccordionContentProps = ComponentProps<typeof AccordionPrimitive.Content>
 export type AccordionWrapperProps = {
   trigger: ReactNode
   children: ReactNode
-  itemProps?: Omit<AccordionItemProps, "value"> & { value: string }
+  itemProps?: Omit<AccordionItemProps, "value">
   triggerProps?: AccordionTriggerProps
   contentProps?: AccordionContentProps
 } & Pick<AccordionItemProps, "value" | "className" | "disabled">
