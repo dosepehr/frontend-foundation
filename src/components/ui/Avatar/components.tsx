@@ -1,0 +1,95 @@
+'use client'
+
+import * as React from 'react'
+import { Avatar as AvatarPrimitive } from 'radix-ui'
+import { cn } from '@/src/utils/funcs/cn'
+
+function Avatar({
+    className,
+    size = 'default',
+    ...props
+}: React.ComponentProps<typeof AvatarPrimitive.Root> & {
+    size?: 'sm' | 'default' | 'lg'
+}) {
+    return (
+        <AvatarPrimitive.Root
+            data-slot='avatar'
+            data-size={size}
+            className={cn(
+                'relative inline-flex shrink-0 overflow-hidden rounded-full',
+                size === 'sm' && 'size-7',
+                size === 'default' && 'size-9',
+                size === 'lg' && 'size-12',
+                className
+            )}
+            {...props}
+        />
+    )
+}
+
+function AvatarImage({
+    className,
+    ...props
+}: React.ComponentProps<typeof AvatarPrimitive.Image>) {
+    return (
+        <AvatarPrimitive.Image
+            data-slot='avatar-image'
+            className={cn('aspect-square size-full object-cover', className)}
+            {...props}
+        />
+    )
+}
+
+function AvatarFallback({
+    className,
+    ...props
+}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {
+    return (
+        <AvatarPrimitive.Fallback
+            data-slot='avatar-fallback'
+            className={cn(
+                'flex size-full items-center justify-center rounded-full bg-muted text-muted-foreground text-sm font-medium',
+                className
+            )}
+            {...props}
+        />
+    )
+}
+
+function AvatarBadge({ className, ...props }: React.ComponentProps<'span'>) {
+    return (
+        <span
+            data-slot='avatar-badge'
+            className={cn(
+                'absolute right-0 bottom-0 flex size-3 items-center justify-center rounded-full bg-muted ring-2 ring-background [&_svg:not([class*="size-"])]:size-2',
+                className
+            )}
+            {...props}
+        />
+    )
+}
+
+function AvatarGroup({ className, ...props }: React.ComponentProps<'div'>) {
+    return (
+        <div
+            data-slot='avatar-group'
+            className={cn('flex -space-x-2', className)}
+            {...props}
+        />
+    )
+}
+
+function AvatarGroupCount({ className, ...props }: React.ComponentProps<'span'>) {
+    return (
+        <span
+            data-slot='avatar-group-count'
+            className={cn(
+                'relative inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground text-xs font-medium ring-2 ring-background [&_svg:not([class*="size-"])]:size-4',
+                className
+            )}
+            {...props}
+        />
+    )
+}
+
+export { Avatar, AvatarImage, AvatarFallback, AvatarBadge, AvatarGroup, AvatarGroupCount }
