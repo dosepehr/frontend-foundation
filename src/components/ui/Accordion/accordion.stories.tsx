@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../Card/components';
+import CardWrapper from '../Card';
 import AccordionWrapper from '.';
 
 const meta: Meta<typeof AccordionWrapper> = {
@@ -158,28 +158,23 @@ export const MultipleOpen: Story = {
 
 export const WithCard: Story = {
     render: () => (
-        <Card className='w-full max-w-sm'>
-            <CardHeader>
-                <CardTitle>Subscription &amp; Billing</CardTitle>
-                <CardDescription>
-                    Common questions about your account, plans, payments and cancellations.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Accordion type='single' collapsible defaultValue='plans'>
-                    {[
-                        { value: 'plans', trigger: 'What subscription plans do you offer?', content: 'We offer three tiers: Starter ($9/mo), Professional ($29/mo), and Enterprise ($99/mo).' },
-                        { value: 'billing', trigger: 'How does billing work?', content: "Billing occurs automatically at the start of each billing cycle. You'll receive an invoice via email after each payment." },
-                        { value: 'cancel', trigger: 'How do I cancel my subscription?', content: 'You can cancel anytime from your account settings. Your access continues until the end of the billing period.' },
-                    ].map((item) => (
-                        <AccordionItem key={item.value} value={item.value}>
-                            <AccordionTrigger>{item.trigger}</AccordionTrigger>
-                            <AccordionContent>{item.content}</AccordionContent>
-                        </AccordionItem>
-                    ))}
-                </Accordion>
-            </CardContent>
-        </Card>
+        <CardWrapper
+            className='w-full max-w-sm'
+            title='Subscription & Billing'
+            description='Common questions about your account, plans, payments and cancellations.'
+        >
+            <Accordion type='single' collapsible defaultValue='plans'>
+                {[
+                    { value: 'plans', trigger: 'What subscription plans do you offer?', content: 'We offer three tiers: Starter ($9/mo), Professional ($29/mo), and Enterprise ($99/mo).' },
+                    { value: 'billing', trigger: 'How does billing work?', content: "Billing occurs automatically at the start of each billing cycle. You'll receive an invoice via email after each payment." },
+                    { value: 'cancel', trigger: 'How do I cancel my subscription?', content: 'You can cancel anytime from your account settings. Your access continues until the end of the billing period.' },
+                ].map((item) => (
+                    <AccordionWrapper key={item.value} value={item.value} trigger={item.trigger}>
+                        {item.content}
+                    </AccordionWrapper>
+                ))}
+            </Accordion>
+        </CardWrapper>
     ),
     args: {},
 };
