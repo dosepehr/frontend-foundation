@@ -1,35 +1,18 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google"
-
-import "./globals.css"
-import { ThemeProvider } from "@/src/components/theme-provider"
-import { cn } from "@/src/utils/funcs/cn"
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
-
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-})
+import './globals.css';
+import { estedad, lato } from '@/public/fonts';
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode
+    children: React.ReactNode;
 }>) {
-  return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn(
-        "antialiased",
-        fontMono.variable,
-        "font-sans",
-        inter.variable
-      )}
-    >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
-    </html>
-  )
+    return (
+        <html
+            suppressHydrationWarning
+            className={`antialiased overflow-x-hidden ${estedad.variable} ${lato.variable}`}
+        >
+            <body>{children}</body>
+        </html>
+    );
 }
+
