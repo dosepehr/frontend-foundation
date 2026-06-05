@@ -8,7 +8,7 @@ const meta: Meta<typeof ButtonWrapper> = {
     argTypes: {
         variant: {
             control: 'select',
-            options: ['default', 'outline', 'secondary', 'ghost', 'destructive', 'link'],
+            options: ['default', 'outline', 'secondary', 'ghost', 'destructive', 'success', 'warning', 'info', 'link'],
             description: 'Visual style of the button',
         },
         size: {
@@ -57,7 +57,7 @@ export const Default: Story = {
 export const AllVariants: Story = {
     render: () => (
         <div className='flex flex-wrap gap-3'>
-            {(['default', 'outline', 'secondary', 'ghost', 'destructive', 'link'] as const).map((variant) => (
+            {(['default', 'outline', 'secondary', 'ghost', 'destructive', 'success', 'warning', 'info', 'link'] as const).map((variant) => (
                 <ButtonWrapper key={variant} variant={variant}>
                     {variant.charAt(0).toUpperCase() + variant.slice(1)}
                 </ButtonWrapper>
@@ -65,6 +65,27 @@ export const AllVariants: Story = {
         </div>
     ),
     args: {},
+}
+
+export const Success: Story = {
+    args: {
+        variant: 'success',
+        children: 'Save Changes',
+    },
+}
+
+export const Warning: Story = {
+    args: {
+        variant: 'warning',
+        children: 'Proceed with Caution',
+    },
+}
+
+export const Info: Story = {
+    args: {
+        variant: 'info',
+        children: 'Learn More',
+    },
 }
 
 export const AllSizes: Story = {
