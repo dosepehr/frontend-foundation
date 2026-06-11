@@ -1,3 +1,4 @@
+import { ThemeProvider } from 'next-themes';
 import { DirectionProvider } from '../components/ui/direction';
 import { Toaster } from '../components/ui/Toast';
 import { TooltipProvider } from '../components/ui/Tooltip';
@@ -15,10 +16,12 @@ export default function RootLayout({
             className={`antialiased overflow-x-hidden ${estedad.variable} ${lato.variable}`}
         >
             <body>
-                <DirectionProvider dir='rtl'>
-                    <Toaster />
-                    <TooltipProvider>{children}</TooltipProvider>
-                </DirectionProvider>
+                <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                    <DirectionProvider dir='rtl'>
+                        <Toaster />
+                        <TooltipProvider>{children}</TooltipProvider>
+                    </DirectionProvider>
+                </ThemeProvider>
             </body>
         </html>
     );
