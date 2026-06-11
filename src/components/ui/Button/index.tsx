@@ -1,8 +1,9 @@
 'use client'
 
 import type { FC } from 'react'
-import { Loader2, ArrowRightCircle } from 'lucide-react'
+import { ArrowRightCircle } from 'lucide-react'
 import { Button } from './components'
+import { Spinner } from '../Spinner'
 import type { ButtonWrapperProps } from './button.types'
 
 const ButtonWrapper: FC<ButtonWrapperProps> = ({
@@ -18,7 +19,7 @@ const ButtonWrapper: FC<ButtonWrapperProps> = ({
             {isLoading ? (
                 <>
                     {loadingText}
-                    <Loader2 className='animate-spin' />
+                    <Spinner />
                 </>
             ) : (
                 children
