@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/nextjs-vite'
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
+import { DirectionProvider } from '@radix-ui/react-direction'
 import './fonts.css'
 import '../src/app/globals.css'
 import { Toaster } from '../src/components/ui/Toast'
@@ -30,13 +31,38 @@ function GlobalToaster() {
 }
 
 const preview: Preview = {
+  globalTypes: {
+    direction: {
+      name: 'Direction',
+      description: 'Text direction',
+      defaultValue: 'rtl',
+      toolbar: {
+        icon: 'paragraph',
+        items: [
+          { value: 'ltr', title: 'LTR', right: '→' },
+          { value: 'rtl', title: 'RTL', right: '←' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
   decorators: [
-    (Story) => (
-      <>
-        <GlobalToaster />
-        <Story />
-      </>
-    ),
+    (Story, context) => {
+      const dir = (context.globals.direction as 'ltr' | 'rtl') ?? 'rtl'
+
+      useEffect(() => {
+        document.documentElement.setAttribute('dir', dir)
+      }, [dir])
+
+      return (
+        <DirectionProvider dir={dir}>
+          <div dir={dir}>
+            <GlobalToaster />
+            <Story />
+          </div>
+        </DirectionProvider>
+      )
+    },
   ],
   parameters: {
     controls: {

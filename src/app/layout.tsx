@@ -1,3 +1,4 @@
+import { DirectionProvider } from '../components/ui/direction';
 import { Toaster } from '../components/ui/Toast';
 import { TooltipProvider } from '../components/ui/Tooltip';
 import './globals.css';
@@ -14,8 +15,10 @@ export default function RootLayout({
             className={`antialiased overflow-x-hidden ${estedad.variable} ${lato.variable}`}
         >
             <body>
-                <Toaster />
-                <TooltipProvider>{children}</TooltipProvider>
+                <DirectionProvider dir='rtl'>
+                    <Toaster />
+                    <TooltipProvider>{children}</TooltipProvider>
+                </DirectionProvider>
             </body>
         </html>
     );
