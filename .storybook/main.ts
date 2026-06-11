@@ -11,7 +11,9 @@ const config: StorybookConfig = {
     "@storybook/addon-a11y",
     "@storybook/addon-docs",
     "@storybook/addon-themes",
-    "storybook-addon-pseudo-states"
+    "storybook-addon-pseudo-states",
+    "storybook-addon-grid",
+    "storybook-dark-mode"
   ],
   "framework": "@storybook/nextjs-vite",
   "staticDirs": [
