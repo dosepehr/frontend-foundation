@@ -1,8 +1,8 @@
 import type { Preview } from '@storybook/nextjs-vite'
+import { withThemeByClassName } from '@storybook/addon-themes'
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { DirectionProvider } from '@radix-ui/react-direction'
-import { ThemeProvider, useTheme } from 'next-themes'
 import './fonts.css'
 import '../src/app/globals.css'
 import { Toaster } from '../src/components/ui/Toast'
@@ -31,15 +31,32 @@ function GlobalToaster() {
   return createPortal(<Toaster position='bottom-right' />, container)
 }
 
-function ThemeSync({ theme }: { theme: string }) {
-  const { setTheme } = useTheme()
-  useEffect(() => {
-    setTheme(theme)
-  }, [theme, setTheme])
-  return null
-}
-
 const preview: Preview = {
+  decorators: [
+    withThemeByClassName({
+      themes: {
+        light: '',
+        dark: 'dark',
+      },
+      defaultTheme: 'light',
+    }),
+    (Story, context) => {
+      const dir = (context.globals.direction as 'ltr' | 'rtl') ?? 'rtl'
+
+      useEffect(() => {
+        document.documentElement.setAttribute('dir', dir)
+      }, [dir])
+
+      return (
+        <DirectionProvider dir={dir}>
+          <div dir={dir}>
+            <GlobalToaster />
+            <Story />
+          </div>
+        </DirectionProvider>
+      )
+    },
+  ],
   globalTypes: {
     direction: {
       name: 'Direction',
@@ -54,54 +71,18 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
-    theme: {
-      name: 'Theme',
-      description: 'Color theme',
-      defaultValue: 'light',
-      toolbar: {
-        icon: 'sun',
-        items: [
-          { value: 'light', title: 'Light', icon: 'sun' },
-          { value: 'dark', title: 'Dark', icon: 'moon' },
-          { value: 'system', title: 'System', icon: 'browser' },
-        ],
-        dynamicTitle: true,
-      },
-    },
   },
-  decorators: [
-    (Story, context) => {
-      const dir = (context.globals.direction as 'ltr' | 'rtl') ?? 'rtl'
-      const theme = (context.globals.theme as string) ?? 'light'
-
-      useEffect(() => {
-        document.documentElement.setAttribute('dir', dir)
-      }, [dir])
-
-      return (
-        <ThemeProvider attribute="class" enableSystem>
-          <ThemeSync theme={theme} />
-          <DirectionProvider dir={dir}>
-            <div dir={dir}>
-              <GlobalToaster />
-              <Story />
-            </div>
-          </DirectionProvider>
-        </ThemeProvider>
-      )
-    },
-  ],
   parameters: {
     controls: {
       matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
+        color: /(background|color)$/i,
+        date: /Date$/i,
       },
     },
     a11y: {
-      test: 'todo'
-    }
+      test: 'todo',
+    },
   },
-};
+}
 
-export default preview;
+export default preview
