@@ -5,30 +5,32 @@ import type { FC } from 'react'
 import { cn } from '@/src/utils/funcs/cn'
 import { Label } from '../Label'
 import Asteriks from '../Asteriks'
-import { Checkbox, checkboxWrapperVariants } from './components'
-import type { CheckboxWrapperProps } from './checkbox.types'
+import { Switch, switchWrapperVariants } from './components'
+import type { SwitchWrapperProps } from './switch.types'
 
-const CheckboxWrapper: FC<CheckboxWrapperProps> = ({
+const SwitchWrapper: FC<SwitchWrapperProps> = ({
     id,
     label,
     description,
     variant,
+    size,
     className,
     disabled,
     required,
     ...props
 }) => {
     const generatedId = useId()
-    const checkboxId = id ?? generatedId
+    const switchId = id ?? generatedId
 
     return (
         <Label
             disabled={disabled}
-            className={cn(checkboxWrapperVariants({ variant }), disabled && 'opacity-80 cursor-not-allowed!', className)}
+            className={cn(switchWrapperVariants({ variant }), disabled && 'opacity-80 cursor-not-allowed!', className)}
         >
-            <Checkbox
-                id={checkboxId}
+            <Switch
+                id={switchId}
                 variant={variant}
+                size={size}
                 disabled={disabled}
                 className='mt-0.5'
                 {...props}
@@ -50,7 +52,7 @@ const CheckboxWrapper: FC<CheckboxWrapperProps> = ({
     )
 }
 
-export default CheckboxWrapper
+export default SwitchWrapper
 
-export { Checkbox } from './components'
-export type { CheckboxWrapperProps, CheckboxProps } from './checkbox.types'
+export { Switch } from './components'
+export type { SwitchWrapperProps, SwitchProps } from './switch.types'
