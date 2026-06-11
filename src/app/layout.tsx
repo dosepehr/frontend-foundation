@@ -1,3 +1,4 @@
+import { Toaster } from '../components/ui/Toast';
 import { TooltipProvider } from '../components/ui/Tooltip';
 import './globals.css';
 import { estedad, lato } from '@/public/fonts';
@@ -13,6 +14,7 @@ export default function RootLayout({
             className={`antialiased overflow-x-hidden ${estedad.variable} ${lato.variable}`}
         >
             <body>
+                <Toaster />
                 <TooltipProvider>{children}</TooltipProvider>
             </body>
         </html>
