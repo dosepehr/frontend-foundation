@@ -1,3 +1,4 @@
+import { TooltipProvider } from '../components/ui/Tooltip';
 import './globals.css';
 import { estedad, lato } from '@/public/fonts';
 
@@ -11,7 +12,9 @@ export default function RootLayout({
             suppressHydrationWarning
             className={`antialiased overflow-x-hidden ${estedad.variable} ${lato.variable}`}
         >
-            <body>{children}</body>
+            <body>
+                <TooltipProvider>{children}</TooltipProvider>
+            </body>
         </html>
     );
 }
