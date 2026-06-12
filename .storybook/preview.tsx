@@ -1,13 +1,23 @@
 import type { Preview } from '@storybook/nextjs-vite';
 import { withThemeByClassName } from '@storybook/addon-themes';
+import { addons } from 'storybook/preview-api';
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { DirectionProvider } from '@radix-ui/react-direction';
-import { useDarkMode } from 'storybook-dark-mode';
-import { lightTheme, darkTheme } from './theme';
+import { lightTheme } from './theme';
 import './fonts.css';
 import '../src/app/globals.css';
 import { Toaster } from '../src/components/ui/Toast';
+
+// Sync html classes with globals in docs mode (decorators don't re-run on globals change in docs view)
+try {
+    addons.getChannel().on('globalsUpdated', ({ globals }: { globals?: Record<string, string> }) => {
+        document.documentElement.classList.toggle('dark', globals?.theme === 'dark');
+        document.documentElement.setAttribute('dir', globals?.direction ?? 'rtl');
+    });
+} catch {
+    // channel not available during SSR or test environments
+}
 
 let toasterMounted = false;
 
@@ -35,22 +45,26 @@ function GlobalToaster() {
 
 const preview: Preview = {
     decorators: [
+        // Applies 'dark' or 'light' class to every canvas iframe including docs page iframes
         withThemeByClassName({
-            themes: { light: '', dark: 'dark' },
+            themes: { light: 'light', dark: 'dark' },
             defaultTheme: 'light',
         }),
         (Story, context) => {
             const dir = (context.globals.direction as 'ltr' | 'rtl') ?? 'rtl';
-            const isDark = useDarkMode();
+            const isDark = context.globals.theme === 'dark';
 
             useEffect(() => {
                 document.documentElement.setAttribute('dir', dir);
             }, [dir]);
 
-            context.parameters.docs = {
-                ...context.parameters.docs,
-                theme: isDark ? darkTheme : lightTheme,
-            };
+            useEffect(() => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            }, [isDark]);
 
             return (
                 <DirectionProvider dir={dir}>
@@ -87,20 +101,13 @@ const preview: Preview = {
         a11y: {
             test: 'todo',
         },
-        // Grid overlay — 8pt grid, 4-column groups
         grid: {
             cellSize: 8,
             opacity: 0.4,
             cellAmount: 4,
         },
-        // Sync Storybook UI theme with dark-mode toggle
-        darkMode: {
-            light: lightTheme,
-            dark: darkTheme,
-            defaultMode: 'light',
-            stylePreview: true,
-            lightClass: '',
-            darkClass: 'dark',
+        docs: {
+            theme: lightTheme,
         },
         viewport: {
             options: {
@@ -134,4 +141,3 @@ const preview: Preview = {
 };
 
 export default preview;
-

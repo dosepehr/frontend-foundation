@@ -12,8 +12,7 @@ const config: StorybookConfig = {
     "@storybook/addon-docs",
     "@storybook/addon-themes",
     "storybook-addon-pseudo-states",
-    "storybook-addon-grid",
-    "storybook-dark-mode"
+    "storybook-addon-grid"
   ],
   "framework": "@storybook/nextjs-vite",
   "staticDirs": [

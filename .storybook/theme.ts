@@ -14,7 +14,7 @@ export const lightTheme = create({
   base: 'light',
 
   // Brand
-  colorPrimary: '#2563eb',   // --primary light
+  colorPrimary: '#2563eb',  // --primary light
   colorSecondary: '#2563eb',
 
   // UI chrome
