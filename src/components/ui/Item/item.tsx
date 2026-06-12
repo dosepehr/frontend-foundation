@@ -1,0 +1,157 @@
+'use client'
+
+import * as React from 'react'
+import { Slot } from 'radix-ui'
+import { cva } from 'class-variance-authority'
+import { cn } from '@/src/utils/funcs/cn'
+import type { ItemProps, ItemMediaProps, ItemContentProps, ItemTitleProps, ItemDescriptionProps, ItemEndProps, ItemWrapperProps } from './item.types'
+
+const itemVariants = cva(
+    'group/item flex w-full items-center gap-3 rounded-lg text-sm text-foreground transition-colors outline-none',
+    {
+        variants: {
+            variant: {
+                ghost: '',
+                outline: 'border border-border bg-background shadow-xs',
+                filled: 'bg-muted/60',
+            },
+            size: {
+                xs: 'px-2 py-1.5',
+                sm: 'px-2.5 py-2',
+                default: 'px-3 py-2.5',
+            },
+        },
+        defaultVariants: {
+            variant: 'ghost',
+            size: 'default',
+        },
+    }
+)
+
+const mediaVariants = cva(
+    'shrink-0 flex items-center justify-center text-muted-foreground [&_svg]:size-4',
+    {
+        variants: {
+            variant: {
+                icon: 'size-8 rounded-md bg-muted group-data-[size=xs]/item:size-6 group-data-[size=sm]/item:size-7 [&_svg]:size-4 group-data-[size=xs]/item:[&_svg]:size-3.5',
+                avatar: 'size-8 rounded-full overflow-hidden group-data-[size=xs]/item:size-6 group-data-[size=sm]/item:size-7',
+                image: 'size-10 rounded-md overflow-hidden group-data-[size=xs]/item:size-7 group-data-[size=sm]/item:size-8',
+            },
+        },
+        defaultVariants: {
+            variant: 'icon',
+        },
+    }
+)
+
+function Item({
+    variant = 'ghost',
+    size = 'default',
+    active = false,
+    disabled = false,
+    asChild = false,
+    className,
+    onClick,
+    ...props
+}: ItemProps) {
+    const isInteractive = !!onClick || asChild
+    const Comp = asChild ? Slot.Root : 'div'
+
+    return (
+        <Comp
+            data-slot='item'
+            data-size={size}
+            data-active={active || undefined}
+            data-disabled={disabled || undefined}
+            onClick={disabled ? undefined : onClick}
+            role={isInteractive ? 'button' : undefined}
+            tabIndex={isInteractive && !disabled ? 0 : undefined}
+            className={cn(
+                itemVariants({ variant, size }),
+                isInteractive && !disabled && 'cursor-pointer select-none hover:bg-muted focus-visible:bg-muted focus-visible:ring-3 focus-visible:ring-primary/50',
+                variant === 'outline' && isInteractive && !disabled && 'hover:bg-muted/50',
+                active && 'bg-primary/10 text-primary',
+                disabled && 'cursor-not-allowed opacity-50',
+                className
+            )}
+            {...props}
+        />
+    )
+}
+
+function ItemMedia({ variant = 'icon', className, ...props }: ItemMediaProps) {
+    return (
+        <div
+            data-slot='item-media'
+            data-variant={variant}
+            className={cn(mediaVariants({ variant }), className)}
+            {...props}
+        />
+    )
+}
+
+function ItemContent({ className, ...props }: ItemContentProps) {
+    return (
+        <div
+            data-slot='item-content'
+            className={cn('flex min-w-0 flex-1 flex-col', className)}
+            {...props}
+        />
+    )
+}
+
+function ItemTitle({ className, ...props }: ItemTitleProps) {
+    return (
+        <div
+            data-slot='item-title'
+            className={cn('truncate font-medium leading-snug group-data-[size=xs]/item:text-xs', className)}
+            {...props}
+        />
+    )
+}
+
+function ItemDescription({ className, ...props }: ItemDescriptionProps) {
+    return (
+        <div
+            data-slot='item-description'
+            className={cn('truncate text-xs leading-snug text-muted-foreground', className)}
+            {...props}
+        />
+    )
+}
+
+function ItemEnd({ className, ...props }: ItemEndProps) {
+    return (
+        <div
+            data-slot='item-end'
+            className={cn('ms-auto shrink-0 text-muted-foreground [&_svg]:size-4', className)}
+            {...props}
+        />
+    )
+}
+
+function ItemWrapper({
+    title,
+    description,
+    media,
+    mediaVariant = 'icon',
+    end,
+    children,
+    ...props
+}: ItemWrapperProps) {
+    return (
+        <Item {...props}>
+            {media && <ItemMedia variant={mediaVariant}>{media}</ItemMedia>}
+            {(title || description) && (
+                <ItemContent>
+                    {title && <ItemTitle>{title}</ItemTitle>}
+                    {description && <ItemDescription>{description}</ItemDescription>}
+                </ItemContent>
+            )}
+            {children}
+            {end && <ItemEnd>{end}</ItemEnd>}
+        </Item>
+    )
+}
+
+export { Item, ItemMedia, ItemContent, ItemTitle, ItemDescription, ItemEnd, ItemWrapper }
