@@ -67,7 +67,7 @@ export const MultiInput = ({
                     onKeyDown={add}
                     maxLength={maxLength}
                     placeholder={placeholder}
-                    className='flex-1 bg-transparent outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed'
+                    className='flex-1 bg-transparent text-foreground outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed'
                 />
             </div>
 

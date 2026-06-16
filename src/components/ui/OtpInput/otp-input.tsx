@@ -30,7 +30,7 @@ function OtpSlot({ index }: { index: number }) {
             data-active={isActive}
             data-invalid={isInvalid || undefined}
             className={cn(
-                'relative flex h-10 w-10 items-center justify-center border border-input/50 text-sm font-medium transition-all outline-none select-none',
+                'relative flex h-10 w-10 items-center justify-center border border-input/50 text-sm font-medium text-foreground transition-all outline-none select-none',
                 // grouped: share borders between adjacent slots
                 !separated && 'rounded-none border-e-0 first:rounded-s-md first:border-s last:rounded-e-md last:border-e',
                 // separated: each slot is a fully rounded standalone box
