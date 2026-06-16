@@ -150,6 +150,12 @@
     }
 }
 
+@layer utilities {
+    .popover-content-width-full {
+        width: var(--radix-popover-trigger-width);
+    }
+}
+
 html {
     font-family: var(--font-estedad);
     scroll-behavior: smooth;
