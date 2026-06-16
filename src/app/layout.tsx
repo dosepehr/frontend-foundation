@@ -17,7 +17,7 @@ export default function RootLayout({
         >
             <body>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-                    <DirectionProvider dir='rtl'>
+                    <DirectionProvider dir='ltr'>
                         <Toaster />
                         <TooltipProvider>{children}</TooltipProvider>
                     </DirectionProvider>
