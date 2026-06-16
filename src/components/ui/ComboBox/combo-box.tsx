@@ -11,7 +11,7 @@ import {
     CommandItem,
     CommandList,
 } from '../Command';
-import { Field, FieldLabel } from '../Field';
+import { Field, FieldError, FieldLabel } from '../Field';
 import type { ComboBoxProps } from './combo-box.type';
 import { cn } from '@/src/utils/funcs/cn';
 import type { ReactNode } from 'react';
@@ -174,18 +174,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                 </PopoverContent>
             </Popover>
 
-            <p
-                className={cn(
-                    'mt-1 h-4 text-xs leading-none',
-                    isInvalid
-                        ? 'text-destructive'
-                        : 'text-transparent select-none'
-                )}
-                role={isInvalid ? 'alert' : undefined}
-                aria-live='polite'
-            >
-                {error ?? '​'}
-            </p>
+            <FieldError>{error}</FieldError>
         </Field>
     );
 };
