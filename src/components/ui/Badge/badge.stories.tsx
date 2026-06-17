@@ -131,3 +131,37 @@ export const Outline: Story = {
         children: 'Outline',
     },
 }
+
+export const Ghost: Story = {
+    args: {
+        variant: 'ghost',
+        children: 'Ghost',
+    },
+}
+
+export const Link: Story = {
+    args: {
+        variant: 'link',
+        children: 'Link badge',
+    },
+}
+
+export const WithTrailingIcon: Story = {
+    render: () => (
+        <div className='flex flex-wrap gap-2'>
+            <Badge variant='success' appearance='soft'>Completed<CheckIcon /></Badge>
+            <Badge variant='warning' appearance='soft'>Pending<AlertTriangleIcon /></Badge>
+            <Badge variant='destructive' appearance='soft'>Failed<XCircleIcon /></Badge>
+        </div>
+    ),
+    args: {},
+}
+
+export const AsLink: Story = {
+    render: () => (
+        <Badge asChild variant='default' appearance='soft'>
+            <a href='#'>Clickable badge</a>
+        </Badge>
+    ),
+    args: {},
+}
