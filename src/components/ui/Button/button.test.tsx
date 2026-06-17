@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Button as ButtonPrimitive } from './components';
 import Button from './index';
+import Link from 'next/link';
 
 describe('Button primitive', () => {
     it('renders children', () => {
@@ -52,7 +53,7 @@ describe('Button primitive', () => {
     it('renders as child element when asChild is true', () => {
         render(
             <ButtonPrimitive asChild>
-                <a href='/'>Link button</a>
+                <Link href='/'>Link button</Link>
             </ButtonPrimitive>,
         );
         const el = screen.getByText('Link button');

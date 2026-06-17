@@ -18,7 +18,7 @@ import {
 } from 'lucide-react'
 import { ItemWrapper } from '.'
 import { Badge } from '../Badge'
-import { Button } from '../Button'
+import Button from '../Button'
 import AvatarWrapper from '../Avatar'
 import { Switch } from '../Switch'
 

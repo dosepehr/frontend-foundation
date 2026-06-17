@@ -11,7 +11,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from './sheet'
-import { Button } from '../Button'
+import Button from '../Button'
 
 export interface SheetWrapperProps {
     trigger?: React.ReactNode

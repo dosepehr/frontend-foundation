@@ -9,7 +9,7 @@ import type { ButtonWrapperProps } from './button.types';
 const Button: FC<ButtonWrapperProps> = ({
     children,
     isLoading = false,
-    loadingText = 'در حال دریافت',
+    loadingText = 'Loading...',
     showArrow = false,
     disabled,
     ...props

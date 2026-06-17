@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import * as React from 'react'
 import { SheetWrapper } from './sheet-wrapper'
-import { Button } from '../Button'
+import Button from '../Button'
 import { Input } from '../Input'
 import { Label } from '../Label'
 

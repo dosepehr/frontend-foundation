@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { SearchIcon, MailIcon, InfoIcon } from 'lucide-react'
 import { InputWrapper } from '.'
-import { Button } from '../Button'
+import Button from '../Button'
 
 const meta: Meta<typeof InputWrapper> = {
     title: 'UI/Input',

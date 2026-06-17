@@ -3,7 +3,7 @@
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { MoonIcon, SunIcon, SunMoonIcon } from 'lucide-react'
-import { Button } from '@/src/components/ui/Button'
+import Button from '@/src/components/ui/Button'
 
 type Theme = 'light' | 'dark' | 'system'
 

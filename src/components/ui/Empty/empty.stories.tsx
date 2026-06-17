@@ -8,7 +8,7 @@ import {
     WifiOffIcon,
 } from 'lucide-react';
 import EmptyWrapper from '.';
-import { Button } from '../Button';
+import Button from '../Button';
 
 const meta: Meta<typeof EmptyWrapper> = {
     title: 'UI/Empty',
