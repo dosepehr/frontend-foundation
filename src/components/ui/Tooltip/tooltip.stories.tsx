@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { InfoIcon } from 'lucide-react'
 import TooltipWrapper from '.'
-import ButtonWrapper from '../Button'
+import Button from '../Button'
 
 const meta: Meta<typeof TooltipWrapper> = {
     title: 'UI/Tooltip',
@@ -44,7 +44,7 @@ export const Default: Story = {
         content: 'This is a tooltip',
         side: 'top',
         variant: 'default',
-        children: <ButtonWrapper variant='outline'>Hover me</ButtonWrapper>,
+        children: <Button variant='outline'>Hover me</Button>,
     },
 }
 
@@ -53,9 +53,9 @@ export const AllVariants: Story = {
         <div className='flex flex-wrap gap-3'>
             {(['default', 'primary', 'success', 'warning', 'destructive', 'info'] as const).map((variant) => (
                 <TooltipWrapper key={variant} content={variant} variant={variant}>
-                    <ButtonWrapper variant='outline' size='sm'>
+                    <Button variant='outline' size='sm'>
                         {variant.charAt(0).toUpperCase() + variant.slice(1)}
-                    </ButtonWrapper>
+                    </Button>
                 </TooltipWrapper>
             ))}
         </div>
@@ -68,19 +68,19 @@ export const AllSides: Story = {
         <div className='grid grid-cols-3 place-items-center gap-8 p-16'>
             <div />
             <TooltipWrapper content='Top' side='top'>
-                <ButtonWrapper variant='outline' size='sm'>Top</ButtonWrapper>
+                <Button variant='outline' size='sm'>Top</Button>
             </TooltipWrapper>
             <div />
             <TooltipWrapper content='Left' side='left'>
-                <ButtonWrapper variant='outline' size='sm'>Left</ButtonWrapper>
+                <Button variant='outline' size='sm'>Left</Button>
             </TooltipWrapper>
             <div />
             <TooltipWrapper content='Right' side='right'>
-                <ButtonWrapper variant='outline' size='sm'>Right</ButtonWrapper>
+                <Button variant='outline' size='sm'>Right</Button>
             </TooltipWrapper>
             <div />
             <TooltipWrapper content='Bottom' side='bottom'>
-                <ButtonWrapper variant='outline' size='sm'>Bottom</ButtonWrapper>
+                <Button variant='outline' size='sm'>Bottom</Button>
             </TooltipWrapper>
             <div />
         </div>
@@ -105,7 +105,7 @@ export const LongContent: Story = {
     args: {
         content: 'This tooltip contains a longer description that wraps across multiple lines to show how the max-width constraint works.',
         side: 'top',
-        children: <ButtonWrapper variant='outline'>Long tooltip</ButtonWrapper>,
+        children: <Button variant='outline'>Long tooltip</Button>,
     },
 }
 
@@ -113,6 +113,6 @@ export const WithDelay: Story = {
     args: {
         content: 'Appears with delay',
         delayDuration: 300,
-        children: <ButtonWrapper variant='outline'>No delay</ButtonWrapper>,
+        children: <Button variant='outline'>No delay</Button>,
     },
 }

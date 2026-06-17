@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { toast } from 'sonner';
-import ButtonWrapper from '../Button';
+import Button from '../Button';
 
 const meta = {
     title: 'UI/Toast',
@@ -15,73 +15,73 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     render: () => (
-        <ButtonWrapper
+        <Button
             variant='outline'
             onClick={() => toast('This is a default toast')}
         >
             Show toast
-        </ButtonWrapper>
+        </Button>
     ),
 };
 
 export const Success: Story = {
     render: () => (
-        <ButtonWrapper
+        <Button
             variant='success'
             onClick={() => toast.success('Operation completed successfully')}
         >
             Show success
-        </ButtonWrapper>
+        </Button>
     ),
 };
 
 export const Error: Story = {
     render: () => (
-        <ButtonWrapper
+        <Button
             variant='destructive'
             onClick={() => toast.error('Something went wrong')}
         >
             Show error
-        </ButtonWrapper>
+        </Button>
     ),
 };
 
 export const Warning: Story = {
     render: () => (
-        <ButtonWrapper
+        <Button
             variant='warning'
             onClick={() => toast.warning('Proceed with caution')}
         >
             Show warning
-        </ButtonWrapper>
+        </Button>
     ),
 };
 
 export const Info: Story = {
     render: () => (
-        <ButtonWrapper
+        <Button
             variant='info'
             onClick={() => toast.info('Here is some information')}
         >
             Show info
-        </ButtonWrapper>
+        </Button>
     ),
 };
 
 export const Loading: Story = {
     render: () => (
-        <ButtonWrapper
+        <Button
             variant='outline'
             onClick={() => toast.loading('Loading, please wait…')}
         >
             Show loading
-        </ButtonWrapper>
+        </Button>
     ),
 };
 
 export const WithDescription: Story = {
     render: () => (
-        <ButtonWrapper
+        <Button
             variant='outline'
             onClick={() =>
                 toast('Event created', {
@@ -90,13 +90,13 @@ export const WithDescription: Story = {
             }
         >
             Show with description
-        </ButtonWrapper>
+        </Button>
     ),
 };
 
 export const WithAction: Story = {
     render: () => (
-        <ButtonWrapper
+        <Button
             variant='outline'
             onClick={() =>
                 toast('File deleted', {
@@ -109,13 +109,13 @@ export const WithAction: Story = {
             }
         >
             Show with action
-        </ButtonWrapper>
+        </Button>
     ),
 };
 
 export const ToastPromise: Story = {
     render: () => (
-        <ButtonWrapper
+        <Button
             variant='outline'
             onClick={() =>
                 toast.promise(
@@ -129,43 +129,43 @@ export const ToastPromise: Story = {
             }
         >
             Show promise
-        </ButtonWrapper>
+        </Button>
     ),
 };
 
 export const AllTypes: Story = {
     render: () => (
         <div className='flex flex-wrap gap-2'>
-            <ButtonWrapper variant='outline' onClick={() => toast('Default')}>
+            <Button variant='outline' onClick={() => toast('Default')}>
                 Default
-            </ButtonWrapper>
-            <ButtonWrapper
+            </Button>
+            <Button
                 variant='success'
                 onClick={() => toast.success('Success')}
             >
                 Success
-            </ButtonWrapper>
-            <ButtonWrapper
+            </Button>
+            <Button
                 variant='destructive'
                 onClick={() => toast.error('Error')}
             >
                 Error
-            </ButtonWrapper>
-            <ButtonWrapper
+            </Button>
+            <Button
                 variant='warning'
                 onClick={() => toast.warning('Warning')}
             >
                 Warning
-            </ButtonWrapper>
-            <ButtonWrapper variant='info' onClick={() => toast.info('Info')}>
+            </Button>
+            <Button variant='info' onClick={() => toast.info('Info')}>
                 Info
-            </ButtonWrapper>
-            <ButtonWrapper
+            </Button>
+            <Button
                 variant='outline'
                 onClick={() => toast.loading('Loading…')}
             >
                 Loading
-            </ButtonWrapper>
+            </Button>
         </div>
     ),
 };
