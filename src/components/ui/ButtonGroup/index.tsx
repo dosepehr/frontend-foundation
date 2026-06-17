@@ -1,7 +1,8 @@
 'use client'
 
+import { Fragment } from 'react'
 import type { FC } from 'react'
-import ButtonWrapper from '../Button'
+import Button from '../Button'
 import { ButtonGroup, ButtonGroupSeparator } from './components'
 import type { ButtonGroupWrapperProps } from './button-group.types'
 
@@ -18,15 +19,14 @@ const ButtonGroupWrapper: FC<ButtonGroupWrapperProps> = ({
                 const isLast = index === items.length - 1
 
                 return (
-                    <>
-                        <ButtonWrapper key={key ?? index} {...buttonProps} />
+                    <Fragment key={key ?? index}>
+                        <Button {...buttonProps} />
                         {separator && !isLast && (
                             <ButtonGroupSeparator
-                                key={`sep-${index}`}
                                 orientation={orientation === 'vertical' ? 'horizontal' : 'vertical'}
                             />
                         )}
-                    </>
+                    </Fragment>
                 )
             })}
         </ButtonGroup>
