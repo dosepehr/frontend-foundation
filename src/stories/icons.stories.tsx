@@ -9,15 +9,36 @@ const meta: Meta = {
 
 export default meta;
 
-export const Page = {
-    render: () => (
-        <div className='p-8 flex flex-col gap-8'>
-            <div>
-                <h1 className='text-2xl font-semibold tracking-tight mb-1'>Icons</h1>
-                <p className='text-sm text-muted-foreground'>Custom icon set used across the design system.</p>
-            </div>
+const FirstIcon = Object.values(Icons)[0];
 
-            <div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4'>
+const SIZES = [
+    { label: '16px', cls: 'size-4' },
+    { label: '20px', cls: 'size-5' },
+    { label: '24px', cls: 'size-6' },
+    { label: '32px', cls: 'size-8' },
+    { label: '40px', cls: 'size-10' },
+    { label: '48px', cls: 'size-12' },
+];
+
+const COLORS = [
+    { label: 'foreground', cls: 'text-foreground' },
+    { label: 'muted-foreground', cls: 'text-muted-foreground' },
+    { label: 'primary', cls: 'text-primary' },
+    { label: 'destructive', cls: 'text-destructive' },
+    { label: 'success', cls: 'text-success' },
+    { label: 'warning', cls: 'text-warning' },
+];
+
+export const IconsPage = () => (
+    <div className='p-8 flex flex-col gap-10'>
+        <div>
+            <h1 className='text-2xl font-semibold tracking-tight mb-1'>Icons</h1>
+            <p className='text-sm text-muted-foreground'>Custom icon set used across the design system.</p>
+        </div>
+
+        <div className='flex flex-col gap-3'>
+            <h2 className='text-lg font-semibold tracking-tight'>Icon Pack</h2>
+            <div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3'>
                 {Object.entries(Icons).map(([name, Icon]) => (
                     <div
                         key={name}
@@ -30,43 +51,30 @@ export const Page = {
                     </div>
                 ))}
             </div>
+        </div>
 
-            <div className='flex flex-col gap-4'>
-                <h2 className='text-lg font-semibold tracking-tight'>Sizes</h2>
-                <div className='flex items-end gap-6'>
-                    {[4, 5, 6, 8, 10, 12].map((size) => {
-                        const [, Icon] = Object.entries(Icons)[0]
-                        return (
-                            <div key={size} className='flex flex-col items-center gap-2'>
-                                <Icon className={`size-${size} text-foreground`} />
-                                <span className='text-xs text-muted-foreground'>{size * 4}px</span>
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
-
-            <div className='flex flex-col gap-4'>
-                <h2 className='text-lg font-semibold tracking-tight'>Colors</h2>
-                <div className='flex flex-wrap gap-4'>
-                    {[
-                        { label: 'foreground', className: 'text-foreground' },
-                        { label: 'muted-foreground', className: 'text-muted-foreground' },
-                        { label: 'primary', className: 'text-primary' },
-                        { label: 'destructive', className: 'text-destructive' },
-                        { label: 'success', className: 'text-success' },
-                        { label: 'warning', className: 'text-warning' },
-                    ].map(({ label, className }) => {
-                        const [, Icon] = Object.entries(Icons)[0]
-                        return (
-                            <div key={label} className='flex flex-col items-center gap-2'>
-                                <Icon className={`size-6 ${className}`} />
-                                <span className='text-xs text-muted-foreground'>{label}</span>
-                            </div>
-                        )
-                    })}
-                </div>
+        <div className='flex flex-col gap-3'>
+            <h2 className='text-lg font-semibold tracking-tight'>Sizes</h2>
+            <div className='flex items-end gap-8'>
+                {SIZES.map(({ label, cls }) => (
+                    <div key={label} className='flex flex-col items-center gap-2'>
+                        <FirstIcon className={`${cls} text-foreground`} />
+                        <span className='text-xs text-muted-foreground'>{label}</span>
+                    </div>
+                ))}
             </div>
         </div>
-    ),
-};
+
+        <div className='flex flex-col gap-3'>
+            <h2 className='text-lg font-semibold tracking-tight'>Colors</h2>
+            <div className='flex flex-wrap gap-6'>
+                {COLORS.map(({ label, cls }) => (
+                    <div key={label} className='flex flex-col items-center gap-2'>
+                        <FirstIcon className={`size-6 ${cls}`} />
+                        <span className='text-xs text-muted-foreground'>{label}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+);
