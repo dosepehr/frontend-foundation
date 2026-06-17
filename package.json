@@ -16,7 +16,8 @@
         "icons:generate": "npm run icons:clean && svgr --no-prettier --icon --typescript --filename-case kebab --jsx-runtime automatic --svg-props width=20,height=20 --replace-attr-values \"#000=currentColor,#fff=currentColor\" --out-dir src/components/_icons public/icons",
         "test": "vitest --project unit",
         "test:watch": "vitest --project unit --watch",
-        "test:coverage": "vitest --project unit --coverage"
+        "test:coverage": "vitest --project unit --coverage",
+        "chromatic": "dotenv -e .env.local -- npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN"
     },
     "dependencies": {
         "@base-ui/react": "^1.5.0",
@@ -60,6 +61,8 @@
         "@vitejs/plugin-react": "^6.0.2",
         "@vitest/browser-playwright": "^4.1.8",
         "@vitest/coverage-v8": "^4.1.8",
+        "chromatic": "^17.5.0",
+        "dotenv-cli": "^11.0.0",
         "eslint": "^9",
         "eslint-config-next": "16.2.6",
         "eslint-plugin-storybook": "^10.4.2",

@@ -113,6 +113,6 @@ export const WithDelay: Story = {
     args: {
         content: 'Appears with delay',
         delayDuration: 300,
-        children: <Button variant='outline'>No delay</Button>,
+        children: <Button variant='outline'>With delay</Button>,
     },
 }
