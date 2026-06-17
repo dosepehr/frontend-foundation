@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
-import type { FC } from 'react'
-import { ArrowRightCircle } from 'lucide-react'
-import { Button } from './components'
-import { Spinner } from '../Spinner'
-import type { ButtonWrapperProps } from './button.types'
+import type { FC } from 'react';
+import { ArrowRightCircle } from 'lucide-react';
+import { Button as ButtonComponent } from './components';
+import { Spinner } from '../Spinner';
+import type { ButtonWrapperProps } from './button.types';
 
-const ButtonWrapper: FC<ButtonWrapperProps> = ({
+const Button: FC<ButtonWrapperProps> = ({
     children,
     isLoading = false,
     loadingText = 'در حال دریافت',
@@ -15,7 +15,7 @@ const ButtonWrapper: FC<ButtonWrapperProps> = ({
     ...props
 }) => {
     return (
-        <Button disabled={disabled || isLoading} {...props}>
+        <ButtonComponent disabled={disabled || isLoading} {...props}>
             {isLoading ? (
                 <>
                     {loadingText}
@@ -27,11 +27,9 @@ const ButtonWrapper: FC<ButtonWrapperProps> = ({
             {!isLoading && showArrow && (
                 <ArrowRightCircle className='duration-150 group-hover/button:translate-x-1' />
             )}
-        </Button>
-    )
-}
+        </ButtonComponent>
+    );
+};
 
-export default ButtonWrapper
+export default Button;
 
-export { Button, buttonVariants } from './components'
-export type { ButtonWrapperProps } from './button.types'
