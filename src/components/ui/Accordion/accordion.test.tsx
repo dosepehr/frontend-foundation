@@ -134,6 +134,48 @@ describe('Accordion primitives', () => {
         expect(screen.getByRole('region')).toBeInTheDocument();
         expect(screen.getByText('Pre-opened content')).toBeInTheDocument();
     });
+
+    it('defaultValue item has aria-expanded="true"', () => {
+        render(
+            <Accordion type='single' defaultValue='item-1'>
+                <AccordionItem value='item-1'>
+                    <AccordionTrigger>Trigger</AccordionTrigger>
+                    <AccordionContent>Content</AccordionContent>
+                </AccordionItem>
+            </Accordion>,
+        );
+        expect(screen.getByRole('button', { name: /trigger/i })).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('keyboard: Enter opens content', async () => {
+        const user = userEvent.setup();
+        render(
+            <Accordion type='single'>
+                <AccordionItem value='item-1'>
+                    <AccordionTrigger>Trigger</AccordionTrigger>
+                    <AccordionContent>Keyboard content</AccordionContent>
+                </AccordionItem>
+            </Accordion>,
+        );
+        await user.tab();
+        await user.keyboard('{Enter}');
+        expect(screen.getByRole('region')).toBeInTheDocument();
+    });
+
+    it('keyboard: Space opens content', async () => {
+        const user = userEvent.setup();
+        render(
+            <Accordion type='single'>
+                <AccordionItem value='item-1'>
+                    <AccordionTrigger>Trigger</AccordionTrigger>
+                    <AccordionContent>Keyboard content</AccordionContent>
+                </AccordionItem>
+            </Accordion>,
+        );
+        await user.tab();
+        await user.keyboard(' ');
+        expect(screen.getByRole('region')).toBeInTheDocument();
+    });
 });
 
 describe('AccordionWrapper', () => {
