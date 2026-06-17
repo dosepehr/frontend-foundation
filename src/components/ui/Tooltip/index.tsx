@@ -31,6 +31,3 @@ const TooltipWrapper: FC<TooltipWrapperProps> = ({
 }
 
 export default TooltipWrapper
-
-export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './components'
-export type { TooltipWrapperProps } from './tooltip.types'

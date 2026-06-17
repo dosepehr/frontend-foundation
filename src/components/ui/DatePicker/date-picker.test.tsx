@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { DatePicker } from './date-picker';
+import DatePicker from '.';
 
 describe('DatePicker', () => {
     it('renders a trigger button', () => {

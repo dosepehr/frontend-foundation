@@ -1,23 +1,7 @@
-'use client';
+'use client'
 
-import type { ColumnDef } from '@tanstack/react-table';
-import { DataTableRoot } from './data-table';
-import { DataTablePagination } from './data-table-pagination';
-import { DataTableSkeleton } from './data-table-skeleton';
-
-interface DataTableProps<TData> {
-    columns: ColumnDef<TData, unknown>[];
-    data: TData[];
-    current: number;
-    total: number;
-    setPage: (page: number) => void;
-    limit: number;
-    setLimit: (limit: number) => void;
-    maxHeight?: number | string;
-    className?: string;
-    emptyTitle?: string;
-    emptyDescription?: string;
-}
+import { DataTableRoot, DataTablePagination } from './components'
+import type { DataTableProps } from './data-table.types'
 
 function DataTable<TData>({
     columns,
@@ -27,10 +11,19 @@ function DataTable<TData>({
     setPage,
     limit,
     setLimit,
+    hidePagination,
     maxHeight,
+    stickyOffset,
     className,
     emptyTitle,
     emptyDescription,
+    rowSelection,
+    setRowSelection,
+    haveSelection,
+    filterColumn,
+    filterPlaceholder,
+    footerRow,
+    hideRowIndex,
 }: DataTableProps<TData>) {
     const isEmpty = data.length === 0
 
@@ -40,11 +33,21 @@ function DataTable<TData>({
                 columns={columns}
                 data={data}
                 maxHeight={maxHeight}
+                stickyOffset={stickyOffset}
                 className={className}
                 emptyTitle={emptyTitle}
                 emptyDescription={emptyDescription}
+                rowSelection={rowSelection}
+                setRowSelection={setRowSelection}
+                haveSelection={haveSelection}
+                filterColumn={filterColumn}
+                filterPlaceholder={filterPlaceholder}
+                footerRow={footerRow}
+                hideRowIndex={hideRowIndex}
+                current={current}
+                limit={limit}
             />
-            {!isEmpty && (
+            {!isEmpty && !hidePagination && (
                 <DataTablePagination
                     current={current}
                     total={total}
@@ -54,11 +57,7 @@ function DataTable<TData>({
                 />
             )}
         </div>
-    );
+    )
 }
 
-export { DataTable, DataTableSkeleton };
-export { TableState } from './data-table-state';
-export type { DataTableProps };
-export type { TableStateProps } from './data-table-state';
-
+export default DataTable

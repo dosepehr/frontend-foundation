@@ -1,1 +1,1 @@
-export { Calendar, CalendarDayButton } from './calendar'
+export { Calendar as default } from './components'

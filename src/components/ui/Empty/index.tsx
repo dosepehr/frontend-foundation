@@ -30,13 +30,3 @@ const EmptyWrapper: FC<EmptyWrapperProps> = ({
 }
 
 export default EmptyWrapper
-
-export {
-    Empty,
-    EmptyHeader,
-    EmptyTitle,
-    EmptyDescription,
-    EmptyContent,
-    EmptyMedia,
-} from './components'
-export type { EmptyWrapperProps } from './empty.types'

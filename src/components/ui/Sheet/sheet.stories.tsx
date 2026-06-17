@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import * as React from 'react'
-import { SheetWrapper } from './sheet-wrapper'
 import Button from '../Button'
-import { Input } from '../Input'
-import { Label } from '../Label'
+import { InputComponent as Input } from '../Input/components'
+import { Label } from '../Label/components'
+import SheetWrapper from '.'
 
 const meta = {
     title: 'UI/Sheet',

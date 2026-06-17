@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Calendar } from './calendar';
+import { Calendar } from './components';
 
 describe('Calendar', () => {
     it('renders with data-slot="calendar"', () => {

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import React, { useState } from 'react'
-import { OtpInput } from './otp-input'
+import { OtpInput } from './components'
 
 const meta: Meta<typeof OtpInput> = {
     title: 'UI/OtpInput',

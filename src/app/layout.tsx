@@ -1,7 +1,7 @@
 import { ThemeProvider } from 'next-themes';
 import { DirectionProvider } from '../components/ui/direction';
-import { Toaster } from '../components/ui/Toast';
-import { TooltipProvider } from '../components/ui/Tooltip';
+import { Toaster } from '../components/ui/Toast/components';
+import { TooltipProvider } from '../components/ui/Tooltip/components';
 import './globals.css';
 import { estedad, lato } from '@/public/fonts';
 

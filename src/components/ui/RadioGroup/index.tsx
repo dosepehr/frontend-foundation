@@ -3,8 +3,8 @@
 import { useId } from 'react'
 import type { FC } from 'react'
 import { cn } from '@/src/utils/funcs/cn'
-import { Label } from '../Label'
-import Asteriks from '../Asteriks'
+import { Label } from '../Label/components'
+import { Asteriks } from '../Asteriks/components'
 import { RadioGroup, RadioGroupItem, radioGroupWrapperVariants } from './components'
 import type { RadioGroupWrapperProps } from './radio-group.types'
 
@@ -70,6 +70,3 @@ const RadioGroupWrapper: FC<RadioGroupWrapperProps> = ({
 }
 
 export default RadioGroupWrapper
-
-export { RadioGroup, RadioGroupItem } from './components'
-export type { RadioGroupWrapperProps, RadioGroupItemProps, RadioGroupOptionDef } from './radio-group.types'

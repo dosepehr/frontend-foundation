@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import React, { useState } from 'react'
-import { MultiComboBox } from './multi-combo-box'
-import type { MultiComboBoxOption } from './multi-combo-box.type'
+import { MultiComboBox } from './components'
+import { MultiComboBoxOption } from './multi-combo-box.types'
 
 const FRUITS: MultiComboBoxOption[] = [
     { value: 'apple', label: 'Apple' },

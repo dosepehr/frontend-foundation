@@ -4,8 +4,8 @@ import { FileTextIcon, LinkIcon, UserIcon } from 'lucide-react';
 import DialogWrapper from '.';
 import type { DialogMaxWidth } from './dialog.types';
 import { Button } from '../Button/components';
-import { Input } from '../Input';
-import { Label } from '../Label';
+import { InputComponent as Input } from '../Input/components';
+import { Label } from '../Label/components';
 
 const meta: Meta<typeof DialogWrapper> = {
     title: 'UI/Dialog',

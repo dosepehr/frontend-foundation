@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Switch as SwitchPrimitive } from 'radix-ui'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/src/utils/funcs/cn'
-import { Label } from '../Label'
+import { Label } from '../Label/components'
 import type { SwitchProps } from './switch.types'
 
 export const switchVariants = cva(

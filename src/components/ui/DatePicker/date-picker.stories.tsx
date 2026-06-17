@@ -5,7 +5,8 @@ import { CalendarIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { DatePicker, ControlledDatePicker } from '.'
+import DatePicker from '.'
+import { ControlledDatePicker } from '../../controlled/ControlledDatePicker'
 import { Button } from '../Button/components'
 
 const meta: Meta<typeof DatePicker> = {

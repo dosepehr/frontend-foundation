@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { useState } from 'react'
-import { TextareaWrapper } from '.'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { useState } from 'react';
+import TextareaWrapper from '.';
 
 const meta: Meta<typeof TextareaWrapper> = {
     title: 'UI/Textarea',
@@ -24,17 +24,17 @@ const meta: Meta<typeof TextareaWrapper> = {
             </div>
         ),
     ],
-}
+};
 
-export default meta
-type Story = StoryObj<typeof TextareaWrapper>
+export default meta;
+type Story = StoryObj<typeof TextareaWrapper>;
 
 export const Default: Story = {
     args: {
         label: 'Message',
         placeholder: 'Type your message here.',
     },
-}
+};
 
 export const WithDescription: Story = {
     args: {
@@ -43,7 +43,7 @@ export const WithDescription: Story = {
         placeholder: 'Your feedback helps us improve...',
         rows: 4,
     },
-}
+};
 
 export const Invalid: Story = {
     args: {
@@ -51,7 +51,7 @@ export const Invalid: Story = {
         placeholder: 'Type your message here.',
         error: 'This field is required.',
     },
-}
+};
 
 export const InvalidWithDescription: Story = {
     args: {
@@ -60,7 +60,7 @@ export const InvalidWithDescription: Story = {
         placeholder: 'Type your message here.',
         error: 'Message must be at least 10 characters.',
     },
-}
+};
 
 export const Required: Story = {
     args: {
@@ -68,7 +68,7 @@ export const Required: Story = {
         placeholder: 'This field is required...',
         required: true,
     },
-}
+};
 
 export const Disabled: Story = {
     args: {
@@ -76,12 +76,12 @@ export const Disabled: Story = {
         placeholder: 'This field is disabled.',
         disabled: true,
     },
-}
+};
 
 export const WithCharacterCounter: Story = {
     render: (args) => {
-        const [value, setValue] = useState('')
-        const max = 200
+        const [value, setValue] = useState('');
+        const max = 200;
         return (
             <TextareaWrapper
                 {...args}
@@ -90,19 +90,21 @@ export const WithCharacterCounter: Story = {
                 maxLength={max}
                 onChange={(e) => setValue(e.target.value)}
             />
-        )
+        );
     },
     args: {
         label: 'Bio',
         placeholder: 'Tell us about yourself...',
     },
-}
+};
 
 export const WithCounterAndError: Story = {
     render: (args) => {
-        const max = 30
-        const [value, setValue] = useState('This text is already too long for the limit')
-        const isOver = value.length > max
+        const max = 30;
+        const [value, setValue] = useState(
+            'This text is already too long for the limit'
+        );
+        const isOver = value.length > max;
         return (
             <TextareaWrapper
                 {...args}
@@ -111,10 +113,11 @@ export const WithCounterAndError: Story = {
                 error={isOver ? 'Text exceeds the maximum length.' : undefined}
                 onChange={(e) => setValue(e.target.value)}
             />
-        )
+        );
     },
     args: {
         label: 'Summary',
         placeholder: 'Keep it short...',
     },
-}
+};
+

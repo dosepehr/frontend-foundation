@@ -24,6 +24,3 @@ const ToggleGroupWrapper: FC<ToggleGroupWrapperProps> = ({
 }
 
 export default ToggleGroupWrapper
-
-export { ToggleGroup, ToggleGroupItem } from './components'
-export type { ToggleGroupWrapperProps, ToggleGroupItemDef } from './toggle-group.types'

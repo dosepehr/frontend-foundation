@@ -3,8 +3,8 @@
 import { useId } from 'react'
 import type { FC } from 'react'
 import { cn } from '@/src/utils/funcs/cn'
-import { Label } from '../Label'
-import Asteriks from '../Asteriks'
+import { Label } from '../Label/components'
+import { Asteriks } from '../Asteriks/components'
 import { Checkbox, checkboxWrapperVariants } from './components'
 import type { CheckboxWrapperProps } from './checkbox.types'
 
@@ -51,6 +51,3 @@ const CheckboxWrapper: FC<CheckboxWrapperProps> = ({
 }
 
 export default CheckboxWrapper
-
-export { Checkbox } from './components'
-export type { CheckboxWrapperProps, CheckboxProps } from './checkbox.types'

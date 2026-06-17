@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import * as React from 'react'
 import type { ColumnDef } from '@tanstack/react-table'
-import { DataTable, DataTableSkeleton, TableState } from '.'
-import { Badge } from '../Badge'
+import DataTable from '.'
+import { DataTableSkeleton, TableState } from './components'
+import { Badge } from '../Badge/components'
 
 const meta = {
     title: 'UI/DataTable',

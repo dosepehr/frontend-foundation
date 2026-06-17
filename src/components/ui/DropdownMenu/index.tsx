@@ -17,7 +17,7 @@ import {
     DropdownMenuSubContent,
     DropdownMenuPortal,
     DropdownMenuTrigger,
-} from './dropdown-menu'
+} from './components'
 import { cn } from '@/src/utils/funcs/cn'
 import type {
     DropdownMenuWrapperProps,
@@ -121,22 +121,3 @@ function DropdownMenuWrapper({
 }
 
 export default DropdownMenuWrapper
-
-export {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuPortal,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
-} from './dropdown-menu'
-export type { DropdownMenuWrapperProps, DropdownGroup, DropdownItem } from './dropdown-menu.types'

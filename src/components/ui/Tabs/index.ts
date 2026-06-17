@@ -1,2 +1,1 @@
-export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs'
-export type { TabsListProps, TabsTriggerProps } from './tabs'
+export { Tabs as default } from './components'

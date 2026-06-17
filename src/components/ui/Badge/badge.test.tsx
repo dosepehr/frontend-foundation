@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Badge } from './index';
+import { Badge } from './components';
 import Link from 'next/link';
 
 describe('Badge', () => {

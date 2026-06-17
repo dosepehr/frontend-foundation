@@ -1,3 +1,4 @@
+import type * as React from 'react'
 import type { ColumnDef, RowSelectionState } from '@tanstack/react-table'
 
 export interface DataTableProps<TData> {
@@ -35,7 +36,49 @@ export interface DataTableProps<TData> {
 
     // Index column
     hideRowIndex?: boolean
+}
 
-    // Total items (for index column calculation)
-    totalItems?: number
+export interface DataTableRootProps<TData> {
+    columns: ColumnDef<TData, unknown>[]
+    data: TData[]
+    maxHeight?: number | string
+    stickyOffset?: number
+    className?: string
+    emptyTitle?: string
+    emptyDescription?: string
+    rowSelection?: RowSelectionState
+    setRowSelection?: (value: RowSelectionState) => void
+    haveSelection?: boolean
+    filterColumn?: string
+    filterPlaceholder?: string
+    footerRow?: React.ReactNode[]
+    hideRowIndex?: boolean
+    current?: number
+    limit?: number
+}
+
+export interface DataTablePaginationProps {
+    current: number
+    total: number
+    setPage: (page: number) => void
+    limit: number
+    setLimit: (limit: number) => void
+}
+
+export interface DataTableSkeletonProps {
+    columns?: number
+    rows?: number
+}
+
+export interface TableStateProps {
+    isLoading: boolean
+    isFetching?: boolean
+    isError?: boolean
+    isEmpty?: boolean
+    loadingEl?: React.ReactNode
+    onRetry?: () => void
+    emptyTitle?: string
+    emptyDescription?: string
+    hasSearch?: boolean
+    children: React.ReactNode
 }

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { PasswordInput } from './password-input'
+import { PasswordInput } from './components'
 
 const meta: Meta<typeof PasswordInput> = {
     title: 'UI/PasswordInput',

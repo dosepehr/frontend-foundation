@@ -16,11 +16,11 @@ import {
     LockIcon,
     InboxIcon,
 } from 'lucide-react'
-import { ItemWrapper } from '.'
-import { Badge } from '../Badge'
+import { Badge } from '../Badge/components'
 import Button from '../Button'
 import AvatarWrapper from '../Avatar'
-import { Switch } from '../Switch'
+import { Switch } from '../Switch/components'
+import ItemWrapper from '.'
 
 const meta: Meta<typeof ItemWrapper> = {
     title: 'UI/Item',

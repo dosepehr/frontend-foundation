@@ -69,17 +69,3 @@ const AlertDialogWrapper: FC<AlertDialogWrapperProps> = ({
 }
 
 export default AlertDialogWrapper
-
-export {
-    AlertDialog,
-    AlertDialogTrigger,
-    AlertDialogContent,
-    AlertDialogHeader,
-    AlertDialogMedia,
-    AlertDialogTitle,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogCancel,
-    AlertDialogAction,
-} from './components'
-export type { AlertDialogWrapperProps, AlertDialogIntent } from './alert-dialog.types'

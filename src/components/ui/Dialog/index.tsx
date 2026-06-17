@@ -78,16 +78,3 @@ const DialogWrapper: FC<DialogWrapperProps> = ({
 }
 
 export default DialogWrapper
-
-export {
-    Dialog,
-    DialogBody,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from './components'
-export type { DialogWrapperProps, DialogMaxWidth } from './dialog.types'

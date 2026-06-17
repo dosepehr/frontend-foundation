@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ComboBox } from './combo-box';
+import ComboBox from '.';
 
 const OPTIONS = [
     { value: 'apple', label: 'Apple' },

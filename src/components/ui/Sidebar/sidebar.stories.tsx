@@ -24,14 +24,14 @@ import {
     SidebarProvider,
     SidebarTrigger,
     useSidebar,
-} from './sidebar';
-import { ScrollArea } from '../ScrollArea/scroll-area';
+} from './components';
+import { ScrollArea } from '../ScrollArea/components';
 import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
-} from '../Collapsible';
-import { TooltipProvider } from '../Tooltip';
+} from '../Collapsible/components';
+import { TooltipProvider } from '../Tooltip/components';
 
 const meta = {
     title: 'UI/Sidebar',

@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { ColumnDef } from '@tanstack/react-table';
-import { DataTableRoot } from './data-table';
-import { DataTable, DataTableSkeleton } from './index';
-import { DataTablePagination } from './data-table-pagination';
+import { DataTableRoot, DataTableSkeleton, DataTablePagination } from './components';
+import DataTable from './index';
 
 type Person = { name: string; age: number };
 

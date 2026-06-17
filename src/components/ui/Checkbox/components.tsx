@@ -5,7 +5,7 @@ import { Checkbox as CheckboxPrimitive } from 'radix-ui';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { CheckIcon } from 'lucide-react';
 import { cn } from '@/src/utils/funcs/cn';
-import { Label } from '../Label';
+import { Label } from '../Label/components';
 import type { CheckboxProps } from './checkbox.types';
 
 export const checkboxVariants = cva(

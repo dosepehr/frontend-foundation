@@ -3,7 +3,7 @@
 import type { FC } from 'react';
 import { ArrowRightCircle } from 'lucide-react';
 import { Button as ButtonComponent } from './components';
-import { Spinner } from '../Spinner';
+import { Spinner } from '../Spinner/components';
 import type { ButtonWrapperProps } from './button.types';
 
 const Button: FC<ButtonWrapperProps> = ({
