@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import type { FC } from 'react'
 import {
     Breadcrumb,
@@ -30,22 +31,24 @@ const BreadcrumbWrapper: FC<BreadcrumbWrapperProps> = ({
                     const isLast = index === visibleItems.length - 1
 
                     return (
-                        <BreadcrumbItem key={index}>
-                            {item === null ? (
-                                <BreadcrumbEllipsis />
-                            ) : isLast ? (
-                                <BreadcrumbPage>{item.label}</BreadcrumbPage>
-                            ) : (
-                                <BreadcrumbLink href={item.href ?? '#'}>
-                                    {item.label}
-                                </BreadcrumbLink>
-                            )}
+                        <React.Fragment key={index}>
+                            <BreadcrumbItem>
+                                {item === null ? (
+                                    <BreadcrumbEllipsis />
+                                ) : isLast ? (
+                                    <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                                ) : (
+                                    <BreadcrumbLink href={item.href ?? '#'}>
+                                        {item.label}
+                                    </BreadcrumbLink>
+                                )}
+                            </BreadcrumbItem>
                             {!isLast && (
                                 <BreadcrumbSeparator>
                                     {separator}
                                 </BreadcrumbSeparator>
                             )}
-                        </BreadcrumbItem>
+                        </React.Fragment>
                     )
                 })}
             </BreadcrumbList>
