@@ -37,7 +37,7 @@ describe('Dialog primitives', () => {
     it('content is visible when open is true', () => {
         render(
             <Dialog open>
-                <DialogContent>
+                <DialogContent aria-describedby={undefined}>
                     <DialogTitle>My Dialog</DialogTitle>
                 </DialogContent>
             </Dialog>,
@@ -50,7 +50,7 @@ describe('Dialog primitives', () => {
         render(
             <Dialog>
                 <DialogTrigger>Open</DialogTrigger>
-                <DialogContent>
+                <DialogContent aria-describedby={undefined}>
                     <DialogTitle>My Dialog</DialogTitle>
                 </DialogContent>
             </Dialog>,
@@ -65,7 +65,7 @@ describe('Dialog primitives', () => {
         render(
             <Dialog onOpenChange={onOpenChange}>
                 <DialogTrigger>Open</DialogTrigger>
-                <DialogContent><DialogTitle>T</DialogTitle></DialogContent>
+                <DialogContent aria-describedby={undefined}><DialogTitle>T</DialogTitle></DialogContent>
             </Dialog>,
         );
         await user.click(screen.getByText('Open'));
@@ -75,7 +75,7 @@ describe('Dialog primitives', () => {
     it('renders title inside DialogHeader', () => {
         render(
             <Dialog open>
-                <DialogContent>
+                <DialogContent aria-describedby={undefined}>
                     <DialogHeader showCloseButton={false}>
                         <DialogTitle>Title text</DialogTitle>
                     </DialogHeader>
@@ -102,7 +102,7 @@ describe('Dialog primitives', () => {
     it('renders close button in DialogHeader by default', () => {
         render(
             <Dialog open>
-                <DialogContent>
+                <DialogContent aria-describedby={undefined}>
                     <DialogHeader>
                         <DialogTitle>T</DialogTitle>
                     </DialogHeader>
@@ -115,7 +115,7 @@ describe('Dialog primitives', () => {
     it('hides close button when showCloseButton is false', () => {
         render(
             <Dialog open>
-                <DialogContent>
+                <DialogContent aria-describedby={undefined}>
                     <DialogHeader showCloseButton={false}>
                         <DialogTitle>T</DialogTitle>
                     </DialogHeader>
@@ -128,7 +128,7 @@ describe('Dialog primitives', () => {
     it('renders body content', () => {
         render(
             <Dialog open>
-                <DialogContent>
+                <DialogContent aria-describedby={undefined}>
                     <DialogTitle>T</DialogTitle>
                     <DialogBody>Body content</DialogBody>
                 </DialogContent>
@@ -140,7 +140,7 @@ describe('Dialog primitives', () => {
     it('renders footer content', () => {
         render(
             <Dialog open>
-                <DialogContent>
+                <DialogContent aria-describedby={undefined}>
                     <DialogTitle>T</DialogTitle>
                     <DialogFooter>Footer content</DialogFooter>
                 </DialogContent>
@@ -152,7 +152,7 @@ describe('Dialog primitives', () => {
     it('renders data-slot="dialog-content" on content', () => {
         render(
             <Dialog open>
-                <DialogContent>
+                <DialogContent aria-describedby={undefined}>
                     <DialogTitle>T</DialogTitle>
                 </DialogContent>
             </Dialog>,
