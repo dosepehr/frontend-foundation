@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import  Checkbox  from '.'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Checkbox } from './components';
 
 const meta: Meta<typeof Checkbox> = {
     title: 'UI/Checkbox',
@@ -8,7 +8,14 @@ const meta: Meta<typeof Checkbox> = {
     argTypes: {
         variant: {
             control: 'select',
-            options: ['default', 'primary', 'secondary', 'success', 'warning', 'destructive'],
+            options: [
+                'default',
+                'primary',
+                'secondary',
+                'success',
+                'warning',
+                'destructive',
+            ],
             description: 'Color variant of the checkbox',
         },
         label: {
@@ -32,30 +39,30 @@ const meta: Meta<typeof Checkbox> = {
             description: 'Marks the field as required',
         },
     },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof Checkbox>
+export default meta;
+type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {
     args: {
         label: 'Accept terms and conditions',
     },
-}
+};
 
 export const Checked: Story = {
     args: {
         label: 'Remember me',
         defaultChecked: true,
     },
-}
+};
 
 export const Disabled: Story = {
     args: {
         label: 'Unavailable option',
         disabled: true,
     },
-}
+};
 
 export const DisabledChecked: Story = {
     args: {
@@ -63,16 +70,25 @@ export const DisabledChecked: Story = {
         defaultChecked: true,
         disabled: true,
     },
-}
+};
 
 export const NoLabel: Story = {
     args: {},
-}
+};
 
 export const AllVariants: Story = {
     render: () => (
         <div className='flex flex-col gap-3'>
-            {(['default', 'primary', 'secondary', 'success', 'warning', 'destructive'] as const).map((variant) => (
+            {(
+                [
+                    'default',
+                    'primary',
+                    'secondary',
+                    'success',
+                    'warning',
+                    'destructive',
+                ] as const
+            ).map((variant) => (
                 <Checkbox
                     key={variant}
                     variant={variant}
@@ -83,7 +99,7 @@ export const AllVariants: Story = {
         </div>
     ),
     args: {},
-}
+};
 
 export const States: Story = {
     render: () => (
@@ -95,4 +111,5 @@ export const States: Story = {
         </div>
     ),
     args: {},
-}
+};
+
