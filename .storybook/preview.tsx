@@ -13,7 +13,7 @@ import { strictModeGlobalType } from "./addons/strict-mode/preview";
 import { withTheme } from "./addons/theme/decorator";
 import { themeGlobalType } from "./addons/theme/preview";
 import { DocsContainer } from "./components/docs-container";
-import { Toaster } from "../src/components/ui/Toast";
+import Toaster from "../src/components/ui/Toast";
 
 import "./fonts.css";
 import "../src/app/globals.css";
