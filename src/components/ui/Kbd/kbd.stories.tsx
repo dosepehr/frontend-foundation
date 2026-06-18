@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { CommandIcon, ArrowUpIcon, ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon } from 'lucide-react'
-import { Kbd, KbdGroup } from '.'
+import { Kbd, KbdGroup } from './components'
 
 const meta: Meta<typeof Kbd> = {
     title: 'UI/Kbd',

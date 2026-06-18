@@ -281,10 +281,15 @@ function DataTableRoot<TData>({
                             ))}
                         </TableHeader>
                     )}
-                    <TableBody>
-                        <AnimatePresence mode='wait'>
-                            {isEmpty ? (
-                                <motion.tr key='empty' {...fadeProps}>
+                    <AnimatePresence mode='wait'>
+                        {isEmpty ? (
+                            <motion.tbody
+                                key='empty'
+                                {...fadeProps}
+                                data-slot='table-body'
+                                className='[&_tr:last-child]:border-0'
+                            >
+                                <tr>
                                     <td colSpan={resolvedColumns.length} className='p-0'>
                                         <EmptyWrapper
                                             title={emptyTitle}
@@ -293,28 +298,33 @@ function DataTableRoot<TData>({
                                             className='min-h-72 rounded-none border-0'
                                         />
                                     </td>
-                                </motion.tr>
-                            ) : (
-                                <motion.tr key='rows' {...fadeProps} className='contents'>
-                                    {table.getRowModel().rows.map((row) => (
-                                        <TableRow
-                                            key={row.id}
-                                            data-state={row.getIsSelected() ? 'selected' : undefined}
-                                        >
-                                            {row.getVisibleCells().map((cell, i) => (
-                                                <TableCell
-                                                    key={cell.id}
-                                                    className={cn(i === 0 ? 'text-start' : 'text-center')}
-                                                >
-                                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                                </TableCell>
-                                            ))}
-                                        </TableRow>
-                                    ))}
-                                </motion.tr>
-                            )}
-                        </AnimatePresence>
-                    </TableBody>
+                                </tr>
+                            </motion.tbody>
+                        ) : (
+                            <motion.tbody
+                                key='rows'
+                                {...fadeProps}
+                                data-slot='table-body'
+                                className='[&_tr:last-child]:border-0'
+                            >
+                                {table.getRowModel().rows.map((row) => (
+                                    <TableRow
+                                        key={row.id}
+                                        data-state={row.getIsSelected() ? 'selected' : undefined}
+                                    >
+                                        {row.getVisibleCells().map((cell, i) => (
+                                            <TableCell
+                                                key={cell.id}
+                                                className={cn(i === 0 ? 'text-start' : 'text-center')}
+                                            >
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                ))}
+                            </motion.tbody>
+                        )}
+                    </AnimatePresence>
                     {footerRow && !isEmpty && (
                         <TableFooter>
                             <TableRow>

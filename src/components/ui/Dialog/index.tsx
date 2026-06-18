@@ -47,7 +47,10 @@ const DialogWrapper: FC<DialogWrapperProps> = ({
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-            <DialogContent className={cn(maxWidthMap[maxWidth], contentClassName)}>
+            <DialogContent
+                className={cn(maxWidthMap[maxWidth], contentClassName)}
+                {...(!description && { 'aria-describedby': undefined })}
+            >
                 {(title || description || icon) && (
                     <DialogHeader showCloseButton={showCloseIcon}>
                         {title && (
