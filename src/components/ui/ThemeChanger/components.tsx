@@ -1,7 +1,7 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { MoonIcon, SunIcon, SunMoonIcon } from 'lucide-react'
 import Button from '@/src/components/ui/Button'
 import type { Theme } from './theme-changer.types'
@@ -20,9 +20,7 @@ const next: Record<Theme, Theme> = {
 
 function ThemeChanger() {
     const { theme, setTheme } = useTheme()
-    const [mounted, setMounted] = useState(false)
-
-    useEffect(() => { setMounted(true) }, [])
+    const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
 
     if (!mounted) return <Button variant="ghost" size="icon" disabled><SunIcon /></Button>
 

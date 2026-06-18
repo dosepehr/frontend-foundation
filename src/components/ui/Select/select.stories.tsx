@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { MapPinIcon } from 'lucide-react'
-import { SelectWrapper } from '.'
+import SelectWrapper from '.'
 
 const FRUITS = [
     { value: 'apple', label: 'Apple' },

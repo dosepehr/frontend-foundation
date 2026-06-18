@@ -1,8 +1,8 @@
 'use client'
 
 import { Controller, type Control, type FieldValues, type Path } from 'react-hook-form'
-import { OtpInput } from '../../ui/OtpInput'
-import type { OtpInputProps } from '../../ui/OtpInput'
+import { OtpInputProps } from '../../ui/OtpInput/otp-input.types'
+import OtpInput from '../../ui/OtpInput'
 
 export type ControlledOtpInputProps<T extends FieldValues> = Omit<
     OtpInputProps,

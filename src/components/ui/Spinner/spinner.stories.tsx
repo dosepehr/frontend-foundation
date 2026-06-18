@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { Spinner } from '.'
+import  Spinner  from '.'
 
 const meta: Meta<typeof Spinner> = {
     title: 'UI/Spinner',

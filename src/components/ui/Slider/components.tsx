@@ -18,7 +18,7 @@ const trackVariants = cva('relative h-1.5 w-full grow overflow-hidden rounded-fu
     defaultVariants: { variant: 'default' },
 })
 
-const rangeVariants = cva('absolute h-full', {
+export const rangeVariants = cva('absolute h-full', {
     variants: {
         variant: {
             default: 'bg-primary',

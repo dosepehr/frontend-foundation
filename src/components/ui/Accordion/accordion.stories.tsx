@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import CardWrapper from '../Card';
-import AccordionWrapper, { Accordion } from '.';
+import { Accordion } from './components';
+import AccordionWrapper from '.';
 
 const meta: Meta<typeof AccordionWrapper> = {
     title: 'UI/Accordion',

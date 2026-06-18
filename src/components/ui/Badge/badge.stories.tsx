@@ -1,6 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { CheckIcon, InfoIcon, AlertTriangleIcon, XCircleIcon, StarIcon } from 'lucide-react'
-import { Badge } from '.'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import {
+    CheckIcon,
+    InfoIcon,
+    AlertTriangleIcon,
+    XCircleIcon,
+    StarIcon,
+} from 'lucide-react';
+import Badge from '.';
 
 const meta: Meta<typeof Badge> = {
     title: 'UI/Badge',
@@ -9,13 +15,24 @@ const meta: Meta<typeof Badge> = {
     argTypes: {
         variant: {
             control: 'select',
-            options: ['default', 'secondary', 'destructive', 'success', 'warning', 'info', 'outline', 'ghost', 'link'],
+            options: [
+                'default',
+                'secondary',
+                'destructive',
+                'success',
+                'warning',
+                'info',
+                'outline',
+                'ghost',
+                'link',
+            ],
             description: 'Color intent of the badge',
         },
         appearance: {
             control: 'radio',
             options: ['solid', 'soft'],
-            description: 'Visual weight — solid fills with the color, soft uses a tinted background',
+            description:
+                'Visual weight — solid fills with the color, soft uses a tinted background',
         },
         children: {
             control: 'text',
@@ -26,10 +43,10 @@ const meta: Meta<typeof Badge> = {
             description: 'Renders as child element via Radix Slot',
         },
     },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof Badge>
+export default meta;
+type Story = StoryObj<typeof Badge>;
 
 export const Default: Story = {
     args: {
@@ -37,12 +54,23 @@ export const Default: Story = {
         appearance: 'soft',
         children: 'Badge',
     },
-}
+};
 
 export const SoftVariants: Story = {
     render: () => (
         <div className='flex flex-wrap gap-2'>
-            {(['default', 'secondary', 'destructive', 'success', 'warning', 'info', 'outline', 'ghost'] as const).map((variant) => (
+            {(
+                [
+                    'default',
+                    'secondary',
+                    'destructive',
+                    'success',
+                    'warning',
+                    'info',
+                    'outline',
+                    'ghost',
+                ] as const
+            ).map((variant) => (
                 <Badge key={variant} variant={variant} appearance='soft'>
                     {variant.charAt(0).toUpperCase() + variant.slice(1)}
                 </Badge>
@@ -50,12 +78,21 @@ export const SoftVariants: Story = {
         </div>
     ),
     args: {},
-}
+};
 
 export const SolidVariants: Story = {
     render: () => (
         <div className='flex flex-wrap gap-2'>
-            {(['default', 'secondary', 'destructive', 'success', 'warning', 'info'] as const).map((variant) => (
+            {(
+                [
+                    'default',
+                    'secondary',
+                    'destructive',
+                    'success',
+                    'warning',
+                    'info',
+                ] as const
+            ).map((variant) => (
                 <Badge key={variant} variant={variant} appearance='solid'>
                     {variant.charAt(0).toUpperCase() + variant.slice(1)}
                 </Badge>
@@ -63,35 +100,64 @@ export const SolidVariants: Story = {
         </div>
     ),
     args: {},
-}
+};
 
 export const AppearanceComparison: Story = {
     render: () => (
         <div className='flex flex-col gap-4'>
-            {(['default', 'destructive', 'success', 'warning', 'info'] as const).map((variant) => (
+            {(
+                [
+                    'default',
+                    'destructive',
+                    'success',
+                    'warning',
+                    'info',
+                ] as const
+            ).map((variant) => (
                 <div key={variant} className='flex items-center gap-3'>
-                    <span className='w-24 text-xs text-muted-foreground capitalize'>{variant}</span>
-                    <Badge variant={variant} appearance='soft'>{variant} soft</Badge>
-                    <Badge variant={variant} appearance='solid'>{variant} solid</Badge>
+                    <span className='w-24 text-xs text-muted-foreground capitalize'>
+                        {variant}
+                    </span>
+                    <Badge variant={variant} appearance='soft'>
+                        {variant} soft
+                    </Badge>
+                    <Badge variant={variant} appearance='solid'>
+                        {variant} solid
+                    </Badge>
                 </div>
             ))}
         </div>
     ),
     args: {},
-}
+};
 
 export const WithIcon: Story = {
     render: () => (
         <div className='flex flex-wrap gap-2'>
-            <Badge variant='success' appearance='soft'><CheckIcon />Completed</Badge>
-            <Badge variant='info' appearance='soft'><InfoIcon />In Review</Badge>
-            <Badge variant='warning' appearance='soft'><AlertTriangleIcon />Pending</Badge>
-            <Badge variant='destructive' appearance='soft'><XCircleIcon />Failed</Badge>
-            <Badge variant='default' appearance='solid'><StarIcon />Featured</Badge>
+            <Badge variant='success' appearance='soft'>
+                <CheckIcon />
+                Completed
+            </Badge>
+            <Badge variant='info' appearance='soft'>
+                <InfoIcon />
+                In Review
+            </Badge>
+            <Badge variant='warning' appearance='soft'>
+                <AlertTriangleIcon />
+                Pending
+            </Badge>
+            <Badge variant='destructive' appearance='soft'>
+                <XCircleIcon />
+                Failed
+            </Badge>
+            <Badge variant='default' appearance='solid'>
+                <StarIcon />
+                Featured
+            </Badge>
         </div>
     ),
     args: {},
-}
+};
 
 export const Success: Story = {
     args: {
@@ -99,7 +165,7 @@ export const Success: Story = {
         appearance: 'soft',
         children: 'Completed',
     },
-}
+};
 
 export const Warning: Story = {
     args: {
@@ -107,7 +173,7 @@ export const Warning: Story = {
         appearance: 'soft',
         children: 'Pending',
     },
-}
+};
 
 export const Destructive: Story = {
     args: {
@@ -115,7 +181,7 @@ export const Destructive: Story = {
         appearance: 'soft',
         children: 'Failed',
     },
-}
+};
 
 export const Info: Story = {
     args: {
@@ -123,39 +189,48 @@ export const Info: Story = {
         appearance: 'soft',
         children: 'In Review',
     },
-}
+};
 
 export const Outline: Story = {
     args: {
         variant: 'outline',
         children: 'Outline',
     },
-}
+};
 
 export const Ghost: Story = {
     args: {
         variant: 'ghost',
         children: 'Ghost',
     },
-}
+};
 
 export const Link: Story = {
     args: {
         variant: 'link',
         children: 'Link badge',
     },
-}
+};
 
 export const WithTrailingIcon: Story = {
     render: () => (
         <div className='flex flex-wrap gap-2'>
-            <Badge variant='success' appearance='soft'>Completed<CheckIcon /></Badge>
-            <Badge variant='warning' appearance='soft'>Pending<AlertTriangleIcon /></Badge>
-            <Badge variant='destructive' appearance='soft'>Failed<XCircleIcon /></Badge>
+            <Badge variant='success' appearance='soft'>
+                Completed
+                <CheckIcon />
+            </Badge>
+            <Badge variant='warning' appearance='soft'>
+                Pending
+                <AlertTriangleIcon />
+            </Badge>
+            <Badge variant='destructive' appearance='soft'>
+                Failed
+                <XCircleIcon />
+            </Badge>
         </div>
     ),
     args: {},
-}
+};
 
 export const AsLink: Story = {
     render: () => (
@@ -164,4 +239,5 @@ export const AsLink: Story = {
         </Badge>
     ),
     args: {},
-}
+};
+

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { UserIcon, BellIcon, LockIcon, CreditCardIcon, FileIcon, SettingsIcon } from 'lucide-react'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '.'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './components'
 
 const meta: Meta<typeof Tabs> = {
     title: 'UI/Tabs',

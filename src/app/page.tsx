@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useDirection } from "../components/ui/direction";
-import { ThemeChanger } from "../components/ui/ThemeChanger";
+import ThemeChanger from "../components/ui/ThemeChanger";
 
 export default function Page() {
     const direction = useDirection();

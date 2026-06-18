@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { RadioGroup, RadioGroupItem } from '.'
+import { RadioGroup, RadioGroupItem } from './components'
 
 const meta: Meta<typeof RadioGroupItem> = {
     title: 'UI/RadioGroup',

@@ -5,7 +5,7 @@ import { Progress as ProgressPrimitive } from 'radix-ui'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/src/utils/funcs/cn'
 
-const progressVariants = cva(
+export const progressVariants = cva(
     'h-full w-full flex-1 transition-all duration-300 ease-in-out',
     {
         variants: {

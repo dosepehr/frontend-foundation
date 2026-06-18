@@ -6,7 +6,8 @@ import {
     type FieldValues,
     type Path,
 } from 'react-hook-form';
-import { ComboBox, ComboBoxProps } from '../../ui/ComboBox';
+import ComboBox from '../../ui/ComboBox';
+import { ComboBoxProps } from '../../ui/ComboBox/combo-box.types';
 
 export type ControlledComboBoxProps<T extends FieldValues> = Omit<
     ComboBoxProps,
