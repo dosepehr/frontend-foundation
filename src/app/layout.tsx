@@ -3,6 +3,7 @@ import { ThemeProvider } from 'next-themes';
 import { DirectionProvider } from '../components/ui/direction';
 import { Toaster } from '../components/ui/Toast/components';
 import { TooltipProvider } from '../components/ui/Tooltip/components';
+import ReactQueryProvider from '../utils/api/provider/ReactQueryProvider';
 import './globals.css';
 
 export default function RootLayout({
@@ -16,16 +17,18 @@ export default function RootLayout({
             className={`overflow-x-hidden antialiased ${estedad.variable} ${lato.variable}`}
         >
             <body>
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                >
-                    <DirectionProvider dir="ltr">
-                        <Toaster />
-                        <TooltipProvider>{children}</TooltipProvider>
-                    </DirectionProvider>
-                </ThemeProvider>
+                <ReactQueryProvider>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                    >
+                        <DirectionProvider dir="ltr">
+                            <Toaster />
+                            <TooltipProvider>{children}</TooltipProvider>
+                        </DirectionProvider>
+                    </ThemeProvider>
+                </ReactQueryProvider>
             </body>
         </html>
     );

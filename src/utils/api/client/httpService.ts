@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { setupRefreshToken } from './refreshToken';
-import { globalErrorHandler } from './globalErrorHandler';
 import Cookies from 'universal-cookie';
+import { globalErrorHandler } from './interceptors/globalErrorHandler';
+import { setupRefreshToken } from './interceptors/refreshToken';
 
 export const httpService = axios.create({
     baseURL: process.env.NEXT_PUBLIC_APP_BASE_URL,
@@ -20,10 +20,9 @@ httpService.interceptors.request.use(
         }
         return config;
     },
-    (error) => Promise.reject(error)
+    (error) => Promise.reject(error),
 );
 
 httpService.interceptors.response.use((response) => response.data);
 setupRefreshToken(httpService);
 globalErrorHandler(httpService);
-
