@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/nextjs-vite";
 import React, { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { worker } from '../src/mocks/browser';
 
 import { withInternationalization } from "./addons/i18n/decorator";
 import { i18nGlobalType } from "./addons/i18n/preview";
@@ -17,6 +18,10 @@ import Toaster from "../src/components/ui/Toast";
 
 import "./fonts.css";
 import "../src/app/globals.css";
+
+if (typeof window !== 'undefined') {
+  worker.start({ onUnhandledRequest: 'bypass' });
+}
 
 let toasterMounted = false;
 
