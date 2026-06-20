@@ -27,6 +27,7 @@ export const DocsContainer: NonNullable<Preview["parameters"]>["docs"]["containe
     const next = ensureThemeKey(
       (context?.globals?.[THEME_GLOBAL_TYPE_ID] as string | undefined) || undefined,
     );
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setThemeKey((prev) => (prev === next ? prev : next));
   }, [context?.globals]);
 

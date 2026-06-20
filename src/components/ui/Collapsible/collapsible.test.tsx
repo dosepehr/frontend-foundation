@@ -1,6 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from './components';
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from './components';
 
 function TestCollapsible({
     defaultOpen = false,
@@ -12,7 +16,11 @@ function TestCollapsible({
     onOpenChange?: (open: boolean) => void;
 }) {
     return (
-        <Collapsible defaultOpen={defaultOpen} open={open} onOpenChange={onOpenChange}>
+        <Collapsible
+            defaultOpen={defaultOpen}
+            open={open}
+            onOpenChange={onOpenChange}
+        >
             <CollapsibleTrigger>Toggle</CollapsibleTrigger>
             <CollapsibleContent>Hidden content</CollapsibleContent>
         </Collapsible>
@@ -49,7 +57,9 @@ describe('Collapsible', () => {
         await user.click(screen.getByText('Toggle'));
         // CollapsibleContent uses AnimatePresence which keeps the node briefly;
         // check the root data-state instead
-        const root = screen.getByText('Toggle').closest('[data-slot="collapsible"]');
+        const root = screen
+            .getByText('Toggle')
+            .closest('[data-slot="collapsible"]');
         expect(root).toHaveAttribute('data-state', 'closed');
     });
 
@@ -81,11 +91,15 @@ describe('Collapsible', () => {
 
     it('has data-slot="collapsible" on the root', () => {
         const { container } = render(<TestCollapsible />);
-        expect(container.querySelector('[data-slot="collapsible"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="collapsible"]'),
+        ).toBeInTheDocument();
     });
 
     it('has data-slot="collapsible-trigger" on the trigger', () => {
         const { container } = render(<TestCollapsible />);
-        expect(container.querySelector('[data-slot="collapsible-trigger"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="collapsible-trigger"]'),
+        ).toBeInTheDocument();
     });
 });

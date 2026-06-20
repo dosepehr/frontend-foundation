@@ -8,21 +8,30 @@ describe('Skeleton', () => {
 
     it('has data-slot="skeleton"', () => {
         const { container } = render(<Skeleton />);
-        expect(container.querySelector('[data-slot="skeleton"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="skeleton"]'),
+        ).toBeInTheDocument();
     });
 
     it('forwards className', () => {
-        const { container } = render(<Skeleton className='w-32 h-4' />);
-        expect(container.querySelector('[data-slot="skeleton"]')).toHaveClass('w-32', 'h-4');
+        const { container } = render(<Skeleton className="h-4 w-32" />);
+        expect(container.querySelector('[data-slot="skeleton"]')).toHaveClass(
+            'w-32',
+            'h-4',
+        );
     });
 
     it('renders as a div by default', () => {
         const { container } = render(<Skeleton />);
-        expect(container.querySelector('[data-slot="skeleton"]')?.tagName).toBe('DIV');
+        expect(container.querySelector('[data-slot="skeleton"]')?.tagName).toBe(
+            'DIV',
+        );
     });
 
     it('forwards additional props', () => {
-        const { container } = render(<Skeleton data-testid='my-skeleton' />);
-        expect(container.querySelector('[data-testid="my-skeleton"]')).toBeInTheDocument();
+        const { container } = render(<Skeleton data-testid="my-skeleton" />);
+        expect(
+            container.querySelector('[data-testid="my-skeleton"]'),
+        ).toBeInTheDocument();
     });
 });

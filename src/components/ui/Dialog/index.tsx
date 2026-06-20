@@ -1,20 +1,20 @@
-'use client'
+'use client';
 
-import type { FC } from 'react'
+import { cn } from '@/src/utils/funcs/cn';
+import type { FC } from 'react';
+import { Button } from '../Button/components';
 import {
     Dialog,
     DialogBody,
-    DialogTrigger,
+    DialogClose,
     DialogContent,
-    DialogHeader,
-    DialogTitle,
     DialogDescription,
     DialogFooter,
-    DialogClose,
-} from './components'
-import { Button } from '../Button/components'
-import { cn } from '@/src/utils/funcs/cn'
-import type { DialogWrapperProps, DialogMaxWidth } from './dialog.types'
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from './components';
+import type { DialogMaxWidth, DialogWrapperProps } from './dialog.types';
 
 const maxWidthMap: Record<DialogMaxWidth, string> = {
     sm: 'max-w-sm',
@@ -27,7 +27,7 @@ const maxWidthMap: Record<DialogMaxWidth, string> = {
     '5xl': 'max-w-5xl',
     '6xl': 'max-w-6xl',
     '7xl': 'max-w-7xl',
-}
+};
 
 const DialogWrapper: FC<DialogWrapperProps> = ({
     trigger,
@@ -54,8 +54,12 @@ const DialogWrapper: FC<DialogWrapperProps> = ({
                 {(title || description || icon) && (
                     <DialogHeader showCloseButton={showCloseIcon}>
                         {title && (
-                            <DialogTitle className='flex items-center gap-2'>
-                                {icon && <span className='text-muted-foreground'>{icon}</span>}
+                            <DialogTitle className="flex items-center gap-2">
+                                {icon && (
+                                    <span className="text-muted-foreground">
+                                        {icon}
+                                    </span>
+                                )}
                                 {title}
                             </DialogTitle>
                         )}
@@ -70,14 +74,14 @@ const DialogWrapper: FC<DialogWrapperProps> = ({
                         {footer}
                         {showCancelButton && (
                             <DialogClose asChild>
-                                <Button variant='outline'>{cancelLabel}</Button>
+                                <Button variant="outline">{cancelLabel}</Button>
                             </DialogClose>
                         )}
                     </DialogFooter>
                 )}
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default DialogWrapper
+export default DialogWrapper;

@@ -30,22 +30,26 @@ const COLORS = [
 ];
 
 export const IconsPage = () => (
-    <div className='p-8 flex flex-col gap-10'>
+    <div className="flex flex-col gap-10 p-8">
         <div>
-            <h1 className='text-2xl font-semibold tracking-tight mb-1'>Icons</h1>
-            <p className='text-sm text-muted-foreground'>Custom icon set used across the design system.</p>
+            <h1 className="mb-1 text-2xl font-semibold tracking-tight">
+                Icons
+            </h1>
+            <p className="text-sm text-muted-foreground">
+                Custom icon set used across the design system.
+            </p>
         </div>
 
-        <div className='flex flex-col gap-3'>
-            <h2 className='text-lg font-semibold tracking-tight'>Icon Pack</h2>
-            <div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3'>
+        <div className="flex flex-col gap-3">
+            <h2 className="text-lg font-semibold tracking-tight">Icon Pack</h2>
+            <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
                 {Object.entries(Icons).map(([name, Icon]) => (
                     <div
                         key={name}
-                        className='flex flex-col items-center gap-2 p-3 rounded-lg border border-border bg-card hover:bg-muted/50 transition-colors'
+                        className="flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-3 transition-colors hover:bg-muted/50"
                     >
-                        <Icon className='size-6 text-foreground' />
-                        <span className='text-xs text-muted-foreground text-center leading-tight break-all'>
+                        <Icon className="size-6 text-foreground" />
+                        <span className="text-center text-xs leading-tight break-all text-muted-foreground">
                             {name}
                         </span>
                     </div>
@@ -53,25 +57,35 @@ export const IconsPage = () => (
             </div>
         </div>
 
-        <div className='flex flex-col gap-3'>
-            <h2 className='text-lg font-semibold tracking-tight'>Sizes</h2>
-            <div className='flex items-end gap-8'>
+        <div className="flex flex-col gap-3">
+            <h2 className="text-lg font-semibold tracking-tight">Sizes</h2>
+            <div className="flex items-end gap-8">
                 {SIZES.map(({ label, cls }) => (
-                    <div key={label} className='flex flex-col items-center gap-2'>
+                    <div
+                        key={label}
+                        className="flex flex-col items-center gap-2"
+                    >
                         <FirstIcon className={`${cls} text-foreground`} />
-                        <span className='text-xs text-muted-foreground'>{label}</span>
+                        <span className="text-xs text-muted-foreground">
+                            {label}
+                        </span>
                     </div>
                 ))}
             </div>
         </div>
 
-        <div className='flex flex-col gap-3'>
-            <h2 className='text-lg font-semibold tracking-tight'>Colors</h2>
-            <div className='flex flex-wrap gap-6'>
+        <div className="flex flex-col gap-3">
+            <h2 className="text-lg font-semibold tracking-tight">Colors</h2>
+            <div className="flex flex-wrap gap-6">
                 {COLORS.map(({ label, cls }) => (
-                    <div key={label} className='flex flex-col items-center gap-2'>
+                    <div
+                        key={label}
+                        className="flex flex-col items-center gap-2"
+                    >
                         <FirstIcon className={`size-6 ${cls}`} />
-                        <span className='text-xs text-muted-foreground'>{label}</span>
+                        <span className="text-xs text-muted-foreground">
+                            {label}
+                        </span>
                     </div>
                 ))}
             </div>

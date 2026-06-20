@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import * as React from 'react';
 import { FileTextIcon, LinkIcon, UserIcon } from 'lucide-react';
+import * as React from 'react';
 import DialogWrapper from '.';
-import type { DialogMaxWidth } from './dialog.types';
 import { Button } from '../Button/components';
 import { InputComponent as Input } from '../Input/components';
 import { Label } from '../Label/components';
+import type { DialogMaxWidth } from './dialog.types';
 
 const meta: Meta<typeof DialogWrapper> = {
     title: 'UI/Dialog',
@@ -47,7 +47,7 @@ type Story = StoryObj<typeof DialogWrapper>;
 
 export const Basic: Story = {
     args: {
-        trigger: <Button variant='outline'>Open</Button>,
+        trigger: <Button variant="outline">Open</Button>,
         title: 'Are you absolutely sure?',
         description:
             'This action cannot be undone. This will permanently delete your account and remove your data from our servers.',
@@ -57,23 +57,23 @@ export const Basic: Story = {
 
 export const WithForm: Story = {
     args: {
-        trigger: <Button variant='outline'>Edit Profile</Button>,
+        trigger: <Button variant="outline">Edit Profile</Button>,
         title: 'Edit profile',
         description:
             "Make changes to your profile here. Click save when you're done.",
-        footer: <Button type='submit'>Save changes</Button>,
+        footer: <Button type="submit">Save changes</Button>,
         cancelLabel: 'Cancel',
     },
     render: (args) => (
         <DialogWrapper {...args}>
-            <div className='grid gap-4'>
-                <div className='grid gap-2'>
-                    <Label htmlFor='dialog-name'>Name</Label>
-                    <Input id='dialog-name' defaultValue='Pedro Duarte' />
+            <div className="grid gap-4">
+                <div className="grid gap-2">
+                    <Label htmlFor="dialog-name">Name</Label>
+                    <Input id="dialog-name" defaultValue="Pedro Duarte" />
                 </div>
-                <div className='grid gap-2'>
-                    <Label htmlFor='dialog-username'>Username</Label>
-                    <Input id='dialog-username' defaultValue='@peduarte' />
+                <div className="grid gap-2">
+                    <Label htmlFor="dialog-username">Username</Label>
+                    <Input id="dialog-username" defaultValue="@peduarte" />
                 </div>
             </div>
         </DialogWrapper>
@@ -82,7 +82,7 @@ export const WithForm: Story = {
 
 export const ShareLink: Story = {
     args: {
-        trigger: <Button variant='outline'>Share</Button>,
+        trigger: <Button variant="outline">Share</Button>,
         title: 'Share link',
         description: 'Anyone who has this link will be able to view this.',
         maxWidth: 'md',
@@ -90,20 +90,20 @@ export const ShareLink: Story = {
     },
     render: (args) => (
         <DialogWrapper {...args}>
-            <div className='flex items-center gap-2'>
-                <div className='grid flex-1 gap-2'>
-                    <Label htmlFor='dialog-link' className='sr-only'>
+            <div className="flex items-center gap-2">
+                <div className="grid flex-1 gap-2">
+                    <Label htmlFor="dialog-link" className="sr-only">
                         Link
                     </Label>
                     <Input
-                        id='dialog-link'
-                        defaultValue='https://ui.shadcn.com/docs/installation'
+                        id="dialog-link"
+                        defaultValue="https://ui.shadcn.com/docs/installation"
                         readOnly
                     />
                 </div>
-                <Button size='icon' variant='outline'>
-                    <LinkIcon className='size-4' />
-                    <span className='sr-only'>Copy link</span>
+                <Button size="icon" variant="outline">
+                    <LinkIcon className="size-4" />
+                    <span className="sr-only">Copy link</span>
                 </Button>
             </div>
         </DialogWrapper>
@@ -112,26 +112,26 @@ export const ShareLink: Story = {
 
 export const WithIcon: Story = {
     args: {
-        trigger: <Button variant='outline'>View Document</Button>,
+        trigger: <Button variant="outline">View Document</Button>,
         title: 'Document details',
         description: 'Review the document information before proceeding.',
-        icon: <FileTextIcon className='size-4' />,
+        icon: <FileTextIcon className="size-4" />,
         footer: <Button>Download</Button>,
         cancelLabel: 'Cancel',
     },
     render: (args) => (
         <DialogWrapper {...args}>
-            <div className='rounded-md border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground'>
+            <div className="rounded-md border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
                 <p>
-                    <span className='font-medium text-foreground'>File:</span>{' '}
+                    <span className="font-medium text-foreground">File:</span>{' '}
                     report-2024.pdf
                 </p>
                 <p>
-                    <span className='font-medium text-foreground'>Size:</span>{' '}
+                    <span className="font-medium text-foreground">Size:</span>{' '}
                     2.4 MB
                 </p>
                 <p>
-                    <span className='font-medium text-foreground'>
+                    <span className="font-medium text-foreground">
                         Uploaded:
                     </span>{' '}
                     June 12, 2024
@@ -143,24 +143,24 @@ export const WithIcon: Story = {
 
 export const UserProfile: Story = {
     args: {
-        trigger: <Button variant='outline'>View Profile</Button>,
+        trigger: <Button variant="outline">View Profile</Button>,
         title: 'User profile',
-        icon: <UserIcon className='size-4' />,
+        icon: <UserIcon className="size-4" />,
         maxWidth: 'sm',
         cancelLabel: 'Close',
     },
     render: (args) => (
         <DialogWrapper {...args}>
-            <div className='flex flex-col items-center gap-3 py-2'>
-                <div className='flex size-16 items-center justify-center rounded-full bg-primary/10'>
-                    <UserIcon className='size-8 text-primary' />
+            <div className="flex flex-col items-center gap-3 py-2">
+                <div className="flex size-16 items-center justify-center rounded-full bg-primary/10">
+                    <UserIcon className="size-8 text-primary" />
                 </div>
-                <div className='text-center'>
-                    <p className='font-medium'>Pedro Duarte</p>
-                    <p className='text-sm text-muted-foreground'>@peduarte</p>
+                <div className="text-center">
+                    <p className="font-medium">Pedro Duarte</p>
+                    <p className="text-sm text-muted-foreground">@peduarte</p>
                 </div>
-                <div className='w-full rounded-md border border-border px-4 py-3 text-sm'>
-                    <p className='text-muted-foreground'>
+                <div className="w-full rounded-md border border-border px-4 py-3 text-sm">
+                    <p className="text-muted-foreground">
                         Member since Jan 2023
                     </p>
                 </div>
@@ -171,7 +171,7 @@ export const UserProfile: Story = {
 
 export const LargeContent: Story = {
     args: {
-        trigger: <Button variant='outline'>Terms of Service</Button>,
+        trigger: <Button variant="outline">Terms of Service</Button>,
         title: 'Terms of Service',
         description: 'Please read our terms of service carefully.',
         maxWidth: '2xl',
@@ -180,9 +180,9 @@ export const LargeContent: Story = {
     },
     render: (args) => (
         <DialogWrapper {...args}>
-            <div className='max-h-64 overflow-y-auto rounded-md border border-border px-4 py-3 text-sm text-muted-foreground'>
+            <div className="max-h-64 overflow-y-auto rounded-md border border-border px-4 py-3 text-sm text-muted-foreground">
                 {Array.from({ length: 8 }).map((_, i) => (
-                    <p key={i} className='mb-3 leading-relaxed'>
+                    <p key={i} className="mb-3 leading-relaxed">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -197,7 +197,7 @@ export const LargeContent: Story = {
 
 export const TallContent: Story = {
     args: {
-        trigger: <Button variant='outline'>Open Tall Dialog</Button>,
+        trigger: <Button variant="outline">Open Tall Dialog</Button>,
         title: 'Activity log',
         description: 'Recent actions taken on your account.',
         footer: <Button>Export</Button>,
@@ -206,18 +206,18 @@ export const TallContent: Story = {
     },
     render: (args) => (
         <DialogWrapper {...args}>
-            <div className='flex flex-col gap-3 text-sm'>
+            <div className="flex flex-col gap-3 text-sm">
                 {Array.from({ length: 20 }).map((_, i) => (
                     <div
                         key={i}
-                        className='flex items-start gap-3 rounded-md border border-border px-3 py-2'
+                        className="flex items-start gap-3 rounded-md border border-border px-3 py-2"
                     >
-                        <div className='mt-0.5 size-2 shrink-0 rounded-full bg-primary' />
+                        <div className="mt-0.5 size-2 shrink-0 rounded-full bg-primary" />
                         <div>
-                            <p className='font-medium text-foreground'>
+                            <p className="font-medium text-foreground">
                                 Action {i + 1}
                             </p>
-                            <p className='text-muted-foreground'>
+                            <p className="text-muted-foreground">
                                 Lorem ipsum dolor sit amet consectetur.
                             </p>
                         </div>
@@ -230,7 +230,7 @@ export const TallContent: Story = {
 
 export const NoCancelButton: Story = {
     args: {
-        trigger: <Button variant='outline'>Open</Button>,
+        trigger: <Button variant="outline">Open</Button>,
         title: 'Session expired',
         description:
             'Your session has expired. Please log in again to continue.',
@@ -242,7 +242,7 @@ export const NoCancelButton: Story = {
 
 export const NoCancelNoFooter: Story = {
     args: {
-        trigger: <Button variant='outline'>Open</Button>,
+        trigger: <Button variant="outline">Open</Button>,
         title: 'Keyboard shortcuts',
         description: 'Use these shortcuts to navigate the app faster.',
         maxWidth: 'sm',
@@ -250,7 +250,7 @@ export const NoCancelNoFooter: Story = {
     },
     render: (args) => (
         <DialogWrapper {...args}>
-            <div className='grid gap-2 text-sm'>
+            <div className="grid gap-2 text-sm">
                 {[
                     ['⌘ K', 'Open command palette'],
                     ['⌘ /', 'Toggle sidebar'],
@@ -259,10 +259,10 @@ export const NoCancelNoFooter: Story = {
                 ].map(([key, label]) => (
                     <div
                         key={key}
-                        className='flex items-center justify-between rounded-md border border-border px-3 py-2'
+                        className="flex items-center justify-between rounded-md border border-border px-3 py-2"
                     >
-                        <span className='text-muted-foreground'>{label}</span>
-                        <kbd className='rounded bg-muted px-2 py-0.5 font-mono text-xs'>
+                        <span className="text-muted-foreground">{label}</span>
+                        <kbd className="rounded bg-muted px-2 py-0.5 font-mono text-xs">
                             {key}
                         </kbd>
                     </div>
@@ -283,9 +283,9 @@ export const Controlled: Story = {
         };
 
         return (
-            <div className='flex flex-col items-center gap-4'>
+            <div className="flex flex-col items-center gap-4">
                 <Button
-                    variant='outline'
+                    variant="outline"
                     onClick={() => {
                         setOpen(true);
                         setSaved(false);
@@ -294,27 +294,27 @@ export const Controlled: Story = {
                     Open controlled dialog
                 </Button>
                 {saved && (
-                    <p className='text-sm text-success'>
+                    <p className="text-sm text-success">
                         Changes saved successfully.
                     </p>
                 )}
                 <DialogWrapper
                     open={open}
                     onOpenChange={setOpen}
-                    title='Edit profile'
+                    title="Edit profile"
                     description="Make changes to your profile here. Click save when you're done."
                     footer={<Button onClick={handleSave}>Save changes</Button>}
                 >
-                    <div className='grid gap-4'>
-                        <div className='grid gap-2'>
-                            <Label htmlFor='ctrl-name'>Name</Label>
-                            <Input id='ctrl-name' defaultValue='Pedro Duarte' />
+                    <div className="grid gap-4">
+                        <div className="grid gap-2">
+                            <Label htmlFor="ctrl-name">Name</Label>
+                            <Input id="ctrl-name" defaultValue="Pedro Duarte" />
                         </div>
-                        <div className='grid gap-2'>
-                            <Label htmlFor='ctrl-username'>Username</Label>
+                        <div className="grid gap-2">
+                            <Label htmlFor="ctrl-username">Username</Label>
                             <Input
-                                id='ctrl-username'
-                                defaultValue='@peduarte'
+                                id="ctrl-username"
+                                defaultValue="@peduarte"
                             />
                         </div>
                     </div>
@@ -323,4 +323,3 @@ export const Controlled: Story = {
         );
     },
 };
-

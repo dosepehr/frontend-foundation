@@ -1,1 +1,1 @@
-export { Command as default } from './components'
+export { Command as default } from './components';

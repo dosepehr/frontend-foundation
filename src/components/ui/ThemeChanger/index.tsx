@@ -1,5 +1,5 @@
-'use client'
+'use client';
 
-import { ThemeChanger } from './components'
+import { ThemeChanger } from './components';
 
-export default ThemeChanger
+export default ThemeChanger;

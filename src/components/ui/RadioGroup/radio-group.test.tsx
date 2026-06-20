@@ -1,35 +1,41 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { RadioGroup, RadioGroupItem } from './components';
 import RadioGroupWrapper from '.';
+import { RadioGroup, RadioGroupItem } from './components';
 
 describe('RadioGroup', () => {
     it('has data-slot="radio-group"', () => {
         const { container } = render(
             <RadioGroup>
-                <RadioGroupItem value='a' />
+                <RadioGroupItem value="a" />
             </RadioGroup>,
         );
-        expect(container.querySelector('[data-slot="radio-group"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="radio-group"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders children', () => {
         render(
             <RadioGroup>
-                <RadioGroupItem value='a' />
-                <RadioGroupItem value='b' />
+                <RadioGroupItem value="a" />
+                <RadioGroupItem value="b" />
             </RadioGroup>,
         );
-        expect(document.querySelectorAll('[data-slot="radio-group-item"]')).toHaveLength(2);
+        expect(
+            document.querySelectorAll('[data-slot="radio-group-item"]'),
+        ).toHaveLength(2);
     });
 
     it('RadioGroupItem has data-slot="radio-group-item"', () => {
         const { container } = render(
             <RadioGroup>
-                <RadioGroupItem value='a' />
+                <RadioGroupItem value="a" />
             </RadioGroup>,
         );
-        expect(container.querySelector('[data-slot="radio-group-item"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="radio-group-item"]'),
+        ).toBeInTheDocument();
     });
 
     it('selecting an item calls onValueChange', async () => {
@@ -37,38 +43,46 @@ describe('RadioGroup', () => {
         const onValueChange = vi.fn();
         render(
             <RadioGroup onValueChange={onValueChange}>
-                <RadioGroupItem value='option-a' />
+                <RadioGroupItem value="option-a" />
             </RadioGroup>,
         );
-        await user.click(document.querySelector('[data-slot="radio-group-item"]')!);
+        await user.click(
+            document.querySelector('[data-slot="radio-group-item"]')!,
+        );
         expect(onValueChange).toHaveBeenCalledWith('option-a');
     });
 
     it('item is checked when value matches', () => {
         const { container } = render(
-            <RadioGroup value='a' onValueChange={() => {}}>
-                <RadioGroupItem value='a' />
+            <RadioGroup value="a" onValueChange={() => {}}>
+                <RadioGroupItem value="a" />
             </RadioGroup>,
         );
-        expect(container.querySelector('[data-slot="radio-group-item"]')).toHaveAttribute('data-state', 'checked');
+        expect(
+            container.querySelector('[data-slot="radio-group-item"]'),
+        ).toHaveAttribute('data-state', 'checked');
     });
 
     it('item is unchecked when value does not match', () => {
         const { container } = render(
-            <RadioGroup value='b' onValueChange={() => {}}>
-                <RadioGroupItem value='a' />
+            <RadioGroup value="b" onValueChange={() => {}}>
+                <RadioGroupItem value="a" />
             </RadioGroup>,
         );
-        expect(container.querySelector('[data-slot="radio-group-item"]')).toHaveAttribute('data-state', 'unchecked');
+        expect(
+            container.querySelector('[data-slot="radio-group-item"]'),
+        ).toHaveAttribute('data-state', 'unchecked');
     });
 
     it('item is disabled when disabled prop is set', () => {
         const { container } = render(
             <RadioGroup>
-                <RadioGroupItem value='a' disabled />
+                <RadioGroupItem value="a" disabled />
             </RadioGroup>,
         );
-        expect(container.querySelector('[data-slot="radio-group-item"]')).toBeDisabled();
+        expect(
+            container.querySelector('[data-slot="radio-group-item"]'),
+        ).toBeDisabled();
     });
 });
 
@@ -89,7 +103,9 @@ describe('RadioGroupWrapper', () => {
     it('renders descriptions when provided', () => {
         render(
             <RadioGroupWrapper
-                options={[{ value: 'a', label: 'Option A', description: 'Desc A' }]}
+                options={[
+                    { value: 'a', label: 'Option A', description: 'Desc A' },
+                ]}
             />,
         );
         expect(screen.getByText('Desc A')).toBeInTheDocument();
@@ -98,8 +114,15 @@ describe('RadioGroupWrapper', () => {
     it('calls onValueChange when an option is selected', async () => {
         const user = userEvent.setup();
         const onValueChange = vi.fn();
-        render(<RadioGroupWrapper options={options} onValueChange={onValueChange} />);
-        await user.click(document.querySelectorAll('[data-slot="radio-group-item"]')[0]!);
+        render(
+            <RadioGroupWrapper
+                options={options}
+                onValueChange={onValueChange}
+            />,
+        );
+        await user.click(
+            document.querySelectorAll('[data-slot="radio-group-item"]')[0]!,
+        );
         expect(onValueChange).toHaveBeenCalledWith('apple');
     });
 
@@ -109,8 +132,10 @@ describe('RadioGroupWrapper', () => {
 
     it('disables all items when disabled prop is true', () => {
         render(<RadioGroupWrapper options={options} disabled />);
-        const items = document.querySelectorAll('[data-slot="radio-group-item"]');
-        items.forEach((item) => expect(item).toBeDisabled());
+        const items = document.querySelectorAll(
+            '[data-slot="radio-group-item"]',
+        );
+        for (const item of items) expect(item).toBeDisabled();
     });
 
     it('disables individual item when option.disabled is true', () => {
@@ -122,7 +147,9 @@ describe('RadioGroupWrapper', () => {
                 ]}
             />,
         );
-        const items = document.querySelectorAll('[data-slot="radio-group-item"]');
+        const items = document.querySelectorAll(
+            '[data-slot="radio-group-item"]',
+        );
         expect(items[0]).toBeDisabled();
         expect(items[1]).not.toBeDisabled();
     });
@@ -130,8 +157,11 @@ describe('RadioGroupWrapper', () => {
     it('renders with horizontal orientation', () => {
         render(
             <RadioGroupWrapper
-                options={[{ value: 'a', label: 'A' }, { value: 'b', label: 'B' }]}
-                orientation='horizontal'
+                options={[
+                    { value: 'a', label: 'A' },
+                    { value: 'b', label: 'B' },
+                ]}
+                orientation="horizontal"
             />,
         );
         expect(screen.getByText('A')).toBeInTheDocument();
@@ -141,7 +171,13 @@ describe('RadioGroupWrapper', () => {
     it('renders description for an option', () => {
         render(
             <RadioGroupWrapper
-                options={[{ value: 'a', label: 'Option A', description: 'Helpful description' }]}
+                options={[
+                    {
+                        value: 'a',
+                        label: 'Option A',
+                        description: 'Helpful description',
+                    },
+                ]}
             />,
         );
         expect(screen.getByText('Helpful description')).toBeInTheDocument();
@@ -152,7 +188,7 @@ describe('RadioGroupItem label prop', () => {
     it('renders label text next to the item', () => {
         render(
             <RadioGroup>
-                <RadioGroupItem value='a' label='My Option' />
+                <RadioGroupItem value="a" label="My Option" />
             </RadioGroup>,
         );
         expect(screen.getByText('My Option')).toBeInTheDocument();

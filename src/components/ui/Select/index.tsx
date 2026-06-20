@@ -1,8 +1,13 @@
 'use client';
 
-import { useId } from 'react';
 import { cn } from '@/src/utils/funcs/cn';
-import { Field, FieldDescription, FieldError, FieldLabel } from '../Field/components';
+import { useId } from 'react';
+import {
+    Field,
+    FieldDescription,
+    FieldError,
+    FieldLabel,
+} from '../Field/components';
 import {
     Select,
     SelectContent,
@@ -40,13 +45,13 @@ function SelectWrapper({
                 <FieldLabel
                     htmlFor={generatedId}
                     required={required}
-                    className='text-foreground'
+                    className="text-foreground"
                 >
                     {label}
                 </FieldLabel>
             )}
             {description && (
-                <FieldDescription className='text-muted-foreground'>
+                <FieldDescription className="text-muted-foreground">
                     {description}
                 </FieldDescription>
             )}
@@ -60,9 +65,9 @@ function SelectWrapper({
                     aria-invalid={isInvalid || undefined}
                     className={triggerClassName}
                 >
-                    <span className='flex flex-1 items-center gap-2 overflow-hidden'>
+                    <span className="flex flex-1 items-center gap-2 overflow-hidden">
                         {startAddon && (
-                            <span className='shrink-0 text-muted-foreground'>
+                            <span className="shrink-0 text-muted-foreground">
                                 {startAddon}
                             </span>
                         )}
@@ -78,9 +83,9 @@ function SelectWrapper({
                     </span>
                 </SelectTrigger>
                 {!isLoading && !isError && (
-                    <SelectContent position='popper'>
+                    <SelectContent position="popper">
                         {options.length === 0 && (
-                            <div className='text-muted-foreground flex cursor-default items-center justify-center py-3 text-xs select-none'>
+                            <div className="flex cursor-default items-center justify-center py-3 text-xs text-muted-foreground select-none">
                                 No options available
                             </div>
                         )}
@@ -101,4 +106,4 @@ function SelectWrapper({
     );
 }
 
-export default SelectWrapper
+export default SelectWrapper;

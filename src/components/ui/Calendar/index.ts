@@ -1,1 +1,1 @@
-export { Calendar as default } from './components'
+export { Calendar as default } from './components';

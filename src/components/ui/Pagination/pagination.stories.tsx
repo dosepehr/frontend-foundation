@@ -53,7 +53,7 @@ export const FirstPage: Story = {
                 <PaginationItem>
                     <PaginationPrevious
                         aria-disabled
-                        className='pointer-events-none opacity-50'
+                        className="pointer-events-none opacity-50"
                     />
                 </PaginationItem>
                 <PaginationItem>
@@ -98,7 +98,7 @@ export const LastPage: Story = {
                 <PaginationItem>
                     <PaginationNext
                         aria-disabled
-                        className='pointer-events-none opacity-50'
+                        className="pointer-events-none opacity-50"
                     />
                 </PaginationItem>
             </PaginationContent>
@@ -148,8 +148,8 @@ export const Controlled: Story = {
         const total = 8;
 
         return (
-            <div className='flex flex-col items-center gap-4'>
-                <p className='text-sm text-muted-foreground'>
+            <div className="flex flex-col items-center gap-4">
+                <p className="text-sm text-muted-foreground">
                     Page {page} of {total}
                 </p>
                 <Pagination>
@@ -199,4 +199,3 @@ export const Controlled: Story = {
         );
     },
 };
-

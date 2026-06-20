@@ -78,7 +78,7 @@ export const NoLabel: Story = {
 
 export const AllVariants: Story = {
     render: () => (
-        <div className='flex flex-col gap-3'>
+        <div className="flex flex-col gap-3">
             {(
                 [
                     'default',
@@ -103,13 +103,12 @@ export const AllVariants: Story = {
 
 export const States: Story = {
     render: () => (
-        <div className='flex flex-col gap-3'>
-            <Checkbox label='Unchecked' />
-            <Checkbox label='Checked' defaultChecked />
-            <Checkbox label='Disabled' disabled />
-            <Checkbox label='Disabled checked' defaultChecked disabled />
+        <div className="flex flex-col gap-3">
+            <Checkbox label="Unchecked" />
+            <Checkbox label="Checked" defaultChecked />
+            <Checkbox label="Disabled" disabled />
+            <Checkbox label="Disabled checked" defaultChecked disabled />
         </div>
     ),
     args: {},
 };
-

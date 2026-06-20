@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { DataTableRoot, DataTablePagination } from './components'
-import type { DataTableProps } from './data-table.types'
+import { DataTablePagination, DataTableRoot } from './components';
+import type { DataTableProps } from './data-table.types';
 
 function DataTable<TData>({
     columns,
@@ -25,10 +25,10 @@ function DataTable<TData>({
     footerRow,
     hideRowIndex,
 }: DataTableProps<TData>) {
-    const isEmpty = data.length === 0
+    const isEmpty = data.length === 0;
 
     return (
-        <div className='flex flex-col gap-3'>
+        <div className="flex flex-col gap-3">
             <DataTableRoot
                 columns={columns}
                 data={data}
@@ -57,7 +57,7 @@ function DataTable<TData>({
                 />
             )}
         </div>
-    )
+    );
 }
 
-export default DataTable
+export default DataTable;

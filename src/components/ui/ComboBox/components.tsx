@@ -2,10 +2,11 @@
 'use client';
 /* c8 ignore stop */
 
+import { cn } from '@/src/utils/funcs/cn';
+import { CheckIcon, ChevronDown } from 'lucide-react';
+import type { ReactNode } from 'react';
 import * as React from 'react';
 import { useId } from 'react';
-import { CheckIcon, ChevronDown } from 'lucide-react';
-import { Popover, PopoverContent, PopoverTrigger } from '../Popover/components';
 import {
     Command,
     CommandGroup,
@@ -14,9 +15,8 @@ import {
     CommandList,
 } from '../Command/components';
 import { Field, FieldError, FieldLabel } from '../Field/components';
+import { Popover, PopoverContent, PopoverTrigger } from '../Popover/components';
 import type { ComboBoxProps } from './combo-box.types';
-import { cn } from '@/src/utils/funcs/cn';
-import type { ReactNode } from 'react';
 
 export const ComboBox: React.FC<ComboBoxProps> = ({
     options,
@@ -69,7 +69,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                 <FieldLabel
                     htmlFor={triggerId}
                     required={required}
-                    className='text-foreground'
+                    className="text-foreground"
                 >
                     {label}
                 </FieldLabel>
@@ -79,8 +79,8 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                 <PopoverTrigger asChild>
                     <button
                         id={triggerId}
-                        type='button'
-                        role='combobox'
+                        type="button"
+                        role="combobox"
                         disabled={disabled || isPending || isError}
                         aria-expanded={open}
                         aria-controls={listboxId}
@@ -90,7 +90,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                             'border-input/50 hover:enabled:not-aria-invalid:border-primary',
                             'aria-expanded:not-aria-invalid:border-primary aria-expanded:not-aria-invalid:ring-3 aria-expanded:not-aria-invalid:ring-primary/50',
                             'disabled:cursor-not-allowed disabled:opacity-50',
-                            'aria-invalid:border-destructive aria-invalid:hover:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/50'
+                            'aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/50 aria-invalid:hover:border-destructive',
                         )}
                     >
                         <span
@@ -98,7 +98,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                                 'flex-1 truncate text-start',
                                 selected
                                     ? 'text-foreground'
-                                    : 'text-muted-foreground'
+                                    : 'text-muted-foreground',
                             )}
                         >
                             {isPending
@@ -110,25 +110,25 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                         <ChevronDown
                             className={cn(
                                 'size-4 shrink-0 text-muted-foreground transition-transform duration-200',
-                                open && 'rotate-180'
+                                open && 'rotate-180',
                             )}
                         />
                     </button>
                 </PopoverTrigger>
 
                 <PopoverContent
-                    className='popover-content-width-full rounded-lg border-0 p-0 shadow-md ring-1 ring-foreground/10'
+                    className="popover-content-width-full rounded-lg border-0 p-0 shadow-md ring-1 ring-foreground/10"
                     sideOffset={5}
                 >
                     <Command onSearchChange={setCommandSearch}>
                         <CommandInput placeholder={searchPlaceholder} />
                         <div
-                            className='max-h-40 overflow-y-auto'
+                            className="max-h-40 overflow-y-auto"
                             onWheel={(e) => e.stopPropagation()}
                         >
                             <CommandList id={listboxId}>
                                 {!hasVisibleItems && (
-                                    <div className='py-6 text-center text-sm text-muted-foreground'>
+                                    <div className="py-6 text-center text-sm text-muted-foreground">
                                         {notFoundText}
                                     </div>
                                 )}
@@ -144,21 +144,21 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                                                     : '',
                                             ]}
                                             className={cn(
-                                                'mt-1 flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1.5 text-sm outline-hidden first:mt-0',
+                                                'mt-1 flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm outline-hidden select-none first:mt-0',
                                                 'hover:bg-accent hover:text-accent-foreground',
                                                 value === option.value &&
-                                                    'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground'
+                                                    'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground',
                                             )}
                                             onSelect={(currentValue) => {
                                                 onChange?.(
                                                     currentValue === value
                                                         ? ''
-                                                        : currentValue
+                                                        : currentValue,
                                                 );
                                                 setOpen(false);
                                             }}
                                         >
-                                            <span className='flex-1 truncate'>
+                                            <span className="flex-1 truncate">
                                                 {option.label}
                                             </span>
                                             <CheckIcon
@@ -166,7 +166,7 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
                                                     'size-3.5 shrink-0 transition-opacity',
                                                     value === option.value
                                                         ? 'opacity-100'
-                                                        : 'opacity-0'
+                                                        : 'opacity-0',
                                                 )}
                                             />
                                         </CommandItem>
@@ -182,4 +182,3 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
         </Field>
     );
 };
-

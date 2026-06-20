@@ -5,7 +5,9 @@ import { Calendar } from './components';
 describe('Calendar', () => {
     it('renders with data-slot="calendar"', () => {
         const { container } = render(<Calendar />);
-        expect(container.querySelector('[data-slot="calendar"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="calendar"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders day cells for the current month', () => {
@@ -27,22 +29,28 @@ describe('Calendar', () => {
 
         const now = new Date();
         const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-        const nextMonthLabel = nextMonth.toLocaleString('default', { month: 'long' });
+        const nextMonthLabel = nextMonth.toLocaleString('default', {
+            month: 'long',
+        });
 
         const nextBtn = screen.getByRole('button', { name: /next/i });
         await user.click(nextBtn);
 
-        expect(screen.getByText(new RegExp(nextMonthLabel, 'i'))).toBeInTheDocument();
+        expect(
+            screen.getByText(new RegExp(nextMonthLabel, 'i')),
+        ).toBeInTheDocument();
     });
 
     it('calls onDayClick when a day is selected', async () => {
         const user = userEvent.setup();
         const onSelect = vi.fn();
-        render(<Calendar mode='single' onSelect={onSelect} />);
+        render(<Calendar mode="single" onSelect={onSelect} />);
 
         const dayButtons = screen.getAllByRole('button');
         // click the first non-navigation day button (skip prev/next)
-        const dayButton = dayButtons.find((btn) => /^\d+$/.test(btn.textContent ?? ''));
+        const dayButton = dayButtons.find((btn) =>
+            /^\d+$/.test(btn.textContent ?? ''),
+        );
         if (dayButton) await user.click(dayButton);
 
         expect(onSelect).toHaveBeenCalled();
@@ -52,28 +60,46 @@ describe('Calendar', () => {
         const user = userEvent.setup();
         const onSelect = vi.fn();
         // disable all days
-        render(<Calendar mode='single' onSelect={onSelect} disabled={() => true} />);
+        render(
+            <Calendar
+                mode="single"
+                onSelect={onSelect}
+                disabled={() => true}
+            />,
+        );
 
         const dayButtons = screen.getAllByRole('button');
-        const dayButton = dayButtons.find((btn) => /^\d+$/.test(btn.textContent ?? ''));
+        const dayButton = dayButtons.find((btn) =>
+            /^\d+$/.test(btn.textContent ?? ''),
+        );
         if (dayButton) await user.click(dayButton);
 
         expect(onSelect).not.toHaveBeenCalled();
     });
 
     it('forwards className', () => {
-        const { container } = render(<Calendar className='custom-cal' />);
-        expect(container.querySelector('[data-slot="calendar"]')).toHaveClass('custom-cal');
+        const { container } = render(<Calendar className="custom-cal" />);
+        expect(container.querySelector('[data-slot="calendar"]')).toHaveClass(
+            'custom-cal',
+        );
     });
 
     it('renders week numbers when showWeekNumber is true', () => {
         const { container } = render(<Calendar showWeekNumber />);
-        expect(container.querySelector('[data-slot="calendar"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="calendar"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders with dropdown caption layout without errors', () => {
-        expect(() => render(
-            <Calendar captionLayout='dropdown' fromYear={2020} toYear={2030} />,
-        )).not.toThrow();
+        expect(() =>
+            render(
+                <Calendar
+                    captionLayout="dropdown"
+                    fromYear={2020}
+                    toYear={2030}
+                />,
+            ),
+        ).not.toThrow();
     });
 });

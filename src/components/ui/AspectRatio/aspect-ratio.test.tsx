@@ -5,7 +5,7 @@ describe('AspectRatio', () => {
     it('renders children', () => {
         render(
             <AspectRatio ratio={16 / 9}>
-                <img src='image.jpg' alt='test' />
+                <img src="image.jpg" alt="test" />
             </AspectRatio>,
         );
         expect(screen.getByAltText('test')).toBeInTheDocument();
@@ -17,7 +17,9 @@ describe('AspectRatio', () => {
                 <div>content</div>
             </AspectRatio>,
         );
-        expect(container.querySelector('[data-slot="aspect-ratio"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="aspect-ratio"]'),
+        ).toBeInTheDocument();
     });
 
     it('accepts a ratio prop without errors', () => {
@@ -34,10 +36,12 @@ describe('AspectRatio', () => {
 
     it('forwards className', () => {
         const { container } = render(
-            <AspectRatio ratio={1} className='custom-class'>
+            <AspectRatio ratio={1} className="custom-class">
                 <div>content</div>
             </AspectRatio>,
         );
-        expect(container.querySelector('[data-slot="aspect-ratio"]')).toHaveClass('custom-class');
+        expect(
+            container.querySelector('[data-slot="aspect-ratio"]'),
+        ).toHaveClass('custom-class');
     });
 });

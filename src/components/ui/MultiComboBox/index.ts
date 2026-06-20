@@ -1,2 +1,2 @@
-import { MultiComboBox } from './components'
-export default MultiComboBox
+import { MultiComboBox } from './components';
+export default MultiComboBox;

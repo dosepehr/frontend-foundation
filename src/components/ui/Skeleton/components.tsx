@@ -1,23 +1,23 @@
 /* c8 ignore start */
-'use client'
+'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/src/utils/funcs/cn'
+import { cn } from '@/src/utils/funcs/cn';
 
 function Skeleton({ className, ...props }: React.ComponentProps<'div'>) {
     return (
         <div
-            data-slot='skeleton'
+            data-slot="skeleton"
             className={cn(
-                'rounded-md bg-muted relative overflow-hidden',
+                'relative overflow-hidden rounded-md bg-muted',
                 'before:absolute before:inset-0',
                 'before:bg-gradient-to-r before:from-transparent before:via-foreground/5 before:to-transparent',
                 'before:animate-[shimmer_1.5s_infinite]',
-                className
+                className,
             )}
             {...props}
         />
-    )
+    );
 }
 
-export { Skeleton }
+export { Skeleton };

@@ -1,34 +1,34 @@
-'use client'
+'use client';
 
-import type { FC } from 'react'
-import { cva } from 'class-variance-authority'
+import { cva } from 'class-variance-authority';
+import type { FC } from 'react';
+import type { AlertDialogWrapperProps } from './alert-dialog.types';
 import {
     AlertDialog,
-    AlertDialogTrigger,
+    AlertDialogAction,
+    AlertDialogCancel,
     AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogMedia,
     AlertDialogTitle,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogCancel,
-    AlertDialogAction,
-} from './components'
-import type { AlertDialogWrapperProps } from './alert-dialog.types'
+    AlertDialogTrigger,
+} from './components';
 
 const mediaVariants = cva('', {
     variants: {
         intent: {
-            default:     'bg-muted text-foreground',
-            destructive: 'bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive',
-            warning:     'bg-warning/10 text-warning-foreground dark:bg-warning/20',
-            info:        'bg-info/10 text-info-foreground dark:bg-info/20',
-            success:     'bg-success/10 text-success-foreground dark:bg-success/20',
+            default: 'bg-muted text-foreground',
+            destructive:
+                'bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive',
+            warning: 'bg-warning/10 text-warning-foreground dark:bg-warning/20',
+            info: 'bg-info/10 text-info-foreground dark:bg-info/20',
+            success: 'bg-success/10 text-success-foreground dark:bg-success/20',
         },
     },
     defaultVariants: { intent: 'default' },
-})
-
+});
 
 const AlertDialogWrapper: FC<AlertDialogWrapperProps> = ({
     trigger,
@@ -50,22 +50,31 @@ const AlertDialogWrapper: FC<AlertDialogWrapperProps> = ({
             <AlertDialogContent size={size} {...contentProps}>
                 <AlertDialogHeader>
                     {media && (
-                        <AlertDialogMedia className={mediaVariants({ intent, className: mediaClassName })}>
+                        <AlertDialogMedia
+                            className={mediaVariants({
+                                intent,
+                                className: mediaClassName,
+                            })}
+                        >
                             {media}
                         </AlertDialogMedia>
                     )}
                     <AlertDialogTitle>{title}</AlertDialogTitle>
-                    <AlertDialogDescription>{description}</AlertDialogDescription>
+                    <AlertDialogDescription>
+                        {description}
+                    </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel {...cancelProps}>{cancelLabel}</AlertDialogCancel>
+                    <AlertDialogCancel {...cancelProps}>
+                        {cancelLabel}
+                    </AlertDialogCancel>
                     <AlertDialogAction variant={intent} {...actionProps}>
                         {confirmLabel}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
-    )
-}
+    );
+};
 
-export default AlertDialogWrapper
+export default AlertDialogWrapper;

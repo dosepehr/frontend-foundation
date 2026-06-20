@@ -1,8 +1,16 @@
-'use client'
+'use client';
 
-import type { FC } from 'react'
-import { Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent, CardFooter } from './components'
-import type { CardWrapperProps } from './card.types'
+import type { FC } from 'react';
+import type { CardWrapperProps } from './card.types';
+import {
+    Card,
+    CardAction,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from './components';
 
 const CardWrapper: FC<CardWrapperProps> = ({
     title,
@@ -21,14 +29,18 @@ const CardWrapper: FC<CardWrapperProps> = ({
             {(title || description || action) && (
                 <CardHeader {...headerProps}>
                     {title && <CardTitle>{title}</CardTitle>}
-                    {description && <CardDescription>{description}</CardDescription>}
+                    {description && (
+                        <CardDescription>{description}</CardDescription>
+                    )}
                     {action && <CardAction>{action}</CardAction>}
                 </CardHeader>
             )}
-            {children && <CardContent {...contentProps}>{children}</CardContent>}
+            {children && (
+                <CardContent {...contentProps}>{children}</CardContent>
+            )}
             {footer && <CardFooter {...footerProps}>{footer}</CardFooter>}
         </Card>
-    )
-}
+    );
+};
 
-export default CardWrapper
+export default CardWrapper;

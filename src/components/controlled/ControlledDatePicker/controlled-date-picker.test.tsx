@@ -19,7 +19,7 @@ function TestForm({
     const { control } = useForm<TestForm>({ defaultValues });
     return (
         <ControlledDatePicker
-            name='date'
+            name="date"
             control={control}
             onValueChange={onValueChange}
             error={error}
@@ -39,7 +39,7 @@ describe('ControlledDatePicker', () => {
     });
 
     it('shows placeholder text when no date is selected', () => {
-        render(<TestForm placeholder='Pick a date' />);
+        render(<TestForm placeholder="Pick a date" />);
         expect(screen.getByText('Pick a date')).toBeInTheDocument();
     });
 
@@ -49,7 +49,7 @@ describe('ControlledDatePicker', () => {
     });
 
     it('shows prop-level error', () => {
-        render(<TestForm error='Date is required' />);
+        render(<TestForm error="Date is required" />);
         expect(screen.getByText('Date is required')).toBeInTheDocument();
     });
 
@@ -70,7 +70,9 @@ describe('ControlledDatePicker', () => {
         render(<TestForm onValueChange={onValueChange} />);
         await user.click(screen.getByRole('button'));
         const dayButtons = screen.getAllByRole('button');
-        const dayButton = dayButtons.find((btn) => /^\d+$/.test(btn.textContent ?? ''));
+        const dayButton = dayButtons.find((btn) =>
+            /^\d+$/.test(btn.textContent ?? ''),
+        );
         if (dayButton) await user.click(dayButton);
         expect(onValueChange).toHaveBeenCalled();
     });

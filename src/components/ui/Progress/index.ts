@@ -1,1 +1,1 @@
-export { Progress as default } from './components'
+export { Progress as default } from './components';

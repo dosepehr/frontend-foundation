@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import {
+    AlertTriangleIcon,
     CheckIcon,
     InfoIcon,
-    AlertTriangleIcon,
-    XCircleIcon,
     StarIcon,
+    XCircleIcon,
 } from 'lucide-react';
 import Badge from '.';
 
@@ -58,7 +58,7 @@ export const Default: Story = {
 
 export const SoftVariants: Story = {
     render: () => (
-        <div className='flex flex-wrap gap-2'>
+        <div className="flex flex-wrap gap-2">
             {(
                 [
                     'default',
@@ -71,7 +71,7 @@ export const SoftVariants: Story = {
                     'ghost',
                 ] as const
             ).map((variant) => (
-                <Badge key={variant} variant={variant} appearance='soft'>
+                <Badge key={variant} variant={variant} appearance="soft">
                     {variant.charAt(0).toUpperCase() + variant.slice(1)}
                 </Badge>
             ))}
@@ -82,7 +82,7 @@ export const SoftVariants: Story = {
 
 export const SolidVariants: Story = {
     render: () => (
-        <div className='flex flex-wrap gap-2'>
+        <div className="flex flex-wrap gap-2">
             {(
                 [
                     'default',
@@ -93,7 +93,7 @@ export const SolidVariants: Story = {
                     'info',
                 ] as const
             ).map((variant) => (
-                <Badge key={variant} variant={variant} appearance='solid'>
+                <Badge key={variant} variant={variant} appearance="solid">
                     {variant.charAt(0).toUpperCase() + variant.slice(1)}
                 </Badge>
             ))}
@@ -104,7 +104,7 @@ export const SolidVariants: Story = {
 
 export const AppearanceComparison: Story = {
     render: () => (
-        <div className='flex flex-col gap-4'>
+        <div className="flex flex-col gap-4">
             {(
                 [
                     'default',
@@ -114,14 +114,14 @@ export const AppearanceComparison: Story = {
                     'info',
                 ] as const
             ).map((variant) => (
-                <div key={variant} className='flex items-center gap-3'>
-                    <span className='w-24 text-xs text-muted-foreground capitalize'>
+                <div key={variant} className="flex items-center gap-3">
+                    <span className="w-24 text-xs text-muted-foreground capitalize">
                         {variant}
                     </span>
-                    <Badge variant={variant} appearance='soft'>
+                    <Badge variant={variant} appearance="soft">
                         {variant} soft
                     </Badge>
-                    <Badge variant={variant} appearance='solid'>
+                    <Badge variant={variant} appearance="solid">
                         {variant} solid
                     </Badge>
                 </div>
@@ -133,24 +133,24 @@ export const AppearanceComparison: Story = {
 
 export const WithIcon: Story = {
     render: () => (
-        <div className='flex flex-wrap gap-2'>
-            <Badge variant='success' appearance='soft'>
+        <div className="flex flex-wrap gap-2">
+            <Badge variant="success" appearance="soft">
                 <CheckIcon />
                 Completed
             </Badge>
-            <Badge variant='info' appearance='soft'>
+            <Badge variant="info" appearance="soft">
                 <InfoIcon />
                 In Review
             </Badge>
-            <Badge variant='warning' appearance='soft'>
+            <Badge variant="warning" appearance="soft">
                 <AlertTriangleIcon />
                 Pending
             </Badge>
-            <Badge variant='destructive' appearance='soft'>
+            <Badge variant="destructive" appearance="soft">
                 <XCircleIcon />
                 Failed
             </Badge>
-            <Badge variant='default' appearance='solid'>
+            <Badge variant="default" appearance="solid">
                 <StarIcon />
                 Featured
             </Badge>
@@ -214,16 +214,16 @@ export const Link: Story = {
 
 export const WithTrailingIcon: Story = {
     render: () => (
-        <div className='flex flex-wrap gap-2'>
-            <Badge variant='success' appearance='soft'>
+        <div className="flex flex-wrap gap-2">
+            <Badge variant="success" appearance="soft">
                 Completed
                 <CheckIcon />
             </Badge>
-            <Badge variant='warning' appearance='soft'>
+            <Badge variant="warning" appearance="soft">
                 Pending
                 <AlertTriangleIcon />
             </Badge>
-            <Badge variant='destructive' appearance='soft'>
+            <Badge variant="destructive" appearance="soft">
                 Failed
                 <XCircleIcon />
             </Badge>
@@ -234,10 +234,9 @@ export const WithTrailingIcon: Story = {
 
 export const AsLink: Story = {
     render: () => (
-        <Badge asChild variant='default' appearance='soft'>
-            <a href='#'>Clickable badge</a>
+        <Badge asChild variant="default" appearance="soft">
+            <a href="#">Clickable badge</a>
         </Badge>
     ),
     args: {},
 };
-

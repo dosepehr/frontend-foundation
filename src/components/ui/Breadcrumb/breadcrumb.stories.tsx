@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { SlashIcon, ChevronRightIcon, HomeIcon } from 'lucide-react'
-import BreadcrumbWrapper from '.'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { ChevronRightIcon, HomeIcon, SlashIcon } from 'lucide-react';
+import BreadcrumbWrapper from '.';
 
 const meta: Meta<typeof BreadcrumbWrapper> = {
     title: 'UI/Breadcrumb',
@@ -9,7 +9,8 @@ const meta: Meta<typeof BreadcrumbWrapper> = {
     argTypes: {
         items: {
             control: 'object',
-            description: 'Array of breadcrumb items with label and optional href',
+            description:
+                'Array of breadcrumb items with label and optional href',
         },
         separator: {
             control: false,
@@ -17,38 +18,37 @@ const meta: Meta<typeof BreadcrumbWrapper> = {
         },
         ellipsis: {
             control: 'boolean',
-            description: 'Collapse middle items into an ellipsis when over maxItems',
+            description:
+                'Collapse middle items into an ellipsis when over maxItems',
         },
         maxItems: {
             control: 'number',
-            description: 'Max visible items before collapsing (requires ellipsis: true)',
+            description:
+                'Max visible items before collapsing (requires ellipsis: true)',
         },
     },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof BreadcrumbWrapper>
+export default meta;
+type Story = StoryObj<typeof BreadcrumbWrapper>;
 
 const defaultItems = [
     { label: 'Home', href: '/' },
     { label: 'Components', href: '/components' },
     { label: 'Breadcrumb' },
-]
+];
 
 export const Default: Story = {
     args: {
         items: defaultItems,
     },
-}
+};
 
 export const TwoItems: Story = {
     args: {
-        items: [
-            { label: 'Home', href: '/' },
-            { label: 'Dashboard' },
-        ],
+        items: [{ label: 'Home', href: '/' }, { label: 'Dashboard' }],
     },
-}
+};
 
 export const LongPath: Story = {
     args: {
@@ -60,7 +60,7 @@ export const LongPath: Story = {
             { label: 'Two-Factor Auth' },
         ],
     },
-}
+};
 
 export const WithEllipsis: Story = {
     args: {
@@ -74,28 +74,28 @@ export const WithEllipsis: Story = {
         ellipsis: true,
         maxItems: 3,
     },
-}
+};
 
 export const SlashSeparator: Story = {
     args: {
         items: defaultItems,
-        separator: <SlashIcon className='size-3.5' />,
+        separator: <SlashIcon className="size-3.5" />,
     },
-}
+};
 
 export const CustomSeparator: Story = {
     args: {
         items: defaultItems,
-        separator: <ChevronRightIcon className='text-primary' />,
+        separator: <ChevronRightIcon className="text-primary" />,
     },
-}
+};
 
 export const WithHomeIcon: Story = {
     args: {
         items: [
-            { label: <HomeIcon className='size-4' />, href: '/' },
+            { label: <HomeIcon className="size-4" />, href: '/' },
             { label: 'Components', href: '/components' },
             { label: 'Breadcrumb' },
         ],
     },
-}
+};

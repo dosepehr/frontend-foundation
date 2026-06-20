@@ -55,14 +55,14 @@ export const SinglePicker: Story = {
     render: (args) => {
         const [date, setDate] = useState<Date | undefined>(new Date());
         return (
-            <div className='flex flex-col items-center gap-4'>
+            <div className="flex flex-col items-center gap-4">
                 <Calendar
                     {...args}
-                    mode='single'
+                    mode="single"
                     selected={date}
                     onSelect={setDate}
                 />
-                <p className='text-sm text-muted-foreground'>
+                <p className="text-sm text-muted-foreground">
                     {date ? date.toLocaleDateString() : 'No date selected'}
                 </p>
             </div>
@@ -78,15 +78,15 @@ export const RangePicker: Story = {
     render: (args) => {
         const [range, setRange] = useState<DateRange | undefined>();
         return (
-            <div className='flex flex-col items-center gap-4'>
+            <div className="flex flex-col items-center gap-4">
                 <Calendar
                     {...args}
-                    mode='range'
+                    mode="range"
                     selected={range}
                     onSelect={setRange}
                     numberOfMonths={2}
                 />
-                <p className='text-sm text-muted-foreground'>
+                <p className="text-sm text-muted-foreground">
                     {range?.from
                         ? range.to
                             ? `${range.from.toLocaleDateString()} → ${range.to.toLocaleDateString()}`
@@ -106,14 +106,14 @@ export const MultiplePicker: Story = {
     render: (args) => {
         const [dates, setDates] = useState<Date[] | undefined>();
         return (
-            <div className='flex flex-col items-center gap-4'>
+            <div className="flex flex-col items-center gap-4">
                 <Calendar
                     {...args}
-                    mode='multiple'
+                    mode="multiple"
                     selected={dates}
                     onSelect={setDates}
                 />
-                <p className='text-sm text-muted-foreground'>
+                <p className="text-sm text-muted-foreground">
                     {dates?.length
                         ? `${dates.length} day${dates.length > 1 ? 's' : ''} selected`
                         : 'Select multiple days'}
@@ -135,7 +135,7 @@ export const WithDisabledDates: Story = {
         return (
             <Calendar
                 {...args}
-                mode='single'
+                mode="single"
                 selected={date}
                 onSelect={setDate}
                 disabled={disablePast}
@@ -164,4 +164,3 @@ export const TwoMonths: Story = {
         captionLayout: 'label',
     },
 };
-

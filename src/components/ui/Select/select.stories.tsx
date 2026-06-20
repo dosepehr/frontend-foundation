@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { MapPinIcon } from 'lucide-react'
-import SelectWrapper from '.'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { MapPinIcon } from 'lucide-react';
+import SelectWrapper from '.';
 
 const FRUITS = [
     { value: 'apple', label: 'Apple' },
@@ -8,7 +8,7 @@ const FRUITS = [
     { value: 'cherry', label: 'Cherry' },
     { value: 'durian', label: 'Durian', disabled: true },
     { value: 'elderberry', label: 'Elderberry' },
-]
+];
 
 const COUNTRIES = [
     { value: 'ir', label: 'Iran' },
@@ -18,7 +18,7 @@ const COUNTRIES = [
     { value: 'br', label: 'Brazil' },
     { value: 'ca', label: 'Canada' },
     { value: 'au', label: 'Australia' },
-]
+];
 
 const meta: Meta<typeof SelectWrapper> = {
     title: 'UI/Select',
@@ -37,15 +37,15 @@ const meta: Meta<typeof SelectWrapper> = {
     parameters: { layout: 'centered' },
     decorators: [
         (Story) => (
-            <div className='w-72'>
+            <div className="w-72">
                 <Story />
             </div>
         ),
     ],
-}
+};
 
-export default meta
-type Story = StoryObj<typeof SelectWrapper>
+export default meta;
+type Story = StoryObj<typeof SelectWrapper>;
 
 export const Default: Story = {
     args: {
@@ -53,7 +53,7 @@ export const Default: Story = {
         placeholder: 'Select a fruit',
         options: FRUITS,
     },
-}
+};
 
 export const WithDescription: Story = {
     args: {
@@ -62,7 +62,7 @@ export const WithDescription: Story = {
         placeholder: 'Select a country',
         options: COUNTRIES,
     },
-}
+};
 
 export const Required: Story = {
     args: {
@@ -71,7 +71,7 @@ export const Required: Story = {
         options: FRUITS,
         required: true,
     },
-}
+};
 
 export const Invalid: Story = {
     args: {
@@ -80,7 +80,7 @@ export const Invalid: Story = {
         options: FRUITS,
         error: 'Please select an option.',
     },
-}
+};
 
 export const Disabled: Story = {
     args: {
@@ -89,16 +89,16 @@ export const Disabled: Story = {
         options: FRUITS,
         disabled: true,
     },
-}
+};
 
 export const WithStartAddon: Story = {
     args: {
         label: 'Country',
         placeholder: 'Select a country',
         options: COUNTRIES,
-        startAddon: <MapPinIcon className='size-4' />,
+        startAddon: <MapPinIcon className="size-4" />,
     },
-}
+};
 
 export const Loading: Story = {
     args: {
@@ -106,7 +106,7 @@ export const Loading: Story = {
         placeholder: 'Select a fruit',
         isLoading: true,
     },
-}
+};
 
 export const ErrorState: Story = {
     args: {
@@ -114,7 +114,7 @@ export const ErrorState: Story = {
         placeholder: 'Select a fruit',
         isError: true,
     },
-}
+};
 
 export const Empty: Story = {
     args: {
@@ -122,7 +122,7 @@ export const Empty: Story = {
         placeholder: 'Select a fruit',
         options: [],
     },
-}
+};
 
 export const WithDisabledOption: Story = {
     args: {
@@ -131,4 +131,4 @@ export const WithDisabledOption: Story = {
         options: FRUITS,
         description: 'Durian is currently unavailable.',
     },
-}
+};

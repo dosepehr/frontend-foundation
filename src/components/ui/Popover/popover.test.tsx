@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Popover, PopoverTrigger, PopoverContent } from './components';
+import { Popover, PopoverContent, PopoverTrigger } from './components';
 
 describe('Popover', () => {
     it('renders trigger without errors', () => {

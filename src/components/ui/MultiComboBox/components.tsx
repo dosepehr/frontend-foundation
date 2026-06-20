@@ -1,22 +1,22 @@
 /* c8 ignore start */
-'use client'
+'use client';
 /* c8 ignore stop */
 
-import * as React from 'react'
-import { useId, useMemo, useCallback } from 'react'
-import { CheckIcon, ChevronDown, X } from 'lucide-react'
-import { Popover, PopoverContent, PopoverTrigger } from '../Popover/components'
+import { cn } from '@/src/utils/funcs/cn';
+import { CheckIcon, ChevronDown, X } from 'lucide-react';
+import * as React from 'react';
+import { useCallback, useId, useMemo } from 'react';
+import { Badge } from '../Badge/components';
 import {
     Command,
     CommandGroup,
     CommandInput,
     CommandItem,
     CommandList,
-} from '../Command/components'
-import { Field, FieldError, FieldLabel } from '../Field/components'
-import { Badge } from '../Badge/components'
-import type { MultiComboBoxProps } from './multi-combo-box.types'
-import { cn } from '@/src/utils/funcs/cn'
+} from '../Command/components';
+import { Field, FieldError, FieldLabel } from '../Field/components';
+import { Popover, PopoverContent, PopoverTrigger } from '../Popover/components';
+import type { MultiComboBoxProps } from './multi-combo-box.types';
 
 export const MultiComboBox: React.FC<MultiComboBoxProps> = ({
     options,
@@ -34,50 +34,50 @@ export const MultiComboBox: React.FC<MultiComboBoxProps> = ({
     hideSelectedBadges = false,
     className,
 }) => {
-    const [open, setOpen] = React.useState(false)
-    const [commandSearch, setCommandSearch] = React.useState('')
-    const triggerId = useId()
-    const listboxId = useId()
-    const isInvalid = !!error
+    const [open, setOpen] = React.useState(false);
+    const [commandSearch, setCommandSearch] = React.useState('');
+    const triggerId = useId();
+    const listboxId = useId();
+    const isInvalid = !!error;
 
     const handleOpenChange = (isOpen: boolean) => {
-        setOpen(isOpen)
-        if (!isOpen) setCommandSearch('')
-    }
+        setOpen(isOpen);
+        if (!isOpen) setCommandSearch('');
+    };
 
     const toggle = useCallback(
         (value: string) => {
-            if (!onChange) return
+            if (!onChange) return;
             const next = selected.includes(value)
                 ? selected.filter((v) => v !== value)
-                : [...selected, value]
-            onChange(next)
+                : [...selected, value];
+            onChange(next);
         },
-        [selected, onChange]
-    )
+        [selected, onChange],
+    );
 
     const remove = useCallback(
         (value: string, e?: React.MouseEvent) => {
-            e?.stopPropagation()
-            onChange?.(selected.filter((v) => v !== value))
+            e?.stopPropagation();
+            onChange?.(selected.filter((v) => v !== value));
         },
-        [selected, onChange]
-    )
+        [selected, onChange],
+    );
 
     const selectedOptions = useMemo(
         () => options.filter((opt) => selected.includes(opt.value)),
-        [options, selected]
-    )
+        [options, selected],
+    );
 
     const hasVisibleItems = useMemo(() => {
-        const q = commandSearch.toLowerCase()
-        if (!q) return options.length > 0
+        const q = commandSearch.toLowerCase();
+        if (!q) return options.length > 0;
         return options.some(
             (opt) =>
                 opt.value.toLowerCase().includes(q) ||
-                opt.label.toLowerCase().includes(q)
-        )
-    }, [commandSearch, options])
+                opt.label.toLowerCase().includes(q),
+        );
+    }, [commandSearch, options]);
 
     const triggerText = isPending
         ? 'Loading...'
@@ -85,7 +85,7 @@ export const MultiComboBox: React.FC<MultiComboBoxProps> = ({
           ? 'Failed to load'
           : selected.length > 0
             ? `${selected.length} selected`
-            : placeholder
+            : placeholder;
 
     return (
         <Field
@@ -93,7 +93,11 @@ export const MultiComboBox: React.FC<MultiComboBoxProps> = ({
             className={cn('relative', className)}
         >
             {label && (
-                <FieldLabel htmlFor={triggerId} required={required} className='text-foreground'>
+                <FieldLabel
+                    htmlFor={triggerId}
+                    required={required}
+                    className="text-foreground"
+                >
                     {label}
                 </FieldLabel>
             )}
@@ -102,8 +106,8 @@ export const MultiComboBox: React.FC<MultiComboBoxProps> = ({
                 <PopoverTrigger asChild>
                     <button
                         id={triggerId}
-                        type='button'
-                        role='combobox'
+                        type="button"
+                        role="combobox"
                         disabled={disabled || isPending || isError}
                         aria-expanded={open}
                         aria-controls={listboxId}
@@ -113,13 +117,15 @@ export const MultiComboBox: React.FC<MultiComboBoxProps> = ({
                             'border-input/50 hover:enabled:not-aria-invalid:border-primary',
                             'aria-expanded:not-aria-invalid:border-primary aria-expanded:not-aria-invalid:ring-3 aria-expanded:not-aria-invalid:ring-primary/50',
                             'disabled:cursor-not-allowed disabled:opacity-50',
-                            'aria-invalid:border-destructive aria-invalid:hover:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/50'
+                            'aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/50 aria-invalid:hover:border-destructive',
                         )}
                     >
                         <span
                             className={cn(
                                 'flex-1 truncate text-start',
-                                selected.length > 0 ? 'text-foreground' : 'text-muted-foreground'
+                                selected.length > 0
+                                    ? 'text-foreground'
+                                    : 'text-muted-foreground',
                             )}
                         >
                             {triggerText}
@@ -127,53 +133,61 @@ export const MultiComboBox: React.FC<MultiComboBoxProps> = ({
                         <ChevronDown
                             className={cn(
                                 'size-4 shrink-0 text-muted-foreground transition-transform duration-200',
-                                open && 'rotate-180'
+                                open && 'rotate-180',
                             )}
                         />
                     </button>
                 </PopoverTrigger>
 
                 <PopoverContent
-                    className='popover-content-width-full rounded-lg border-0 p-0 shadow-md ring-1 ring-foreground/10'
+                    className="popover-content-width-full rounded-lg border-0 p-0 shadow-md ring-1 ring-foreground/10"
                     sideOffset={5}
                 >
                     <Command onSearchChange={setCommandSearch}>
                         <CommandInput placeholder={searchPlaceholder} />
                         <div
-                            className='max-h-40 overflow-y-auto'
+                            className="max-h-40 overflow-y-auto"
                             onWheel={(e) => e.stopPropagation()}
                         >
                             <CommandList id={listboxId}>
                                 {!hasVisibleItems && (
-                                    <div className='py-6 text-center text-sm text-muted-foreground'>
+                                    <div className="py-6 text-center text-sm text-muted-foreground">
                                         {notFoundText}
                                     </div>
                                 )}
                                 <CommandGroup>
                                     {options.map((option) => {
-                                        const isSelected = selected.includes(option.value)
+                                        const isSelected = selected.includes(
+                                            option.value,
+                                        );
                                         return (
                                             <CommandItem
                                                 key={option.value}
                                                 value={option.value}
                                                 keywords={[option.label]}
                                                 className={cn(
-                                                    'mt-1 flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1.5 text-sm outline-hidden first:mt-0',
+                                                    'mt-1 flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm outline-hidden select-none first:mt-0',
                                                     'hover:bg-accent hover:text-accent-foreground',
                                                     isSelected &&
-                                                        'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground'
+                                                        'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground',
                                                 )}
-                                                onSelect={() => toggle(option.value)}
+                                                onSelect={() =>
+                                                    toggle(option.value)
+                                                }
                                             >
-                                                <span className='flex-1 truncate'>{option.label}</span>
+                                                <span className="flex-1 truncate">
+                                                    {option.label}
+                                                </span>
                                                 <CheckIcon
                                                     className={cn(
                                                         'size-3.5 shrink-0 transition-opacity',
-                                                        isSelected ? 'opacity-100' : 'opacity-0'
+                                                        isSelected
+                                                            ? 'opacity-100'
+                                                            : 'opacity-0',
                                                     )}
                                                 />
                                             </CommandItem>
-                                        )
+                                        );
                                     })}
                                 </CommandGroup>
                             </CommandList>
@@ -183,17 +197,21 @@ export const MultiComboBox: React.FC<MultiComboBoxProps> = ({
             </Popover>
 
             {!hideSelectedBadges && selectedOptions.length > 0 && (
-                <div className='mt-2 flex flex-wrap gap-1.5'>
+                <div className="mt-2 flex flex-wrap gap-1.5">
                     {selectedOptions.map((opt) => (
-                        <Badge key={opt.value} variant='default' appearance='soft'>
+                        <Badge
+                            key={opt.value}
+                            variant="default"
+                            appearance="soft"
+                        >
                             {opt.label}
                             {!disabled && !isPending && (
                                 <button
-                                    type='button'
+                                    type="button"
                                     onClick={(e) => remove(opt.value, e)}
                                     aria-label={`Remove ${opt.label}`}
                                 >
-                                    <X className='size-3' />
+                                    <X className="size-3" />
                                 </button>
                             )}
                         </Badge>
@@ -203,5 +221,5 @@ export const MultiComboBox: React.FC<MultiComboBoxProps> = ({
 
             <FieldError>{error}</FieldError>
         </Field>
-    )
-}
+    );
+};

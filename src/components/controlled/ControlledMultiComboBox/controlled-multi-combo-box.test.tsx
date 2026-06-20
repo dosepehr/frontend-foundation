@@ -27,7 +27,7 @@ function TestForm({
     const { control } = useForm<TestForm>({ defaultValues });
     return (
         <ControlledMultiComboBox
-            name='frameworks'
+            name="frameworks"
             control={control}
             options={options}
             onValueChange={onValueChange}
@@ -55,8 +55,10 @@ describe('ControlledMultiComboBox', () => {
     });
 
     it('shows prop-level error', () => {
-        render(<TestForm error='Select at least one framework' />);
-        expect(screen.getByText('Select at least one framework')).toBeInTheDocument();
+        render(<TestForm error="Select at least one framework" />);
+        expect(
+            screen.getByText('Select at least one framework'),
+        ).toBeInTheDocument();
     });
 
     it('calls onValueChange when an option is selected', async () => {
@@ -76,7 +78,9 @@ describe('ControlledMultiComboBox', () => {
     });
 
     it('applies transformFromForm to convert form values to selected strings', () => {
-        const transformFromForm = (v: unknown[]) => (v as string[]).map((s) => s.toLowerCase());
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        const transformFromForm = (v: unknown[]) =>
+            (v as string[]).map((s) => s.toLowerCase());
         render(
             <TestForm
                 defaultValues={{ frameworks: ['REACT'] as unknown as string[] }}
@@ -88,16 +92,27 @@ describe('ControlledMultiComboBox', () => {
 
     it('applies transformToForm when calling field.onChange', async () => {
         const user = userEvent.setup();
-        const transformToForm = vi.fn((v: string[]) => v.map((s) => s.toUpperCase()));
+        const transformToForm = vi.fn((v: string[]) =>
+            v.map((s) => s.toUpperCase()),
+        );
         const onValueChange = vi.fn();
-        render(<TestForm transformToForm={transformToForm} onValueChange={onValueChange} />);
+        render(
+            <TestForm
+                transformToForm={transformToForm}
+                onValueChange={onValueChange}
+            />,
+        );
         await user.click(screen.getByRole('combobox'));
         await user.click(screen.getByText('Vue'));
         expect(transformToForm).toHaveBeenCalledWith(['vue']);
     });
 
     it('defaults selected to [] when field.value is undefined', () => {
-        render(<TestForm defaultValues={{ frameworks: undefined as unknown as string[] }} />);
+        render(
+            <TestForm
+                defaultValues={{ frameworks: undefined as unknown as string[] }}
+            />,
+        );
         expect(screen.getByRole('combobox')).toBeInTheDocument();
     });
 });

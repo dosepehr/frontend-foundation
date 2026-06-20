@@ -1,3 +1,3 @@
-import { FileTree } from './components'
+import { FileTree } from './components';
 
-export default FileTree
+export default FileTree;

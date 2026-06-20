@@ -1,17 +1,22 @@
-'use client'
+'use client';
 
-import { Controller, type Control, type FieldValues, type Path } from 'react-hook-form'
-import { DatePickerProps } from '../../ui/DatePicker/date-picker.types'
-import DatePicker from '../../ui/DatePicker'
+import {
+    Controller,
+    type Control,
+    type FieldValues,
+    type Path,
+} from 'react-hook-form';
+import DatePicker from '../../ui/DatePicker';
+import { type DatePickerProps } from '../../ui/DatePicker/date-picker.types';
 
 export type ControlledDatePickerProps<T extends FieldValues> = Omit<
     DatePickerProps,
     'value' | 'onChange'
 > & {
-    name: Path<T>
-    control: Control<T>
-    onValueChange?: (date: Date | undefined) => void
-}
+    name: Path<T>;
+    control: Control<T>;
+    onValueChange?: (date: Date | undefined) => void;
+};
 
 export const ControlledDatePicker = <T extends FieldValues>({
     name,
@@ -28,11 +33,11 @@ export const ControlledDatePicker = <T extends FieldValues>({
                 {...props}
                 value={field.value}
                 onChange={(date) => {
-                    field.onChange(date)
-                    onValueChange?.(date)
+                    field.onChange(date);
+                    onValueChange?.(date);
                 }}
                 error={error ?? fieldState.error?.message}
             />
         )}
     />
-)
+);

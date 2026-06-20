@@ -1,30 +1,40 @@
-'use client'
+'use client';
 
-import { useTheme } from 'next-themes'
-import { useSyncExternalStore } from 'react'
-import { MoonIcon, SunIcon, SunMoonIcon } from 'lucide-react'
-import Button from '@/src/components/ui/Button'
-import type { Theme } from './theme-changer.types'
+import Button from '@/src/components/ui/Button';
+import { MoonIcon, SunIcon, SunMoonIcon } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useSyncExternalStore } from 'react';
+import type { Theme } from './theme-changer.types';
 
 const icons: Record<Theme, React.ReactNode> = {
     light: <SunIcon />,
     dark: <MoonIcon />,
     system: <SunMoonIcon />,
-}
+};
 
 const next: Record<Theme, Theme> = {
     light: 'dark',
     dark: 'system',
     system: 'light',
-}
+};
 
 function ThemeChanger() {
-    const { theme, setTheme } = useTheme()
-    const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
+    const { theme, setTheme } = useTheme();
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    const mounted = useSyncExternalStore(
+        () => () => {},
+        () => true,
+        () => false,
+    );
 
-    if (!mounted) return <Button variant="ghost" size="icon" disabled><SunIcon /></Button>
+    if (!mounted)
+        return (
+            <Button variant="ghost" size="icon" disabled>
+                <SunIcon />
+            </Button>
+        );
 
-    const current = (theme as Theme) ?? 'system'
+    const current = (theme as Theme) ?? 'system';
 
     return (
         <Button
@@ -35,7 +45,7 @@ function ThemeChanger() {
         >
             {icons[current]}
         </Button>
-    )
+    );
 }
 
-export { ThemeChanger }
+export { ThemeChanger };

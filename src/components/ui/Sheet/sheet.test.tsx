@@ -2,13 +2,13 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
     Sheet,
-    SheetTrigger,
-    SheetContent,
-    SheetHeader,
-    SheetFooter,
-    SheetTitle,
-    SheetDescription,
     SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
 } from './components';
 
 describe('Sheet', () => {
@@ -33,7 +33,9 @@ describe('Sheet', () => {
                 </SheetContent>
             </Sheet>,
         );
-        expect(document.querySelector('[data-slot="sheet-content"]')).not.toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="sheet-content"]'),
+        ).not.toBeInTheDocument();
     });
 
     it('content becomes visible after trigger click', async () => {
@@ -47,7 +49,9 @@ describe('Sheet', () => {
             </Sheet>,
         );
         await user.click(screen.getByText('Open'));
-        expect(document.querySelector('[data-slot="sheet-content"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="sheet-content"]'),
+        ).toBeInTheDocument();
     });
 
     it('content is visible when open prop is true', () => {
@@ -58,7 +62,9 @@ describe('Sheet', () => {
                 </SheetContent>
             </Sheet>,
         );
-        expect(document.querySelector('[data-slot="sheet-content"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="sheet-content"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders SheetTitle text', () => {
@@ -94,7 +100,9 @@ describe('Sheet', () => {
                 </SheetContent>
             </Sheet>,
         );
-        expect(document.querySelector('[data-slot="sheet-header"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="sheet-header"]'),
+        ).toBeInTheDocument();
     });
 
     it('SheetFooter has data-slot="sheet-footer"', () => {
@@ -106,7 +114,9 @@ describe('Sheet', () => {
                 </SheetContent>
             </Sheet>,
         );
-        expect(document.querySelector('[data-slot="sheet-footer"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="sheet-footer"]'),
+        ).toBeInTheDocument();
     });
 
     it('calls onOpenChange when opened', async () => {
@@ -133,6 +143,8 @@ describe('Sheet', () => {
                 </SheetContent>
             </Sheet>,
         );
-        expect(document.querySelector('[data-slot="sheet-close"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="sheet-close"]'),
+        ).toBeInTheDocument();
     });
 });

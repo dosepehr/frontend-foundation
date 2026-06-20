@@ -1,23 +1,23 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import DropdownMenuWrapper from './index';
 import {
     DropdownMenu,
-    DropdownMenuTrigger,
+    DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuCheckboxItem,
+    DropdownMenuPortal,
     DropdownMenuRadioGroup,
     DropdownMenuRadioItem,
+    DropdownMenuSeparator,
     DropdownMenuShortcut,
     DropdownMenuSub,
-    DropdownMenuSubTrigger,
     DropdownMenuSubContent,
-    DropdownMenuPortal,
+    DropdownMenuSubTrigger,
+    DropdownMenuTrigger,
 } from './components';
 import type { DropdownGroup } from './dropdown-menu.types';
+import DropdownMenuWrapper from './index';
 
 const SIMPLE_GROUPS: DropdownGroup[] = [
     {
@@ -93,7 +93,9 @@ describe('DropdownMenu primitives', () => {
             </DropdownMenu>,
         );
         await user.click(screen.getByText('Options'));
-        expect(document.querySelector('[data-slot="dropdown-menu-separator"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="dropdown-menu-separator"]'),
+        ).toBeInTheDocument();
     });
 
     it('calls onClick when item is clicked', async () => {
@@ -135,7 +137,10 @@ describe('DropdownMenu primitives', () => {
             <DropdownMenu>
                 <DropdownMenuTrigger>Options</DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    <DropdownMenuCheckboxItem checked={false} onCheckedChange={vi.fn()}>
+                    <DropdownMenuCheckboxItem
+                        checked={false}
+                        onCheckedChange={vi.fn()}
+                    >
                         Show grid
                     </DropdownMenuCheckboxItem>
                 </DropdownMenuContent>
@@ -152,7 +157,10 @@ describe('DropdownMenu primitives', () => {
             <DropdownMenu>
                 <DropdownMenuTrigger>Options</DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    <DropdownMenuCheckboxItem checked={false} onCheckedChange={onCheckedChange}>
+                    <DropdownMenuCheckboxItem
+                        checked={false}
+                        onCheckedChange={onCheckedChange}
+                    >
                         Show grid
                     </DropdownMenuCheckboxItem>
                 </DropdownMenuContent>
@@ -169,9 +177,13 @@ describe('DropdownMenu primitives', () => {
             <DropdownMenu>
                 <DropdownMenuTrigger>Options</DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    <DropdownMenuRadioGroup value='a' onValueChange={vi.fn()}>
-                        <DropdownMenuRadioItem value='a'>Option A</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value='b'>Option B</DropdownMenuRadioItem>
+                    <DropdownMenuRadioGroup value="a" onValueChange={vi.fn()}>
+                        <DropdownMenuRadioItem value="a">
+                            Option A
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="b">
+                            Option B
+                        </DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
             </DropdownMenu>,
@@ -188,8 +200,13 @@ describe('DropdownMenu primitives', () => {
             <DropdownMenu>
                 <DropdownMenuTrigger>Options</DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    <DropdownMenuRadioGroup value='a' onValueChange={onValueChange}>
-                        <DropdownMenuRadioItem value='b'>Option B</DropdownMenuRadioItem>
+                    <DropdownMenuRadioGroup
+                        value="a"
+                        onValueChange={onValueChange}
+                    >
+                        <DropdownMenuRadioItem value="b">
+                            Option B
+                        </DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
             </DropdownMenu>,
@@ -202,13 +219,23 @@ describe('DropdownMenu primitives', () => {
 
 describe('DropdownMenuWrapper', () => {
     it('renders trigger', () => {
-        render(<DropdownMenuWrapper trigger={<button>Options</button>} groups={SIMPLE_GROUPS} />);
+        render(
+            <DropdownMenuWrapper
+                trigger={<button>Options</button>}
+                groups={SIMPLE_GROUPS}
+            />,
+        );
         expect(screen.getByText('Options')).toBeInTheDocument();
     });
 
     it('opens and renders items on trigger click', async () => {
         const user = userEvent.setup();
-        render(<DropdownMenuWrapper trigger={<button>Options</button>} groups={SIMPLE_GROUPS} />);
+        render(
+            <DropdownMenuWrapper
+                trigger={<button>Options</button>}
+                groups={SIMPLE_GROUPS}
+            />,
+        );
         await user.click(screen.getByText('Options'));
         expect(screen.getByText('Edit')).toBeInTheDocument();
         expect(screen.getByText('Duplicate')).toBeInTheDocument();
@@ -253,7 +280,9 @@ describe('DropdownMenuWrapper', () => {
             />,
         );
         await user.click(screen.getByText('Options'));
-        expect(document.querySelector('[data-slot="dropdown-menu-separator"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="dropdown-menu-separator"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders shortcut when provided', async () => {
@@ -273,14 +302,18 @@ describe('DropdownMenuWrapper', () => {
         render(
             <DropdownMenuWrapper
                 trigger={<button>Options</button>}
-                groups={[{
-                    items: [{
-                        type: 'checkbox',
-                        label: 'Show grid',
-                        checked: false,
-                        onCheckedChange: vi.fn(),
-                    }],
-                }]}
+                groups={[
+                    {
+                        items: [
+                            {
+                                type: 'checkbox',
+                                label: 'Show grid',
+                                checked: false,
+                                onCheckedChange: vi.fn(),
+                            },
+                        ],
+                    },
+                ]}
             />,
         );
         await user.click(screen.getByText('Options'));
@@ -292,14 +325,21 @@ describe('DropdownMenuWrapper', () => {
         render(
             <DropdownMenuWrapper
                 trigger={<button>Options</button>}
-                groups={[{
-                    items: [{
-                        type: 'radio-group',
-                        value: 'a',
-                        onValueChange: vi.fn(),
-                        items: [{ label: 'Option A' }, { label: 'Option B' }],
-                    }],
-                }]}
+                groups={[
+                    {
+                        items: [
+                            {
+                                type: 'radio-group',
+                                value: 'a',
+                                onValueChange: vi.fn(),
+                                items: [
+                                    { label: 'Option A' },
+                                    { label: 'Option B' },
+                                ],
+                            },
+                        ],
+                    },
+                ]}
             />,
         );
         await user.click(screen.getByText('Options'));
@@ -312,13 +352,17 @@ describe('DropdownMenuWrapper', () => {
         render(
             <DropdownMenuWrapper
                 trigger={<button>Options</button>}
-                groups={[{
-                    items: [{
-                        type: 'sub',
-                        label: 'More actions',
-                        items: [{ items: [{ label: 'Sub item' }] }],
-                    }],
-                }]}
+                groups={[
+                    {
+                        items: [
+                            {
+                                type: 'sub',
+                                label: 'More actions',
+                                items: [{ items: [{ label: 'Sub item' }] }],
+                            },
+                        ],
+                    },
+                ]}
             />,
         );
         await user.click(screen.getByText('Options'));
@@ -345,7 +389,9 @@ describe('DropdownMenu sub primitives', () => {
             </DropdownMenu>,
         );
         await user.click(screen.getByText('Options'));
-        expect(document.querySelector('[data-slot="dropdown-menu-sub-trigger"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="dropdown-menu-sub-trigger"]'),
+        ).toBeInTheDocument();
     });
 });
 
@@ -365,7 +411,9 @@ describe('DropdownMenuSubContent', () => {
                 </DropdownMenuContent>
             </DropdownMenu>,
         );
-        expect(document.querySelector('[data-slot="dropdown-menu-sub-content"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="dropdown-menu-sub-content"]'),
+        ).toBeInTheDocument();
     });
 });
 
@@ -408,7 +456,9 @@ describe('DropdownMenuItem and SubTrigger inset', () => {
                 <DropdownMenuTrigger>Options</DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuSub>
-                        <DropdownMenuSubTrigger inset>Inset sub</DropdownMenuSubTrigger>
+                        <DropdownMenuSubTrigger inset>
+                            Inset sub
+                        </DropdownMenuSubTrigger>
                     </DropdownMenuSub>
                 </DropdownMenuContent>
             </DropdownMenu>,

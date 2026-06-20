@@ -1,12 +1,18 @@
 /* c8 ignore start */
-'use client'
+'use client';
 /* c8 ignore stop */
 
-import * as React from 'react'
-import { Slot } from 'radix-ui'
-import { cva } from 'class-variance-authority'
-import { cn } from '@/src/utils/funcs/cn'
-import type { ItemProps, ItemMediaProps, ItemContentProps, ItemTitleProps, ItemDescriptionProps, ItemEndProps } from './item.types'
+import { cn } from '@/src/utils/funcs/cn';
+import { cva } from 'class-variance-authority';
+import { Slot } from 'radix-ui';
+import type {
+    ItemContentProps,
+    ItemDescriptionProps,
+    ItemEndProps,
+    ItemMediaProps,
+    ItemProps,
+    ItemTitleProps,
+} from './item.types';
 
 const itemVariants = cva(
     'group/item flex w-full items-center gap-3 rounded-lg text-sm text-foreground transition-colors outline-none',
@@ -27,8 +33,8 @@ const itemVariants = cva(
             variant: 'ghost',
             size: 'default',
         },
-    }
-)
+    },
+);
 
 const mediaVariants = cva(
     'shrink-0 flex items-center justify-center text-muted-foreground [&_svg]:size-4',
@@ -43,8 +49,8 @@ const mediaVariants = cva(
         defaultVariants: {
             variant: 'icon',
         },
-    }
-)
+    },
+);
 
 function Item({
     variant = 'ghost',
@@ -56,12 +62,12 @@ function Item({
     onClick,
     ...props
 }: ItemProps) {
-    const isInteractive = !!onClick || asChild
-    const Comp = asChild ? Slot.Root : 'div'
+    const isInteractive = !!onClick || asChild;
+    const Comp = asChild ? Slot.Root : 'div';
 
     return (
         <Comp
-            data-slot='item'
+            data-slot="item"
             data-size={size}
             data-active={active || undefined}
             data-disabled={disabled || undefined}
@@ -70,66 +76,80 @@ function Item({
             tabIndex={isInteractive && !disabled ? 0 : undefined}
             className={cn(
                 itemVariants({ variant, size }),
-                isInteractive && !disabled && 'cursor-pointer select-none hover:bg-muted focus-visible:bg-muted focus-visible:ring-3 focus-visible:ring-primary/50',
-                variant === 'outline' && isInteractive && !disabled && 'hover:bg-muted/50',
+                isInteractive &&
+                    !disabled &&
+                    'cursor-pointer select-none hover:bg-muted focus-visible:bg-muted focus-visible:ring-3 focus-visible:ring-primary/50',
+                variant === 'outline' &&
+                    isInteractive &&
+                    !disabled &&
+                    'hover:bg-muted/50',
                 active && 'bg-primary/10 text-primary',
                 disabled && 'cursor-not-allowed opacity-50',
-                className
+                className,
             )}
             {...props}
         />
-    )
+    );
 }
 
 function ItemMedia({ variant = 'icon', className, ...props }: ItemMediaProps) {
     return (
         <div
-            data-slot='item-media'
+            data-slot="item-media"
             data-variant={variant}
             className={cn(mediaVariants({ variant }), className)}
             {...props}
         />
-    )
+    );
 }
 
 function ItemContent({ className, ...props }: ItemContentProps) {
     return (
         <div
-            data-slot='item-content'
+            data-slot="item-content"
             className={cn('flex min-w-0 flex-1 flex-col', className)}
             {...props}
         />
-    )
+    );
 }
 
 function ItemTitle({ className, ...props }: ItemTitleProps) {
     return (
         <div
-            data-slot='item-title'
-            className={cn('truncate font-medium leading-snug group-data-[size=xs]/item:text-xs', className)}
+            data-slot="item-title"
+            className={cn(
+                'truncate leading-snug font-medium group-data-[size=xs]/item:text-xs',
+                className,
+            )}
             {...props}
         />
-    )
+    );
 }
 
 function ItemDescription({ className, ...props }: ItemDescriptionProps) {
     return (
         <div
-            data-slot='item-description'
-            className={cn('truncate text-xs leading-snug text-muted-foreground', className)}
+            data-slot="item-description"
+            className={cn(
+                'truncate text-xs leading-snug text-muted-foreground',
+                className,
+            )}
             {...props}
         />
-    )
+    );
 }
 
 function ItemEnd({ className, ...props }: ItemEndProps) {
     return (
         <div
-            data-slot='item-end'
-            className={cn('ms-auto shrink-0 text-muted-foreground [&_svg]:size-4', className)}
+            data-slot="item-end"
+            className={cn(
+                'ms-auto shrink-0 text-muted-foreground [&_svg]:size-4',
+                className,
+            )}
             {...props}
         />
-    )
+    );
 }
 
-export { Item, ItemMedia, ItemContent, ItemTitle, ItemDescription, ItemEnd }
+export { Item, ItemContent, ItemDescription, ItemEnd, ItemMedia, ItemTitle };

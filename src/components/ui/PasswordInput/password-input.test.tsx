@@ -10,7 +10,10 @@ describe('PasswordInput', () => {
 
     it('input type is password by default', () => {
         const { container } = render(<PasswordInput />);
-        expect(container.querySelector('input')).toHaveAttribute('type', 'password');
+        expect(container.querySelector('input')).toHaveAttribute(
+            'type',
+            'password',
+        );
     });
 
     it('shows show-password button', () => {
@@ -22,7 +25,10 @@ describe('PasswordInput', () => {
         const user = userEvent.setup();
         const { container } = render(<PasswordInput />);
         await user.click(screen.getByLabelText('Show password'));
-        expect(container.querySelector('input')).toHaveAttribute('type', 'text');
+        expect(container.querySelector('input')).toHaveAttribute(
+            'type',
+            'text',
+        );
     });
 
     it('shows hide-password button after toggling', async () => {
@@ -37,27 +43,35 @@ describe('PasswordInput', () => {
         const { container } = render(<PasswordInput />);
         await user.click(screen.getByLabelText('Show password'));
         await user.click(screen.getByLabelText('Hide password'));
-        expect(container.querySelector('input')).toHaveAttribute('type', 'password');
+        expect(container.querySelector('input')).toHaveAttribute(
+            'type',
+            'password',
+        );
     });
 
     it('renders label when provided', () => {
-        render(<PasswordInput label='Password' />);
+        render(<PasswordInput label="Password" />);
         expect(screen.getByText('Password')).toBeInTheDocument();
     });
 
     it('renders error message when provided', () => {
-        render(<PasswordInput error='Invalid password' />);
+        render(<PasswordInput error="Invalid password" />);
         expect(screen.getByText('Invalid password')).toBeInTheDocument();
     });
 
     it('sets aria-invalid when error is provided', () => {
-        const { container } = render(<PasswordInput error='Invalid' />);
-        expect(container.querySelector('input')).toHaveAttribute('aria-invalid', 'true');
+        const { container } = render(<PasswordInput error="Invalid" />);
+        expect(container.querySelector('input')).toHaveAttribute(
+            'aria-invalid',
+            'true',
+        );
     });
 
     it('does not set aria-invalid when no error', () => {
         const { container } = render(<PasswordInput />);
-        expect(container.querySelector('input')).not.toHaveAttribute('aria-invalid');
+        expect(container.querySelector('input')).not.toHaveAttribute(
+            'aria-invalid',
+        );
     });
 
     it('accepts user input', async () => {
@@ -68,7 +82,10 @@ describe('PasswordInput', () => {
     });
 
     it('uses provided id', () => {
-        const { container } = render(<PasswordInput id='my-password' />);
-        expect(container.querySelector('input')).toHaveAttribute('id', 'my-password');
+        const { container } = render(<PasswordInput id="my-password" />);
+        expect(container.querySelector('input')).toHaveAttribute(
+            'id',
+            'my-password',
+        );
     });
 });

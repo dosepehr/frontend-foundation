@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import OtpInput from '.';
 
 describe('OtpInput', () => {
@@ -19,12 +19,12 @@ describe('OtpInput', () => {
     });
 
     it('renders label when provided', () => {
-        render(<OtpInput label='Verification code' />);
+        render(<OtpInput label="Verification code" />);
         expect(screen.getByText('Verification code')).toBeInTheDocument();
     });
 
     it('renders error message when provided', () => {
-        render(<OtpInput error='Invalid code' />);
+        render(<OtpInput error="Invalid code" />);
         expect(screen.getByText('Invalid code')).toBeInTheDocument();
     });
 

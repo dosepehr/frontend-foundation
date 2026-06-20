@@ -1,19 +1,21 @@
 import { render, screen } from '@testing-library/react';
 import {
     Breadcrumb,
-    BreadcrumbList,
+    BreadcrumbEllipsis,
     BreadcrumbItem,
     BreadcrumbLink,
+    BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator,
-    BreadcrumbEllipsis,
 } from './components';
 import BreadcrumbWrapper from './index';
 
 describe('Breadcrumb primitives', () => {
     it('renders a nav with aria-label="breadcrumb"', () => {
         render(<Breadcrumb />);
-        expect(screen.getByRole('navigation', { name: 'breadcrumb' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('navigation', { name: 'breadcrumb' }),
+        ).toBeInTheDocument();
     });
 
     it('BreadcrumbPage has aria-current="page"', () => {
@@ -26,7 +28,10 @@ describe('Breadcrumb primitives', () => {
                 </BreadcrumbList>
             </Breadcrumb>,
         );
-        expect(screen.getByText('Current')).toHaveAttribute('aria-current', 'page');
+        expect(screen.getByText('Current')).toHaveAttribute(
+            'aria-current',
+            'page',
+        );
     });
 
     it('BreadcrumbPage has aria-disabled="true"', () => {
@@ -39,7 +44,10 @@ describe('Breadcrumb primitives', () => {
                 </BreadcrumbList>
             </Breadcrumb>,
         );
-        expect(screen.getByText('Current')).toHaveAttribute('aria-disabled', 'true');
+        expect(screen.getByText('Current')).toHaveAttribute(
+            'aria-disabled',
+            'true',
+        );
     });
 
     it('BreadcrumbLink renders as an anchor by default', () => {
@@ -47,7 +55,7 @@ describe('Breadcrumb primitives', () => {
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>
-                        <BreadcrumbLink href='/home'>Home</BreadcrumbLink>
+                        <BreadcrumbLink href="/home">Home</BreadcrumbLink>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>,
@@ -69,7 +77,10 @@ describe('Breadcrumb primitives', () => {
                 </BreadcrumbList>
             </Breadcrumb>,
         );
-        expect(screen.getByRole('button', { name: 'Home' })).toHaveAttribute('data-slot', 'breadcrumb-link');
+        expect(screen.getByRole('button', { name: 'Home' })).toHaveAttribute(
+            'data-slot',
+            'breadcrumb-link',
+        );
     });
 
     it('BreadcrumbSeparator renders with role="presentation" and aria-hidden', () => {
@@ -80,7 +91,9 @@ describe('Breadcrumb primitives', () => {
                 </BreadcrumbList>
             </Breadcrumb>,
         );
-        const sep = container.querySelector('[data-slot="breadcrumb-separator"]');
+        const sep = container.querySelector(
+            '[data-slot="breadcrumb-separator"]',
+        );
         expect(sep).toHaveAttribute('role', 'presentation');
         expect(sep).toHaveAttribute('aria-hidden', 'true');
     });
@@ -90,7 +103,7 @@ describe('Breadcrumb primitives', () => {
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbSeparator>
-                        <span data-testid='custom-sep' />
+                        <span data-testid="custom-sep" />
                     </BreadcrumbSeparator>
                 </BreadcrumbList>
             </Breadcrumb>,
@@ -108,7 +121,9 @@ describe('Breadcrumb primitives', () => {
                 </BreadcrumbList>
             </Breadcrumb>,
         );
-        const ellipsis = container.querySelector('[data-slot="breadcrumb-ellipsis"]');
+        const ellipsis = container.querySelector(
+            '[data-slot="breadcrumb-ellipsis"]',
+        );
         expect(ellipsis).toHaveAttribute('aria-hidden', 'true');
         expect(screen.getByText('More')).toBeInTheDocument();
     });
@@ -130,23 +145,41 @@ describe('BreadcrumbWrapper', () => {
 
     it('renders last item as BreadcrumbPage (aria-current="page")', () => {
         render(<BreadcrumbWrapper items={items} />);
-        expect(screen.getByText('Shoes')).toHaveAttribute('aria-current', 'page');
+        expect(screen.getByText('Shoes')).toHaveAttribute(
+            'aria-current',
+            'page',
+        );
     });
 
     it('renders non-last items as links', () => {
         render(<BreadcrumbWrapper items={items} />);
-        expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/');
-        expect(screen.getByRole('link', { name: 'Products' })).toHaveAttribute('href', '/products');
+        expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute(
+            'href',
+            '/',
+        );
+        expect(screen.getByRole('link', { name: 'Products' })).toHaveAttribute(
+            'href',
+            '/products',
+        );
     });
 
     it('item without href falls back to "#"', () => {
-        render(<BreadcrumbWrapper items={[{ label: 'Home' }, { label: 'Page' }]} />);
-        expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '#');
+        render(
+            <BreadcrumbWrapper
+                items={[{ label: 'Home' }, { label: 'Page' }]}
+            />,
+        );
+        expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute(
+            'href',
+            '#',
+        );
     });
 
     it('renders separators between items', () => {
         const { container } = render(<BreadcrumbWrapper items={items} />);
-        const separators = container.querySelectorAll('[data-slot="breadcrumb-separator"]');
+        const separators = container.querySelectorAll(
+            '[data-slot="breadcrumb-separator"]',
+        );
         // 3 items → 2 separators
         expect(separators).toHaveLength(2);
     });
@@ -155,7 +188,7 @@ describe('BreadcrumbWrapper', () => {
         render(
             <BreadcrumbWrapper
                 items={items}
-                separator={<span data-testid='slash'>/</span>}
+                separator={<span data-testid="slash">/</span>}
             />,
         );
         expect(screen.getAllByTestId('slash')).toHaveLength(2);
@@ -168,7 +201,8 @@ describe('BreadcrumbWrapper', () => {
         }));
         render(<BreadcrumbWrapper items={manyItems} />);
         expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
-        manyItems.forEach(({ label }) => expect(screen.getByText(label)).toBeInTheDocument());
+        for (const { label } of manyItems)
+            expect(screen.getByText(label)).toBeInTheDocument();
     });
 
     it('collapses middle items with ellipsis when items exceed maxItems', () => {
@@ -184,12 +218,18 @@ describe('BreadcrumbWrapper', () => {
         expect(screen.getByText('Item 5')).toBeInTheDocument();
         expect(screen.getByText('Item 6')).toBeInTheDocument();
         expect(screen.queryByText('Item 2')).not.toBeInTheDocument();
-        expect(container.querySelector('[data-slot="breadcrumb-ellipsis"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="breadcrumb-ellipsis"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders a single item without separator', () => {
-        const { container } = render(<BreadcrumbWrapper items={[{ label: 'Only' }]} />);
+        const { container } = render(
+            <BreadcrumbWrapper items={[{ label: 'Only' }]} />,
+        );
         expect(screen.getByText('Only')).toBeInTheDocument();
-        expect(container.querySelectorAll('[data-slot="breadcrumb-separator"]')).toHaveLength(0);
+        expect(
+            container.querySelectorAll('[data-slot="breadcrumb-separator"]'),
+        ).toHaveLength(0);
     });
 });

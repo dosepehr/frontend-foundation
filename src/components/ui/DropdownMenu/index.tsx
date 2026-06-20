@@ -1,42 +1,48 @@
-'use client'
+'use client';
 
-import * as React from 'react'
+import { cn } from '@/src/utils/funcs/cn';
+import * as React from 'react';
 import {
     DropdownMenu,
+    DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuGroup,
     DropdownMenuItem,
-    DropdownMenuCheckboxItem,
+    DropdownMenuLabel,
+    DropdownMenuPortal,
     DropdownMenuRadioGroup,
     DropdownMenuRadioItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuShortcut,
     DropdownMenuSub,
-    DropdownMenuSubTrigger,
     DropdownMenuSubContent,
-    DropdownMenuPortal,
+    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
-} from './components'
-import { cn } from '@/src/utils/funcs/cn'
+} from './components';
 import type {
-    DropdownMenuWrapperProps,
     DropdownGroup,
     DropdownItem,
-} from './dropdown-menu.types'
+    DropdownMenuWrapperProps,
+} from './dropdown-menu.types';
 
 function RenderItem({ item }: { item: DropdownItem }) {
     if (item.type === 'radio-group') {
         return (
-            <DropdownMenuRadioGroup value={item.value} onValueChange={item.onValueChange}>
+            <DropdownMenuRadioGroup
+                value={item.value}
+                onValueChange={item.onValueChange}
+            >
                 {item.items.map((radio) => (
-                    <DropdownMenuRadioItem key={radio.label} value={radio.label}>
+                    <DropdownMenuRadioItem
+                        key={radio.label}
+                        value={radio.label}
+                    >
                         {radio.icon}
                         {radio.label}
                     </DropdownMenuRadioItem>
                 ))}
             </DropdownMenuRadioGroup>
-        )
+        );
     }
 
     if (item.type === 'checkbox') {
@@ -49,7 +55,7 @@ function RenderItem({ item }: { item: DropdownItem }) {
                 {item.icon}
                 {item.label}
             </DropdownMenuCheckboxItem>
-        )
+        );
     }
 
     if (item.type === 'sub') {
@@ -65,7 +71,7 @@ function RenderItem({ item }: { item: DropdownItem }) {
                     </DropdownMenuSubContent>
                 </DropdownMenuPortal>
             </DropdownMenuSub>
-        )
+        );
     }
 
     return (
@@ -76,9 +82,11 @@ function RenderItem({ item }: { item: DropdownItem }) {
         >
             {item.icon}
             {item.label}
-            {item.shortcut && <DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut>}
+            {item.shortcut && (
+                <DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut>
+            )}
         </DropdownMenuItem>
-    )
+    );
 }
 
 function RenderGroups({ groups }: { groups: DropdownGroup[] }) {
@@ -88,7 +96,9 @@ function RenderGroups({ groups }: { groups: DropdownGroup[] }) {
                 <React.Fragment key={gi}>
                     {gi > 0 && <DropdownMenuSeparator />}
                     <DropdownMenuGroup>
-                        {group.label && <DropdownMenuLabel>{group.label}</DropdownMenuLabel>}
+                        {group.label && (
+                            <DropdownMenuLabel>{group.label}</DropdownMenuLabel>
+                        )}
                         {group.items.map((item, ii) => (
                             <RenderItem key={ii} item={item} />
                         ))}
@@ -96,7 +106,7 @@ function RenderGroups({ groups }: { groups: DropdownGroup[] }) {
                 </React.Fragment>
             ))}
         </>
-    )
+    );
 }
 
 function DropdownMenuWrapper({
@@ -117,7 +127,7 @@ function DropdownMenuWrapper({
                 <RenderGroups groups={groups} />
             </DropdownMenuContent>
         </DropdownMenu>
-    )
+    );
 }
 
-export default DropdownMenuWrapper
+export default DropdownMenuWrapper;

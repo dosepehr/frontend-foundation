@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import {
-    AlignLeftIcon,
     AlignCenterIcon,
+    AlignLeftIcon,
     AlignRightIcon,
     BoldIcon,
-    ItalicIcon,
-    UnderlineIcon,
-    CopyIcon,
-    ScissorsIcon,
     ClipboardIcon,
+    CopyIcon,
+    ItalicIcon,
+    ScissorsIcon,
+    UnderlineIcon,
 } from 'lucide-react';
 import ButtonGroupWrapper from '.';
 
@@ -154,4 +154,3 @@ export const SmallSize: Story = {
         ],
     },
 };
-

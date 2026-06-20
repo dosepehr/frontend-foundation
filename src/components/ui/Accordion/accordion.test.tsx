@@ -1,13 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from './components';
 import AccordionWrapper from './index';
 
 describe('Accordion primitives', () => {
     it('renders trigger text', () => {
         render(
-            <Accordion type='single'>
-                <AccordionItem value='item-1'>
+            <Accordion type="single">
+                <AccordionItem value="item-1">
                     <AccordionTrigger>Trigger text</AccordionTrigger>
                     <AccordionContent>Content text</AccordionContent>
                 </AccordionItem>
@@ -18,8 +23,8 @@ describe('Accordion primitives', () => {
 
     it('content is hidden by default', () => {
         render(
-            <Accordion type='single'>
-                <AccordionItem value='item-1'>
+            <Accordion type="single">
+                <AccordionItem value="item-1">
                     <AccordionTrigger>Trigger</AccordionTrigger>
                     <AccordionContent>Hidden content</AccordionContent>
                 </AccordionItem>
@@ -32,8 +37,8 @@ describe('Accordion primitives', () => {
     it('clicking trigger opens content', async () => {
         const user = userEvent.setup();
         render(
-            <Accordion type='single'>
-                <AccordionItem value='item-1'>
+            <Accordion type="single">
+                <AccordionItem value="item-1">
                     <AccordionTrigger>Trigger</AccordionTrigger>
                     <AccordionContent>Revealed content</AccordionContent>
                 </AccordionItem>
@@ -47,8 +52,8 @@ describe('Accordion primitives', () => {
     it('collapsible: clicking open trigger closes it', async () => {
         const user = userEvent.setup();
         render(
-            <Accordion type='single' collapsible>
-                <AccordionItem value='item-1'>
+            <Accordion type="single" collapsible>
+                <AccordionItem value="item-1">
                     <AccordionTrigger>Trigger</AccordionTrigger>
                     <AccordionContent>Content</AccordionContent>
                 </AccordionItem>
@@ -56,20 +61,24 @@ describe('Accordion primitives', () => {
         );
         const trigger = screen.getByText('Trigger');
         await user.click(trigger);
-        expect(screen.getByRole('button', { name: /trigger/i })).toHaveAttribute('aria-expanded', 'true');
+        expect(
+            screen.getByRole('button', { name: /trigger/i }),
+        ).toHaveAttribute('aria-expanded', 'true');
         await user.click(trigger);
-        expect(screen.getByRole('button', { name: /trigger/i })).toHaveAttribute('aria-expanded', 'false');
+        expect(
+            screen.getByRole('button', { name: /trigger/i }),
+        ).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('type=single: opening one item closes another', async () => {
         const user = userEvent.setup();
         render(
-            <Accordion type='single'>
-                <AccordionItem value='item-1'>
+            <Accordion type="single">
+                <AccordionItem value="item-1">
                     <AccordionTrigger>First</AccordionTrigger>
                     <AccordionContent>First content</AccordionContent>
                 </AccordionItem>
-                <AccordionItem value='item-2'>
+                <AccordionItem value="item-2">
                     <AccordionTrigger>Second</AccordionTrigger>
                     <AccordionContent>Second content</AccordionContent>
                 </AccordionItem>
@@ -90,12 +99,12 @@ describe('Accordion primitives', () => {
     it('type=multiple: multiple items can be open simultaneously', async () => {
         const user = userEvent.setup();
         render(
-            <Accordion type='multiple'>
-                <AccordionItem value='item-1'>
+            <Accordion type="multiple">
+                <AccordionItem value="item-1">
                     <AccordionTrigger>First</AccordionTrigger>
                     <AccordionContent>First content</AccordionContent>
                 </AccordionItem>
-                <AccordionItem value='item-2'>
+                <AccordionItem value="item-2">
                     <AccordionTrigger>Second</AccordionTrigger>
                     <AccordionContent>Second content</AccordionContent>
                 </AccordionItem>
@@ -111,8 +120,8 @@ describe('Accordion primitives', () => {
     it('disabled item cannot be opened', async () => {
         const user = userEvent.setup();
         render(
-            <Accordion type='single'>
-                <AccordionItem value='item-1' disabled>
+            <Accordion type="single">
+                <AccordionItem value="item-1" disabled>
                     <AccordionTrigger>Disabled trigger</AccordionTrigger>
                     <AccordionContent>Disabled content</AccordionContent>
                 </AccordionItem>
@@ -124,8 +133,8 @@ describe('Accordion primitives', () => {
 
     it('defaultValue opens the matching item on mount', () => {
         render(
-            <Accordion type='single' defaultValue='item-1'>
-                <AccordionItem value='item-1'>
+            <Accordion type="single" defaultValue="item-1">
+                <AccordionItem value="item-1">
                     <AccordionTrigger>Trigger</AccordionTrigger>
                     <AccordionContent>Pre-opened content</AccordionContent>
                 </AccordionItem>
@@ -137,21 +146,23 @@ describe('Accordion primitives', () => {
 
     it('defaultValue item has aria-expanded="true"', () => {
         render(
-            <Accordion type='single' defaultValue='item-1'>
-                <AccordionItem value='item-1'>
+            <Accordion type="single" defaultValue="item-1">
+                <AccordionItem value="item-1">
                     <AccordionTrigger>Trigger</AccordionTrigger>
                     <AccordionContent>Content</AccordionContent>
                 </AccordionItem>
             </Accordion>,
         );
-        expect(screen.getByRole('button', { name: /trigger/i })).toHaveAttribute('aria-expanded', 'true');
+        expect(
+            screen.getByRole('button', { name: /trigger/i }),
+        ).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('keyboard: Enter opens content', async () => {
         const user = userEvent.setup();
         render(
-            <Accordion type='single'>
-                <AccordionItem value='item-1'>
+            <Accordion type="single">
+                <AccordionItem value="item-1">
                     <AccordionTrigger>Trigger</AccordionTrigger>
                     <AccordionContent>Keyboard content</AccordionContent>
                 </AccordionItem>
@@ -165,8 +176,8 @@ describe('Accordion primitives', () => {
     it('keyboard: Space opens content', async () => {
         const user = userEvent.setup();
         render(
-            <Accordion type='single'>
-                <AccordionItem value='item-1'>
+            <Accordion type="single">
+                <AccordionItem value="item-1">
                     <AccordionTrigger>Trigger</AccordionTrigger>
                     <AccordionContent>Keyboard content</AccordionContent>
                 </AccordionItem>
@@ -181,8 +192,8 @@ describe('Accordion primitives', () => {
 describe('AccordionWrapper', () => {
     it('renders trigger text', () => {
         render(
-            <Accordion type='single'>
-                <AccordionWrapper value='w-1' trigger='Wrapper trigger'>
+            <Accordion type="single">
+                <AccordionWrapper value="w-1" trigger="Wrapper trigger">
                     Wrapper content
                 </AccordionWrapper>
             </Accordion>,
@@ -193,8 +204,8 @@ describe('AccordionWrapper', () => {
     it('opens on trigger click', async () => {
         const user = userEvent.setup();
         render(
-            <Accordion type='single'>
-                <AccordionWrapper value='w-1' trigger='Click me'>
+            <Accordion type="single">
+                <AccordionWrapper value="w-1" trigger="Click me">
                     Wrapper content
                 </AccordionWrapper>
             </Accordion>,
@@ -207,8 +218,8 @@ describe('AccordionWrapper', () => {
     it('disabled prop prevents opening', async () => {
         const user = userEvent.setup();
         render(
-            <Accordion type='single'>
-                <AccordionWrapper value='w-1' trigger='Disabled' disabled>
+            <Accordion type="single">
+                <AccordionWrapper value="w-1" trigger="Disabled" disabled>
                     Hidden content
                 </AccordionWrapper>
             </Accordion>,
@@ -219,8 +230,11 @@ describe('AccordionWrapper', () => {
 
     it('trigger accepts ReactNode', () => {
         render(
-            <Accordion type='single'>
-                <AccordionWrapper value='w-1' trigger={<span data-testid='custom-trigger'>Custom</span>}>
+            <Accordion type="single">
+                <AccordionWrapper
+                    value="w-1"
+                    trigger={<span data-testid="custom-trigger">Custom</span>}
+                >
                     Content
                 </AccordionWrapper>
             </Accordion>,

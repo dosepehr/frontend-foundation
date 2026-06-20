@@ -11,7 +11,7 @@ describe('Toaster', () => {
     });
 
     it('accepts position prop without errors', () => {
-        expect(() => render(<Toaster position='bottom-right' />)).not.toThrow();
+        expect(() => render(<Toaster position="bottom-right" />)).not.toThrow();
     });
 
     it('accepts richColors prop without errors', () => {

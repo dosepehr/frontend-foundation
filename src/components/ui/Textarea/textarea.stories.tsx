@@ -19,7 +19,7 @@ const meta: Meta<typeof TextareaWrapper> = {
     parameters: { layout: 'centered' },
     decorators: [
         (Story) => (
-            <div className='w-80'>
+            <div className="w-80">
                 <Story />
             </div>
         ),
@@ -102,7 +102,7 @@ export const WithCounterAndError: Story = {
     render: (args) => {
         const max = 30;
         const [value, setValue] = useState(
-            'This text is already too long for the limit'
+            'This text is already too long for the limit',
         );
         const isOver = value.length > max;
         return (
@@ -120,4 +120,3 @@ export const WithCounterAndError: Story = {
         placeholder: 'Keep it short...',
     },
 };
-

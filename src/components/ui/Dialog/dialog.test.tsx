@@ -1,16 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import DialogWrapper from './index';
 import {
     Dialog,
+    DialogBody,
     DialogContent,
+    DialogDescription,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogDescription,
-    DialogBody,
-    DialogFooter,
     DialogTrigger,
 } from './components';
+import DialogWrapper from './index';
 
 describe('Dialog primitives', () => {
     it('renders trigger', () => {
@@ -65,7 +65,9 @@ describe('Dialog primitives', () => {
         render(
             <Dialog onOpenChange={onOpenChange}>
                 <DialogTrigger>Open</DialogTrigger>
-                <DialogContent aria-describedby={undefined}><DialogTitle>T</DialogTitle></DialogContent>
+                <DialogContent aria-describedby={undefined}>
+                    <DialogTitle>T</DialogTitle>
+                </DialogContent>
             </Dialog>,
         );
         await user.click(screen.getByText('Open'));
@@ -109,7 +111,9 @@ describe('Dialog primitives', () => {
                 </DialogContent>
             </Dialog>,
         );
-        expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: /close/i }),
+        ).toBeInTheDocument();
     });
 
     it('hides close button when showCloseButton is false', () => {
@@ -122,7 +126,9 @@ describe('Dialog primitives', () => {
                 </DialogContent>
             </Dialog>,
         );
-        expect(screen.queryByRole('button', { name: /close/i })).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole('button', { name: /close/i }),
+        ).not.toBeInTheDocument();
     });
 
     it('renders body content', () => {
@@ -157,14 +163,16 @@ describe('Dialog primitives', () => {
                 </DialogContent>
             </Dialog>,
         );
-        expect(document.querySelector('[data-slot="dialog-content"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="dialog-content"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('DialogWrapper', () => {
     it('renders trigger', () => {
         render(
-            <DialogWrapper trigger={<button>Open</button>} title='My Dialog'>
+            <DialogWrapper trigger={<button>Open</button>} title="My Dialog">
                 Content
             </DialogWrapper>,
         );
@@ -174,7 +182,7 @@ describe('DialogWrapper', () => {
     it('opens on trigger click and shows title', async () => {
         const user = userEvent.setup();
         render(
-            <DialogWrapper trigger={<button>Open</button>} title='My Dialog'>
+            <DialogWrapper trigger={<button>Open</button>} title="My Dialog">
                 Content
             </DialogWrapper>,
         );
@@ -187,8 +195,8 @@ describe('DialogWrapper', () => {
         render(
             <DialogWrapper
                 trigger={<button>Open</button>}
-                title='T'
-                description='Some description'
+                title="T"
+                description="Some description"
             >
                 Content
             </DialogWrapper>,
@@ -200,7 +208,7 @@ describe('DialogWrapper', () => {
     it('renders children in body', async () => {
         const user = userEvent.setup();
         render(
-            <DialogWrapper trigger={<button>Open</button>} title='T'>
+            <DialogWrapper trigger={<button>Open</button>} title="T">
                 <span>Body text</span>
             </DialogWrapper>,
         );
@@ -211,7 +219,7 @@ describe('DialogWrapper', () => {
     it('renders cancel button by default', async () => {
         const user = userEvent.setup();
         render(
-            <DialogWrapper trigger={<button>Open</button>} title='T'>
+            <DialogWrapper trigger={<button>Open</button>} title="T">
                 Content
             </DialogWrapper>,
         );
@@ -222,7 +230,11 @@ describe('DialogWrapper', () => {
     it('renders custom cancelLabel', async () => {
         const user = userEvent.setup();
         render(
-            <DialogWrapper trigger={<button>Open</button>} title='T' cancelLabel='Dismiss'>
+            <DialogWrapper
+                trigger={<button>Open</button>}
+                title="T"
+                cancelLabel="Dismiss"
+            >
                 Content
             </DialogWrapper>,
         );
@@ -233,7 +245,11 @@ describe('DialogWrapper', () => {
     it('hides cancel button when showCancelButton is false', async () => {
         const user = userEvent.setup();
         render(
-            <DialogWrapper trigger={<button>Open</button>} title='T' showCancelButton={false}>
+            <DialogWrapper
+                trigger={<button>Open</button>}
+                title="T"
+                showCancelButton={false}
+            >
                 Content
             </DialogWrapper>,
         );
@@ -246,19 +262,21 @@ describe('DialogWrapper', () => {
         render(
             <DialogWrapper
                 trigger={<button>Open</button>}
-                title='T'
+                title="T"
                 footer={<button>Save</button>}
             >
                 Content
             </DialogWrapper>,
         );
         await user.click(screen.getByText('Open'));
-        expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Save' }),
+        ).toBeInTheDocument();
     });
 
     it('renders with controlled open=true', () => {
         render(
-            <DialogWrapper open title='Controlled Dialog'>
+            <DialogWrapper open title="Controlled Dialog">
                 Content
             </DialogWrapper>,
         );
@@ -269,7 +287,12 @@ describe('DialogWrapper', () => {
         const user = userEvent.setup();
         const onOpenChange = vi.fn();
         render(
-            <DialogWrapper open onOpenChange={onOpenChange} title='T' showCloseIcon>
+            <DialogWrapper
+                open
+                onOpenChange={onOpenChange}
+                title="T"
+                showCloseIcon
+            >
                 Content
             </DialogWrapper>,
         );
@@ -282,8 +305,8 @@ describe('DialogWrapper', () => {
         render(
             <DialogWrapper
                 trigger={<button>Open</button>}
-                title='My Dialog'
-                icon={<span data-testid='dialog-icon'>*</span>}
+                title="My Dialog"
+                icon={<span data-testid="dialog-icon">*</span>}
             >
                 Content
             </DialogWrapper>,
@@ -298,6 +321,8 @@ describe('DialogWrapper', () => {
                 <span>Body only</span>
             </DialogWrapper>,
         );
-        expect(document.querySelector('[data-slot="dialog-header"]')).not.toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="dialog-header"]'),
+        ).not.toBeInTheDocument();
     });
 });

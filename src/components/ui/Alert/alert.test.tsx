@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { ShieldAlert } from 'lucide-react';
-import { Alert, AlertTitle, AlertDescription, AlertAction } from './components';
+import { Alert, AlertAction, AlertDescription, AlertTitle } from './components';
 import AlertWrapper from './index';
 
 describe('Alert primitives', () => {
@@ -28,16 +28,18 @@ describe('Alert primitives', () => {
                 </AlertAction>
             </Alert>,
         );
-        expect(screen.getByRole('button', { name: 'Dismiss' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Dismiss' }),
+        ).toBeInTheDocument();
     });
 
     it('applies variant via data-slot', () => {
-        render(<Alert variant='destructive'>Error</Alert>);
+        render(<Alert variant="destructive">Error</Alert>);
         expect(screen.getByRole('alert')).toHaveAttribute('data-slot', 'alert');
     });
 
     it('forwards className', () => {
-        render(<Alert className='custom-class'>Content</Alert>);
+        render(<Alert className="custom-class">Content</Alert>);
         expect(screen.getByRole('alert')).toHaveClass('custom-class');
     });
 });
@@ -49,13 +51,17 @@ describe('AlertWrapper', () => {
     });
 
     it('renders title when provided', () => {
-        render(<AlertWrapper title='Warning'>Watch out.</AlertWrapper>);
+        render(<AlertWrapper title="Warning">Watch out.</AlertWrapper>);
         expect(screen.getByText('Warning')).toBeInTheDocument();
     });
 
     it('does not render title element when omitted', () => {
-        const { container } = render(<AlertWrapper>No title here.</AlertWrapper>);
-        expect(container.querySelector('[data-slot="alert-title"]')).not.toBeInTheDocument();
+        const { container } = render(
+            <AlertWrapper>No title here.</AlertWrapper>,
+        );
+        expect(
+            container.querySelector('[data-slot="alert-title"]'),
+        ).not.toBeInTheDocument();
     });
 
     it('renders default icon when no variant given', () => {
@@ -86,7 +92,9 @@ describe('AlertWrapper', () => {
 
     it('title accepts ReactNode', () => {
         render(
-            <AlertWrapper title={<strong data-testid='bold-title'>Bold</strong>}>
+            <AlertWrapper
+                title={<strong data-testid="bold-title">Bold</strong>}
+            >
                 Content
             </AlertWrapper>,
         );

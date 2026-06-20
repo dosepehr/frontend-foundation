@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ComboBox from '.';
 
@@ -15,17 +15,17 @@ describe('ComboBox', () => {
     });
 
     it('shows placeholder when no value is selected', () => {
-        render(<ComboBox options={OPTIONS} placeholder='Pick a fruit' />);
+        render(<ComboBox options={OPTIONS} placeholder="Pick a fruit" />);
         expect(screen.getByText('Pick a fruit')).toBeInTheDocument();
     });
 
     it('shows selected label when value is provided', () => {
-        render(<ComboBox options={OPTIONS} value='banana' />);
+        render(<ComboBox options={OPTIONS} value="banana" />);
         expect(screen.getByText('Banana')).toBeInTheDocument();
     });
 
     it('shows label when provided', () => {
-        render(<ComboBox options={OPTIONS} label='Fruit' />);
+        render(<ComboBox options={OPTIONS} label="Fruit" />);
         expect(screen.getByText('Fruit')).toBeInTheDocument();
     });
 
@@ -55,12 +55,14 @@ describe('ComboBox', () => {
     it('calls onChange with empty string when selected option is clicked again (deselect)', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
-        render(<ComboBox options={OPTIONS} value='apple' onChange={onChange} />);
+        render(
+            <ComboBox options={OPTIONS} value="apple" onChange={onChange} />,
+        );
         await user.click(screen.getByRole('combobox'));
         // find the option role element (not the trigger button which also shows "Apple")
-        const appleOption = screen.getAllByRole('option').find(
-            (el) => el.textContent?.includes('Apple'),
-        );
+        const appleOption = screen
+            .getAllByRole('option')
+            .find((el) => el.textContent?.includes('Apple'));
         if (appleOption) await user.click(appleOption);
         expect(onChange).toHaveBeenCalledWith('');
     });
@@ -81,18 +83,23 @@ describe('ComboBox', () => {
     });
 
     it('renders error message when error prop is provided', () => {
-        render(<ComboBox options={OPTIONS} error='Required field' />);
+        render(<ComboBox options={OPTIONS} error="Required field" />);
         expect(screen.getByText('Required field')).toBeInTheDocument();
     });
 
     it('sets aria-invalid when error is provided', () => {
-        render(<ComboBox options={OPTIONS} error='Invalid' />);
-        expect(screen.getByRole('combobox')).toHaveAttribute('aria-invalid', 'true');
+        render(<ComboBox options={OPTIONS} error="Invalid" />);
+        expect(screen.getByRole('combobox')).toHaveAttribute(
+            'aria-invalid',
+            'true',
+        );
     });
 
     it('does not set aria-invalid when no error', () => {
         render(<ComboBox options={OPTIONS} />);
-        expect(screen.getByRole('combobox')).not.toHaveAttribute('aria-invalid');
+        expect(screen.getByRole('combobox')).not.toHaveAttribute(
+            'aria-invalid',
+        );
     });
 
     it('filters options based on search input', async () => {
@@ -114,7 +121,7 @@ describe('ComboBox', () => {
 
     it('shows notFoundText when search has no matches', async () => {
         const user = userEvent.setup();
-        render(<ComboBox options={OPTIONS} notFoundText='Nothing here' />);
+        render(<ComboBox options={OPTIONS} notFoundText="Nothing here" />);
         await user.click(screen.getByRole('combobox'));
         await user.type(screen.getByPlaceholderText('Search...'), 'xyz');
         expect(screen.getByText('Nothing here')).toBeInTheDocument();

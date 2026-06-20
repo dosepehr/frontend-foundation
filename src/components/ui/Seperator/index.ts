@@ -1,1 +1,1 @@
-export { Separator as default } from './components'
+export { Separator as default } from './components';

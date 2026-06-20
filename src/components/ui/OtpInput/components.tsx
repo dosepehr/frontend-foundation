@@ -1,12 +1,12 @@
 /* c8 ignore start */
-'use client'
+'use client';
 /* c8 ignore stop */
 
-import * as React from 'react'
-import { useId } from 'react'
-import { OTPInput, OTPInputContext } from 'input-otp'
-import { Field, FieldError, FieldLabel } from '../Field/components'
-import { cn } from '@/src/utils/funcs/cn'
+import { cn } from '@/src/utils/funcs/cn';
+import { OTPInput, OTPInputContext } from 'input-otp';
+import * as React from 'react';
+import { useId } from 'react';
+import { Field, FieldError, FieldLabel } from '../Field/components';
 
 // ── Digit normalization ────────────────────────────────────────────────────────
 
@@ -16,19 +16,23 @@ const normalizeDigits = (val: string) =>
         /* c8 ignore next */
         .replace(/[۰-۹]/g, (d) => String(d.charCodeAt(0) - 0x06f0))
         /* c8 ignore next */
-        .replace(/[٠-٩]/g, (d) => String(d.charCodeAt(0) - 0x0660))
+        .replace(/[٠-٩]/g, (d) => String(d.charCodeAt(0) - 0x0660));
 
 // ── Internal context ───────────────────────────────────────────────────────────
 
-type OtpCtx = { isInvalid: boolean; separated: boolean }
-const OtpContext = React.createContext<OtpCtx>({ isInvalid: false, separated: false })
+type OtpCtx = { isInvalid: boolean; separated: boolean };
+const OtpContext = React.createContext<OtpCtx>({
+    isInvalid: false,
+    separated: false,
+});
 
 // ── Slot ──────────────────────────────────────────────────────────────────────
 
 function OtpSlot({ index }: { index: number }) {
-    const { isInvalid, separated } = React.useContext(OtpContext)
+    const { isInvalid, separated } = React.useContext(OtpContext);
     /* c8 ignore next */
-    const { char, hasFakeCaret, isActive } = React.useContext(OTPInputContext)?.slots[index] ?? {}
+    const { char, hasFakeCaret, isActive } =
+        React.useContext(OTPInputContext)?.slots[index] ?? {};
 
     return (
         <div
@@ -37,7 +41,8 @@ function OtpSlot({ index }: { index: number }) {
             className={cn(
                 'relative flex h-10 w-10 items-center justify-center border border-input/50 text-sm font-medium text-foreground transition-all outline-none select-none',
                 // grouped: share borders between adjacent slots
-                !separated && 'rounded-none border-e-0 first:rounded-s-md first:border-s last:rounded-e-md last:border-e',
+                !separated &&
+                    'rounded-none border-e-0 first:rounded-s-md first:border-s last:rounded-e-md last:border-e',
                 // separated: each slot is a fully rounded standalone box
                 separated && 'rounded-md',
                 // active
@@ -45,23 +50,23 @@ function OtpSlot({ index }: { index: number }) {
                 // invalid
                 'data-invalid:border-destructive',
                 // invalid + active
-                'data-invalid:data-[active=true]:border-destructive data-invalid:data-[active=true]:ring-destructive/50'
+                'data-invalid:data-[active=true]:border-destructive data-invalid:data-[active=true]:ring-destructive/50',
             )}
         >
             {char}
             {/* c8 ignore next */}
             {hasFakeCaret && (
-                <div className='pointer-events-none absolute inset-0 flex items-center justify-center'>
-                    <div className='h-4 w-px animate-caret-blink bg-foreground duration-1000' />
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                    <div className="h-4 w-px animate-caret-blink bg-foreground duration-1000" />
                 </div>
             )}
         </div>
-    )
+    );
 }
 
 // ── Main Component ─────────────────────────────────────────────────────────────
 
-import type { OtpInputProps } from './otp-input.types'
+import type { OtpInputProps } from './otp-input.types';
 
 export const OtpInput = ({
     length = 6,
@@ -75,13 +80,17 @@ export const OtpInput = ({
     disabled = false,
     className,
 }: OtpInputProps) => {
-    const inputId = useId()
-    const isInvalid = !!error
+    const inputId = useId();
+    const isInvalid = !!error;
 
     return (
-        <Field data-invalid={isInvalid || undefined} className='relative'>
+        <Field data-invalid={isInvalid || undefined} className="relative">
             {label && (
-                <FieldLabel htmlFor={inputId} required={required} className='text-foreground'>
+                <FieldLabel
+                    htmlFor={inputId}
+                    required={required}
+                    className="text-foreground"
+                >
                     {label}
                 </FieldLabel>
             )}
@@ -95,10 +104,12 @@ export const OtpInput = ({
                     onComplete={onComplete}
                     disabled={disabled}
                     /* c8 ignore next */
-                    pasteTransformer={(val) => normalizeDigits(val).slice(0, length)}
+                    pasteTransformer={(val) =>
+                        normalizeDigits(val).slice(0, length)
+                    }
                     containerClassName={cn(
                         'flex items-center has-disabled:cursor-not-allowed has-disabled:opacity-50',
-                        className
+                        className,
                     )}
                 >
                     <div className={cn('flex', separated && 'gap-2')}>
@@ -111,5 +122,5 @@ export const OtpInput = ({
 
             {error && <FieldError>{error}</FieldError>}
         </Field>
-    )
-}
+    );
+};

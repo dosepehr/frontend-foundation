@@ -1,1 +1,1 @@
-export { Label as default } from './components'
+export { Label as default } from './components';

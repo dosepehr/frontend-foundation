@@ -1,19 +1,19 @@
 import { render, screen } from '@testing-library/react';
+import EmptyWrapper from '.';
 import {
     Empty,
+    EmptyContent,
     EmptyDescription,
     EmptyHeader,
-    EmptyTitle,
-    EmptyContent,
     EmptyMedia,
+    EmptyTitle,
 } from './components';
-import EmptyWrapper from '.';
 
 describe('Empty primitives', () => {
     it('renders with data-slot="empty"', () => {
         const { container } = render(<Empty />);
         expect(
-            container.querySelector('[data-slot="empty"]')
+            container.querySelector('[data-slot="empty"]'),
         ).toBeInTheDocument();
     });
 
@@ -23,7 +23,7 @@ describe('Empty primitives', () => {
                 <EmptyHeader>
                     <EmptyTitle>Nothing here</EmptyTitle>
                 </EmptyHeader>
-            </Empty>
+            </Empty>,
         );
         expect(screen.getByText('Nothing here')).toBeInTheDocument();
     });
@@ -35,7 +35,7 @@ describe('Empty primitives', () => {
                     <EmptyTitle>T</EmptyTitle>
                     <EmptyDescription>Try adding some items</EmptyDescription>
                 </EmptyHeader>
-            </Empty>
+            </Empty>,
         );
         expect(screen.getByText('Try adding some items')).toBeInTheDocument();
     });
@@ -46,10 +46,10 @@ describe('Empty primitives', () => {
                 <EmptyContent>
                     <button>Add item</button>
                 </EmptyContent>
-            </Empty>
+            </Empty>,
         );
         expect(
-            screen.getByRole('button', { name: 'Add item' })
+            screen.getByRole('button', { name: 'Add item' }),
         ).toBeInTheDocument();
     });
 
@@ -61,21 +61,21 @@ describe('Empty primitives', () => {
                         <span>icon</span>
                     </EmptyMedia>
                 </EmptyHeader>
-            </Empty>
+            </Empty>,
         );
         expect(
-            container.querySelector('[data-slot="empty-icon"]')
+            container.querySelector('[data-slot="empty-icon"]'),
         ).toBeInTheDocument();
     });
 
     it('EmptyMedia reflects variant via data-variant', () => {
         const { container } = render(
-            <EmptyMedia variant='icon'>
+            <EmptyMedia variant="icon">
                 <span />
-            </EmptyMedia>
+            </EmptyMedia>,
         );
         expect(
-            container.querySelector('[data-slot="empty-icon"]')
+            container.querySelector('[data-slot="empty-icon"]'),
         ).toHaveAttribute('data-variant', 'icon');
     });
 
@@ -83,81 +83,81 @@ describe('Empty primitives', () => {
         const { container } = render(
             <EmptyMedia>
                 <span />
-            </EmptyMedia>
+            </EmptyMedia>,
         );
         expect(
-            container.querySelector('[data-slot="empty-icon"]')
+            container.querySelector('[data-slot="empty-icon"]'),
         ).toHaveAttribute('data-variant', 'default');
     });
 
     it('forwards className to Empty', () => {
-        const { container } = render(<Empty className='custom-empty' />);
+        const { container } = render(<Empty className="custom-empty" />);
         expect(container.querySelector('[data-slot="empty"]')).toHaveClass(
-            'custom-empty'
+            'custom-empty',
         );
     });
 });
 
 describe('EmptyWrapper', () => {
     it('renders title', () => {
-        render(<EmptyWrapper title='No results' />);
+        render(<EmptyWrapper title="No results" />);
         expect(screen.getByText('No results')).toBeInTheDocument();
     });
 
     it('renders description when provided', () => {
         render(
             <EmptyWrapper
-                title='No results'
-                description='Try a different search'
-            />
+                title="No results"
+                description="Try a different search"
+            />,
         );
         expect(screen.getByText('Try a different search')).toBeInTheDocument();
     });
 
     it('does not render description when omitted', () => {
-        render(<EmptyWrapper title='No results' />);
+        render(<EmptyWrapper title="No results" />);
         expect(
-            screen.queryByText('Try a different search')
+            screen.queryByText('Try a different search'),
         ).not.toBeInTheDocument();
     });
 
     it('renders icon when provided', () => {
         render(
             <EmptyWrapper
-                title='No results'
-                icon={<span data-testid='icon' />}
-            />
+                title="No results"
+                icon={<span data-testid="icon" />}
+            />,
         );
         expect(screen.getByTestId('icon')).toBeInTheDocument();
     });
 
     it('does not render EmptyMedia when icon is omitted', () => {
-        const { container } = render(<EmptyWrapper title='No results' />);
+        const { container } = render(<EmptyWrapper title="No results" />);
         expect(
-            container.querySelector('[data-slot="empty-icon"]')
+            container.querySelector('[data-slot="empty-icon"]'),
         ).not.toBeInTheDocument();
     });
 
     it('renders action when provided', () => {
         render(
-            <EmptyWrapper title='No results' action={<button>Add</button>} />
+            <EmptyWrapper title="No results" action={<button>Add</button>} />,
         );
         expect(screen.getByRole('button', { name: 'Add' })).toBeInTheDocument();
     });
 
     it('does not render EmptyContent when action is omitted', () => {
-        const { container } = render(<EmptyWrapper title='No results' />);
+        const { container } = render(<EmptyWrapper title="No results" />);
         expect(
-            container.querySelector('[data-slot="empty-content"]')
+            container.querySelector('[data-slot="empty-content"]'),
         ).not.toBeInTheDocument();
     });
 
     it('forwards className', () => {
         const { container } = render(
-            <EmptyWrapper title='No results' className='custom-empty' />
+            <EmptyWrapper title="No results" className="custom-empty" />,
         );
         expect(container.querySelector('[data-slot="empty"]')).toHaveClass(
-            'custom-empty'
+            'custom-empty',
         );
     });
 
@@ -166,13 +166,12 @@ describe('EmptyWrapper', () => {
         (variant) => {
             render(
                 <EmptyWrapper
-                    title='No results'
+                    title="No results"
                     icon={<span />}
                     mediaVariant={variant}
-                />
+                />,
             );
             expect(screen.getByText('No results')).toBeInTheDocument();
-        }
+        },
     );
 });
-

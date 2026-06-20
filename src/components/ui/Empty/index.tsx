@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import type { FC } from 'react';
 import {
     Empty,
     EmptyContent,
@@ -6,8 +6,8 @@ import {
     EmptyHeader,
     EmptyMedia,
     EmptyTitle,
-} from './components'
-import type { EmptyWrapperProps } from './empty.types'
+} from './components';
+import type { EmptyWrapperProps } from './empty.types';
 
 const EmptyWrapper: FC<EmptyWrapperProps> = ({
     title,
@@ -22,11 +22,13 @@ const EmptyWrapper: FC<EmptyWrapperProps> = ({
             <EmptyHeader>
                 {icon && <EmptyMedia variant={mediaVariant}>{icon}</EmptyMedia>}
                 <EmptyTitle>{title}</EmptyTitle>
-                {description && <EmptyDescription>{description}</EmptyDescription>}
+                {description && (
+                    <EmptyDescription>{description}</EmptyDescription>
+                )}
             </EmptyHeader>
             {action && <EmptyContent>{action}</EmptyContent>}
         </Empty>
-    )
-}
+    );
+};
 
-export default EmptyWrapper
+export default EmptyWrapper;

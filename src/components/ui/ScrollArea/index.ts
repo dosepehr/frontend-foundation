@@ -1,1 +1,1 @@
-export { ScrollArea as default } from './components'
+export { ScrollArea as default } from './components';

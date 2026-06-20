@@ -1,40 +1,48 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { TooltipProvider } from '../Tooltip/components';
 import {
     Sidebar,
-    SidebarProvider,
-    SidebarTrigger,
-    useSidebar,
-    SidebarHeader,
-    SidebarFooter,
     SidebarContent,
+    SidebarFooter,
     SidebarGroup,
-    SidebarGroupLabel,
-    SidebarGroupContent,
     SidebarGroupAction,
+    SidebarGroupContent,
+    SidebarGroupLabel,
+    SidebarHeader,
+    SidebarInput,
+    SidebarInset,
     SidebarMenu,
-    SidebarMenuItem,
-    SidebarMenuButton,
     SidebarMenuAction,
     SidebarMenuBadge,
+    SidebarMenuButton,
+    SidebarMenuItem,
     SidebarMenuSkeleton,
     SidebarMenuSub,
-    SidebarMenuSubItem,
     SidebarMenuSubButton,
-    SidebarInset,
-    SidebarSeparator,
+    SidebarMenuSubItem,
+    SidebarProvider,
     SidebarRail,
-    SidebarInput,
+    SidebarSeparator,
+    SidebarTrigger,
+    useSidebar,
 } from './components';
 
 function renderWithProvider(ui: React.ReactNode) {
-    return render(<TooltipProvider><SidebarProvider>{ui}</SidebarProvider></TooltipProvider>);
+    return render(
+        <TooltipProvider>
+            <SidebarProvider>{ui}</SidebarProvider>
+        </TooltipProvider>,
+    );
 }
 
 function setupDesktop() {
     const listeners: Array<() => void> = [];
-    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1440 });
+    Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 1440,
+    });
     vi.stubGlobal('matchMedia', (_query: string) => ({
         matches: false,
         addEventListener: (_e: string, cb: () => void) => listeners.push(cb),
@@ -47,26 +55,40 @@ function setupDesktop() {
 
 describe('SidebarProvider', () => {
     it('renders without errors', () => {
-        expect(() => render(<SidebarProvider><div>content</div></SidebarProvider>)).not.toThrow();
+        expect(() =>
+            render(
+                <SidebarProvider>
+                    <div>content</div>
+                </SidebarProvider>,
+            ),
+        ).not.toThrow();
     });
 
     it('has data-slot="sidebar-wrapper"', () => {
-        const { container } = render(<SidebarProvider><div /></SidebarProvider>);
-        expect(container.querySelector('[data-slot="sidebar-wrapper"]')).toBeInTheDocument();
+        const { container } = render(
+            <SidebarProvider>
+                <div />
+            </SidebarProvider>,
+        );
+        expect(
+            container.querySelector('[data-slot="sidebar-wrapper"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('Sidebar', () => {
     it('renders with collapsible="none" as a simple div', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>content</Sidebar>,
+            <Sidebar collapsible="none">content</Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders children', () => {
         renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <span>Sidebar content</span>
             </Sidebar>,
         );
@@ -77,106 +99,126 @@ describe('Sidebar', () => {
 describe('SidebarTrigger', () => {
     it('renders as a button', () => {
         renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarTrigger />
             </Sidebar>,
         );
-        expect(document.querySelector('[data-slot="sidebar-trigger"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="sidebar-trigger"]'),
+        ).toBeInTheDocument();
     });
 
     it('has data-slot="sidebar-trigger"', () => {
         renderWithProvider(<SidebarTrigger />);
-        expect(document.querySelector('[data-slot="sidebar-trigger"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="sidebar-trigger"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('SidebarHeader / SidebarFooter / SidebarContent', () => {
     it('SidebarHeader has data-slot="sidebar-header"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarHeader>Header</SidebarHeader>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-header"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-header"]'),
+        ).toBeInTheDocument();
     });
 
     it('SidebarFooter has data-slot="sidebar-footer"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarFooter>Footer</SidebarFooter>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-footer"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-footer"]'),
+        ).toBeInTheDocument();
     });
 
     it('SidebarContent has data-slot="sidebar-content"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarContent>Content</SidebarContent>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-content"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-content"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('SidebarGroup', () => {
     it('has data-slot="sidebar-group"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarGroup />
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-group"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-group"]'),
+        ).toBeInTheDocument();
     });
 
     it('SidebarGroupLabel has data-slot="sidebar-group-label"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarGroup>
                     <SidebarGroupLabel>My Group</SidebarGroupLabel>
                 </SidebarGroup>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-group-label"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-group-label"]'),
+        ).toBeInTheDocument();
         expect(screen.getByText('My Group')).toBeInTheDocument();
     });
 
     it('SidebarGroupContent has data-slot="sidebar-group-content"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarGroup>
                     <SidebarGroupContent />
                 </SidebarGroup>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-group-content"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-group-content"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('SidebarMenu / SidebarMenuItem / SidebarMenuButton', () => {
     it('SidebarMenu has data-slot="sidebar-menu"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarMenu />
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu"]'),
+        ).toBeInTheDocument();
     });
 
     it('SidebarMenuItem has data-slot="sidebar-menu-item"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarMenu>
                     <SidebarMenuItem />
                 </SidebarMenu>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu-item"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-item"]'),
+        ).toBeInTheDocument();
     });
 
     it('SidebarMenuButton renders and has data-slot', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton>Menu Item</SidebarMenuButton>
@@ -184,13 +226,15 @@ describe('SidebarMenu / SidebarMenuItem / SidebarMenuButton', () => {
                 </SidebarMenu>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu-button"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-button"]'),
+        ).toBeInTheDocument();
         expect(screen.getByText('Menu Item')).toBeInTheDocument();
     });
 
     it('SidebarMenuBadge has data-slot="sidebar-menu-badge"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton>Item</SidebarMenuButton>
@@ -199,59 +243,71 @@ describe('SidebarMenu / SidebarMenuItem / SidebarMenuButton', () => {
                 </SidebarMenu>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu-badge"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-badge"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('SidebarInset', () => {
     it('has data-slot="sidebar-inset"', () => {
         const { container } = renderWithProvider(<SidebarInset />);
-        expect(container.querySelector('[data-slot="sidebar-inset"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-inset"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('SidebarRail', () => {
     it('has data-slot="sidebar-rail"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarRail />
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-rail"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-rail"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('SidebarInput', () => {
     it('has data-slot="sidebar-input"', () => {
         const { container } = renderWithProvider(<SidebarInput />);
-        expect(container.querySelector('[data-slot="sidebar-input"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-input"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('SidebarSeparator', () => {
     it('has data-slot="sidebar-separator"', () => {
         const { container } = renderWithProvider(<SidebarSeparator />);
-        expect(container.querySelector('[data-slot="sidebar-separator"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-separator"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('SidebarGroupAction', () => {
     it('has data-slot="sidebar-group-action"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarGroup>
                     <SidebarGroupAction>Action</SidebarGroupAction>
                 </SidebarGroup>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-group-action"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-group-action"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('SidebarMenuAction', () => {
     it('has data-slot="sidebar-menu-action"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuAction>...</SidebarMenuAction>
@@ -259,68 +315,94 @@ describe('SidebarMenuAction', () => {
                 </SidebarMenu>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu-action"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-action"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('SidebarMenuSkeleton', () => {
     it('has data-slot="sidebar-menu-skeleton"', () => {
         const { container } = renderWithProvider(<SidebarMenuSkeleton />);
-        expect(container.querySelector('[data-slot="sidebar-menu-skeleton"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-skeleton"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders icon skeleton when showIcon is true', () => {
-        const { container } = renderWithProvider(<SidebarMenuSkeleton showIcon />);
-        expect(container.querySelector('[data-sidebar="menu-skeleton-icon"]')).toBeInTheDocument();
+        const { container } = renderWithProvider(
+            <SidebarMenuSkeleton showIcon />,
+        );
+        expect(
+            container.querySelector('[data-sidebar="menu-skeleton-icon"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('SidebarMenuSub', () => {
     it('has data-slot="sidebar-menu-sub"', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuSub>
                             <SidebarMenuSubItem>
-                                <SidebarMenuSubButton href='#'>Sub item</SidebarMenuSubButton>
+                                <SidebarMenuSubButton href="#">
+                                    Sub item
+                                </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
                         </SidebarMenuSub>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu-sub"]')).toBeInTheDocument();
-        expect(container.querySelector('[data-slot="sidebar-menu-sub-item"]')).toBeInTheDocument();
-        expect(container.querySelector('[data-slot="sidebar-menu-sub-button"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-sub"]'),
+        ).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-sub-item"]'),
+        ).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-sub-button"]'),
+        ).toBeInTheDocument();
     });
 });
 
 describe('SidebarMenuButton tooltip', () => {
     it('renders with string tooltip without errors', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton tooltip='Click here'>Menu</SidebarMenuButton>
+                        <SidebarMenuButton tooltip="Click here">
+                            Menu
+                        </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu-button"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-button"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders with object tooltip without errors', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton tooltip={{ children: 'Tooltip text' }}>Menu</SidebarMenuButton>
+                        <SidebarMenuButton
+                            tooltip={{ children: 'Tooltip text' }}
+                        >
+                            Menu
+                        </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu-button"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-button"]'),
+        ).toBeInTheDocument();
     });
 });
 
@@ -336,7 +418,9 @@ describe('Sidebar offcanvas collapsible', () => {
                 </SidebarContent>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar"]'),
+        ).toBeInTheDocument();
     });
 
     it('toggles sidebar when SidebarTrigger is clicked', async () => {
@@ -344,19 +428,27 @@ describe('Sidebar offcanvas collapsible', () => {
         const { container } = renderWithProvider(
             <>
                 <SidebarTrigger />
-                <Sidebar><SidebarContent /></Sidebar>
+                <Sidebar>
+                    <SidebarContent />
+                </Sidebar>
             </>,
         );
-        const trigger = container.querySelector('[data-slot="sidebar-trigger"]');
+        const trigger = container.querySelector(
+            '[data-slot="sidebar-trigger"]',
+        );
         if (trigger) await user.click(trigger);
-        expect(container.querySelector('[data-slot="sidebar-trigger"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-trigger"]'),
+        ).toBeInTheDocument();
     });
 
     it('handles keyboard shortcut Ctrl+B to toggle sidebar', () => {
         renderWithProvider(<SidebarTrigger />);
         fireEvent.keyDown(window, { key: 'b', ctrlKey: true });
         // verify provider is still mounted after shortcut
-        expect(document.querySelector('[data-slot="sidebar-wrapper"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="sidebar-wrapper"]'),
+        ).toBeInTheDocument();
     });
 
     it('calls onOpenChange when SidebarProvider toggle is triggered with controlled open', async () => {
@@ -366,11 +458,15 @@ describe('Sidebar offcanvas collapsible', () => {
             <TooltipProvider>
                 <SidebarProvider open={true} onOpenChange={onOpenChange}>
                     <SidebarTrigger />
-                    <Sidebar><SidebarContent /></Sidebar>
+                    <Sidebar>
+                        <SidebarContent />
+                    </Sidebar>
                 </SidebarProvider>
             </TooltipProvider>,
         );
-        const trigger = container.querySelector('[data-slot="sidebar-trigger"]');
+        const trigger = container.querySelector(
+            '[data-slot="sidebar-trigger"]',
+        );
         if (trigger) await user.click(trigger as Element);
         expect(onOpenChange).toHaveBeenCalled();
     });
@@ -378,9 +474,15 @@ describe('Sidebar offcanvas collapsible', () => {
 
 describe('useSidebar outside provider', () => {
     it('throws when used outside SidebarProvider', () => {
-        const Component = () => { useSidebar(); return null; };
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        const Component = () => {
+            useSidebar();
+            return null;
+        };
         const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
-        expect(() => render(<Component />)).toThrow('useSidebar must be used within a SidebarProvider.');
+        expect(() => render(<Component />)).toThrow(
+            'useSidebar must be used within a SidebarProvider.',
+        );
         spy.mockRestore();
     });
 });
@@ -391,22 +493,24 @@ describe('SidebarMenuAction asChild and showOnHover', () => {
 
     it('renders SidebarMenuAction with asChild=true', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuAction asChild>
-                            <a href='#'>Action</a>
+                            <a href="#">Action</a>
                         </SidebarMenuAction>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu-action"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-action"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders SidebarMenuAction with showOnHover=true', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuAction showOnHover>...</SidebarMenuAction>
@@ -414,18 +518,20 @@ describe('SidebarMenuAction asChild and showOnHover', () => {
                 </SidebarMenu>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu-action"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-action"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders SidebarMenuSubButton with asChild=true', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuSub>
                             <SidebarMenuSubItem>
                                 <SidebarMenuSubButton asChild>
-                                    <a href='#'>Sub</a>
+                                    <a href="#">Sub</a>
                                 </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
                         </SidebarMenuSub>
@@ -433,44 +539,52 @@ describe('SidebarMenuAction asChild and showOnHover', () => {
                 </SidebarMenu>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu-sub-button"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-sub-button"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders SidebarMenuButton tooltip in collapsed state', () => {
         const { container } = render(
             <TooltipProvider>
                 <SidebarProvider defaultOpen={false}>
-                    <Sidebar collapsible='icon'>
+                    <Sidebar collapsible="icon">
                         <SidebarMenu>
                             <SidebarMenuItem>
-                                <SidebarMenuButton tooltip='Click here'>Item</SidebarMenuButton>
+                                <SidebarMenuButton tooltip="Click here">
+                                    Item
+                                </SidebarMenuButton>
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </Sidebar>
                 </SidebarProvider>
             </TooltipProvider>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu-button"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-button"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders SidebarMenuButton with asChild=true', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>
-                            <a href='#'>Item</a>
+                            <a href="#">Item</a>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-menu-button"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-menu-button"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders SidebarGroupLabel with asChild=true', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarGroup>
                     <SidebarGroupLabel asChild>
                         <button>Label</button>
@@ -478,28 +592,34 @@ describe('SidebarMenuAction asChild and showOnHover', () => {
                 </SidebarGroup>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-group-label"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-group-label"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders SidebarGroupAction with asChild=true', () => {
         const { container } = renderWithProvider(
-            <Sidebar collapsible='none'>
+            <Sidebar collapsible="none">
                 <SidebarGroup>
                     <SidebarGroupAction asChild>
-                        <a href='#'>+</a>
+                        <a href="#">+</a>
                     </SidebarGroupAction>
                 </SidebarGroup>
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar-group-action"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar-group-action"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders Sidebar with floating variant', () => {
         const { container } = renderWithProvider(
-            <Sidebar variant='floating'>
+            <Sidebar variant="floating">
                 <SidebarContent />
             </Sidebar>,
         );
-        expect(container.querySelector('[data-slot="sidebar"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="sidebar"]'),
+        ).toBeInTheDocument();
     });
 });

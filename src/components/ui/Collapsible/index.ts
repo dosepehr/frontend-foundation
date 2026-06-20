@@ -1,1 +1,1 @@
-export { Collapsible as default } from './components'
+export { Collapsible as default } from './components';

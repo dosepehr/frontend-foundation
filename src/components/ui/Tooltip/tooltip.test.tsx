@@ -1,6 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './components';
 import TooltipWrapper from '.';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from './components';
 
 describe('Tooltip primitives', () => {
     it('content is not visible by default', () => {
@@ -50,7 +55,9 @@ describe('Tooltip primitives', () => {
                 </Tooltip>
             </TooltipProvider>,
         );
-        expect(container.querySelector('[data-slot="tooltip-trigger"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="tooltip-trigger"]'),
+        ).toBeInTheDocument();
     });
 
     it('has data-slot="tooltip-content" on the content', () => {
@@ -62,7 +69,9 @@ describe('Tooltip primitives', () => {
                 </Tooltip>
             </TooltipProvider>,
         );
-        expect(document.querySelector('[data-slot="tooltip-content"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="tooltip-content"]'),
+        ).toBeInTheDocument();
     });
 
     it('content is not visible when open is false', () => {
@@ -94,16 +103,18 @@ describe('Tooltip primitives', () => {
 describe('TooltipWrapper', () => {
     it('renders the trigger child', () => {
         render(
-            <TooltipWrapper content='Tooltip text'>
+            <TooltipWrapper content="Tooltip text">
                 <button>Trigger</button>
             </TooltipWrapper>,
         );
-        expect(screen.getByRole('button', { name: 'Trigger' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Trigger' }),
+        ).toBeInTheDocument();
     });
 
     it('shows content when open prop is true', () => {
         render(
-            <TooltipWrapper content='Helpful info' open>
+            <TooltipWrapper content="Helpful info" open>
                 <button>Trigger</button>
             </TooltipWrapper>,
         );
@@ -114,16 +125,18 @@ describe('TooltipWrapper', () => {
 
     it('hides content when open prop is false', () => {
         render(
-            <TooltipWrapper content='Helpful info' open={false}>
+            <TooltipWrapper content="Helpful info" open={false}>
                 <button>Trigger</button>
             </TooltipWrapper>,
         );
-        expect(document.querySelector('[data-slot="tooltip-content"]')).not.toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="tooltip-content"]'),
+        ).not.toBeInTheDocument();
     });
 
     it('shows content when defaultOpen is true', () => {
         render(
-            <TooltipWrapper content='Default open content' defaultOpen>
+            <TooltipWrapper content="Default open content" defaultOpen>
                 <button>Trigger</button>
             </TooltipWrapper>,
         );
@@ -134,12 +147,17 @@ describe('TooltipWrapper', () => {
 
     it('renders ReactNode content', () => {
         render(
-            <TooltipWrapper content={<span data-testid='rich-content'>Rich</span>} open>
+            <TooltipWrapper
+                content={<span data-testid="rich-content">Rich</span>}
+                open
+            >
                 <button>Trigger</button>
             </TooltipWrapper>,
         );
         const content = document.querySelector('[data-slot="tooltip-content"]');
-        expect(content?.querySelector('[data-testid="rich-content"]')).toBeInTheDocument();
+        expect(
+            content?.querySelector('[data-testid="rich-content"]'),
+        ).toBeInTheDocument();
     });
 });
 
@@ -150,7 +168,7 @@ describe('TooltipContent variant', () => {
                 <TooltipProvider>
                     <Tooltip open>
                         <TooltipTrigger>Hover</TooltipTrigger>
-                        <TooltipContent variant='default'>Tip</TooltipContent>
+                        <TooltipContent variant="default">Tip</TooltipContent>
                     </Tooltip>
                 </TooltipProvider>,
             ),

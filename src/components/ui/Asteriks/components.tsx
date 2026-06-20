@@ -1,9 +1,12 @@
 function Asteriks() {
     return (
-        <span aria-hidden='true' className='text-destructive text-sm leading-none'>
+        <span
+            aria-hidden="true"
+            className="text-sm leading-none text-destructive"
+        >
             *
         </span>
-    )
+    );
 }
 
-export { Asteriks }
+export { Asteriks };

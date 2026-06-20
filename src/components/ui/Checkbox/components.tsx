@@ -2,11 +2,10 @@
 'use client';
 /* c8 ignore stop */
 
-import * as React from 'react';
-import { Checkbox as CheckboxPrimitive } from 'radix-ui';
+import { cn } from '@/src/utils/funcs/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { CheckIcon } from 'lucide-react';
-import { cn } from '@/src/utils/funcs/cn';
+import { Checkbox as CheckboxPrimitive } from 'radix-ui';
 import { Label } from '../Label/components';
 import type { CheckboxProps } from './checkbox.types';
 
@@ -32,7 +31,7 @@ export const checkboxVariants = cva(
         defaultVariants: {
             variant: 'default',
         },
-    }
+    },
 );
 
 export const checkboxWrapperVariants = cva(
@@ -57,7 +56,7 @@ export const checkboxWrapperVariants = cva(
         defaultVariants: {
             variant: 'default',
         },
-    }
+    },
 );
 
 function Checkbox({
@@ -70,27 +69,26 @@ function Checkbox({
 }: CheckboxProps) {
     return (
         <Label
-            className='flex items-center gap-2 w-fit font-normal'
+            className="flex w-fit items-center gap-2 font-normal"
             required={required}
         >
             <CheckboxPrimitive.Root
-                data-slot='checkbox'
+                data-slot="checkbox"
                 id={id}
                 className={cn(checkboxVariants({ variant }), className)}
                 {...props}
             >
                 <CheckboxPrimitive.Indicator
-                    data-slot='checkbox-indicator'
-                    className='grid place-content-center text-current transition-none'
+                    data-slot="checkbox-indicator"
+                    className="grid place-content-center text-current transition-none"
                 >
-                    <CheckIcon className='size-3.5' />
+                    <CheckIcon className="size-3.5" />
                 </CheckboxPrimitive.Indicator>
             </CheckboxPrimitive.Root>
-            {label && <span className='text-sm leading-none'>{label}</span>}
+            {label && <span className="text-sm leading-none">{label}</span>}
         </Label>
     );
 }
 
 export { Checkbox };
 export type { VariantProps };
-

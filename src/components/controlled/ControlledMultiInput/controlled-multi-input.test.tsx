@@ -17,11 +17,11 @@ function TestForm({
     const { control } = useForm<TestForm>({ defaultValues });
     return (
         <ControlledMultiInput
-            name='tags'
+            name="tags"
             control={control}
             onValueChange={onValueChange}
             error={error}
-            placeholder='Add tag'
+            placeholder="Add tag"
         />
     );
 }
@@ -43,8 +43,10 @@ describe('ControlledMultiInput', () => {
     });
 
     it('shows prop-level error', () => {
-        render(<TestForm error='At least one tag required' />);
-        expect(screen.getByText('At least one tag required')).toBeInTheDocument();
+        render(<TestForm error="At least one tag required" />);
+        expect(
+            screen.getByText('At least one tag required'),
+        ).toBeInTheDocument();
     });
 
     it('calls onValueChange when a tag is added', async () => {
@@ -67,13 +69,22 @@ describe('ControlledMultiInput', () => {
     it('calls onValueChange when a tag is removed', async () => {
         const user = userEvent.setup();
         const onValueChange = vi.fn();
-        render(<TestForm defaultValues={{ tags: ['React'] }} onValueChange={onValueChange} />);
+        render(
+            <TestForm
+                defaultValues={{ tags: ['React'] }}
+                onValueChange={onValueChange}
+            />,
+        );
         await user.click(screen.getByLabelText('Remove React'));
         expect(onValueChange).toHaveBeenCalledWith([]);
     });
 
     it('defaults value to [] when field.value is undefined', () => {
-        render(<TestForm defaultValues={{ tags: undefined as unknown as string[] }} />);
+        render(
+            <TestForm
+                defaultValues={{ tags: undefined as unknown as string[] }}
+            />,
+        );
         expect(screen.getByRole('textbox')).toBeInTheDocument();
     });
 });

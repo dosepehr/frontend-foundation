@@ -1,1 +1,1 @@
-export { Kbd as default } from './components'
+export { Kbd as default } from './components';

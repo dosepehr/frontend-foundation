@@ -1,27 +1,29 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import SelectWrapper from '.';
 import {
     Select,
-    SelectTrigger,
-    SelectValue,
     SelectContent,
-    SelectItem,
     SelectGroup,
+    SelectItem,
     SelectLabel,
     SelectSeparator,
+    SelectTrigger,
+    SelectValue,
 } from './components';
-import SelectWrapper from '.';
 
 describe('Select', () => {
-    function renderSelect(props?: Partial<React.ComponentProps<typeof Select>>) {
+    function renderSelect(
+        props?: Partial<React.ComponentProps<typeof Select>>,
+    ) {
         return render(
             <Select {...props}>
                 <SelectTrigger>
-                    <SelectValue placeholder='Pick one' />
+                    <SelectValue placeholder="Pick one" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value='apple'>Apple</SelectItem>
-                    <SelectItem value='banana'>Banana</SelectItem>
+                    <SelectItem value="apple">Apple</SelectItem>
+                    <SelectItem value="banana">Banana</SelectItem>
                 </SelectContent>
             </Select>,
         );
@@ -39,19 +41,25 @@ describe('Select', () => {
 
     it('trigger has data-slot="select-trigger"', () => {
         const { container } = renderSelect();
-        expect(container.querySelector('[data-slot="select-trigger"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="select-trigger"]'),
+        ).toBeInTheDocument();
     });
 
     it('content is not visible by default', () => {
         renderSelect();
-        expect(document.querySelector('[data-slot="select-content"]')).not.toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="select-content"]'),
+        ).not.toBeInTheDocument();
     });
 
     it('opens content on trigger click', async () => {
         const user = userEvent.setup();
         renderSelect();
         await user.click(screen.getByRole('combobox'));
-        expect(document.querySelector('[data-slot="select-content"]')).toBeInTheDocument();
+        expect(
+            document.querySelector('[data-slot="select-content"]'),
+        ).toBeInTheDocument();
     });
 
     it('shows items when open', async () => {
@@ -81,12 +89,12 @@ describe('Select', () => {
             render(
                 <Select>
                     <SelectTrigger>
-                        <SelectValue placeholder='Pick' />
+                        <SelectValue placeholder="Pick" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
                             <SelectLabel>Fruits</SelectLabel>
-                            <SelectItem value='apple'>Apple</SelectItem>
+                            <SelectItem value="apple">Apple</SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>,
@@ -99,12 +107,12 @@ describe('Select', () => {
             render(
                 <Select>
                     <SelectTrigger>
-                        <SelectValue placeholder='Pick' />
+                        <SelectValue placeholder="Pick" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value='a'>A</SelectItem>
+                        <SelectItem value="a">A</SelectItem>
                         <SelectSeparator />
-                        <SelectItem value='b'>B</SelectItem>
+                        <SelectItem value="b">B</SelectItem>
                     </SelectContent>
                 </Select>,
             ),
@@ -123,17 +131,24 @@ describe('SelectWrapper', () => {
     });
 
     it('renders label when provided', () => {
-        render(<SelectWrapper options={options} label='Pick a fruit' />);
+        render(<SelectWrapper options={options} label="Pick a fruit" />);
         expect(screen.getByText('Pick a fruit')).toBeInTheDocument();
     });
 
     it('renders description when provided', () => {
-        render(<SelectWrapper options={options} description='Choose your favourite fruit' />);
-        expect(screen.getByText('Choose your favourite fruit')).toBeInTheDocument();
+        render(
+            <SelectWrapper
+                options={options}
+                description="Choose your favourite fruit"
+            />,
+        );
+        expect(
+            screen.getByText('Choose your favourite fruit'),
+        ).toBeInTheDocument();
     });
 
     it('renders error message when provided', () => {
-        render(<SelectWrapper options={options} error='Selection required' />);
+        render(<SelectWrapper options={options} error="Selection required" />);
         expect(screen.getByText('Selection required')).toBeInTheDocument();
     });
 
@@ -153,7 +168,9 @@ describe('SelectWrapper', () => {
     it('calls onValueChange when an option is selected', async () => {
         const user = userEvent.setup();
         const onValueChange = vi.fn();
-        render(<SelectWrapper options={options} onValueChange={onValueChange} />);
+        render(
+            <SelectWrapper options={options} onValueChange={onValueChange} />,
+        );
         await user.click(screen.getByRole('combobox'));
         await user.click(screen.getByText('Apple'));
         expect(onValueChange).toHaveBeenCalledWith('apple');

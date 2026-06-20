@@ -1,3 +1,3 @@
-'use client'
+'use client';
 
-export { Toggle as default } from './components'
+export { Toggle as default } from './components';

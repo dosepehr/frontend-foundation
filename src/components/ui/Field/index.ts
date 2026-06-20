@@ -1,1 +1,1 @@
-export { Field as default } from './components'
+export { Field as default } from './components';

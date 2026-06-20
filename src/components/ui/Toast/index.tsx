@@ -1,5 +1,5 @@
-'use client'
+'use client';
 
-import { Toaster } from './components'
+import { Toaster } from './components';
 
-export default Toaster
+export default Toaster;

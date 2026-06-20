@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Textarea } from './components';
 import TextareaWrapper from '.';
+import { Textarea } from './components';
 
 describe('Textarea', () => {
     it('renders a textarea element', () => {
@@ -11,11 +11,13 @@ describe('Textarea', () => {
 
     it('has data-slot="textarea"', () => {
         const { container } = render(<Textarea />);
-        expect(container.querySelector('[data-slot="textarea"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="textarea"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders placeholder text', () => {
-        render(<Textarea placeholder='Enter text' />);
+        render(<Textarea placeholder="Enter text" />);
         expect(screen.getByPlaceholderText('Enter text')).toBeInTheDocument();
     });
 
@@ -40,13 +42,18 @@ describe('Textarea', () => {
     });
 
     it('forwards className', () => {
-        const { container } = render(<Textarea className='custom-class' />);
-        expect(container.querySelector('[data-slot="textarea"]')).toHaveClass('custom-class');
+        const { container } = render(<Textarea className="custom-class" />);
+        expect(container.querySelector('[data-slot="textarea"]')).toHaveClass(
+            'custom-class',
+        );
     });
 
     it('sets aria-invalid when prop is true', () => {
         render(<Textarea aria-invalid={true} />);
-        expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
+        expect(screen.getByRole('textbox')).toHaveAttribute(
+            'aria-invalid',
+            'true',
+        );
     });
 });
 
@@ -57,7 +64,7 @@ describe('TextareaWrapper', () => {
     });
 
     it('renders label when provided', () => {
-        render(<TextareaWrapper label='Notes' />);
+        render(<TextareaWrapper label="Notes" />);
         expect(screen.getByText('Notes')).toBeInTheDocument();
     });
 
@@ -67,30 +74,38 @@ describe('TextareaWrapper', () => {
     });
 
     it('associates label with textarea via htmlFor', () => {
-        render(<TextareaWrapper label='Notes' />);
+        render(<TextareaWrapper label="Notes" />);
         const label = screen.getByText('Notes');
         const textarea = screen.getByRole('textbox');
-        expect(label.closest('label') ?? label).toHaveAttribute('for', textarea.id);
+        expect(label.closest('label') ?? label).toHaveAttribute(
+            'for',
+            textarea.id,
+        );
     });
 
     it('renders description when provided', () => {
-        render(<TextareaWrapper description='Max 500 characters' />);
+        render(<TextareaWrapper description="Max 500 characters" />);
         expect(screen.getByText('Max 500 characters')).toBeInTheDocument();
     });
 
     it('does not render description when omitted', () => {
         render(<TextareaWrapper />);
-        expect(screen.queryByText('Max 500 characters')).not.toBeInTheDocument();
+        expect(
+            screen.queryByText('Max 500 characters'),
+        ).not.toBeInTheDocument();
     });
 
     it('renders error message when provided', () => {
-        render(<TextareaWrapper error='This field is required' />);
+        render(<TextareaWrapper error="This field is required" />);
         expect(screen.getByText('This field is required')).toBeInTheDocument();
     });
 
     it('sets aria-invalid on textarea when error is provided', () => {
-        render(<TextareaWrapper error='Invalid' />);
-        expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
+        render(<TextareaWrapper error="Invalid" />);
+        expect(screen.getByRole('textbox')).toHaveAttribute(
+            'aria-invalid',
+            'true',
+        );
     });
 
     it('does not set aria-invalid when no error', () => {
@@ -104,8 +119,11 @@ describe('TextareaWrapper', () => {
     });
 
     it('uses provided id for textarea', () => {
-        render(<TextareaWrapper id='my-textarea' label='Notes' />);
-        expect(screen.getByRole('textbox')).toHaveAttribute('id', 'my-textarea');
+        render(<TextareaWrapper id="my-textarea" label="Notes" />);
+        expect(screen.getByRole('textbox')).toHaveAttribute(
+            'id',
+            'my-textarea',
+        );
     });
 
     it('accepts user input', async () => {

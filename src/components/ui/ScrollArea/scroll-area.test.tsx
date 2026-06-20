@@ -3,22 +3,44 @@ import { ScrollArea, ScrollBar } from './components';
 
 describe('ScrollArea', () => {
     it('renders data-slot="scroll-area"', () => {
-        const { container } = render(<ScrollArea><div>content</div></ScrollArea>);
-        expect(container.querySelector('[data-slot="scroll-area"]')).toBeInTheDocument();
+        const { container } = render(
+            <ScrollArea>
+                <div>content</div>
+            </ScrollArea>,
+        );
+        expect(
+            container.querySelector('[data-slot="scroll-area"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders data-slot="scroll-area-viewport"', () => {
-        const { container } = render(<ScrollArea><div>content</div></ScrollArea>);
-        expect(container.querySelector('[data-slot="scroll-area-viewport"]')).toBeInTheDocument();
+        const { container } = render(
+            <ScrollArea>
+                <div>content</div>
+            </ScrollArea>,
+        );
+        expect(
+            container.querySelector('[data-slot="scroll-area-viewport"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders children inside the viewport', () => {
-        const { getByText } = render(<ScrollArea><span>Scrollable content</span></ScrollArea>);
+        const { getByText } = render(
+            <ScrollArea>
+                <span>Scrollable content</span>
+            </ScrollArea>,
+        );
         expect(getByText('Scrollable content')).toBeInTheDocument();
     });
 
     it('renders without errors with className prop', () => {
-        expect(() => render(<ScrollArea className='custom'><div /></ScrollArea>)).not.toThrow();
+        expect(() =>
+            render(
+                <ScrollArea className="custom">
+                    <div />
+                </ScrollArea>,
+            ),
+        ).not.toThrow();
     });
 });
 
@@ -27,19 +49,23 @@ describe('ScrollBar', () => {
         const { container } = render(
             <ScrollArea>
                 <div>content</div>
-                <ScrollBar orientation='vertical' />
+                <ScrollBar orientation="vertical" />
             </ScrollArea>,
         );
-        expect(container.querySelector('[data-slot="scroll-area"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="scroll-area"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders with horizontal orientation inside ScrollArea', () => {
         const { container } = render(
             <ScrollArea>
                 <div>content</div>
-                <ScrollBar orientation='horizontal' />
+                <ScrollBar orientation="horizontal" />
             </ScrollArea>,
         );
-        expect(container.querySelector('[data-slot="scroll-area"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="scroll-area"]'),
+        ).toBeInTheDocument();
     });
 });

@@ -1,17 +1,22 @@
-'use client'
+'use client';
 
-import { Controller, type Control, type FieldValues, type Path } from 'react-hook-form'
-import { OtpInputProps } from '../../ui/OtpInput/otp-input.types'
-import OtpInput from '../../ui/OtpInput'
+import {
+    Controller,
+    type Control,
+    type FieldValues,
+    type Path,
+} from 'react-hook-form';
+import OtpInput from '../../ui/OtpInput';
+import { type OtpInputProps } from '../../ui/OtpInput/otp-input.types';
 
 export type ControlledOtpInputProps<T extends FieldValues> = Omit<
     OtpInputProps,
     'value' | 'onChange'
 > & {
-    name: Path<T>
-    control: Control<T>
-    onValueChange?: (value: string) => void
-}
+    name: Path<T>;
+    control: Control<T>;
+    onValueChange?: (value: string) => void;
+};
 
 export const ControlledOtpInput = <T extends FieldValues>({
     name,
@@ -28,11 +33,11 @@ export const ControlledOtpInput = <T extends FieldValues>({
                 {...props}
                 value={field.value ?? ''}
                 onChange={(val) => {
-                    field.onChange(val)
-                    onValueChange?.(val)
+                    field.onChange(val);
+                    onValueChange?.(val);
                 }}
                 error={error ?? fieldState.error?.message}
             />
         )}
     />
-)
+);

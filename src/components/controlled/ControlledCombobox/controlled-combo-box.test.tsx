@@ -22,7 +22,7 @@ function TestForm({
     const { control } = useForm<TestForm>({ defaultValues });
     return (
         <ControlledComboBox
-            name='fruit'
+            name="fruit"
             control={control}
             options={options}
             customOnChange={customOnChange}
@@ -47,13 +47,25 @@ describe('ControlledComboBox', () => {
     });
 
     it('shows prop-level error when field has no value', () => {
-        render(<TestForm defaultValues={{ fruit: '' }} error='Please select a fruit' />);
+        render(
+            <TestForm
+                defaultValues={{ fruit: '' }}
+                error="Please select a fruit"
+            />,
+        );
         expect(screen.getByText('Please select a fruit')).toBeInTheDocument();
     });
 
     it('does not show error when the field has a value', () => {
-        render(<TestForm defaultValues={{ fruit: 'apple' }} error='Please select a fruit' />);
-        expect(screen.queryByText('Please select a fruit')).not.toBeInTheDocument();
+        render(
+            <TestForm
+                defaultValues={{ fruit: 'apple' }}
+                error="Please select a fruit"
+            />,
+        );
+        expect(
+            screen.queryByText('Please select a fruit'),
+        ).not.toBeInTheDocument();
     });
 
     it('calls customOnChange when a value is selected', async () => {

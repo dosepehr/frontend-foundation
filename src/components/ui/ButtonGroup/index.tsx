@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
-import { Fragment } from 'react'
-import type { FC } from 'react'
-import Button from '../Button'
-import { ButtonGroup, ButtonGroupSeparator } from './components'
-import type { ButtonGroupWrapperProps } from './button-group.types'
+import type { FC } from 'react';
+import { Fragment } from 'react';
+import Button from '../Button';
+import type { ButtonGroupWrapperProps } from './button-group.types';
+import { ButtonGroup, ButtonGroupSeparator } from './components';
 
 const ButtonGroupWrapper: FC<ButtonGroupWrapperProps> = ({
     items,
@@ -15,25 +15,37 @@ const ButtonGroupWrapper: FC<ButtonGroupWrapperProps> = ({
     return (
         <ButtonGroup orientation={orientation} className={className}>
             {items.map((item, index) => {
-                const { key, ...buttonProps } = item
-                const isLast = index === items.length - 1
+                const { key, ...buttonProps } = item;
+                const isLast = index === items.length - 1;
 
                 return (
                     <Fragment key={key ?? index}>
                         <Button {...buttonProps} />
                         {separator && !isLast && (
                             <ButtonGroupSeparator
-                                orientation={orientation === 'vertical' ? 'horizontal' : 'vertical'}
+                                orientation={
+                                    orientation === 'vertical'
+                                        ? 'horizontal'
+                                        : 'vertical'
+                                }
                             />
                         )}
                     </Fragment>
-                )
+                );
             })}
         </ButtonGroup>
-    )
-}
+    );
+};
 
-export default ButtonGroupWrapper
+export default ButtonGroupWrapper;
 
-export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText, buttonGroupVariants } from './components'
-export type { ButtonGroupWrapperProps, ButtonGroupItemDef } from './button-group.types'
+export type {
+    ButtonGroupItemDef,
+    ButtonGroupWrapperProps,
+} from './button-group.types';
+export {
+    ButtonGroup,
+    ButtonGroupSeparator,
+    ButtonGroupText,
+    buttonGroupVariants,
+} from './components';

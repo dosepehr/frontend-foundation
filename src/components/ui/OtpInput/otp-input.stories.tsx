@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import React, { useState } from 'react'
-import { OtpInput } from './components'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import React, { useState } from 'react';
+import { OtpInput } from './components';
 
 const meta: Meta<typeof OtpInput> = {
     title: 'UI/OtpInput',
@@ -14,14 +14,14 @@ const meta: Meta<typeof OtpInput> = {
         disabled: { control: 'boolean' },
         required: { control: 'boolean' },
     },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof OtpInput>
+export default meta;
+type Story = StoryObj<typeof OtpInput>;
 
 function Controlled(props: Partial<React.ComponentProps<typeof OtpInput>>) {
-    const [value, setValue] = useState('')
-    return <OtpInput value={value} onChange={setValue} {...props} />
+    const [value, setValue] = useState('');
+    return <OtpInput value={value} onChange={setValue} {...props} />;
 }
 
 export const Default: Story = {
@@ -30,7 +30,7 @@ export const Default: Story = {
         label: 'Verification Code',
         length: 6,
     },
-}
+};
 
 export const FourDigits: Story = {
     render: (args) => <Controlled {...args} />,
@@ -38,7 +38,7 @@ export const FourDigits: Story = {
         label: 'PIN',
         length: 4,
     },
-}
+};
 
 export const Required: Story = {
     render: (args) => <Controlled {...args} />,
@@ -47,7 +47,7 @@ export const Required: Story = {
         length: 6,
         required: true,
     },
-}
+};
 
 export const WithError: Story = {
     render: (args) => <Controlled {...args} />,
@@ -57,11 +57,18 @@ export const WithError: Story = {
         error: 'Invalid code. Please try again.',
         required: true,
     },
-}
+};
 
 export const Disabled: Story = {
-    render: () => <OtpInput label='Verification Code' length={6} value='123456' disabled />,
-}
+    render: () => (
+        <OtpInput
+            label="Verification Code"
+            length={6}
+            value="123456"
+            disabled
+        />
+    ),
+};
 
 export const SeparateInputs: Story = {
     render: (args) => <Controlled {...args} />,
@@ -70,7 +77,7 @@ export const SeparateInputs: Story = {
         length: 4,
         separated: true,
     },
-}
+};
 
 export const SeparateInputsWithError: Story = {
     render: (args) => <Controlled {...args} />,
@@ -80,28 +87,33 @@ export const SeparateInputsWithError: Story = {
         separated: true,
         error: 'Invalid code. Please try again.',
     },
-}
+};
 
 export const WithOnComplete: Story = {
     render: (args) => {
-        const [value, setValue] = useState('')
-        const [completed, setCompleted] = useState(false)
+        const [value, setValue] = useState('');
+        const [completed, setCompleted] = useState(false);
         return (
-            <div className='flex flex-col gap-3'>
+            <div className="flex flex-col gap-3">
                 <OtpInput
                     {...args}
                     value={value}
-                    onChange={(v) => { setValue(v); setCompleted(false) }}
+                    onChange={(v) => {
+                        setValue(v);
+                        setCompleted(false);
+                    }}
                     onComplete={() => setCompleted(true)}
                 />
                 {completed && (
-                    <p className='text-sm text-green-600'>Code submitted: {value}</p>
+                    <p className="text-sm text-green-600">
+                        Code submitted: {value}
+                    </p>
                 )}
             </div>
-        )
+        );
     },
     args: {
         label: 'Verification Code',
         length: 6,
     },
-}
+};

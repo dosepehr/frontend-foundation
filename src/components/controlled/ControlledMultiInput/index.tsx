@@ -1,17 +1,22 @@
-'use client'
+'use client';
 
-import { Controller, type Control, type FieldValues, type Path } from 'react-hook-form'
-import { MultiInputProps } from '../../ui/MultiInput/multi-input.types'
-import MultiInput from '../../ui/MultiInput'
+import {
+    Controller,
+    type Control,
+    type FieldValues,
+    type Path,
+} from 'react-hook-form';
+import MultiInput from '../../ui/MultiInput';
+import { type MultiInputProps } from '../../ui/MultiInput/multi-input.types';
 
 export type ControlledMultiInputProps<T extends FieldValues> = Omit<
     MultiInputProps,
     'value' | 'onChange'
 > & {
-    name: Path<T>
-    control: Control<T>
-    onValueChange?: (values: string[]) => void
-}
+    name: Path<T>;
+    control: Control<T>;
+    onValueChange?: (values: string[]) => void;
+};
 
 export const ControlledMultiInput = <T extends FieldValues>({
     name,
@@ -28,11 +33,11 @@ export const ControlledMultiInput = <T extends FieldValues>({
                 {...props}
                 value={field.value ?? []}
                 onChange={(values) => {
-                    field.onChange(values)
-                    onValueChange?.(values)
+                    field.onChange(values);
+                    onValueChange?.(values);
                 }}
                 error={error ?? fieldState.error?.message}
             />
         )}
     />
-)
+);

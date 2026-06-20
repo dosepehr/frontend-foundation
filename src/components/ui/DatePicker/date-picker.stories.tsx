@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import * as React from 'react'
-import { addDays, startOfToday } from 'date-fns'
-import { CalendarIcon } from 'lucide-react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import DatePicker from '.'
-import { ControlledDatePicker } from '../../controlled/ControlledDatePicker'
-import { Button } from '../Button/components'
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { addDays, startOfToday } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
+import * as React from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import DatePicker from '.';
+import { ControlledDatePicker } from '../../controlled/ControlledDatePicker';
+import { Button } from '../Button/components';
 
 const meta: Meta<typeof DatePicker> = {
     title: 'UI/DatePicker',
@@ -23,17 +23,23 @@ const meta: Meta<typeof DatePicker> = {
         disabled: { control: 'boolean' },
         format: { control: 'text' },
     },
-    decorators: [(Story) => <div className='w-72'><Story /></div>],
-}
+    decorators: [
+        (Story) => (
+            <div className="w-72">
+                <Story />
+            </div>
+        ),
+    ],
+};
 
-export default meta
-type Story = StoryObj<typeof DatePicker>
+export default meta;
+type Story = StoryObj<typeof DatePicker>;
 
 export const Default: Story = {
     args: {
         placeholder: 'Pick a date',
     },
-}
+};
 
 export const WithLabel: Story = {
     args: {
@@ -41,7 +47,7 @@ export const WithLabel: Story = {
         placeholder: 'Pick a date',
         required: true,
     },
-}
+};
 
 export const WithDescription: Story = {
     args: {
@@ -49,7 +55,7 @@ export const WithDescription: Story = {
         description: 'Select the date for your appointment.',
         placeholder: 'Pick a date',
     },
-}
+};
 
 export const WithError: Story = {
     args: {
@@ -58,7 +64,7 @@ export const WithError: Story = {
         error: 'Please select a valid date.',
         required: true,
     },
-}
+};
 
 export const Disabled: Story = {
     args: {
@@ -66,7 +72,7 @@ export const Disabled: Story = {
         placeholder: 'Pick a date',
         disabled: true,
     },
-}
+};
 
 export const WithDisabledDates: Story = {
     args: {
@@ -75,7 +81,7 @@ export const WithDisabledDates: Story = {
         description: 'Past dates are not available.',
         disabledDates: { before: startOfToday() },
     },
-}
+};
 
 export const CustomFormat: Story = {
     args: {
@@ -83,61 +89,61 @@ export const CustomFormat: Story = {
         placeholder: 'Pick a date',
         format: 'dd/MM/yyyy',
     },
-}
+};
 
 export const WithStartAddon: Story = {
     args: {
         label: 'Event date',
         placeholder: 'Pick a date',
-        startAddon: <CalendarIcon className='size-4' />,
+        startAddon: <CalendarIcon className="size-4" />,
     },
-}
+};
 
 // ─── Controlled ───────────────────────────────────────────────────────────────
 
 export const Controlled: Story = {
     render: () => {
-        const [date, setDate] = React.useState<Date | undefined>(undefined)
+        const [date, setDate] = React.useState<Date | undefined>();
         return (
-            <div className='flex flex-col gap-4'>
+            <div className="flex flex-col gap-4">
                 <DatePicker
-                    label='Select date'
-                    placeholder='Pick a date'
+                    label="Select date"
+                    placeholder="Pick a date"
                     value={date}
                     onChange={setDate}
                 />
-                <div className='flex items-center gap-2'>
+                <div className="flex items-center gap-2">
                     <Button
-                        variant='outline'
-                        size='sm'
+                        variant="outline"
+                        size="sm"
                         onClick={() => setDate(startOfToday())}
                     >
                         Today
                     </Button>
                     <Button
-                        variant='outline'
-                        size='sm'
+                        variant="outline"
+                        size="sm"
                         onClick={() => setDate(addDays(startOfToday(), 7))}
                     >
                         +7 days
                     </Button>
                     <Button
-                        variant='ghost'
-                        size='sm'
+                        variant="ghost"
+                        size="sm"
                         onClick={() => setDate(undefined)}
                     >
                         Clear
                     </Button>
                 </div>
                 {date && (
-                    <p className='text-sm text-muted-foreground'>
+                    <p className="text-sm text-muted-foreground">
                         Selected: {date.toLocaleDateString()}
                     </p>
                 )}
             </div>
-        )
+        );
     },
-}
+};
 
 // ─── React Hook Form + Zod ────────────────────────────────────────────────────
 
@@ -145,10 +151,12 @@ const schema = z.object({
     startDate: z.date({ error: 'Start date is required.' }),
     endDate: z
         .date({ error: 'End date is required.' })
-        .refine((d) => d > startOfToday(), { message: 'End date must be in the future.' }),
-})
+        .refine((d) => d > startOfToday(), {
+            message: 'End date must be in the future.',
+        }),
+});
 
-type FormValues = z.infer<typeof schema>
+type FormValues = z.infer<typeof schema>;
 
 export const WithReactHookForm: Story = {
     render: () => {
@@ -157,61 +165,76 @@ export const WithReactHookForm: Story = {
             handleSubmit,
             formState: { isSubmitSuccessful },
             reset,
-        } = useForm<FormValues>({ resolver: zodResolver(schema) })
+        } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
         return (
             <form
                 onSubmit={handleSubmit(() => {})}
-                className='flex w-72 flex-col gap-4'
+                className="flex w-72 flex-col gap-4"
             >
                 <ControlledDatePicker
                     control={control}
-                    name='startDate'
-                    label='Start date'
-                    placeholder='Pick a date'
+                    name="startDate"
+                    label="Start date"
+                    placeholder="Pick a date"
                     required
                 />
                 <ControlledDatePicker
                     control={control}
-                    name='endDate'
-                    label='End date'
-                    placeholder='Pick a date'
+                    name="endDate"
+                    label="End date"
+                    placeholder="Pick a date"
                     required
                     disabledDates={{ before: addDays(startOfToday(), 1) }}
                 />
-                <div className='flex gap-2'>
-                    <Button type='submit' size='sm'>Submit</Button>
-                    <Button type='button' variant='outline' size='sm' onClick={() => reset()}>Reset</Button>
+                <div className="flex gap-2">
+                    <Button type="submit" size="sm">
+                        Submit
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => reset()}
+                    >
+                        Reset
+                    </Button>
                 </div>
                 {isSubmitSuccessful && (
-                    <p className='text-sm text-success'>Form submitted successfully.</p>
+                    <p className="text-sm text-success">
+                        Form submitted successfully.
+                    </p>
                 )}
             </form>
-        )
+        );
     },
-}
+};
 
 export const ControlledOpen: Story = {
     render: () => {
-        const [date, setDate] = React.useState<Date | undefined>(undefined)
-        const [open, setOpen] = React.useState(false)
+        const [date, setDate] = React.useState<Date | undefined>();
+        const [open, setOpen] = React.useState(false);
         return (
-            <div className='flex flex-col gap-4'>
+            <div className="flex flex-col gap-4">
                 <DatePicker
-                    label='Date'
-                    placeholder='Pick a date'
+                    label="Date"
+                    placeholder="Pick a date"
                     value={date}
                     onChange={(d) => {
-                        setDate(d)
-                        setOpen(false)
+                        setDate(d);
+                        setOpen(false);
                     }}
                     open={open}
                     onOpenChange={setOpen}
                 />
-                <Button variant='outline' size='sm' onClick={() => setOpen(true)}>
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setOpen(true)}
+                >
                     Open picker programmatically
                 </Button>
             </div>
-        )
+        );
     },
-}
+};

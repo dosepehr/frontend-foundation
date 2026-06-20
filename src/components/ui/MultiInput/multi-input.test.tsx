@@ -1,11 +1,20 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import MultiInput from '.';
 
 function ControlledMultiInput(props: React.ComponentProps<typeof MultiInput>) {
     const [value, setValue] = useState<string[]>(props.value ?? []);
-    return <MultiInput {...props} value={value} onChange={(v) => { setValue(v); props.onChange?.(v); }} />;
+    return (
+        <MultiInput
+            {...props}
+            value={value}
+            onChange={(v) => {
+                setValue(v);
+                props.onChange?.(v);
+            }}
+        />
+    );
 }
 
 describe('MultiInput', () => {
@@ -19,17 +28,17 @@ describe('MultiInput', () => {
     });
 
     it('renders label when provided', () => {
-        render(<MultiInput label='Tags' />);
+        render(<MultiInput label="Tags" />);
         expect(screen.getByText('Tags')).toBeInTheDocument();
     });
 
     it('renders placeholder when provided', () => {
-        render(<MultiInput placeholder='Add a tag' />);
+        render(<MultiInput placeholder="Add a tag" />);
         expect(screen.getByPlaceholderText('Add a tag')).toBeInTheDocument();
     });
 
     it('renders error message when provided', () => {
-        render(<MultiInput error='This field is required' />);
+        render(<MultiInput error="This field is required" />);
         expect(screen.getByText('This field is required')).toBeInTheDocument();
     });
 

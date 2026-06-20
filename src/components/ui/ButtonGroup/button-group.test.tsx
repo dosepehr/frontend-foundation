@@ -1,6 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from './components';
+import {
+    ButtonGroup,
+    ButtonGroupSeparator,
+    ButtonGroupText,
+} from './components';
 import ButtonGroupWrapper from './index';
 
 describe('ButtonGroup primitives', () => {
@@ -14,8 +18,14 @@ describe('ButtonGroup primitives', () => {
     });
 
     it('has data-slot="button-group"', () => {
-        const { container } = render(<ButtonGroup><button>A</button></ButtonGroup>);
-        expect(container.querySelector('[data-slot="button-group"]')).toBeInTheDocument();
+        const { container } = render(
+            <ButtonGroup>
+                <button>A</button>
+            </ButtonGroup>,
+        );
+        expect(
+            container.querySelector('[data-slot="button-group"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders children', () => {
@@ -25,24 +35,34 @@ describe('ButtonGroup primitives', () => {
                 <button>Second</button>
             </ButtonGroup>,
         );
-        expect(screen.getByRole('button', { name: 'First' })).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Second' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'First' }),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Second' }),
+        ).toBeInTheDocument();
     });
 
     it('reflects orientation via data-orientation', () => {
         const { container } = render(
-            <ButtonGroup orientation='vertical'><button>A</button></ButtonGroup>,
+            <ButtonGroup orientation="vertical">
+                <button>A</button>
+            </ButtonGroup>,
         );
-        expect(container.querySelector('[data-slot="button-group"]')).toHaveAttribute(
-            'data-orientation', 'vertical',
-        );
+        expect(
+            container.querySelector('[data-slot="button-group"]'),
+        ).toHaveAttribute('data-orientation', 'vertical');
     });
 
     it('forwards className', () => {
         const { container } = render(
-            <ButtonGroup className='custom-class'><button>A</button></ButtonGroup>,
+            <ButtonGroup className="custom-class">
+                <button>A</button>
+            </ButtonGroup>,
         );
-        expect(container.querySelector('[data-slot="button-group"]')).toHaveClass('custom-class');
+        expect(
+            container.querySelector('[data-slot="button-group"]'),
+        ).toHaveClass('custom-class');
     });
 
     it('ButtonGroupText renders its content', () => {
@@ -60,8 +80,14 @@ describe('ButtonGroup primitives', () => {
     });
 
     it('ButtonGroupSeparator renders with data-slot', () => {
-        const { container } = render(<ButtonGroup><ButtonGroupSeparator /></ButtonGroup>);
-        expect(container.querySelector('[data-slot="button-group-separator"]')).toBeInTheDocument();
+        const { container } = render(
+            <ButtonGroup>
+                <ButtonGroupSeparator />
+            </ButtonGroup>,
+        );
+        expect(
+            container.querySelector('[data-slot="button-group-separator"]'),
+        ).toBeInTheDocument();
     });
 });
 
@@ -74,9 +100,15 @@ describe('ButtonGroupWrapper', () => {
 
     it('renders all button labels', () => {
         render(<ButtonGroupWrapper items={items} />);
-        expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Delete' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Save' }),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Cancel' }),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Delete' }),
+        ).toBeInTheDocument();
     });
 
     it('wraps buttons in a group', () => {
@@ -86,50 +118,68 @@ describe('ButtonGroupWrapper', () => {
 
     it('does not render separators by default', () => {
         const { container } = render(<ButtonGroupWrapper items={items} />);
-        expect(container.querySelectorAll('[data-slot="button-group-separator"]')).toHaveLength(0);
+        expect(
+            container.querySelectorAll('[data-slot="button-group-separator"]'),
+        ).toHaveLength(0);
     });
 
     it('renders separators between buttons when separator=true', () => {
-        const { container } = render(<ButtonGroupWrapper items={items} separator />);
+        const { container } = render(
+            <ButtonGroupWrapper items={items} separator />,
+        );
         // 3 buttons → 2 separators
-        expect(container.querySelectorAll('[data-slot="button-group-separator"]')).toHaveLength(2);
+        expect(
+            container.querySelectorAll('[data-slot="button-group-separator"]'),
+        ).toHaveLength(2);
     });
 
     it('calls item onClick when button is clicked', async () => {
         const user = userEvent.setup();
         const onClick = vi.fn();
-        render(<ButtonGroupWrapper items={[{ children: 'Click me', onClick }]} />);
+        render(
+            <ButtonGroupWrapper items={[{ children: 'Click me', onClick }]} />,
+        );
         await user.click(screen.getByRole('button', { name: 'Click me' }));
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
     it('passes orientation to ButtonGroup', () => {
         const { container } = render(
-            <ButtonGroupWrapper items={items} orientation='vertical' />,
+            <ButtonGroupWrapper items={items} orientation="vertical" />,
         );
-        expect(container.querySelector('[data-slot="button-group"]')).toHaveAttribute(
-            'data-orientation', 'vertical',
-        );
+        expect(
+            container.querySelector('[data-slot="button-group"]'),
+        ).toHaveAttribute('data-orientation', 'vertical');
     });
 
     it('forwards className to ButtonGroup', () => {
         const { container } = render(
-            <ButtonGroupWrapper items={items} className='custom-group' />,
+            <ButtonGroupWrapper items={items} className="custom-group" />,
         );
-        expect(container.querySelector('[data-slot="button-group"]')).toHaveClass('custom-group');
+        expect(
+            container.querySelector('[data-slot="button-group"]'),
+        ).toHaveClass('custom-group');
     });
 
     it('renders a single button without separators', () => {
         const { container } = render(
             <ButtonGroupWrapper items={[{ children: 'Only' }]} separator />,
         );
-        expect(container.querySelectorAll('[data-slot="button-group-separator"]')).toHaveLength(0);
+        expect(
+            container.querySelectorAll('[data-slot="button-group-separator"]'),
+        ).toHaveLength(0);
     });
 
     it('renders separators with vertical orientation', () => {
         const { container } = render(
-            <ButtonGroupWrapper items={items} separator orientation='vertical' />,
+            <ButtonGroupWrapper
+                items={items}
+                separator
+                orientation="vertical"
+            />,
         );
-        expect(container.querySelectorAll('[data-slot="button-group-separator"]')).toHaveLength(2);
+        expect(
+            container.querySelectorAll('[data-slot="button-group-separator"]'),
+        ).toHaveLength(2);
     });
 });

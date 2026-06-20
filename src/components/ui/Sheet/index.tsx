@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import * as React from 'react'
+import Button from '../Button';
 import {
     Sheet,
     SheetClose,
@@ -10,9 +10,8 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from './components'
-import Button from '../Button'
-import type { SheetWrapperProps } from './sheet.types'
+} from './components';
+import type { SheetWrapperProps } from './sheet.types';
 
 function SheetWrapper({
     trigger,
@@ -43,19 +42,21 @@ function SheetWrapper({
                     </SheetHeader>
                 )}
                 {children && (
-                    <div className='flex-1 overflow-y-auto px-4'>{children}</div>
+                    <div className="flex-1 overflow-y-auto px-4">
+                        {children}
+                    </div>
                 )}
                 {footer && (
                     <SheetFooter>
                         {footer}
                         <SheetClose asChild>
-                            <Button variant='outline'>Cancel</Button>
+                            <Button variant="outline">Cancel</Button>
                         </SheetClose>
                     </SheetFooter>
                 )}
             </SheetContent>
         </Sheet>
-    )
+    );
 }
 
-export default SheetWrapper
+export default SheetWrapper;

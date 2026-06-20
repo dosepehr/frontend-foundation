@@ -9,7 +9,9 @@ describe('Label', () => {
 
     it('has data-slot="label"', () => {
         const { container } = render(<Label>Label</Label>);
-        expect(container.querySelector('[data-slot="label"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="label"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders asterisk when required is true', () => {
@@ -24,11 +26,15 @@ describe('Label', () => {
 
     it('applies disabled styling when disabled is true', () => {
         const { container } = render(<Label disabled>Disabled</Label>);
-        expect(container.querySelector('[data-slot="label"]')).toHaveClass('opacity-50');
+        expect(container.querySelector('[data-slot="label"]')).toHaveClass(
+            'opacity-50',
+        );
     });
 
     it('forwards htmlFor to the label element', () => {
-        render(<Label htmlFor='my-input'>Input label</Label>);
-        expect(screen.getByText('Input label').closest('label')).toHaveAttribute('for', 'my-input');
+        render(<Label htmlFor="my-input">Input label</Label>);
+        expect(
+            screen.getByText('Input label').closest('label'),
+        ).toHaveAttribute('for', 'my-input');
     });
 });

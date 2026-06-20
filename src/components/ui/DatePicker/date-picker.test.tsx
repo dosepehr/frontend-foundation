@@ -9,7 +9,7 @@ describe('DatePicker', () => {
     });
 
     it('shows placeholder when no value is set', () => {
-        render(<DatePicker placeholder='Pick a date' />);
+        render(<DatePicker placeholder="Pick a date" />);
         expect(screen.getByText('Pick a date')).toBeInTheDocument();
     });
 
@@ -21,7 +21,7 @@ describe('DatePicker', () => {
     });
 
     it('renders label when provided', () => {
-        render(<DatePicker label='Birth date' />);
+        render(<DatePicker label="Birth date" />);
         expect(screen.getByText('Birth date')).toBeInTheDocument();
     });
 
@@ -31,23 +31,30 @@ describe('DatePicker', () => {
     });
 
     it('renders description when provided', () => {
-        render(<DatePicker description='Select your date of birth' />);
-        expect(screen.getByText('Select your date of birth')).toBeInTheDocument();
+        render(<DatePicker description="Select your date of birth" />);
+        expect(
+            screen.getByText('Select your date of birth'),
+        ).toBeInTheDocument();
     });
 
     it('does not render description when omitted', () => {
         render(<DatePicker />);
-        expect(screen.queryByText('Select your date of birth')).not.toBeInTheDocument();
+        expect(
+            screen.queryByText('Select your date of birth'),
+        ).not.toBeInTheDocument();
     });
 
     it('renders error message when error is provided', () => {
-        render(<DatePicker error='Date is required' />);
+        render(<DatePicker error="Date is required" />);
         expect(screen.getByText('Date is required')).toBeInTheDocument();
     });
 
     it('sets aria-invalid on trigger when error is provided', () => {
-        render(<DatePicker error='Invalid' />);
-        expect(screen.getByRole('button')).toHaveAttribute('aria-invalid', 'true');
+        render(<DatePicker error="Invalid" />);
+        expect(screen.getByRole('button')).toHaveAttribute(
+            'aria-invalid',
+            'true',
+        );
     });
 
     it('does not set aria-invalid when no error', () => {
@@ -73,7 +80,9 @@ describe('DatePicker', () => {
         render(<DatePicker onChange={onChange} />);
         await user.click(screen.getByRole('button'));
         const dayButtons = screen.getAllByRole('button');
-        const dayButton = dayButtons.find((btn) => /^\d+$/.test(btn.textContent ?? ''));
+        const dayButton = dayButtons.find((btn) =>
+            /^\d+$/.test(btn.textContent ?? ''),
+        );
         if (dayButton) await user.click(dayButton);
         expect(onChange).toHaveBeenCalled();
     });
@@ -97,7 +106,7 @@ describe('DatePicker', () => {
     });
 
     it('renders custom startAddon', () => {
-        render(<DatePicker startAddon={<span data-testid='addon'>@</span>} />);
+        render(<DatePicker startAddon={<span data-testid="addon">@</span>} />);
         expect(screen.getByTestId('addon')).toBeInTheDocument();
     });
 });

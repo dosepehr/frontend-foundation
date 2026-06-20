@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { SearchIcon, MailIcon, InfoIcon } from 'lucide-react'
-import Button from '../Button'
-import InputWrapper from '.'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { InfoIcon, MailIcon, SearchIcon } from 'lucide-react';
+import InputWrapper from '.';
+import Button from '../Button';
 
 const meta: Meta<typeof InputWrapper> = {
     title: 'UI/Input',
@@ -16,28 +16,36 @@ const meta: Meta<typeof InputWrapper> = {
         required: { control: 'boolean' },
         type: {
             control: 'select',
-            options: ['text', 'email', 'password', 'number', 'search', 'url', 'tel'],
+            options: [
+                'text',
+                'email',
+                'password',
+                'number',
+                'search',
+                'url',
+                'tel',
+            ],
         },
     },
     parameters: { layout: 'centered' },
     decorators: [
         (Story) => (
-            <div className='w-80'>
+            <div className="w-80">
                 <Story />
             </div>
         ),
     ],
-}
+};
 
-export default meta
-type Story = StoryObj<typeof InputWrapper>
+export default meta;
+type Story = StoryObj<typeof InputWrapper>;
 
 export const Default: Story = {
     args: {
         label: 'Username',
         placeholder: 'Enter your username',
     },
-}
+};
 
 export const WithDescription: Story = {
     args: {
@@ -46,7 +54,7 @@ export const WithDescription: Story = {
         placeholder: 'you@example.com',
         type: 'email',
     },
-}
+};
 
 export const Invalid: Story = {
     args: {
@@ -55,7 +63,7 @@ export const Invalid: Story = {
         type: 'email',
         error: 'Please enter a valid email address.',
     },
-}
+};
 
 export const Required: Story = {
     args: {
@@ -63,7 +71,7 @@ export const Required: Story = {
         placeholder: 'John Doe',
         required: true,
     },
-}
+};
 
 export const Disabled: Story = {
     args: {
@@ -71,23 +79,23 @@ export const Disabled: Story = {
         placeholder: 'This field is disabled',
         disabled: true,
     },
-}
+};
 
 export const WithStartIcon: Story = {
     args: {
         label: 'Search',
         placeholder: 'Search...',
-        startAddon: <SearchIcon className='size-4' />,
+        startAddon: <SearchIcon className="size-4" />,
     },
-}
+};
 
 export const WithEndIcon: Story = {
     args: {
         label: 'Info',
         placeholder: 'Enter value...',
-        endAddon: <InfoIcon className='size-4' />,
+        endAddon: <InfoIcon className="size-4" />,
     },
-}
+};
 
 export const WithStartText: Story = {
     args: {
@@ -95,58 +103,62 @@ export const WithStartText: Story = {
         placeholder: 'example.com',
         startAddon: 'https://',
     },
-}
+};
 
 export const WithBothAddons: Story = {
     args: {
         label: 'Website URL',
         placeholder: 'example.com',
         startAddon: 'https://',
-        endAddon: <InfoIcon className='size-4' />,
+        endAddon: <InfoIcon className="size-4" />,
     },
-}
+};
 
 export const WithAddonEmail: Story = {
     args: {
         label: 'Email',
         placeholder: 'you@example.com',
         type: 'email',
-        startAddon: <MailIcon className='size-4' />,
+        startAddon: <MailIcon className="size-4" />,
     },
-}
+};
 
 export const WithAddonInvalid: Story = {
     args: {
         label: 'Email',
         placeholder: 'you@example.com',
         type: 'email',
-        startAddon: <MailIcon className='size-4' />,
+        startAddon: <MailIcon className="size-4" />,
         error: 'Please enter a valid email address.',
     },
-}
+};
 
 export const WithActionButton: Story = {
     render: (args) => (
         <InputWrapper
             {...args}
-            action={<Button variant='outline'>Search</Button>}
+            action={<Button variant="outline">Search</Button>}
         />
     ),
     args: {
         label: 'Search',
         placeholder: 'Type to search...',
     },
-}
+};
 
 export const WithActionButtonPrefix: Story = {
     render: (args) => (
         <InputWrapper
             {...args}
-            startAddon={<Button variant='outline' className='rounded-e-none border-0'>https://</Button>}
+            startAddon={
+                <Button variant="outline" className="rounded-e-none border-0">
+                    https://
+                </Button>
+            }
         />
     ),
     args: {
         label: 'Domain',
         placeholder: 'example.com',
     },
-}
+};

@@ -17,12 +17,12 @@ describe('Spinner', () => {
     });
 
     it('forwards className', () => {
-        const { getByRole } = render(<Spinner className='custom-spinner' />);
+        const { getByRole } = render(<Spinner className="custom-spinner" />);
         expect(getByRole('status')).toHaveClass('custom-spinner');
     });
 
     it('accepts size prop without errors', () => {
-        expect(() => render(<Spinner size='sm' />)).not.toThrow();
-        expect(() => render(<Spinner size='lg' />)).not.toThrow();
+        expect(() => render(<Spinner size="sm" />)).not.toThrow();
+        expect(() => render(<Spinner size="lg" />)).not.toThrow();
     });
 });

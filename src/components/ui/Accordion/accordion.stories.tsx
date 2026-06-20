@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import AccordionWrapper from '.';
 import CardWrapper from '../Card';
 import { Accordion } from './components';
-import AccordionWrapper from '.';
 
 const meta: Meta<typeof AccordionWrapper> = {
     title: 'UI/Accordion',
@@ -48,7 +48,7 @@ type Story = StoryObj<typeof AccordionWrapper>;
 
 export const Single: Story = {
     render: (args) => (
-        <Accordion type='single' collapsible defaultValue='item-1'>
+        <Accordion type="single" collapsible defaultValue="item-1">
             <AccordionWrapper {...args} />
         </Accordion>
     ),
@@ -61,15 +61,21 @@ export const Single: Story = {
 
 export const Multiple: Story = {
     render: () => (
-        <Accordion type='single' collapsible defaultValue='item-1' className='space-y-2'>
-            <AccordionWrapper value='item-1' trigger='Is it accessible?'>
+        <Accordion
+            type="single"
+            collapsible
+            defaultValue="item-1"
+            className="space-y-2"
+        >
+            <AccordionWrapper value="item-1" trigger="Is it accessible?">
                 Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionWrapper>
-            <AccordionWrapper value='item-2' trigger='Is it styled?'>
+            <AccordionWrapper value="item-2" trigger="Is it styled?">
                 Yes. It comes with default styles that match your design system.
             </AccordionWrapper>
-            <AccordionWrapper value='item-3' trigger='Is it animated?'>
-                Yes. It uses CSS animations for smooth open and close transitions.
+            <AccordionWrapper value="item-3" trigger="Is it animated?">
+                Yes. It uses CSS animations for smooth open and close
+                transitions.
             </AccordionWrapper>
         </Accordion>
     ),
@@ -78,11 +84,11 @@ export const Multiple: Story = {
 
 export const WithCustomClasses: Story = {
     render: () => (
-        <Accordion type='single' collapsible defaultValue='item-1'>
+        <Accordion type="single" collapsible defaultValue="item-1">
             <AccordionWrapper
-                value='item-1'
-                trigger='Custom styled item'
-                className='rounded-lg border px-4'
+                value="item-1"
+                trigger="Custom styled item"
+                className="rounded-lg border px-4"
                 triggerProps={{ className: 'font-bold text-base' }}
                 contentProps={{ className: 'text-muted-foreground' }}
             >
@@ -95,17 +101,30 @@ export const WithCustomClasses: Story = {
 
 export const Disabled: Story = {
     render: () => (
-        <Accordion type='single' collapsible className='w-full'>
-            <AccordionWrapper value='item-1' trigger='Can I access my account history?'>
-                Yes, you can view your complete account history including all transactions,
-                plan changes, and support tickets in the Account History section of your dashboard.
+        <Accordion type="single" collapsible className="w-full">
+            <AccordionWrapper
+                value="item-1"
+                trigger="Can I access my account history?"
+            >
+                Yes, you can view your complete account history including all
+                transactions, plan changes, and support tickets in the Account
+                History section of your dashboard.
             </AccordionWrapper>
-            <AccordionWrapper value='item-2' trigger='Premium feature information' disabled>
-                This section contains information about premium features. Upgrade your plan to access this content.
+            <AccordionWrapper
+                value="item-2"
+                trigger="Premium feature information"
+                disabled
+            >
+                This section contains information about premium features.
+                Upgrade your plan to access this content.
             </AccordionWrapper>
-            <AccordionWrapper value='item-3' trigger='How do I update my email address?'>
-                You can update your email address in your account settings. You&apos;ll receive a
-                verification email at your new address to confirm the change.
+            <AccordionWrapper
+                value="item-3"
+                trigger="How do I update my email address?"
+            >
+                You can update your email address in your account settings.
+                You&apos;ll receive a verification email at your new address to
+                confirm the change.
             </AccordionWrapper>
         </Accordion>
     ),
@@ -114,11 +133,31 @@ export const Disabled: Story = {
 
 export const Borders: Story = {
     render: () => (
-        <Accordion type='single' collapsible className='max-w-lg rounded-lg border' defaultValue='billing'>
+        <Accordion
+            type="single"
+            collapsible
+            className="max-w-lg rounded-lg border"
+            defaultValue="billing"
+        >
             {[
-                { value: 'billing', trigger: 'How does billing work?', content: 'We offer monthly and annual subscription plans. Billing is charged at the beginning of each cycle, and you can cancel anytime.' },
-                { value: 'security', trigger: 'Is my data secure?', content: 'Yes. We use end-to-end encryption, SOC 2 Type II compliance, and regular third-party security audits.' },
-                { value: 'integration', trigger: 'What integrations do you support?', content: 'We integrate with 500+ popular tools including Slack, Zapier, Salesforce, HubSpot, and more.' },
+                {
+                    value: 'billing',
+                    trigger: 'How does billing work?',
+                    content:
+                        'We offer monthly and annual subscription plans. Billing is charged at the beginning of each cycle, and you can cancel anytime.',
+                },
+                {
+                    value: 'security',
+                    trigger: 'Is my data secure?',
+                    content:
+                        'Yes. We use end-to-end encryption, SOC 2 Type II compliance, and regular third-party security audits.',
+                },
+                {
+                    value: 'integration',
+                    trigger: 'What integrations do you support?',
+                    content:
+                        'We integrate with 500+ popular tools including Slack, Zapier, Salesforce, HubSpot, and more.',
+                },
             ].map((item) => (
                 <AccordionWrapper
                     key={item.value}
@@ -136,15 +175,20 @@ export const Borders: Story = {
 
 export const MultipleOpen: Story = {
     render: () => (
-        <Accordion type='multiple' defaultValue={['item-1', 'item-2']} className='w-full'>
-            <AccordionWrapper value='item-1' trigger='Is it accessible?'>
+        <Accordion
+            type="multiple"
+            defaultValue={['item-1', 'item-2']}
+            className="w-full"
+        >
+            <AccordionWrapper value="item-1" trigger="Is it accessible?">
                 Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionWrapper>
-            <AccordionWrapper value='item-2' trigger='Is it styled?'>
+            <AccordionWrapper value="item-2" trigger="Is it styled?">
                 Yes. It comes with default styles that match your design system.
             </AccordionWrapper>
-            <AccordionWrapper value='item-3' trigger='Is it animated?'>
-                Yes. It uses CSS animations for smooth open and close transitions.
+            <AccordionWrapper value="item-3" trigger="Is it animated?">
+                Yes. It uses CSS animations for smooth open and close
+                transitions.
             </AccordionWrapper>
         </Accordion>
     ),
@@ -154,17 +198,36 @@ export const MultipleOpen: Story = {
 export const WithCard: Story = {
     render: () => (
         <CardWrapper
-            className='w-full max-w-sm'
-            title='Subscription & Billing'
-            description='Common questions about your account, plans, payments and cancellations.'
+            className="w-full max-w-sm"
+            title="Subscription & Billing"
+            description="Common questions about your account, plans, payments and cancellations."
         >
-            <Accordion type='single' collapsible defaultValue='plans'>
+            <Accordion type="single" collapsible defaultValue="plans">
                 {[
-                    { value: 'plans', trigger: 'What subscription plans do you offer?', content: 'We offer three tiers: Starter ($9/mo), Professional ($29/mo), and Enterprise ($99/mo).' },
-                    { value: 'billing', trigger: 'How does billing work?', content: "Billing occurs automatically at the start of each billing cycle. You'll receive an invoice via email after each payment." },
-                    { value: 'cancel', trigger: 'How do I cancel my subscription?', content: 'You can cancel anytime from your account settings. Your access continues until the end of the billing period.' },
+                    {
+                        value: 'plans',
+                        trigger: 'What subscription plans do you offer?',
+                        content:
+                            'We offer three tiers: Starter ($9/mo), Professional ($29/mo), and Enterprise ($99/mo).',
+                    },
+                    {
+                        value: 'billing',
+                        trigger: 'How does billing work?',
+                        content:
+                            "Billing occurs automatically at the start of each billing cycle. You'll receive an invoice via email after each payment.",
+                    },
+                    {
+                        value: 'cancel',
+                        trigger: 'How do I cancel my subscription?',
+                        content:
+                            'You can cancel anytime from your account settings. Your access continues until the end of the billing period.',
+                    },
                 ].map((item) => (
-                    <AccordionWrapper key={item.value} value={item.value} trigger={item.trigger}>
+                    <AccordionWrapper
+                        key={item.value}
+                        value={item.value}
+                        trigger={item.trigger}
+                    >
                         {item.content}
                     </AccordionWrapper>
                 ))}

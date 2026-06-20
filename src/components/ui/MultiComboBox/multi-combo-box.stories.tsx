@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import React, { useState } from 'react'
-import { MultiComboBox } from './components'
-import { MultiComboBoxOption } from './multi-combo-box.types'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import React, { useState } from 'react';
+import { MultiComboBox } from './components';
+import { type MultiComboBoxOption } from './multi-combo-box.types';
 
 const FRUITS: MultiComboBoxOption[] = [
     { value: 'apple', label: 'Apple' },
@@ -12,7 +12,7 @@ const FRUITS: MultiComboBoxOption[] = [
     { value: 'grape', label: 'Grape' },
     { value: 'watermelon', label: 'Watermelon' },
     { value: 'peach', label: 'Peach' },
-]
+];
 
 const CITIES: MultiComboBoxOption[] = [
     { value: 'new-york', label: 'New York' },
@@ -25,7 +25,7 @@ const CITIES: MultiComboBoxOption[] = [
     { value: 'dubai', label: 'Dubai' },
     { value: 'singapore', label: 'Singapore' },
     { value: 'amsterdam', label: 'Amsterdam' },
-]
+];
 
 const meta: Meta<typeof MultiComboBox> = {
     title: 'UI/MultiComboBox',
@@ -34,7 +34,7 @@ const meta: Meta<typeof MultiComboBox> = {
     parameters: { layout: 'centered' },
     decorators: [
         (Story) => (
-            <div className='w-72'>
+            <div className="w-72">
                 <Story />
             </div>
         ),
@@ -51,13 +51,15 @@ const meta: Meta<typeof MultiComboBox> = {
         required: { control: 'boolean' },
         hideSelectedBadges: { control: 'boolean' },
     },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof MultiComboBox>
+export default meta;
+type Story = StoryObj<typeof MultiComboBox>;
 
-function Controlled(props: Partial<React.ComponentProps<typeof MultiComboBox>>) {
-    const [selected, setSelected] = useState<string[]>([])
+function Controlled(
+    props: Partial<React.ComponentProps<typeof MultiComboBox>>,
+) {
+    const [selected, setSelected] = useState<string[]>([]);
     return (
         <MultiComboBox
             options={FRUITS}
@@ -65,7 +67,7 @@ function Controlled(props: Partial<React.ComponentProps<typeof MultiComboBox>>) 
             onChange={setSelected}
             {...props}
         />
-    )
+    );
 }
 
 export const Default: Story = {
@@ -74,11 +76,11 @@ export const Default: Story = {
         label: 'Fruits',
         placeholder: 'Select fruits',
     },
-}
+};
 
 export const WithPreselected: Story = {
     render: (args) => {
-        const [selected, setSelected] = useState(['apple', 'banana'])
+        const [selected, setSelected] = useState(['apple', 'banana']);
         return (
             <MultiComboBox
                 {...args}
@@ -86,12 +88,12 @@ export const WithPreselected: Story = {
                 selected={selected}
                 onChange={setSelected}
             />
-        )
+        );
     },
     args: {
         label: 'Fruits',
     },
-}
+};
 
 export const Required: Story = {
     render: (args) => <Controlled {...args} />,
@@ -99,7 +101,7 @@ export const Required: Story = {
         label: 'Fruits',
         required: true,
     },
-}
+};
 
 export const WithError: Story = {
     render: (args) => <Controlled {...args} />,
@@ -108,18 +110,18 @@ export const WithError: Story = {
         error: 'Please select at least one option.',
         required: true,
     },
-}
+};
 
 export const Disabled: Story = {
     render: () => (
         <MultiComboBox
             options={FRUITS}
             selected={['apple', 'banana']}
-            label='Fruits'
+            label="Fruits"
             disabled
         />
     ),
-}
+};
 
 export const Loading: Story = {
     render: (args) => <Controlled {...args} />,
@@ -127,7 +129,7 @@ export const Loading: Story = {
         label: 'Fruits',
         isPending: true,
     },
-}
+};
 
 export const ErrorState: Story = {
     render: (args) => <Controlled {...args} />,
@@ -135,22 +137,22 @@ export const ErrorState: Story = {
         label: 'Fruits',
         isError: true,
     },
-}
+};
 
 export const Empty: Story = {
     render: () => {
-        const [selected, setSelected] = useState<string[]>([])
+        const [selected, setSelected] = useState<string[]>([]);
         return (
             <MultiComboBox
                 options={[]}
                 selected={selected}
                 onChange={setSelected}
-                label='Fruits'
-                notFoundText='No options available.'
+                label="Fruits"
+                notFoundText="No options available."
             />
-        )
+        );
     },
-}
+};
 
 export const HideSelectedBadges: Story = {
     render: (args) => <Controlled {...args} />,
@@ -158,11 +160,11 @@ export const HideSelectedBadges: Story = {
         label: 'Fruits',
         hideSelectedBadges: true,
     },
-}
+};
 
 export const WithLongList: Story = {
     render: (args) => {
-        const [selected, setSelected] = useState<string[]>([])
+        const [selected, setSelected] = useState<string[]>([]);
         return (
             <MultiComboBox
                 {...args}
@@ -170,10 +172,10 @@ export const WithLongList: Story = {
                 selected={selected}
                 onChange={setSelected}
             />
-        )
+        );
     },
     args: {
         label: 'Cities',
         placeholder: 'Select cities',
     },
-}
+};

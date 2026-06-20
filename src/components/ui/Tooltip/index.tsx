@@ -1,8 +1,13 @@
-'use client'
+'use client';
 
-import type { FC } from 'react'
-import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from './components'
-import type { TooltipWrapperProps } from './tooltip.types'
+import type { FC } from 'react';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from './components';
+import type { TooltipWrapperProps } from './tooltip.types';
 
 const TooltipWrapper: FC<TooltipWrapperProps> = ({
     content,
@@ -18,16 +23,23 @@ const TooltipWrapper: FC<TooltipWrapperProps> = ({
 }) => {
     return (
         <TooltipProvider delayDuration={delayDuration}>
-            <Tooltip open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
-                <TooltipTrigger asChild>
-                    {children}
-                </TooltipTrigger>
-                <TooltipContent side={side} sideOffset={sideOffset} variant={variant} className={contentClassName}>
+            <Tooltip
+                open={open}
+                defaultOpen={defaultOpen}
+                onOpenChange={onOpenChange}
+            >
+                <TooltipTrigger asChild>{children}</TooltipTrigger>
+                <TooltipContent
+                    side={side}
+                    sideOffset={sideOffset}
+                    variant={variant}
+                    className={contentClassName}
+                >
                     {content}
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>
-    )
-}
+    );
+};
 
-export default TooltipWrapper
+export default TooltipWrapper;

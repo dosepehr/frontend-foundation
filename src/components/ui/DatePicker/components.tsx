@@ -1,16 +1,21 @@
 /* c8 ignore start */
-'use client'
+'use client';
 /* c8 ignore stop */
 
-import * as React from 'react'
-import { useId } from 'react'
-import { format } from 'date-fns'
-import { CalendarIcon, ChevronDownIcon } from 'lucide-react'
-import { cn } from '@/src/utils/funcs/cn'
-import { Popover, PopoverContent, PopoverTrigger } from '../Popover/components'
-import { Calendar } from '../Calendar/components'
-import { Field, FieldDescription, FieldError, FieldLabel } from '../Field/components'
-import type { DatePickerProps } from './date-picker.types'
+import { cn } from '@/src/utils/funcs/cn';
+import { format } from 'date-fns';
+import { CalendarIcon, ChevronDownIcon } from 'lucide-react';
+import * as React from 'react';
+import { useId } from 'react';
+import { Calendar } from '../Calendar/components';
+import {
+    Field,
+    FieldDescription,
+    FieldError,
+    FieldLabel,
+} from '../Field/components';
+import { Popover, PopoverContent, PopoverTrigger } from '../Popover/components';
+import type { DatePickerProps } from './date-picker.types';
 
 function DatePicker({
     value,
@@ -29,12 +34,12 @@ function DatePicker({
     open: externalOpen,
     onOpenChange: externalOnOpenChange,
 }: DatePickerProps) {
-    const triggerId = useId()
-    const [internalOpen, setInternalOpen] = React.useState(false)
-    const isInvalid = !!error
+    const triggerId = useId();
+    const [internalOpen, setInternalOpen] = React.useState(false);
+    const isInvalid = !!error;
 
-    const open = externalOpen ?? internalOpen
-    const setOpen = externalOnOpenChange ?? setInternalOpen
+    const open = externalOpen ?? internalOpen;
+    const setOpen = externalOnOpenChange ?? setInternalOpen;
 
     return (
         <Field
@@ -45,22 +50,23 @@ function DatePicker({
                 <FieldLabel
                     htmlFor={triggerId}
                     required={required}
-                    className='text-foreground'
+                    className="text-foreground"
                 >
                     {label}
                 </FieldLabel>
             )}
             {description && (
-                <FieldDescription className='text-muted-foreground'>
+                <FieldDescription className="text-muted-foreground">
                     {description}
                 </FieldDescription>
             )}
 
             <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
+                    {/* eslint-disable-next-line jsx-a11y/role-supports-aria-props */}
                     <button
                         id={triggerId}
-                        type='button'
+                        type="button"
                         disabled={disabled}
                         aria-invalid={isInvalid || undefined}
                         aria-expanded={open}
@@ -69,21 +75,23 @@ function DatePicker({
                             'border-input/50 hover:enabled:not-aria-invalid:border-primary',
                             'aria-expanded:not-aria-invalid:border-primary aria-expanded:not-aria-invalid:ring-3 aria-expanded:not-aria-invalid:ring-primary/50',
                             'disabled:cursor-not-allowed disabled:opacity-50',
-                            'aria-invalid:border-destructive aria-invalid:hover:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/50',
-                            triggerClassName
+                            'aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/50 aria-invalid:hover:border-destructive',
+                            triggerClassName,
                         )}
                     >
                         {startAddon ? (
-                            <span className='shrink-0 text-muted-foreground'>
+                            <span className="shrink-0 text-muted-foreground">
                                 {startAddon}
                             </span>
                         ) : (
-                            <CalendarIcon className='size-4 shrink-0 text-muted-foreground' />
+                            <CalendarIcon className="size-4 shrink-0 text-muted-foreground" />
                         )}
                         <span
                             className={cn(
                                 'flex-1 truncate text-start',
-                                value ? 'text-foreground' : 'text-muted-foreground'
+                                value
+                                    ? 'text-foreground'
+                                    : 'text-muted-foreground',
                             )}
                         >
                             {value ? format(value, dateFormat) : placeholder}
@@ -91,19 +99,19 @@ function DatePicker({
                         <ChevronDownIcon
                             className={cn(
                                 'size-4 shrink-0 text-muted-foreground transition-transform duration-200',
-                                open && 'rotate-180'
+                                open && 'rotate-180',
                             )}
                         />
                     </button>
                 </PopoverTrigger>
 
                 <PopoverContent
-                    className='w-auto p-0'
-                    align='start'
+                    className="w-auto p-0"
+                    align="start"
                     sideOffset={5}
                 >
                     <Calendar
-                        mode='single'
+                        mode="single"
                         selected={value}
                         onSelect={onChange}
                         disabled={disabledDates}
@@ -114,7 +122,7 @@ function DatePicker({
 
             <FieldError>{error}</FieldError>
         </Field>
-    )
+    );
 }
 
-export { DatePicker }
+export { DatePicker };

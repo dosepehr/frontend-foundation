@@ -2,24 +2,32 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
     AlertDialog,
-    AlertDialogTrigger,
-    AlertDialogContent,
-    AlertDialogTitle,
-    AlertDialogDescription,
     AlertDialogAction,
     AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogTitle,
+    AlertDialogTrigger,
 } from './components';
 import AlertDialogWrapper from './index';
 
 // Minimal full dialog for primitive tests
-function TestDialog({ onAction, onCancel }: { onAction?: () => void; onCancel?: () => void }) {
+function TestDialog({
+    onAction,
+    onCancel,
+}: {
+    onAction?: () => void;
+    onCancel?: () => void;
+}) {
     return (
         <AlertDialog>
             <AlertDialogTrigger>Open</AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogTitle>Confirm action</AlertDialogTitle>
                 <AlertDialogDescription>Are you sure?</AlertDialogDescription>
-                <AlertDialogAction onClick={onAction}>Confirm</AlertDialogAction>
+                <AlertDialogAction onClick={onAction}>
+                    Confirm
+                </AlertDialogAction>
                 <AlertDialogCancel onClick={onCancel}>Cancel</AlertDialogCancel>
             </AlertDialogContent>
         </AlertDialog>
@@ -96,8 +104,8 @@ describe('AlertDialogWrapper', () => {
         render(
             <AlertDialogWrapper
                 trigger={<button>Open</button>}
-                title='Delete item'
-                description='This cannot be undone.'
+                title="Delete item"
+                description="This cannot be undone."
             />,
         );
         expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
@@ -108,8 +116,8 @@ describe('AlertDialogWrapper', () => {
         render(
             <AlertDialogWrapper
                 trigger={<button>Open</button>}
-                title='Delete item'
-                description='This cannot be undone.'
+                title="Delete item"
+                description="This cannot be undone."
             />,
         );
         await user.click(screen.getByText('Open'));
@@ -121,8 +129,8 @@ describe('AlertDialogWrapper', () => {
         render(
             <AlertDialogWrapper
                 trigger={<button>Open</button>}
-                title='Delete item'
-                description='This cannot be undone.'
+                title="Delete item"
+                description="This cannot be undone."
             />,
         );
         await user.click(screen.getByText('Open'));
@@ -135,8 +143,8 @@ describe('AlertDialogWrapper', () => {
         render(
             <AlertDialogWrapper
                 trigger={<button>Open</button>}
-                title='Title'
-                description='Desc'
+                title="Title"
+                description="Desc"
             />,
         );
         await user.click(screen.getByText('Open'));
@@ -149,10 +157,10 @@ describe('AlertDialogWrapper', () => {
         render(
             <AlertDialogWrapper
                 trigger={<button>Open</button>}
-                title='Title'
-                description='Desc'
-                confirmLabel='Delete'
-                cancelLabel='Go back'
+                title="Title"
+                description="Desc"
+                confirmLabel="Delete"
+                cancelLabel="Go back"
             />,
         );
         await user.click(screen.getByText('Open'));
@@ -165,9 +173,9 @@ describe('AlertDialogWrapper', () => {
         render(
             <AlertDialogWrapper
                 trigger={<button>Open</button>}
-                title='Title'
-                description='Desc'
-                media={<span data-testid='media-icon' />}
+                title="Title"
+                description="Desc"
+                media={<span data-testid="media-icon" />}
             />,
         );
         await user.click(screen.getByText('Open'));
@@ -179,12 +187,14 @@ describe('AlertDialogWrapper', () => {
         const { container } = render(
             <AlertDialogWrapper
                 trigger={<button>Open</button>}
-                title='Title'
-                description='Desc'
+                title="Title"
+                description="Desc"
             />,
         );
         await user.click(screen.getByText('Open'));
-        expect(container.querySelector('[data-slot="alert-dialog-media"]')).not.toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="alert-dialog-media"]'),
+        ).not.toBeInTheDocument();
     });
 
     it('confirm button closes the dialog', async () => {
@@ -192,8 +202,8 @@ describe('AlertDialogWrapper', () => {
         render(
             <AlertDialogWrapper
                 trigger={<button>Open</button>}
-                title='Title'
-                description='Desc'
+                title="Title"
+                description="Desc"
             />,
         );
         await user.click(screen.getByText('Open'));
@@ -206,8 +216,8 @@ describe('AlertDialogWrapper', () => {
         render(
             <AlertDialogWrapper
                 trigger={<button>Open</button>}
-                title='Title'
-                description='Desc'
+                title="Title"
+                description="Desc"
             />,
         );
         await user.click(screen.getByText('Open'));
@@ -221,8 +231,8 @@ describe('AlertDialogWrapper', () => {
         render(
             <AlertDialogWrapper
                 trigger={<button>Open</button>}
-                title='Title'
-                description='Desc'
+                title="Title"
+                description="Desc"
                 actionProps={{ onClick }}
             />,
         );

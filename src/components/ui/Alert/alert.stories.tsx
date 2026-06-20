@@ -82,7 +82,7 @@ export const WithoutTitle: Story = {
 
 export const AllVariants: Story = {
     render: () => (
-        <div className='flex flex-col gap-3 w-full max-w-lg'>
+        <div className="flex w-full max-w-lg flex-col gap-3">
             {(
                 [
                     'default',
@@ -104,4 +104,3 @@ export const AllVariants: Story = {
     ),
     args: {},
 };
-

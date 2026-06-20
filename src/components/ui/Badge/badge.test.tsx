@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { Badge } from './components';
 import Link from 'next/link';
+import { Badge } from './components';
 
 describe('Badge', () => {
     it('renders text content', () => {
@@ -19,18 +19,18 @@ describe('Badge', () => {
     });
 
     it('reflects variant via data-variant', () => {
-        render(<Badge variant='destructive'>Error</Badge>);
+        render(<Badge variant="destructive">Error</Badge>);
         expect(screen.getByText('Error')).toHaveAttribute(
             'data-variant',
-            'destructive'
+            'destructive',
         );
     });
 
     it('reflects appearance via data-appearance', () => {
-        render(<Badge appearance='solid'>Solid</Badge>);
+        render(<Badge appearance="solid">Solid</Badge>);
         expect(screen.getByText('Solid')).toHaveAttribute(
             'data-appearance',
-            'solid'
+            'solid',
         );
     });
 
@@ -42,15 +42,15 @@ describe('Badge', () => {
     });
 
     it('forwards className', () => {
-        render(<Badge className='custom-class'>Label</Badge>);
+        render(<Badge className="custom-class">Label</Badge>);
         expect(screen.getByText('Label')).toHaveClass('custom-class');
     });
 
     it('renders as child element when asChild is true', () => {
         render(
             <Badge asChild>
-                <Link href='/'>Link badge</Link>
-            </Badge>
+                <Link href="/">Link badge</Link>
+            </Badge>,
         );
         const el = screen.getByText('Link badge');
         expect(el.tagName).toBe('A');
@@ -77,7 +77,6 @@ describe('Badge', () => {
         (appearance) => {
             render(<Badge appearance={appearance}>{appearance}</Badge>);
             expect(screen.getByText(appearance)).toBeInTheDocument();
-        }
+        },
     );
 });
-

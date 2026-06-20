@@ -1,12 +1,12 @@
 'use client';
 
 import type { FC } from 'react';
+import type { AccordionWrapperProps } from './accordion.types';
 import {
+    AccordionContent,
     AccordionItem,
     AccordionTrigger,
-    AccordionContent,
 } from './components';
-import type { AccordionWrapperProps } from './accordion.types';
 
 const AccordionWrapper: FC<AccordionWrapperProps> = ({
     value,
@@ -19,12 +19,16 @@ const AccordionWrapper: FC<AccordionWrapperProps> = ({
     contentProps,
 }) => {
     return (
-        <AccordionItem value={value} className={className} disabled={disabled} {...itemProps}>
+        <AccordionItem
+            value={value}
+            className={className}
+            disabled={disabled}
+            {...itemProps}
+        >
             <AccordionTrigger {...triggerProps}>{trigger}</AccordionTrigger>
             <AccordionContent {...contentProps}>{children}</AccordionContent>
         </AccordionItem>
     );
 };
 
-export default AccordionWrapper
-
+export default AccordionWrapper;

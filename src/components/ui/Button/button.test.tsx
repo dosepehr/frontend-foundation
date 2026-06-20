@@ -1,18 +1,23 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import Link from 'next/link';
 import { Button as ButtonPrimitive } from './components';
 import Button from './index';
-import Link from 'next/link';
 
 describe('Button primitive', () => {
     it('renders children', () => {
         render(<ButtonPrimitive>Click me</ButtonPrimitive>);
-        expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Click me' }),
+        ).toBeInTheDocument();
     });
 
     it('has data-slot="button"', () => {
         render(<ButtonPrimitive>Label</ButtonPrimitive>);
-        expect(screen.getByRole('button')).toHaveAttribute('data-slot', 'button');
+        expect(screen.getByRole('button')).toHaveAttribute(
+            'data-slot',
+            'button',
+        );
     });
 
     it('defaults to variant="default" and size="default"', () => {
@@ -23,14 +28,20 @@ describe('Button primitive', () => {
     });
 
     it('reflects variant and size via data attributes', () => {
-        render(<ButtonPrimitive variant='destructive' size='sm'>Delete</ButtonPrimitive>);
+        render(
+            <ButtonPrimitive variant="destructive" size="sm">
+                Delete
+            </ButtonPrimitive>,
+        );
         const btn = screen.getByRole('button');
         expect(btn).toHaveAttribute('data-variant', 'destructive');
         expect(btn).toHaveAttribute('data-size', 'sm');
     });
 
     it('forwards className', () => {
-        render(<ButtonPrimitive className='custom-class'>Label</ButtonPrimitive>);
+        render(
+            <ButtonPrimitive className="custom-class">Label</ButtonPrimitive>,
+        );
         expect(screen.getByRole('button')).toHaveClass('custom-class');
     });
 
@@ -45,7 +56,11 @@ describe('Button primitive', () => {
     it('does not call onClick when disabled', async () => {
         const user = userEvent.setup();
         const onClick = vi.fn();
-        render(<ButtonPrimitive disabled onClick={onClick}>Click</ButtonPrimitive>);
+        render(
+            <ButtonPrimitive disabled onClick={onClick}>
+                Click
+            </ButtonPrimitive>,
+        );
         await user.click(screen.getByRole('button'));
         expect(onClick).not.toHaveBeenCalled();
     });
@@ -53,7 +68,7 @@ describe('Button primitive', () => {
     it('renders as child element when asChild is true', () => {
         render(
             <ButtonPrimitive asChild>
-                <Link href='/'>Link button</Link>
+                <Link href="/">Link button</Link>
             </ButtonPrimitive>,
         );
         const el = screen.getByText('Link button');
@@ -62,14 +77,31 @@ describe('Button primitive', () => {
     });
 
     it.each([
-        'default', 'outline', 'secondary', 'ghost', 'destructive', 'success', 'warning', 'info', 'link',
+        'default',
+        'outline',
+        'secondary',
+        'ghost',
+        'destructive',
+        'success',
+        'warning',
+        'info',
+        'link',
     ] as const)('renders variant "%s" without errors', (variant) => {
         render(<ButtonPrimitive variant={variant}>{variant}</ButtonPrimitive>);
-        expect(screen.getByRole('button', { name: variant })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: variant }),
+        ).toBeInTheDocument();
     });
 
     it.each([
-        'default', 'xs', 'sm', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg',
+        'default',
+        'xs',
+        'sm',
+        'lg',
+        'icon',
+        'icon-xs',
+        'icon-sm',
+        'icon-lg',
     ] as const)('renders size "%s" without errors', (size) => {
         render(<ButtonPrimitive size={size}>label</ButtonPrimitive>);
         expect(screen.getByRole('button')).toHaveAttribute('data-size', size);
@@ -79,11 +111,17 @@ describe('Button primitive', () => {
 describe('Button wrapper', () => {
     it('renders children normally', () => {
         render(<Button>Submit</Button>);
-        expect(screen.getByRole('button', { name: 'Submit' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Submit' }),
+        ).toBeInTheDocument();
     });
 
     it('shows loadingText and spinner when isLoading', () => {
-        render(<Button isLoading loadingText='Loading...'>Submit</Button>);
+        render(
+            <Button isLoading loadingText="Loading...">
+                Submit
+            </Button>,
+        );
         expect(screen.getByText('Loading...')).toBeInTheDocument();
         expect(screen.queryByText('Submit')).not.toBeInTheDocument();
     });
@@ -104,7 +142,11 @@ describe('Button wrapper', () => {
     });
 
     it('does not show arrow when isLoading even if showArrow is true', () => {
-        render(<Button isLoading showArrow loadingText='Wait'>Go</Button>);
+        render(
+            <Button isLoading showArrow loadingText="Wait">
+                Go
+            </Button>,
+        );
         // only the spinner svg should appear, not the arrow — both are svg so
         // we confirm children show loading state
         expect(screen.getByText('Wait')).toBeInTheDocument();

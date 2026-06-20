@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { PasswordInput } from './components'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { PasswordInput } from './components';
 
 const meta: Meta<typeof PasswordInput> = {
     title: 'UI/PasswordInput',
@@ -8,7 +8,7 @@ const meta: Meta<typeof PasswordInput> = {
     parameters: { layout: 'centered' },
     decorators: [
         (Story) => (
-            <div className='w-72'>
+            <div className="w-72">
                 <Story />
             </div>
         ),
@@ -20,17 +20,17 @@ const meta: Meta<typeof PasswordInput> = {
         disabled: { control: 'boolean' },
         required: { control: 'boolean' },
     },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof PasswordInput>
+export default meta;
+type Story = StoryObj<typeof PasswordInput>;
 
 export const Default: Story = {
     args: {
         label: 'Password',
         placeholder: 'Enter your password',
     },
-}
+};
 
 export const Required: Story = {
     args: {
@@ -38,7 +38,7 @@ export const Required: Story = {
         placeholder: 'Enter your password',
         required: true,
     },
-}
+};
 
 export const WithError: Story = {
     args: {
@@ -47,7 +47,7 @@ export const WithError: Story = {
         error: 'Password must be at least 8 characters.',
         required: true,
     },
-}
+};
 
 export const Disabled: Story = {
     args: {
@@ -55,4 +55,4 @@ export const Disabled: Story = {
         placeholder: 'Enter your password',
         disabled: true,
     },
-}
+};

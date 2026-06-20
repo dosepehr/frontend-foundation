@@ -1,8 +1,13 @@
 'use client';
 
-import { useId } from 'react';
 import { cn } from '@/src/utils/funcs/cn';
-import { Field, FieldDescription, FieldError, FieldLabel } from '../Field/components';
+import { useId } from 'react';
+import {
+    Field,
+    FieldDescription,
+    FieldError,
+    FieldLabel,
+} from '../Field/components';
 import { InputComponent } from './components';
 import type { InputWrapperProps } from './input.types';
 
@@ -32,13 +37,13 @@ function InputWrapper({
                 <FieldLabel
                     htmlFor={inputId}
                     required={required}
-                    className='text-foreground'
+                    className="text-foreground"
                 >
                     {label}
                 </FieldLabel>
             )}
             {description && (
-                <FieldDescription className='text-muted-foreground'>
+                <FieldDescription className="text-muted-foreground">
                     {description}
                 </FieldDescription>
             )}
@@ -53,7 +58,7 @@ function InputWrapper({
             )}
 
             {!hasAddon && action && (
-                <div className='flex items-stretch *:focus-visible:relative *:focus-visible:z-10 [&>*:not(:first-child)]:rounded-s-none [&>*:not(:first-child)]:border-s-0 [&>*:not(:last-child)]:rounded-e-none *:h-9'>
+                <div className="flex items-stretch *:h-9 *:focus-visible:relative *:focus-visible:z-10 [&>*:not(:first-child)]:rounded-s-none [&>*:not(:first-child)]:border-s-0 [&>*:not(:last-child)]:rounded-e-none">
                     <InputComponent
                         id={inputId}
                         aria-invalid={isInvalid || undefined}
@@ -70,24 +75,24 @@ function InputWrapper({
                         'flex h-9 w-full items-stretch rounded-md border shadow-xs transition-[color,box-shadow,border]',
                         isInvalid
                             ? 'border-destructive has-[input:focus-visible]:ring-3 has-[input:focus-visible]:ring-destructive/50'
-                            : 'border-input/50 has-[input:hover]:border-primary has-[input:focus-visible]:border-primary has-[input:focus-visible]:ring-3 has-[input:focus-visible]:ring-primary/50'
+                            : 'border-input/50 has-[input:focus-visible]:border-primary has-[input:focus-visible]:ring-3 has-[input:focus-visible]:ring-primary/50 has-[input:hover]:border-primary',
                     )}
                 >
                     {startAddon && (
-                        <div className='flex items-center border-e border-input/50 ps-2.5 pe-2 text-sm text-muted-foreground'>
+                        <div className="flex items-center border-e border-input/50 ps-2.5 pe-2 text-sm text-muted-foreground">
                             {startAddon}
                         </div>
                     )}
                     <InputComponent
                         id={inputId}
                         className={cn(
-                            'h-auto flex-1 rounded-none border-0 shadow-none focus-visible:ring-0 focus-visible:border-0 aria-invalid:border-0 aria-invalid:ring-0 aria-invalid:focus-visible:ring-0',
-                            className
+                            'h-auto flex-1 rounded-none border-0 shadow-none focus-visible:border-0 focus-visible:ring-0 aria-invalid:border-0 aria-invalid:ring-0 aria-invalid:focus-visible:ring-0',
+                            className,
                         )}
                         {...props}
                     />
                     {endAddon && (
-                        <div className='flex items-center border-s border-input/50 ps-2 pe-2.5 text-sm text-muted-foreground'>
+                        <div className="flex items-center border-s border-input/50 ps-2 pe-2.5 text-sm text-muted-foreground">
                             {endAddon}
                         </div>
                     )}
@@ -99,4 +104,4 @@ function InputWrapper({
     );
 }
 
-export default InputWrapper
+export default InputWrapper;

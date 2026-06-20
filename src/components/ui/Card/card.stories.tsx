@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import CardWrapper from '.'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import CardWrapper from '.';
 
 const meta: Meta<typeof CardWrapper> = {
     title: 'UI/Card',
@@ -44,10 +44,10 @@ const meta: Meta<typeof CardWrapper> = {
             description: 'Props passed to the footer element',
         },
     },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof CardWrapper>
+export default meta;
+type Story = StoryObj<typeof CardWrapper>;
 
 export const Default: Story = {
     args: {
@@ -58,7 +58,7 @@ export const Default: Story = {
         footer: 'Card footer',
         className: 'w-80',
     },
-}
+};
 
 export const Small: Story = {
     args: {
@@ -69,39 +69,43 @@ export const Small: Story = {
         footer: 'Footer',
         className: 'w-80',
     },
-}
+};
 
 export const WithAction: Story = {
     render: () => (
         <CardWrapper
-            className='w-80'
-            title='With Action'
-            description='An action slot in the header.'
-            action={<button className='text-xs text-primary underline'>Edit</button>}
+            className="w-80"
+            title="With Action"
+            description="An action slot in the header."
+            action={
+                <button className="text-xs text-primary underline">Edit</button>
+            }
         >
             The action is positioned in the top-right of the header.
         </CardWrapper>
     ),
     args: {},
-}
+};
 
 export const ContentOnly: Story = {
     args: {
         className: 'w-80',
         children: 'A card with only content and no header or footer.',
     },
-}
+};
 
 export const WithFooter: Story = {
     render: () => (
         <CardWrapper
-            className='w-80'
-            title='Terms of Service'
-            description='Please read before continuing.'
+            className="w-80"
+            title="Terms of Service"
+            description="Please read before continuing."
             footer={
-                <div className='flex gap-2'>
-                    <button className='text-sm font-medium'>Decline</button>
-                    <button className='text-sm font-medium text-primary'>Accept</button>
+                <div className="flex gap-2">
+                    <button className="text-sm font-medium">Decline</button>
+                    <button className="text-sm font-medium text-primary">
+                        Accept
+                    </button>
                 </div>
             }
         >
@@ -109,4 +113,4 @@ export const WithFooter: Story = {
         </CardWrapper>
     ),
     args: {},
-}
+};

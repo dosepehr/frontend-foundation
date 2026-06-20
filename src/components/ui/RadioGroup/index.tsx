@@ -1,12 +1,16 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
-import type { FC } from 'react'
-import { cn } from '@/src/utils/funcs/cn'
-import { Label } from '../Label/components'
-import { Asteriks } from '../Asteriks/components'
-import { RadioGroup, RadioGroupItem, radioGroupWrapperVariants } from './components'
-import type { RadioGroupWrapperProps } from './radio-group.types'
+import { cn } from '@/src/utils/funcs/cn';
+import type { FC } from 'react';
+import { useId } from 'react';
+import { Asteriks } from '../Asteriks/components';
+import { Label } from '../Label/components';
+import {
+    RadioGroup,
+    RadioGroupItem,
+    radioGroupWrapperVariants,
+} from './components';
+import type { RadioGroupWrapperProps } from './radio-group.types';
 
 const RadioGroupWrapper: FC<RadioGroupWrapperProps> = ({
     options,
@@ -17,7 +21,7 @@ const RadioGroupWrapper: FC<RadioGroupWrapperProps> = ({
     orientation = 'vertical',
     ...props
 }) => {
-    const baseId = useId()
+    const baseId = useId();
 
     return (
         <RadioGroup
@@ -25,14 +29,16 @@ const RadioGroupWrapper: FC<RadioGroupWrapperProps> = ({
             required={required}
             orientation={orientation}
             className={cn(
-                orientation === 'horizontal' ? 'flex flex-wrap gap-2' : 'grid gap-2',
-                className
+                orientation === 'horizontal'
+                    ? 'flex flex-wrap gap-2'
+                    : 'grid gap-2',
+                className,
             )}
             {...props}
         >
             {options.map((option) => {
-                const itemId = `${baseId}-${option.value}`
-                const isDisabled = disabled || option.disabled
+                const itemId = `${baseId}-${option.value}`;
+                const isDisabled = disabled || option.disabled;
 
                 return (
                     <Label
@@ -41,7 +47,7 @@ const RadioGroupWrapper: FC<RadioGroupWrapperProps> = ({
                         disabled={isDisabled}
                         className={cn(
                             radioGroupWrapperVariants({ variant }),
-                            isDisabled && 'opacity-80 cursor-not-allowed!'
+                            isDisabled && 'cursor-not-allowed! opacity-80',
                         )}
                     >
                         <RadioGroupItem
@@ -49,24 +55,24 @@ const RadioGroupWrapper: FC<RadioGroupWrapperProps> = ({
                             value={option.value}
                             variant={variant}
                             disabled={isDisabled}
-                            className='mt-0.5'
+                            className="mt-0.5"
                         />
-                        <div className='grid gap-1 font-normal'>
-                            <span className='flex items-center gap-1 text-sm leading-none font-medium'>
+                        <div className="grid gap-1 font-normal">
+                            <span className="flex items-center gap-1 text-sm leading-none font-medium">
                                 {option.label}
                                 {required && <Asteriks />}
                             </span>
                             {option.description && (
-                                <span className='text-xs text-muted-foreground'>
+                                <span className="text-xs text-muted-foreground">
                                     {option.description}
                                 </span>
                             )}
                         </div>
                     </Label>
-                )
+                );
             })}
         </RadioGroup>
-    )
-}
+    );
+};
 
-export default RadioGroupWrapper
+export default RadioGroupWrapper;

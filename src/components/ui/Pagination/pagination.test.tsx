@@ -2,11 +2,11 @@ import { render, screen } from '@testing-library/react';
 import {
     Pagination,
     PaginationContent,
+    PaginationEllipsis,
     PaginationItem,
     PaginationLink,
-    PaginationPrevious,
     PaginationNext,
-    PaginationEllipsis,
+    PaginationPrevious,
 } from './components';
 
 describe('Pagination', () => {
@@ -16,7 +16,7 @@ describe('Pagination', () => {
                 <Pagination>
                     <PaginationContent>
                         <PaginationItem>
-                            <PaginationPrevious href='#' />
+                            <PaginationPrevious href="#" />
                         </PaginationItem>
                     </PaginationContent>
                 </Pagination>,
@@ -26,7 +26,9 @@ describe('Pagination', () => {
 
     it('has data-slot="pagination"', () => {
         const { container } = render(<Pagination />);
-        expect(container.querySelector('[data-slot="pagination"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="pagination"]'),
+        ).toBeInTheDocument();
     });
 
     it('has data-slot="pagination-content"', () => {
@@ -35,7 +37,9 @@ describe('Pagination', () => {
                 <PaginationContent />
             </Pagination>,
         );
-        expect(container.querySelector('[data-slot="pagination-content"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="pagination-content"]'),
+        ).toBeInTheDocument();
     });
 
     it('has data-slot="pagination-item"', () => {
@@ -46,7 +50,9 @@ describe('Pagination', () => {
                 </PaginationContent>
             </Pagination>,
         );
-        expect(container.querySelector('[data-slot="pagination-item"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="pagination-item"]'),
+        ).toBeInTheDocument();
     });
 
     it('PaginationPrevious has correct aria-label', () => {
@@ -54,12 +60,14 @@ describe('Pagination', () => {
             <Pagination>
                 <PaginationContent>
                     <PaginationItem>
-                        <PaginationPrevious href='#' />
+                        <PaginationPrevious href="#" />
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>,
         );
-        expect(screen.getByLabelText('Go to previous page')).toBeInTheDocument();
+        expect(
+            screen.getByLabelText('Go to previous page'),
+        ).toBeInTheDocument();
     });
 
     it('PaginationNext has correct aria-label', () => {
@@ -67,7 +75,7 @@ describe('Pagination', () => {
             <Pagination>
                 <PaginationContent>
                     <PaginationItem>
-                        <PaginationNext href='#' />
+                        <PaginationNext href="#" />
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>,
@@ -80,7 +88,7 @@ describe('Pagination', () => {
             <Pagination>
                 <PaginationContent>
                     <PaginationItem>
-                        <PaginationLink href='#'>1</PaginationLink>
+                        <PaginationLink href="#">1</PaginationLink>
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>,
@@ -108,13 +116,16 @@ describe('Pagination', () => {
             <Pagination>
                 <PaginationContent>
                     <PaginationItem>
-                        <PaginationLink href='#' isActive>
+                        <PaginationLink href="#" isActive>
                             2
                         </PaginationLink>
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>,
         );
-        expect(screen.getByText('2').closest('a')).toHaveAttribute('aria-current', 'page');
+        expect(screen.getByText('2').closest('a')).toHaveAttribute(
+            'aria-current',
+            'page',
+        );
     });
 });

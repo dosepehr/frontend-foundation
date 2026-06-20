@@ -1,23 +1,29 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
     Command,
-    CommandInput,
-    CommandList,
     CommandEmpty,
     CommandGroup,
+    CommandInput,
     CommandItem,
+    CommandList,
 } from './components';
 
 describe('Command', () => {
     it('renders without errors', () => {
-        expect(() => render(<Command><CommandList /></Command>)).not.toThrow();
+        expect(() =>
+            render(
+                <Command>
+                    <CommandList />
+                </Command>,
+            ),
+        ).not.toThrow();
     });
 
     it('renders CommandInput', () => {
         render(
             <Command>
-                <CommandInput placeholder='Search...' />
+                <CommandInput placeholder="Search..." />
                 <CommandList />
             </Command>,
         );
@@ -29,8 +35,8 @@ describe('Command', () => {
             <Command>
                 <CommandList>
                     <CommandGroup>
-                        <CommandItem value='apple'>Apple</CommandItem>
-                        <CommandItem value='banana'>Banana</CommandItem>
+                        <CommandItem value="apple">Apple</CommandItem>
+                        <CommandItem value="banana">Banana</CommandItem>
                     </CommandGroup>
                 </CommandList>
             </Command>,
@@ -46,7 +52,9 @@ describe('Command', () => {
             <Command>
                 <CommandList>
                     <CommandGroup>
-                        <CommandItem value='apple' onSelect={onSelect}>Apple</CommandItem>
+                        <CommandItem value="apple" onSelect={onSelect}>
+                            Apple
+                        </CommandItem>
                     </CommandGroup>
                 </CommandList>
             </Command>,
@@ -61,24 +69,26 @@ describe('Command', () => {
             <Command>
                 <CommandList>
                     <CommandGroup>
-                        <CommandItem value='apple'>Apple</CommandItem>
+                        <CommandItem value="apple">Apple</CommandItem>
                     </CommandGroup>
                 </CommandList>
             </Command>,
         );
-        await expect(user.click(screen.getByText('Apple'))).resolves.not.toThrow();
+        await expect(
+            user.click(screen.getByText('Apple')),
+        ).resolves.not.toThrow();
     });
 
     it('shows CommandEmpty when no items match the search', async () => {
         const user = userEvent.setup();
         render(
             <Command>
-                <CommandInput placeholder='Search...' />
+                <CommandInput placeholder="Search..." />
                 <CommandList>
                     <CommandEmpty>No results found</CommandEmpty>
                     <CommandGroup>
-                        <CommandItem value='apple'>Apple</CommandItem>
-                        <CommandItem value='banana'>Banana</CommandItem>
+                        <CommandItem value="apple">Apple</CommandItem>
+                        <CommandItem value="banana">Banana</CommandItem>
                     </CommandGroup>
                 </CommandList>
             </Command>,
@@ -91,18 +101,20 @@ describe('Command', () => {
         const user = userEvent.setup();
         render(
             <Command>
-                <CommandInput placeholder='Search...' />
+                <CommandInput placeholder="Search..." />
                 <CommandList>
                     <CommandGroup>
-                        <CommandItem value='apple'>Apple</CommandItem>
-                        <CommandItem value='banana'>Banana</CommandItem>
+                        <CommandItem value="apple">Apple</CommandItem>
+                        <CommandItem value="banana">Banana</CommandItem>
                     </CommandGroup>
                 </CommandList>
             </Command>,
         );
         await user.type(screen.getByPlaceholderText('Search...'), 'apple');
         const items = document.querySelectorAll('[data-command-item]');
-        const apple = Array.from(items).find((el) => el.textContent?.includes('Apple')) as HTMLElement;
+        const apple = Array.from(items).find((el) =>
+            el.textContent?.includes('Apple'),
+        ) as HTMLElement;
         expect(apple?.style.display).not.toBe('none');
     });
 
@@ -110,16 +122,23 @@ describe('Command', () => {
         const user = userEvent.setup();
         render(
             <Command>
-                <CommandInput placeholder='Search...' />
+                <CommandInput placeholder="Search..." />
                 <CommandList>
                     <CommandGroup>
-                        <CommandItem value='item-1' keywords={['special-keyword']}>Item One</CommandItem>
+                        <CommandItem
+                            value="item-1"
+                            keywords={['special-keyword']}
+                        >
+                            Item One
+                        </CommandItem>
                     </CommandGroup>
                 </CommandList>
             </Command>,
         );
         await user.type(screen.getByPlaceholderText('Search...'), 'special');
-        const item = document.querySelector('[data-command-item]') as HTMLElement;
+        const item = document.querySelector(
+            '[data-command-item]',
+        ) as HTMLElement;
         expect(item?.style.display).not.toBe('none');
     });
 
@@ -127,10 +146,10 @@ describe('Command', () => {
         const user = userEvent.setup();
         render(
             <Command shouldFilter={false}>
-                <CommandInput placeholder='Search...' />
+                <CommandInput placeholder="Search..." />
                 <CommandList>
                     <CommandGroup>
-                        <CommandItem value='apple'>Apple</CommandItem>
+                        <CommandItem value="apple">Apple</CommandItem>
                     </CommandGroup>
                 </CommandList>
             </Command>,
@@ -144,7 +163,7 @@ describe('Command', () => {
         const onSearchChange = vi.fn();
         render(
             <Command onSearchChange={onSearchChange}>
-                <CommandInput placeholder='Search...' />
+                <CommandInput placeholder="Search..." />
                 <CommandList />
             </Command>,
         );
@@ -157,7 +176,7 @@ describe('CommandInput controlled mode', () => {
     it('displays controlled value', () => {
         render(
             <Command>
-                <CommandInput value='controlled' />
+                <CommandInput value="controlled" />
                 <CommandList />
             </Command>,
         );
@@ -168,11 +187,13 @@ describe('CommandInput controlled mode', () => {
         const onValueChange = vi.fn();
         render(
             <Command>
-                <CommandInput value='initial' onValueChange={onValueChange} />
+                <CommandInput value="initial" onValueChange={onValueChange} />
                 <CommandList />
             </Command>,
         );
-        fireEvent.change(screen.getByDisplayValue('initial'), { target: { value: 'new' } });
+        fireEvent.change(screen.getByDisplayValue('initial'), {
+            target: { value: 'new' },
+        });
         expect(onValueChange).toHaveBeenCalledWith('new');
     });
 
@@ -181,7 +202,10 @@ describe('CommandInput controlled mode', () => {
         const onValueChange = vi.fn();
         render(
             <Command>
-                <CommandInput placeholder='Search...' onValueChange={onValueChange} />
+                <CommandInput
+                    placeholder="Search..."
+                    onValueChange={onValueChange}
+                />
                 <CommandList />
             </Command>,
         );

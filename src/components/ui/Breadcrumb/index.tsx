@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import React from 'react'
-import type { FC } from 'react'
+import type { FC } from 'react';
+import React from 'react';
+import type { BreadcrumbWrapperProps } from './breadcrumb.types';
 import {
     Breadcrumb,
-    BreadcrumbList,
+    BreadcrumbEllipsis,
     BreadcrumbItem,
     BreadcrumbLink,
+    BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator,
-    BreadcrumbEllipsis,
-} from './components'
-import type { BreadcrumbWrapperProps } from './breadcrumb.types'
+} from './components';
 
 const BreadcrumbWrapper: FC<BreadcrumbWrapperProps> = ({
     items,
@@ -19,16 +19,16 @@ const BreadcrumbWrapper: FC<BreadcrumbWrapperProps> = ({
     ellipsis = false,
     maxItems = 3,
 }) => {
-    const shouldCollapse = ellipsis && items.length > maxItems
+    const shouldCollapse = ellipsis && items.length > maxItems;
     const visibleItems = shouldCollapse
         ? [items[0], null, ...items.slice(-(maxItems - 1))]
-        : items
+        : items;
 
     return (
         <Breadcrumb>
             <BreadcrumbList>
                 {visibleItems.map((item, index) => {
-                    const isLast = index === visibleItems.length - 1
+                    const isLast = index === visibleItems.length - 1;
 
                     return (
                         <React.Fragment key={index}>
@@ -36,7 +36,9 @@ const BreadcrumbWrapper: FC<BreadcrumbWrapperProps> = ({
                                 {item === null ? (
                                     <BreadcrumbEllipsis />
                                 ) : isLast ? (
-                                    <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                                    <BreadcrumbPage>
+                                        {item.label}
+                                    </BreadcrumbPage>
                                 ) : (
                                     <BreadcrumbLink href={item.href ?? '#'}>
                                         {item.label}
@@ -49,22 +51,25 @@ const BreadcrumbWrapper: FC<BreadcrumbWrapperProps> = ({
                                 </BreadcrumbSeparator>
                             )}
                         </React.Fragment>
-                    )
+                    );
                 })}
             </BreadcrumbList>
         </Breadcrumb>
-    )
-}
+    );
+};
 
-export default BreadcrumbWrapper
+export default BreadcrumbWrapper;
 
+export type {
+    BreadcrumbItemDef,
+    BreadcrumbWrapperProps,
+} from './breadcrumb.types';
 export {
     Breadcrumb,
-    BreadcrumbList,
+    BreadcrumbEllipsis,
     BreadcrumbItem,
     BreadcrumbLink,
+    BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator,
-    BreadcrumbEllipsis,
-} from './components'
-export type { BreadcrumbWrapperProps, BreadcrumbItemDef } from './breadcrumb.types'
+} from './components';

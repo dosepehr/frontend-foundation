@@ -2,18 +2,18 @@
 'use client';
 /* c8 ignore stop */
 
-import * as React from 'react';
-import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import { cn } from '@/src/utils/funcs/cn';
-import { buttonVariants } from '../Button/components';
 import type { VariantProps } from 'class-variance-authority';
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
+import * as React from 'react';
+import { buttonVariants } from '../Button/components';
 
 function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
     return (
         <nav
-            role='navigation'
-            aria-label='pagination'
-            data-slot='pagination'
+            role="navigation"
+            aria-label="pagination"
+            data-slot="pagination"
             className={cn('mx-auto flex w-full justify-center', className)}
             {...props}
         />
@@ -26,7 +26,7 @@ function PaginationContent({
 }: React.ComponentProps<'ul'>) {
     return (
         <ul
-            data-slot='pagination-content'
+            data-slot="pagination-content"
             className={cn('flex flex-row items-center gap-1', className)}
             {...props}
         />
@@ -36,7 +36,7 @@ function PaginationContent({
 function PaginationItem({ className, ...props }: React.ComponentProps<'li'>) {
     return (
         <li
-            data-slot='pagination-item'
+            data-slot="pagination-item"
             className={cn('', className)}
             {...props}
         />
@@ -57,7 +57,7 @@ function PaginationLink({
     return (
         <a
             aria-current={isActive ? 'page' : undefined}
-            data-slot='pagination-link'
+            data-slot="pagination-link"
             data-active={isActive}
             className={cn(
                 buttonVariants({
@@ -65,7 +65,7 @@ function PaginationLink({
                     size,
                 }),
                 'cursor-pointer',
-                className
+                className,
             )}
             {...props}
         />
@@ -78,12 +78,12 @@ function PaginationPrevious({
 }: React.ComponentProps<typeof PaginationLink>) {
     return (
         <PaginationLink
-            aria-label='Go to previous page'
-            size='default'
+            aria-label="Go to previous page"
+            size="default"
             className={cn('gap-1 px-3', className)}
             {...props}
         >
-            <ChevronLeft className='size-4 rtl:rotate-180' />
+            <ChevronLeft className="size-4 rtl:rotate-180" />
             <span>Previous</span>
         </PaginationLink>
     );
@@ -95,13 +95,13 @@ function PaginationNext({
 }: React.ComponentProps<typeof PaginationLink>) {
     return (
         <PaginationLink
-            aria-label='Go to next page'
-            size='default'
+            aria-label="Go to next page"
+            size="default"
             className={cn('gap-1 px-3', className)}
             {...props}
         >
             <span>Next</span>
-            <ChevronRight className='size-4 rtl:rotate-180' />
+            <ChevronRight className="size-4 rtl:rotate-180" />
         </PaginationLink>
     );
 }
@@ -113,15 +113,15 @@ function PaginationEllipsis({
     return (
         <span
             aria-hidden
-            data-slot='pagination-ellipsis'
+            data-slot="pagination-ellipsis"
             className={cn(
                 'flex size-8 items-center justify-center text-muted-foreground',
-                className
+                className,
             )}
             {...props}
         >
-            <MoreHorizontal className='size-4' />
-            <span className='sr-only'>More pages</span>
+            <MoreHorizontal className="size-4" />
+            <span className="sr-only">More pages</span>
         </span>
     );
 }
@@ -129,10 +129,9 @@ function PaginationEllipsis({
 export {
     Pagination,
     PaginationContent,
+    PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-    PaginationEllipsis,
 };
-

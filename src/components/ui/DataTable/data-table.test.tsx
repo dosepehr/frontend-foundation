@@ -1,12 +1,20 @@
+import type { ColumnDef } from '@tanstack/react-table';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import type { ColumnDef } from '@tanstack/react-table';
-import { DataTableRoot, DataTableSkeleton, DataTablePagination, Table, TableBody, TableCaption, TableState } from './components';
+import {
+    DataTablePagination,
+    DataTableRoot,
+    DataTableSkeleton,
+    Table,
+    TableBody,
+    TableCaption,
+    TableState,
+} from './components';
 import DataTable from './index';
 
 type Person = { name: string; age: number };
 
-const COLUMNS: ColumnDef<Person, unknown>[] = [
+const COLUMNS: Array<ColumnDef<Person, unknown>> = [
     { accessorKey: 'name', header: 'Name' },
     { accessorKey: 'age', header: 'Age' },
 ];
@@ -42,7 +50,13 @@ describe('DataTableRoot', () => {
     });
 
     it('shows empty state when data is empty', () => {
-        render(<DataTableRoot columns={COLUMNS} data={[]} emptyTitle='No records' />);
+        render(
+            <DataTableRoot
+                columns={COLUMNS}
+                data={[]}
+                emptyTitle="No records"
+            />,
+        );
         expect(screen.getByText('No records')).toBeInTheDocument();
     });
 
@@ -64,13 +78,22 @@ describe('DataTableRoot', () => {
     });
 
     it('renders filter input when filterColumn is provided', () => {
-        render(<DataTableRoot columns={COLUMNS} data={DATA} filterColumn='name' filterPlaceholder='Search names' />);
+        render(
+            <DataTableRoot
+                columns={COLUMNS}
+                data={DATA}
+                filterColumn="name"
+                filterPlaceholder="Search names"
+            />,
+        );
         expect(screen.getByPlaceholderText('Search names')).toBeInTheDocument();
     });
 
     it('filters rows based on search input', async () => {
         const user = userEvent.setup();
-        render(<DataTableRoot columns={COLUMNS} data={DATA} filterColumn='name' />);
+        render(
+            <DataTableRoot columns={COLUMNS} data={DATA} filterColumn="name" />,
+        );
         await user.type(screen.getByPlaceholderText('Search...'), 'Alice');
         expect(screen.getByText('Alice')).toBeInTheDocument();
         expect(screen.queryByText('Bob')).not.toBeInTheDocument();
@@ -81,7 +104,10 @@ describe('DataTableRoot', () => {
             <DataTableRoot
                 columns={COLUMNS}
                 data={DATA}
-                footerRow={[<span key='total'>Total</span>, <span key='sum'>90</span>]}
+                footerRow={[
+                    <span key="total">Total</span>,
+                    <span key="sum">90</span>,
+                ]}
             />,
         );
         expect(screen.getByText('Total')).toBeInTheDocument();
@@ -98,14 +124,15 @@ describe('DataTableRoot', () => {
     it('selects all rows when header checkbox is clicked', async () => {
         const user = userEvent.setup();
         render(<DataTableRoot columns={COLUMNS} data={DATA} haveSelection />);
-        const [headerCheckbox, ...rowCheckboxes] = screen.getAllByRole('checkbox');
+        const [headerCheckbox, ...rowCheckboxes] =
+            screen.getAllByRole('checkbox');
         await user.click(headerCheckbox);
-        rowCheckboxes.forEach((cb) => expect(cb).toBeChecked());
+        for (const cb of rowCheckboxes) expect(cb).toBeChecked();
     });
 
     it('sorts column when sortable header is clicked', async () => {
         const user = userEvent.setup();
-        const SORTABLE_COLUMNS: ColumnDef<Person, unknown>[] = [
+        const SORTABLE_COLUMNS: Array<ColumnDef<Person, unknown>> = [
             { accessorKey: 'name', header: 'Name', enableSorting: true },
             { accessorKey: 'age', header: 'Age' },
         ];
@@ -134,13 +161,31 @@ describe('DataTableRoot', () => {
 
 describe('DataTablePagination', () => {
     it('renders prev and next navigation', () => {
-        render(<DataTablePagination current={2} total={5} setPage={vi.fn()} limit={20} setLimit={vi.fn()} />);
-        expect(screen.getByLabelText('Go to previous page')).toBeInTheDocument();
+        render(
+            <DataTablePagination
+                current={2}
+                total={5}
+                setPage={vi.fn()}
+                limit={20}
+                setLimit={vi.fn()}
+            />,
+        );
+        expect(
+            screen.getByLabelText('Go to previous page'),
+        ).toBeInTheDocument();
         expect(screen.getByLabelText('Go to next page')).toBeInTheDocument();
     });
 
     it('renders page numbers', () => {
-        render(<DataTablePagination current={1} total={3} setPage={vi.fn()} limit={20} setLimit={vi.fn()} />);
+        render(
+            <DataTablePagination
+                current={1}
+                total={3}
+                setPage={vi.fn()}
+                limit={20}
+                setLimit={vi.fn()}
+            />,
+        );
         expect(screen.getByText('1')).toBeInTheDocument();
         expect(screen.getByText('2')).toBeInTheDocument();
         expect(screen.getByText('3')).toBeInTheDocument();
@@ -149,7 +194,15 @@ describe('DataTablePagination', () => {
     it('calls setPage when a page number is clicked', async () => {
         const user = userEvent.setup();
         const setPage = vi.fn();
-        render(<DataTablePagination current={1} total={3} setPage={setPage} limit={20} setLimit={vi.fn()} />);
+        render(
+            <DataTablePagination
+                current={1}
+                total={3}
+                setPage={setPage}
+                limit={20}
+                setLimit={vi.fn()}
+            />,
+        );
         await user.click(screen.getByText('2'));
         expect(setPage).toHaveBeenCalledWith(2);
     });
@@ -157,7 +210,15 @@ describe('DataTablePagination', () => {
     it('calls setPage with current-1 when prev is clicked', async () => {
         const user = userEvent.setup();
         const setPage = vi.fn();
-        render(<DataTablePagination current={3} total={5} setPage={setPage} limit={20} setLimit={vi.fn()} />);
+        render(
+            <DataTablePagination
+                current={3}
+                total={5}
+                setPage={setPage}
+                limit={20}
+                setLimit={vi.fn()}
+            />,
+        );
         await user.click(screen.getByLabelText('Go to previous page'));
         expect(setPage).toHaveBeenCalledWith(2);
     });
@@ -165,7 +226,15 @@ describe('DataTablePagination', () => {
     it('calls setPage with current+1 when next is clicked', async () => {
         const user = userEvent.setup();
         const setPage = vi.fn();
-        render(<DataTablePagination current={3} total={5} setPage={setPage} limit={20} setLimit={vi.fn()} />);
+        render(
+            <DataTablePagination
+                current={3}
+                total={5}
+                setPage={setPage}
+                limit={20}
+                setLimit={vi.fn()}
+            />,
+        );
         await user.click(screen.getByLabelText('Go to next page'));
         expect(setPage).toHaveBeenCalledWith(4);
     });
@@ -173,7 +242,15 @@ describe('DataTablePagination', () => {
     it('does not call setPage when prev is clicked on first page', async () => {
         const user = userEvent.setup();
         const setPage = vi.fn();
-        render(<DataTablePagination current={1} total={5} setPage={setPage} limit={20} setLimit={vi.fn()} />);
+        render(
+            <DataTablePagination
+                current={1}
+                total={5}
+                setPage={setPage}
+                limit={20}
+                setLimit={vi.fn()}
+            />,
+        );
         await user.click(screen.getByLabelText('Go to previous page'));
         expect(setPage).not.toHaveBeenCalled();
     });
@@ -181,19 +258,45 @@ describe('DataTablePagination', () => {
     it('does not call setPage when next is clicked on last page', async () => {
         const user = userEvent.setup();
         const setPage = vi.fn();
-        render(<DataTablePagination current={5} total={5} setPage={setPage} limit={20} setLimit={vi.fn()} />);
+        render(
+            <DataTablePagination
+                current={5}
+                total={5}
+                setPage={setPage}
+                limit={20}
+                setLimit={vi.fn()}
+            />,
+        );
         await user.click(screen.getByLabelText('Go to next page'));
         expect(setPage).not.toHaveBeenCalled();
     });
 
     it('shows ellipsis for large page counts', () => {
-        const { container } = render(<DataTablePagination current={5} total={10} setPage={vi.fn()} limit={20} setLimit={vi.fn()} />);
+        const { container } = render(
+            <DataTablePagination
+                current={5}
+                total={10}
+                setPage={vi.fn()}
+                limit={20}
+                setLimit={vi.fn()}
+            />,
+        );
         // PaginationEllipsis renders a span with aria-hidden content
-        expect(container.querySelector('[data-slot="pagination-ellipsis"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="pagination-ellipsis"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders rows-per-page select', () => {
-        render(<DataTablePagination current={1} total={5} setPage={vi.fn()} limit={20} setLimit={vi.fn()} />);
+        render(
+            <DataTablePagination
+                current={1}
+                total={5}
+                setPage={vi.fn()}
+                limit={20}
+                setLimit={vi.fn()}
+            />,
+        );
         expect(screen.getByText('Rows per page')).toBeInTheDocument();
     });
 });
@@ -251,12 +354,16 @@ describe('DataTableSkeleton', () => {
     });
 
     it('renders the correct number of header cells', () => {
-        const { container } = render(<DataTableSkeleton columns={3} rows={2} />);
+        const { container } = render(
+            <DataTableSkeleton columns={3} rows={2} />,
+        );
         expect(container.querySelectorAll('th').length).toBe(3);
     });
 
     it('renders the correct number of rows', () => {
-        const { container } = render(<DataTableSkeleton columns={2} rows={4} />);
+        const { container } = render(
+            <DataTableSkeleton columns={2} rows={4} />,
+        );
         // tbody rows only
         expect(container.querySelectorAll('tbody tr').length).toBe(4);
     });
@@ -265,21 +372,35 @@ describe('DataTableSkeleton', () => {
 describe('Table primitives', () => {
     it('Table renders data-slot="table-container"', () => {
         const { container } = render(<Table />);
-        expect(container.querySelector('[data-slot="table-container"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="table-container"]'),
+        ).toBeInTheDocument();
     });
 
     it('TableBody renders data-slot="table-body"', () => {
         const { container } = render(
-            <table><TableBody><tr><td>cell</td></tr></TableBody></table>,
+            <table>
+                <TableBody>
+                    <tr>
+                        <td>cell</td>
+                    </tr>
+                </TableBody>
+            </table>,
         );
-        expect(container.querySelector('[data-slot="table-body"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="table-body"]'),
+        ).toBeInTheDocument();
     });
 
     it('TableCaption renders data-slot="table-caption"', () => {
         const { container } = render(
-            <table><TableCaption>Caption text</TableCaption></table>,
+            <table>
+                <TableCaption>Caption text</TableCaption>
+            </table>,
         );
-        expect(container.querySelector('[data-slot="table-caption"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="table-caption"]'),
+        ).toBeInTheDocument();
     });
 });
 
@@ -313,7 +434,7 @@ describe('TableState', () => {
 
     it('shows empty state when isEmpty is true', () => {
         render(
-            <TableState isLoading={false} isEmpty emptyTitle='No data'>
+            <TableState isLoading={false} isEmpty emptyTitle="No data">
                 content
             </TableState>,
         );
@@ -360,16 +481,30 @@ describe('TableState', () => {
 describe('DataTablePagination edge cases', () => {
     it('no leading ellipsis when current is near start', () => {
         const { container } = render(
-            <DataTablePagination current={2} total={10} setPage={vi.fn()} limit={20} setLimit={vi.fn()} />,
+            <DataTablePagination
+                current={2}
+                total={10}
+                setPage={vi.fn()}
+                limit={20}
+                setLimit={vi.fn()}
+            />,
         );
-        const ellipses = container.querySelectorAll('[data-slot="pagination-ellipsis"]');
+        const _ellipses = container.querySelectorAll(
+            '[data-slot="pagination-ellipsis"]',
+        );
         // With current=2, total=10 → no leading ellipsis but trailing one
         expect(screen.getByText('1')).toBeInTheDocument();
     });
 
     it('no trailing ellipsis when current is near end', () => {
         render(
-            <DataTablePagination current={9} total={10} setPage={vi.fn()} limit={20} setLimit={vi.fn()} />,
+            <DataTablePagination
+                current={9}
+                total={10}
+                setPage={vi.fn()}
+                limit={20}
+                setLimit={vi.fn()}
+            />,
         );
         expect(screen.getByText('10')).toBeInTheDocument();
     });
@@ -381,7 +516,13 @@ describe('DataTablePagination page size change', () => {
         const setLimit = vi.fn();
         const setPage = vi.fn();
         render(
-            <DataTablePagination current={1} total={5} setPage={setPage} limit={20} setLimit={setLimit} />,
+            <DataTablePagination
+                current={1}
+                total={5}
+                setPage={setPage}
+                limit={20}
+                setLimit={setLimit}
+            />,
         );
         await user.click(screen.getByRole('combobox'));
         const options = document.querySelectorAll('[data-slot="select-item"]');

@@ -10,7 +10,9 @@ describe('Toggle', () => {
 
     it('has data-slot="toggle"', () => {
         const { container } = render(<Toggle />);
-        expect(container.querySelector('[data-slot="toggle"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="toggle"]'),
+        ).toBeInTheDocument();
     });
 
     it('is off by default', () => {
@@ -54,7 +56,11 @@ describe('Toggle', () => {
     it('calls onPressedChange with false when toggled off', async () => {
         const user = userEvent.setup();
         const onPressedChange = vi.fn();
-        render(<Toggle defaultPressed onPressedChange={onPressedChange}>B</Toggle>);
+        render(
+            <Toggle defaultPressed onPressedChange={onPressedChange}>
+                B
+            </Toggle>,
+        );
         await user.click(screen.getByRole('button'));
         expect(onPressedChange).toHaveBeenCalledWith(false);
     });
@@ -70,7 +76,7 @@ describe('Toggle', () => {
     });
 
     it('forwards className', () => {
-        render(<Toggle className='custom-toggle'>B</Toggle>);
+        render(<Toggle className="custom-toggle">B</Toggle>);
         expect(screen.getByRole('button')).toHaveClass('custom-toggle');
     });
 });

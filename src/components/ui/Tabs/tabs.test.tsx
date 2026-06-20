@@ -1,26 +1,28 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from './components';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './components';
 
 describe('Tabs', () => {
     it('has data-slot="tabs"', () => {
         const { container } = render(
-            <Tabs defaultValue='a'>
+            <Tabs defaultValue="a">
                 <TabsList>
-                    <TabsTrigger value='a'>A</TabsTrigger>
+                    <TabsTrigger value="a">A</TabsTrigger>
                 </TabsList>
-                <TabsContent value='a'>Content A</TabsContent>
+                <TabsContent value="a">Content A</TabsContent>
             </Tabs>,
         );
-        expect(container.querySelector('[data-slot="tabs"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="tabs"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders tab triggers', () => {
         render(
-            <Tabs defaultValue='a'>
+            <Tabs defaultValue="a">
                 <TabsList>
-                    <TabsTrigger value='a'>Tab A</TabsTrigger>
-                    <TabsTrigger value='b'>Tab B</TabsTrigger>
+                    <TabsTrigger value="a">Tab A</TabsTrigger>
+                    <TabsTrigger value="b">Tab B</TabsTrigger>
                 </TabsList>
             </Tabs>,
         );
@@ -30,13 +32,13 @@ describe('Tabs', () => {
 
     it('shows content for the active tab', () => {
         render(
-            <Tabs defaultValue='a'>
+            <Tabs defaultValue="a">
                 <TabsList>
-                    <TabsTrigger value='a'>Tab A</TabsTrigger>
-                    <TabsTrigger value='b'>Tab B</TabsTrigger>
+                    <TabsTrigger value="a">Tab A</TabsTrigger>
+                    <TabsTrigger value="b">Tab B</TabsTrigger>
                 </TabsList>
-                <TabsContent value='a'>Content A</TabsContent>
-                <TabsContent value='b'>Content B</TabsContent>
+                <TabsContent value="a">Content A</TabsContent>
+                <TabsContent value="b">Content B</TabsContent>
             </Tabs>,
         );
         expect(screen.getByText('Content A')).toBeInTheDocument();
@@ -45,13 +47,13 @@ describe('Tabs', () => {
     it('switches content when a tab is clicked', async () => {
         const user = userEvent.setup();
         render(
-            <Tabs defaultValue='a'>
+            <Tabs defaultValue="a">
                 <TabsList>
-                    <TabsTrigger value='a'>Tab A</TabsTrigger>
-                    <TabsTrigger value='b'>Tab B</TabsTrigger>
+                    <TabsTrigger value="a">Tab A</TabsTrigger>
+                    <TabsTrigger value="b">Tab B</TabsTrigger>
                 </TabsList>
-                <TabsContent value='a'>Content A</TabsContent>
-                <TabsContent value='b'>Content B</TabsContent>
+                <TabsContent value="a">Content A</TabsContent>
+                <TabsContent value="b">Content B</TabsContent>
             </Tabs>,
         );
         await user.click(screen.getByText('Tab B'));
@@ -60,69 +62,81 @@ describe('Tabs', () => {
 
     it('active trigger has data-state="active"', () => {
         render(
-            <Tabs defaultValue='a'>
+            <Tabs defaultValue="a">
                 <TabsList>
-                    <TabsTrigger value='a'>Tab A</TabsTrigger>
+                    <TabsTrigger value="a">Tab A</TabsTrigger>
                 </TabsList>
             </Tabs>,
         );
-        expect(screen.getByText('Tab A')).toHaveAttribute('data-state', 'active');
+        expect(screen.getByText('Tab A')).toHaveAttribute(
+            'data-state',
+            'active',
+        );
     });
 
     it('inactive trigger has data-state="inactive"', () => {
         render(
-            <Tabs defaultValue='a'>
+            <Tabs defaultValue="a">
                 <TabsList>
-                    <TabsTrigger value='a'>Tab A</TabsTrigger>
-                    <TabsTrigger value='b'>Tab B</TabsTrigger>
+                    <TabsTrigger value="a">Tab A</TabsTrigger>
+                    <TabsTrigger value="b">Tab B</TabsTrigger>
                 </TabsList>
             </Tabs>,
         );
-        expect(screen.getByText('Tab B')).toHaveAttribute('data-state', 'inactive');
+        expect(screen.getByText('Tab B')).toHaveAttribute(
+            'data-state',
+            'inactive',
+        );
     });
 
     it('has data-slot="tabs-list" on the list', () => {
         const { container } = render(
-            <Tabs defaultValue='a'>
+            <Tabs defaultValue="a">
                 <TabsList>
-                    <TabsTrigger value='a'>A</TabsTrigger>
+                    <TabsTrigger value="a">A</TabsTrigger>
                 </TabsList>
             </Tabs>,
         );
-        expect(container.querySelector('[data-slot="tabs-list"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="tabs-list"]'),
+        ).toBeInTheDocument();
     });
 
     it('has data-slot="tabs-trigger" on trigger', () => {
         const { container } = render(
-            <Tabs defaultValue='a'>
+            <Tabs defaultValue="a">
                 <TabsList>
-                    <TabsTrigger value='a'>A</TabsTrigger>
+                    <TabsTrigger value="a">A</TabsTrigger>
                 </TabsList>
             </Tabs>,
         );
-        expect(container.querySelector('[data-slot="tabs-trigger"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="tabs-trigger"]'),
+        ).toBeInTheDocument();
     });
 
     it('has data-slot="tabs-content" on content', () => {
         const { container } = render(
-            <Tabs defaultValue='a'>
+            <Tabs defaultValue="a">
                 <TabsList>
-                    <TabsTrigger value='a'>A</TabsTrigger>
+                    <TabsTrigger value="a">A</TabsTrigger>
                 </TabsList>
-                <TabsContent value='a'>Content</TabsContent>
+                <TabsContent value="a">Content</TabsContent>
             </Tabs>,
         );
-        expect(container.querySelector('[data-slot="tabs-content"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="tabs-content"]'),
+        ).toBeInTheDocument();
     });
 
     it('calls onValueChange when tab is clicked', async () => {
         const user = userEvent.setup();
         const onValueChange = vi.fn();
         render(
-            <Tabs defaultValue='a' onValueChange={onValueChange}>
+            <Tabs defaultValue="a" onValueChange={onValueChange}>
                 <TabsList>
-                    <TabsTrigger value='a'>Tab A</TabsTrigger>
-                    <TabsTrigger value='b'>Tab B</TabsTrigger>
+                    <TabsTrigger value="a">Tab A</TabsTrigger>
+                    <TabsTrigger value="b">Tab B</TabsTrigger>
                 </TabsList>
             </Tabs>,
         );
@@ -132,12 +146,14 @@ describe('Tabs', () => {
 
     it('forwards className to Tabs', () => {
         const { container } = render(
-            <Tabs defaultValue='a' className='custom-tabs'>
+            <Tabs defaultValue="a" className="custom-tabs">
                 <TabsList>
-                    <TabsTrigger value='a'>A</TabsTrigger>
+                    <TabsTrigger value="a">A</TabsTrigger>
                 </TabsList>
             </Tabs>,
         );
-        expect(container.querySelector('[data-slot="tabs"]')).toHaveClass('custom-tabs');
+        expect(container.querySelector('[data-slot="tabs"]')).toHaveClass(
+            'custom-tabs',
+        );
     });
 });

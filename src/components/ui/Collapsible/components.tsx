@@ -1,13 +1,13 @@
 /* c8 ignore start */
-'use client'
+'use client';
 /* c8 ignore stop */
 
-import * as React from 'react'
-import { Collapsible as CollapsiblePrimitive } from 'radix-ui'
-import { motion, AnimatePresence } from 'motion/react'
-import { cn } from '@/src/utils/funcs/cn'
+import { cn } from '@/src/utils/funcs/cn';
+import { AnimatePresence, motion } from 'motion/react';
+import { Collapsible as CollapsiblePrimitive } from 'radix-ui';
+import * as React from 'react';
 
-const CollapsibleContext = React.createContext(false)
+const CollapsibleContext = React.createContext(false);
 
 function Collapsible({
     open,
@@ -15,25 +15,25 @@ function Collapsible({
     onOpenChange,
     ...props
 }: React.ComponentProps<typeof CollapsiblePrimitive.Root>) {
-    const [isOpen, setIsOpen] = React.useState(defaultOpen ?? false)
-    const controlled = open !== undefined
-    const currentOpen = controlled ? open : isOpen
+    const [isOpen, setIsOpen] = React.useState(defaultOpen ?? false);
+    const controlled = open !== undefined;
+    const currentOpen = controlled ? open : isOpen;
 
     const handleChange = (val: boolean) => {
-        if (!controlled) setIsOpen(val)
-        onOpenChange?.(val)
-    }
+        if (!controlled) setIsOpen(val);
+        onOpenChange?.(val);
+    };
 
     return (
         <CollapsibleContext.Provider value={currentOpen}>
             <CollapsiblePrimitive.Root
-                data-slot='collapsible'
+                data-slot="collapsible"
                 open={currentOpen}
                 onOpenChange={handleChange}
                 {...props}
             />
         </CollapsibleContext.Provider>
-    )
+    );
 }
 
 function CollapsibleTrigger({
@@ -41,22 +41,25 @@ function CollapsibleTrigger({
 }: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>) {
     return (
         <CollapsiblePrimitive.CollapsibleTrigger
-            data-slot='collapsible-trigger'
+            data-slot="collapsible-trigger"
             {...props}
         />
-    )
+    );
 }
 
 function CollapsibleContent({
     className,
     children,
     ...props
-}: Omit<React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>, 'forceMount'>) {
-    const isOpen = React.useContext(CollapsibleContext)
+}: Omit<
+    React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>,
+    'forceMount'
+>) {
+    const isOpen = React.useContext(CollapsibleContext);
 
     return (
         <CollapsiblePrimitive.CollapsibleContent
-            data-slot='collapsible-content'
+            data-slot="collapsible-content"
             forceMount
             asChild
             {...props}
@@ -64,7 +67,7 @@ function CollapsibleContent({
             <AnimatePresence initial={false}>
                 {isOpen && (
                     <motion.div
-                        key='collapsible-content'
+                        key="collapsible-content"
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
@@ -77,7 +80,7 @@ function CollapsibleContent({
                 )}
             </AnimatePresence>
         </CollapsiblePrimitive.CollapsibleContent>
-    )
+    );
 }
 
-export { Collapsible, CollapsibleTrigger, CollapsibleContent }
+export { Collapsible, CollapsibleContent, CollapsibleTrigger };

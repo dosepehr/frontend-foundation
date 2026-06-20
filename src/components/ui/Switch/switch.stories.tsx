@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { Switch } from './components'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Switch } from './components';
 
 const meta: Meta<typeof Switch> = {
     title: 'UI/Switch',
@@ -37,30 +37,30 @@ const meta: Meta<typeof Switch> = {
             description: 'Marks the field as required',
         },
     },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof Switch>
+export default meta;
+type Story = StoryObj<typeof Switch>;
 
 export const Default: Story = {
     args: {
         label: 'Enable notifications',
     },
-}
+};
 
 export const Checked: Story = {
     args: {
         label: 'Enabled by default',
         defaultChecked: true,
     },
-}
+};
 
 export const Disabled: Story = {
     args: {
         label: 'Unavailable option',
         disabled: true,
     },
-}
+};
 
 export const DisabledChecked: Story = {
     args: {
@@ -68,23 +68,31 @@ export const DisabledChecked: Story = {
         defaultChecked: true,
         disabled: true,
     },
-}
+};
 
 export const Small: Story = {
     args: {
         label: 'Small switch',
         size: 'sm',
     },
-}
+};
 
 export const NoLabel: Story = {
     args: {},
-}
+};
 
 export const AllVariants: Story = {
     render: () => (
-        <div className='flex flex-col gap-3'>
-            {(['default', 'success', 'warning', 'destructive', 'info'] as const).map((variant) => (
+        <div className="flex flex-col gap-3">
+            {(
+                [
+                    'default',
+                    'success',
+                    'warning',
+                    'destructive',
+                    'info',
+                ] as const
+            ).map((variant) => (
                 <Switch
                     key={variant}
                     variant={variant}
@@ -95,26 +103,26 @@ export const AllVariants: Story = {
         </div>
     ),
     args: {},
-}
+};
 
 export const States: Story = {
     render: () => (
-        <div className='flex flex-col gap-3'>
-            <Switch label='Unchecked' />
-            <Switch label='Checked' defaultChecked />
-            <Switch label='Disabled' disabled />
-            <Switch label='Disabled checked' defaultChecked disabled />
+        <div className="flex flex-col gap-3">
+            <Switch label="Unchecked" />
+            <Switch label="Checked" defaultChecked />
+            <Switch label="Disabled" disabled />
+            <Switch label="Disabled checked" defaultChecked disabled />
         </div>
     ),
     args: {},
-}
+};
 
 export const Sizes: Story = {
     render: () => (
-        <div className='flex flex-col gap-3'>
-            <Switch label='Default size' size='default' defaultChecked />
-            <Switch label='Small size' size='sm' defaultChecked />
+        <div className="flex flex-col gap-3">
+            <Switch label="Default size" size="default" defaultChecked />
+            <Switch label="Small size" size="sm" defaultChecked />
         </div>
     ),
     args: {},
-}
+};

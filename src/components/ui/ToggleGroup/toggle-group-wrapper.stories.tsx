@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import {
-    AlignLeftIcon,
     AlignCenterIcon,
-    AlignRightIcon,
     AlignJustifyIcon,
+    AlignLeftIcon,
+    AlignRightIcon,
     BoldIcon,
     ItalicIcon,
     UnderlineIcon,
@@ -143,10 +143,9 @@ export const Vertical: Story = {
     },
 };
 
-
 export const AllVariants: Story = {
     render: () => (
-        <div className='flex flex-col gap-3'>
+        <div className="flex flex-col gap-3">
             {(
                 [
                     'default',
@@ -160,8 +159,8 @@ export const AllVariants: Story = {
             ).map((variant) => (
                 <ToggleGroupWrapper
                     key={variant}
-                    type='single'
-                    defaultValue='a'
+                    type="single"
+                    defaultValue="a"
                     variant={variant}
                     spacing={0}
                     items={[
@@ -178,13 +177,13 @@ export const AllVariants: Story = {
 
 export const AllSizes: Story = {
     render: () => (
-        <div className='flex flex-col gap-3'>
+        <div className="flex flex-col gap-3">
             {(['sm', 'default', 'lg'] as const).map((size) => (
                 <ToggleGroupWrapper
                     key={size}
-                    type='single'
-                    defaultValue='a'
-                    variant='outline'
+                    type="single"
+                    defaultValue="a"
+                    variant="outline"
                     size={size}
                     spacing={0}
                     items={[
@@ -198,4 +197,3 @@ export const AllSizes: Story = {
     ),
     args: {},
 };
-

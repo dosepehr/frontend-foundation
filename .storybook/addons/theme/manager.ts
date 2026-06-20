@@ -34,7 +34,7 @@ addons.register("theme-manager", (api) => {
       "STORY_RENDERED",
       "DOCS_RENDERED",
     ] as const;
-    replayEvents.forEach((e) => channel.on(e, () => applyTheme(lastTheme)));
+    for (const e of replayEvents) channel.on(e, () => applyTheme(lastTheme));
   };
 
   init();

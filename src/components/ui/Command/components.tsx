@@ -1,24 +1,25 @@
 /* c8 ignore start */
-'use client'
+'use client';
 /* c8 ignore stop */
 
-import * as React from 'react'
-import { Search } from 'lucide-react'
-import { cn } from '@/src/utils/funcs/cn'
+import { cn } from '@/src/utils/funcs/cn';
+import { Search } from 'lucide-react';
+import * as React from 'react';
 
 interface CommandContextValue {
-    search: string
-    setSearch: React.Dispatch<React.SetStateAction<string>>
-    shouldFilter: boolean
-    listRef: React.RefObject<HTMLDivElement | null>
+    search: string;
+    setSearch: React.Dispatch<React.SetStateAction<string>>;
+    shouldFilter: boolean;
+    listRef: React.RefObject<HTMLDivElement | null>;
 }
 
-const CommandContext = React.createContext<CommandContextValue | null>(null)
+const CommandContext = React.createContext<CommandContextValue | null>(null);
 
 function useCommandContext() {
-    const ctx = React.useContext(CommandContext)
-    if (!ctx) throw new Error('Command components must be used within <Command>')
-    return ctx
+    const ctx = React.useContext(CommandContext);
+    if (!ctx)
+        throw new Error('Command components must be used within <Command>');
+    return ctx;
 }
 
 function Command({
@@ -28,35 +29,43 @@ function Command({
     onSearchChange,
     ...props
 }: React.HTMLAttributes<HTMLDivElement> & {
-    shouldFilter?: boolean
-    onSearchChange?: (val: string) => void
+    shouldFilter?: boolean;
+    onSearchChange?: (val: string) => void;
 }) {
-    const [search, setSearch] = React.useState('')
-    const listRef = React.useRef<HTMLDivElement | null>(null)
+    const [search, setSearch] = React.useState('');
+    const listRef = React.useRef<HTMLDivElement | null>(null);
 
-    const handleSetSearch: React.Dispatch<React.SetStateAction<string>> = React.useCallback(
-        (val) => {
-            /* c8 ignore next */
-            const next = typeof val === 'function' ? val(search) : val
-            setSearch(next)
-            onSearchChange?.(next)
-        },
-        [search, onSearchChange]
-    )
+    const handleSetSearch: React.Dispatch<React.SetStateAction<string>> =
+        React.useCallback(
+            (val) => {
+                /* c8 ignore next */
+                const next = typeof val === 'function' ? val(search) : val;
+                setSearch(next);
+                onSearchChange?.(next);
+            },
+            [search, onSearchChange],
+        );
 
     return (
-        <CommandContext.Provider value={{ search, setSearch: handleSetSearch, shouldFilter, listRef }}>
+        <CommandContext.Provider
+            value={{
+                search,
+                setSearch: handleSetSearch,
+                shouldFilter,
+                listRef,
+            }}
+        >
             <div
                 className={cn(
                     'flex flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',
-                    className
+                    className,
                 )}
                 {...props}
             >
                 {children}
             </div>
         </CommandContext.Provider>
-    )
+    );
 }
 
 function CommandInput({
@@ -66,31 +75,31 @@ function CommandInput({
     onValueChange,
     ...props
 }: Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {
-    onValueChange?: (val: string) => void
+    onValueChange?: (val: string) => void;
 }) {
-    const { search, setSearch } = useCommandContext()
-    const isControlled = value !== undefined
-    const inputValue = isControlled ? (value as string) : search
+    const { search, setSearch } = useCommandContext();
+    const isControlled = value !== undefined;
+    const inputValue = isControlled ? (value as string) : search;
 
     return (
-        <div className='flex items-center border-b border-border px-3'>
-            <Search className='mr-2 h-4 w-4 shrink-0 opacity-50' />
+        <div className="flex items-center border-b border-border px-3">
+            <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
             <input
                 className={cn(
                     'flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
-                    className
+                    className,
                 )}
                 placeholder={placeholder}
                 value={inputValue}
                 onChange={(e) => {
-                    const val = e.target.value
-                    if (!isControlled) setSearch(val)
-                    onValueChange?.(val)
+                    const val = e.target.value;
+                    if (!isControlled) setSearch(val);
+                    onValueChange?.(val);
                 }}
                 {...props}
             />
         </div>
-    )
+    );
 }
 
 function CommandList({
@@ -98,16 +107,12 @@ function CommandList({
     className,
     ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-    const { listRef } = useCommandContext()
+    const { listRef } = useCommandContext();
     return (
-        <div
-            ref={listRef}
-            className={cn(className)}
-            {...props}
-        >
+        <div ref={listRef} className={cn(className)} {...props}>
             {children}
         </div>
-    )
+    );
 }
 
 function CommandEmpty({
@@ -115,28 +120,32 @@ function CommandEmpty({
     className,
     ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-    const { listRef } = useCommandContext()
-    const [isEmpty, setIsEmpty] = React.useState(false)
+    const { listRef } = useCommandContext();
+    const [isEmpty, setIsEmpty] = React.useState(false);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     React.useLayoutEffect(() => {
-        if (!listRef.current) return
-        const items = listRef.current.querySelectorAll('[data-command-item]')
+        if (!listRef.current) return;
+        const items = listRef.current.querySelectorAll('[data-command-item]');
         const visibleCount = Array.from(items).filter(
-            (el) => (el as HTMLElement).style.display !== 'none'
-        ).length
-        setIsEmpty(visibleCount === 0)
-    })
+            (el) => (el as HTMLElement).style.display !== 'none',
+        ).length;
+        setIsEmpty(visibleCount === 0);
+    });
 
-    if (!isEmpty) return null
+    if (!isEmpty) return null;
 
     return (
         <div
-            className={cn('py-6 text-center text-sm text-muted-foreground', className)}
+            className={cn(
+                'py-6 text-center text-sm text-muted-foreground',
+                className,
+            )}
             {...props}
         >
             {children}
         </div>
-    )
+    );
 }
 
 function CommandGroup({
@@ -145,10 +154,14 @@ function CommandGroup({
     ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className={cn('overflow-hidden p-1', className)} role='group' {...props}>
+        <div
+            className={cn('overflow-hidden p-1', className)}
+            role="group"
+            {...props}
+        >
             {children}
         </div>
-    )
+    );
 }
 
 function CommandItem({
@@ -160,31 +173,31 @@ function CommandItem({
     dir,
     ...props
 }: Omit<React.HTMLAttributes<HTMLDivElement>, 'onSelect'> & {
-    value?: string
-    keywords?: string[]
-    onSelect?: (value: string) => void
-    dir?: string
+    value?: string;
+    keywords?: string[];
+    onSelect?: (value: string) => void;
+    dir?: string;
 }) {
-    const { search, shouldFilter } = useCommandContext()
+    const { search, shouldFilter } = useCommandContext();
 
     const isVisible = React.useMemo(() => {
-        if (!shouldFilter || !search) return true
-        const q = search.toLowerCase()
+        if (!shouldFilter || !search) return true;
+        const q = search.toLowerCase();
         return (
             value.toLowerCase().includes(q) ||
             keywords.some((k) => k.toLowerCase().includes(q))
-        )
-    }, [search, shouldFilter, value, keywords])
+        );
+    }, [search, shouldFilter, value, keywords]);
 
     return (
         <div
-            data-command-item=''
-            role='option'
+            data-command-item=""
+            role="option"
             aria-selected={false}
             style={{ display: isVisible ? undefined : 'none' }}
             className={cn(
-                'relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none',
-                className
+                'relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none',
+                className,
             )}
             /* c8 ignore next */
             onClick={() => isVisible && onSelect?.(value)}
@@ -193,14 +206,14 @@ function CommandItem({
         >
             {children}
         </div>
-    )
+    );
 }
 
 export {
     Command,
-    CommandInput,
-    CommandList,
     CommandEmpty,
     CommandGroup,
+    CommandInput,
     CommandItem,
-}
+    CommandList,
+};

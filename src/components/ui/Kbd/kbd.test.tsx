@@ -9,7 +9,9 @@ describe('Kbd', () => {
 
     it('has data-slot="kbd"', () => {
         const { container } = render(<Kbd>K</Kbd>);
-        expect(container.querySelector('[data-slot="kbd"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="kbd"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders text content', () => {
@@ -18,12 +20,18 @@ describe('Kbd', () => {
     });
 
     it('forwards className', () => {
-        const { container } = render(<Kbd className='custom-kbd'>K</Kbd>);
-        expect(container.querySelector('[data-slot="kbd"]')).toHaveClass('custom-kbd');
+        const { container } = render(<Kbd className="custom-kbd">K</Kbd>);
+        expect(container.querySelector('[data-slot="kbd"]')).toHaveClass(
+            'custom-kbd',
+        );
     });
 
     it('renders children nodes', () => {
-        render(<Kbd><span data-testid='icon' /></Kbd>);
+        render(
+            <Kbd>
+                <span data-testid="icon" />
+            </Kbd>,
+        );
         expect(screen.getByTestId('icon')).toBeInTheDocument();
     });
 });
@@ -36,7 +44,9 @@ describe('KbdGroup', () => {
                 <Kbd>K</Kbd>
             </KbdGroup>,
         );
-        expect(container.querySelector('[data-slot="kbd-group"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="kbd-group"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders multiple Kbd children', () => {
@@ -54,10 +64,12 @@ describe('KbdGroup', () => {
 
     it('forwards className', () => {
         const { container } = render(
-            <KbdGroup className='custom-group'>
+            <KbdGroup className="custom-group">
                 <Kbd>K</Kbd>
             </KbdGroup>,
         );
-        expect(container.querySelector('[data-slot="kbd-group"]')).toHaveClass('custom-group');
+        expect(container.querySelector('[data-slot="kbd-group"]')).toHaveClass(
+            'custom-group',
+        );
     });
 });

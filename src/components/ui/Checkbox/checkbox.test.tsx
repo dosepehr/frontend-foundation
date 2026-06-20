@@ -11,7 +11,9 @@ describe('Checkbox primitive', () => {
 
     it('has data-slot="checkbox"', () => {
         const { container } = render(<Checkbox />);
-        expect(container.querySelector('[data-slot="checkbox"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="checkbox"]'),
+        ).toBeInTheDocument();
     });
 
     it('is unchecked by default', () => {
@@ -20,7 +22,7 @@ describe('Checkbox primitive', () => {
     });
 
     it('renders label text when label prop is provided', () => {
-        render(<Checkbox label='Accept terms' />);
+        render(<Checkbox label="Accept terms" />);
         expect(screen.getByText('Accept terms')).toBeInTheDocument();
     });
 
@@ -57,7 +59,12 @@ describe('Checkbox primitive', () => {
     });
 
     it.each([
-        'default', 'primary', 'secondary', 'success', 'warning', 'destructive',
+        'default',
+        'primary',
+        'secondary',
+        'success',
+        'warning',
+        'destructive',
     ] as const)('renders variant "%s" without errors', (variant) => {
         render(<Checkbox variant={variant} />);
         expect(screen.getByRole('checkbox')).toBeInTheDocument();
@@ -71,18 +78,25 @@ describe('CheckboxWrapper', () => {
     });
 
     it('renders label when provided', () => {
-        render(<CheckboxWrapper label='Subscribe' />);
+        render(<CheckboxWrapper label="Subscribe" />);
         expect(screen.getByText('Subscribe')).toBeInTheDocument();
     });
 
     it('renders description when provided', () => {
-        render(<CheckboxWrapper label='Subscribe' description='Get weekly updates' />);
+        render(
+            <CheckboxWrapper
+                label="Subscribe"
+                description="Get weekly updates"
+            />,
+        );
         expect(screen.getByText('Get weekly updates')).toBeInTheDocument();
     });
 
     it('does not render description when omitted', () => {
-        render(<CheckboxWrapper label='Subscribe' />);
-        expect(screen.queryByText('Get weekly updates')).not.toBeInTheDocument();
+        render(<CheckboxWrapper label="Subscribe" />);
+        expect(
+            screen.queryByText('Get weekly updates'),
+        ).not.toBeInTheDocument();
     });
 
     it('checkbox is disabled when disabled prop is set', () => {
@@ -92,7 +106,7 @@ describe('CheckboxWrapper', () => {
 
     it('becomes checked when clicked', async () => {
         const user = userEvent.setup();
-        render(<CheckboxWrapper label='Accept' />);
+        render(<CheckboxWrapper label="Accept" />);
         await user.click(screen.getByRole('checkbox'));
         expect(screen.getByRole('checkbox')).toBeChecked();
     });
@@ -111,8 +125,12 @@ describe('CheckboxWrapper', () => {
     });
 
     it('shows required asterisk when required is true', () => {
-        const { container } = render(<CheckboxWrapper label='Accept' required />);
+        const { container } = render(
+            <CheckboxWrapper label="Accept" required />,
+        );
         // Asteriks component renders an indicator — the label area should contain it
-        expect(container.querySelector('[data-slot="checkbox"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="checkbox"]'),
+        ).toBeInTheDocument();
     });
 });

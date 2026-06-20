@@ -1,1 +1,1 @@
-export { PasswordInput as default } from './components'
+export { PasswordInput as default } from './components';

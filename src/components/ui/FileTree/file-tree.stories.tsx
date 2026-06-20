@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { FileTreeItem } from './file-tree.types'
-import { FileTree } from './components'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { FileTree } from './components';
+import { type FileTreeItem } from './file-tree.types';
 
 const meta = {
     title: 'UI/FileTree',
     tags: ['autodocs'],
     parameters: { layout: 'centered' },
-} satisfies Meta
+} satisfies Meta;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 const projectTree: FileTreeItem[] = [
     {
@@ -31,11 +31,7 @@ const projectTree: FileTreeItem[] = [
     },
     {
         name: 'lib',
-        items: [
-            { name: 'utils.ts' },
-            { name: 'cn.ts' },
-            { name: 'api.ts' },
-        ],
+        items: [{ name: 'utils.ts' }, { name: 'cn.ts' }, { name: 'api.ts' }],
     },
     {
         name: 'hooks',
@@ -47,10 +43,7 @@ const projectTree: FileTreeItem[] = [
     },
     {
         name: 'public',
-        items: [
-            { name: 'favicon.ico' },
-            { name: 'logo.svg' },
-        ],
+        items: [{ name: 'favicon.ico' }, { name: 'logo.svg' }],
     },
     { name: 'app.tsx' },
     { name: 'layout.tsx' },
@@ -58,19 +51,19 @@ const projectTree: FileTreeItem[] = [
     { name: 'package.json' },
     { name: 'tsconfig.json' },
     { name: 'README.md' },
-]
+];
 
 export const Default: Story = {
     render: () => (
-        <div className='w-56 rounded-xl border border-border bg-card p-2'>
+        <div className="w-56 rounded-xl border border-border bg-card p-2">
             <FileTree items={projectTree} />
         </div>
     ),
-}
+};
 
 export const Shallow: Story = {
     render: () => (
-        <div className='w-48 rounded-xl border border-border bg-card p-2'>
+        <div className="w-48 rounded-xl border border-border bg-card p-2">
             <FileTree
                 items={[
                     {
@@ -87,4 +80,4 @@ export const Shallow: Story = {
             />
         </div>
     ),
-}
+};

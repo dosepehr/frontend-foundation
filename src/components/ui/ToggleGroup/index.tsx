@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import type { FC } from 'react'
-import { ToggleGroup, ToggleGroupItem } from './components'
-import type { ToggleGroupWrapperProps } from './toggle-group.types'
+import type { FC } from 'react';
+import { ToggleGroup, ToggleGroupItem } from './components';
+import type { ToggleGroupWrapperProps } from './toggle-group.types';
 
 const ToggleGroupWrapper: FC<ToggleGroupWrapperProps> = ({
     items,
@@ -13,14 +13,20 @@ const ToggleGroupWrapper: FC<ToggleGroupWrapperProps> = ({
     ...props
 }) => {
     return (
-        <ToggleGroup variant={variant} size={size} spacing={spacing} orientation={orientation} {...props}>
+        <ToggleGroup
+            variant={variant}
+            size={size}
+            spacing={spacing}
+            orientation={orientation}
+            {...props}
+        >
             {items.map(({ label, value, ...itemProps }) => (
                 <ToggleGroupItem key={value} value={value} {...itemProps}>
                     {label ?? value}
                 </ToggleGroupItem>
             ))}
         </ToggleGroup>
-    )
-}
+    );
+};
 
-export default ToggleGroupWrapper
+export default ToggleGroupWrapper;

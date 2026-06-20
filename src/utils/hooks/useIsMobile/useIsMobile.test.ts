@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import { useIsMobile } from '.';
 
 function setupMatchMedia(innerWidth: number) {
@@ -12,7 +12,8 @@ function setupMatchMedia(innerWidth: number) {
 
     vi.stubGlobal('matchMedia', () => ({
         matches: false,
-        addEventListener: (_event: string, cb: () => void) => listeners.push(cb),
+        addEventListener: (_event: string, cb: () => void) =>
+            listeners.push(cb),
         removeEventListener: (_event: string, cb: () => void) => {
             const idx = listeners.indexOf(cb);
             if (idx !== -1) listeners.splice(idx, 1);
@@ -25,7 +26,9 @@ function setupMatchMedia(innerWidth: number) {
             configurable: true,
             value: newWidth,
         });
-        act(() => listeners.forEach((l) => l()));
+        act(() => {
+            for (const l of listeners) l();
+        });
     };
 
     return { triggerResize };

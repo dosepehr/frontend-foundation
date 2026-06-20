@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import {
+    FolderOpenIcon,
     InboxIcon,
     SearchXIcon,
-    FolderOpenIcon,
     ShoppingCartIcon,
     UsersIcon,
     WifiOffIcon,
@@ -43,7 +43,7 @@ export const WithAction: Story = {
         description: 'Get started by creating your first item.',
         icon: <InboxIcon />,
         mediaVariant: 'icon',
-        action: <Button size='sm'>Create item</Button>,
+        action: <Button size="sm">Create item</Button>,
     },
 };
 
@@ -55,7 +55,7 @@ export const NoResults: Story = {
         icon: <SearchXIcon />,
         mediaVariant: 'icon',
         action: (
-            <Button variant='outline' size='sm'>
+            <Button variant="outline" size="sm">
                 Clear filters
             </Button>
         ),
@@ -69,9 +69,9 @@ export const EmptyFolder: Story = {
         icon: <FolderOpenIcon />,
         mediaVariant: 'icon',
         action: (
-            <div className='flex gap-2'>
-                <Button size='sm'>Upload</Button>
-                <Button variant='outline' size='sm'>
+            <div className="flex gap-2">
+                <Button size="sm">Upload</Button>
+                <Button variant="outline" size="sm">
                     New folder
                 </Button>
             </div>
@@ -85,7 +85,7 @@ export const EmptyCart: Story = {
         description: "Looks like you haven't added anything yet.",
         icon: <ShoppingCartIcon />,
         mediaVariant: 'icon',
-        action: <Button size='sm'>Add Product</Button>,
+        action: <Button size="sm">Add Product</Button>,
     },
 };
 
@@ -95,7 +95,7 @@ export const NoMembers: Story = {
         description: 'Invite people to collaborate with you on this project.',
         icon: <UsersIcon />,
         mediaVariant: 'icon',
-        action: <Button size='sm'>Invite members</Button>,
+        action: <Button size="sm">Invite members</Button>,
     },
 };
 
@@ -106,7 +106,7 @@ export const Offline: Story = {
         icon: <WifiOffIcon />,
         mediaVariant: 'icon',
         action: (
-            <Button variant='outline' size='sm'>
+            <Button variant="outline" size="sm">
                 Retry
             </Button>
         ),
@@ -124,8 +124,7 @@ export const LargeIcon: Story = {
     args: {
         title: 'No items found',
         description: 'There are no items to display at the moment.',
-        icon: <InboxIcon className='size-10 text-muted-foreground' />,
+        icon: <InboxIcon className="size-10 text-muted-foreground" />,
         mediaVariant: 'default',
     },
 };
-

@@ -8,27 +8,39 @@ describe('Progress', () => {
 
     it('has data-slot="progress"', () => {
         const { container } = render(<Progress value={50} />);
-        expect(container.querySelector('[data-slot="progress"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="progress"]'),
+        ).toBeInTheDocument();
     });
 
     it('has data-slot="progress-indicator"', () => {
         const { container } = render(<Progress value={50} />);
-        expect(container.querySelector('[data-slot="progress-indicator"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="progress-indicator"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders with value 0', () => {
         const { container } = render(<Progress value={0} />);
-        expect(container.querySelector('[data-slot="progress"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="progress"]'),
+        ).toBeInTheDocument();
     });
 
     it('renders with value 100', () => {
         const { container } = render(<Progress value={100} />);
-        expect(container.querySelector('[data-slot="progress"]')).toBeInTheDocument();
+        expect(
+            container.querySelector('[data-slot="progress"]'),
+        ).toBeInTheDocument();
     });
 
     it('forwards className', () => {
-        const { container } = render(<Progress value={50} className='custom-progress' />);
-        expect(container.querySelector('[data-slot="progress"]')).toHaveClass('custom-progress');
+        const { container } = render(
+            <Progress value={50} className="custom-progress" />,
+        );
+        expect(container.querySelector('[data-slot="progress"]')).toHaveClass(
+            'custom-progress',
+        );
     });
 
     it('renders with no value prop', () => {

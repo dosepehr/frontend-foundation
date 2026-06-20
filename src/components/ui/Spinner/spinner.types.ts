@@ -1,5 +1,6 @@
-import type * as React from 'react'
-import type { VariantProps } from 'class-variance-authority'
-import type { spinnerVariants } from './components'
+import type { VariantProps } from 'class-variance-authority';
+import type * as React from 'react';
+import type { spinnerVariants } from './components';
 
-export type SpinnerProps = React.ComponentProps<'svg'> & VariantProps<typeof spinnerVariants>
+export type SpinnerProps = React.ComponentProps<'svg'> &
+    VariantProps<typeof spinnerVariants>;

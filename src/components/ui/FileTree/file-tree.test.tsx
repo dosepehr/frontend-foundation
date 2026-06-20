@@ -11,9 +11,7 @@ const ITEMS: FileTreeItem[] = [
             { name: 'index.ts' },
             {
                 name: 'components',
-                items: [
-                    { name: 'Button.tsx' },
-                ],
+                items: [{ name: 'Button.tsx' }],
             },
         ],
     },
@@ -52,13 +50,15 @@ describe('FileTree', () => {
         render(<FileTree items={ITEMS} />);
         // src is open by default — click to close
         await user.click(screen.getByText('src'));
-        const root = screen.getByText('src').closest('[data-slot="collapsible"]');
+        const root = screen
+            .getByText('src')
+            .closest('[data-slot="collapsible"]');
         expect(root).toHaveAttribute('data-state', 'closed');
     });
 
     it('renders custom icon for a file', () => {
         const items: FileTreeItem[] = [
-            { name: 'config.json', icon: <span data-testid='custom-icon' /> },
+            { name: 'config.json', icon: <span data-testid="custom-icon" /> },
         ];
         render(<FileTree items={items} />);
         expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
@@ -66,14 +66,20 @@ describe('FileTree', () => {
 
     it('renders custom icon for a folder', () => {
         const items: FileTreeItem[] = [
-            { name: 'assets', icon: <span data-testid='folder-icon' />, items: [] },
+            {
+                name: 'assets',
+                icon: <span data-testid="folder-icon" />,
+                items: [],
+            },
         ];
         render(<FileTree items={items} />);
         expect(screen.getByTestId('folder-icon')).toBeInTheDocument();
     });
 
     it('forwards className to the root container', () => {
-        const { container } = render(<FileTree items={ITEMS} className='custom-tree' />);
+        const { container } = render(
+            <FileTree items={ITEMS} className="custom-tree" />,
+        );
         expect(container.firstChild).toHaveClass('custom-tree');
     });
 

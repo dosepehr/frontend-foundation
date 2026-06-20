@@ -1,10 +1,15 @@
-'use client'
+'use client';
 
-import { useId } from 'react'
-import { cn } from '@/src/utils/funcs/cn'
-import { Field, FieldDescription, FieldError, FieldLabel } from '../Field/components'
-import { Textarea } from './components'
-import type { TextareaWrapperProps } from './textarea.types'
+import { cn } from '@/src/utils/funcs/cn';
+import { useId } from 'react';
+import {
+    Field,
+    FieldDescription,
+    FieldError,
+    FieldLabel,
+} from '../Field/components';
+import { Textarea } from './components';
+import type { TextareaWrapperProps } from './textarea.types';
 
 function TextareaWrapper({
     label,
@@ -14,17 +19,28 @@ function TextareaWrapper({
     id,
     ...props
 }: TextareaWrapperProps) {
-    const generatedId = useId()
-    const textareaId = id ?? generatedId
+    const generatedId = useId();
+    const textareaId = id ?? generatedId;
 
     return (
-        <Field data-invalid={error ? true : undefined} className={cn('relative', error && 'pb-1')}>
+        <Field
+            data-invalid={error ? true : undefined}
+            className={cn('relative', error && 'pb-1')}
+        >
             {label && (
-                <FieldLabel htmlFor={textareaId} required={required} className='text-foreground'>
+                <FieldLabel
+                    htmlFor={textareaId}
+                    required={required}
+                    className="text-foreground"
+                >
                     {label}
                 </FieldLabel>
             )}
-            {description && <FieldDescription className='text-muted-foreground'>{description}</FieldDescription>}
+            {description && (
+                <FieldDescription className="text-muted-foreground">
+                    {description}
+                </FieldDescription>
+            )}
             <Textarea
                 id={textareaId}
                 aria-invalid={error ? true : undefined}
@@ -32,7 +48,7 @@ function TextareaWrapper({
             />
             {error && <FieldError>{error}</FieldError>}
         </Field>
-    )
+    );
 }
 
-export default TextareaWrapper
+export default TextareaWrapper;

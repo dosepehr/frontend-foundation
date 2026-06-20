@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { useForm } from 'react-hook-form';
 import { ControlledOtpInput } from '.';
 
@@ -20,7 +20,7 @@ function TestForm({
     const { control } = useForm<TestForm>({ defaultValues });
     return (
         <ControlledOtpInput
-            name='code'
+            name="code"
             control={control}
             onValueChange={onValueChange}
             error={error}
@@ -51,12 +51,12 @@ describe('ControlledOtpInput', () => {
     });
 
     it('shows prop-level error', () => {
-        render(<TestForm error='Invalid code' />);
+        render(<TestForm error="Invalid code" />);
         expect(screen.getByText('Invalid code')).toBeInTheDocument();
     });
 
     it('renders a label when provided', () => {
-        render(<TestForm label='Verification code' />);
+        render(<TestForm label="Verification code" />);
         expect(screen.getByText('Verification code')).toBeInTheDocument();
     });
 
@@ -67,14 +67,20 @@ describe('ControlledOtpInput', () => {
 
     it('calls onValueChange when input fires an input event', () => {
         const onValueChange = vi.fn();
-        const { container } = render(<TestForm onValueChange={onValueChange} />);
+        const { container } = render(
+            <TestForm onValueChange={onValueChange} />,
+        );
         const input = container.querySelector('input')!;
         fireEvent.input(input, { target: { value: '1' } });
         expect(onValueChange).toHaveBeenCalled();
     });
 
     it('defaults value to "" when field.value is undefined', () => {
-        const { container } = render(<TestForm defaultValues={{ code: undefined as unknown as string }} />);
+        const { container } = render(
+            <TestForm
+                defaultValues={{ code: undefined as unknown as string }}
+            />,
+        );
         expect(container.querySelector('input')).toBeInTheDocument();
     });
 });

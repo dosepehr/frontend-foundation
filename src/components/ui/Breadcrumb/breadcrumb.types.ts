@@ -1,13 +1,13 @@
-import type { ReactNode } from 'react'
+import type { ReactNode } from 'react';
 
 export type BreadcrumbItemDef = {
-    label: ReactNode
-    href?: string
-}
+    label: ReactNode;
+    href?: string;
+};
 
 export type BreadcrumbWrapperProps = {
-    items: BreadcrumbItemDef[]
-    separator?: ReactNode
-    ellipsis?: boolean
-    maxItems?: number
-}
+    items: BreadcrumbItemDef[];
+    separator?: ReactNode;
+    ellipsis?: boolean;
+    maxItems?: number;
+};

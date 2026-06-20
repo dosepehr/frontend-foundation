@@ -1,4 +1,4 @@
-import type * as React from 'react'
+import type * as React from 'react';
 
 export type DialogMaxWidth =
     | 'sm'
@@ -10,20 +10,20 @@ export type DialogMaxWidth =
     | '4xl'
     | '5xl'
     | '6xl'
-    | '7xl'
+    | '7xl';
 
 export interface DialogWrapperProps {
-    trigger?: React.ReactNode
-    open?: boolean
-    onOpenChange?: (open: boolean) => void
-    title?: string
-    description?: string
-    icon?: React.ReactNode
-    children?: React.ReactNode
-    footer?: React.ReactNode
-    cancelLabel?: string
-    showCancelButton?: boolean
-    showCloseIcon?: boolean
-    maxWidth?: DialogMaxWidth
-    contentClassName?: string
+    trigger?: React.ReactNode;
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
+    title?: string;
+    description?: string;
+    icon?: React.ReactNode;
+    children?: React.ReactNode;
+    footer?: React.ReactNode;
+    cancelLabel?: string;
+    showCancelButton?: boolean;
+    showCloseIcon?: boolean;
+    maxWidth?: DialogMaxWidth;
+    contentClassName?: string;
 }

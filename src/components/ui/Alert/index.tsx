@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import type { FC } from 'react'
-import { Info, CheckCircle, AlertTriangle, XCircle } from 'lucide-react'
-import { Alert, AlertTitle, AlertDescription } from './components'
-import type { AlertWrapperProps } from './alert.types'
+import { AlertTriangle, CheckCircle, Info, XCircle } from 'lucide-react';
+import type { FC } from 'react';
+import type { AlertWrapperProps } from './alert.types';
+import { Alert, AlertDescription, AlertTitle } from './components';
 
 const iconMap = {
     info: Info,
@@ -11,19 +11,23 @@ const iconMap = {
     warning: AlertTriangle,
     destructive: XCircle,
     default: Info,
-}
+};
 
-const AlertWrapper: FC<AlertWrapperProps> = ({ title, children, variant = 'default', Icon }) => {
-    const IconComponent = Icon ?? iconMap[variant]
+const AlertWrapper: FC<AlertWrapperProps> = ({
+    title,
+    children,
+    variant = 'default',
+    Icon,
+}) => {
+    const IconComponent = Icon ?? iconMap[variant];
 
     return (
         <Alert variant={variant}>
-            <IconComponent size={20} className='shrink-0' />
+            <IconComponent size={20} className="shrink-0" />
             {title && <AlertTitle>{title}</AlertTitle>}
-            <AlertDescription className='w-full'>{children}</AlertDescription>
+            <AlertDescription className="w-full">{children}</AlertDescription>
         </Alert>
-    )
-}
+    );
+};
 
-export default AlertWrapper
-
+export default AlertWrapper;

@@ -1,1 +1,1 @@
-export { AspectRatio as default } from './components'
+export { AspectRatio as default } from './components';

@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import React, { useState } from 'react';
-import { ComboBoxOption } from './combo-box.types';
+import { type ComboBoxOption } from './combo-box.types';
 import { ComboBox } from './components';
-
 
 const FRUITS: ComboBoxOption[] = [
     { value: 'apple', label: 'Apple' },
@@ -35,7 +34,7 @@ const meta: Meta<typeof ComboBox> = {
     parameters: { layout: 'centered' },
     decorators: [
         (Story) => (
-            <div className='w-72'>
+            <div className="w-72">
                 <Story />
             </div>
         ),
@@ -158,4 +157,3 @@ export const WithLongList: Story = {
         placeholder: 'Select a city',
     },
 };
-
