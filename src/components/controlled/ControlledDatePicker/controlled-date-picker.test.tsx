@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { useForm } from 'react-hook-form';
 import { ControlledDatePicker } from '.';
 
@@ -61,5 +62,16 @@ describe('ControlledDatePicker', () => {
         const date = new Date(2024, 0, 15);
         render(<TestForm defaultValues={{ date }} />);
         expect(screen.getByText(/January 15/i)).toBeInTheDocument();
+    });
+
+    it('calls onValueChange when a date is selected', async () => {
+        const user = userEvent.setup();
+        const onValueChange = vi.fn();
+        render(<TestForm onValueChange={onValueChange} />);
+        await user.click(screen.getByRole('button'));
+        const dayButtons = screen.getAllByRole('button');
+        const dayButton = dayButtons.find((btn) => /^\d+$/.test(btn.textContent ?? ''));
+        if (dayButton) await user.click(dayButton);
+        expect(onValueChange).toHaveBeenCalled();
     });
 });

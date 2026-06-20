@@ -83,4 +83,9 @@ describe('SwitchWrapper', () => {
         await user.click(container.querySelector('[data-slot="switch"]')!);
         expect(onCheckedChange).toHaveBeenCalledWith(true);
     });
+
+    it('shows asterisk when required prop is true', () => {
+        render(<SwitchWrapper label='Accept terms' required />);
+        expect(screen.getByText('*')).toBeInTheDocument();
+    });
 });

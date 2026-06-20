@@ -142,3 +142,18 @@ describe('TooltipWrapper', () => {
         expect(content?.querySelector('[data-testid="rich-content"]')).toBeInTheDocument();
     });
 });
+
+describe('TooltipContent variant', () => {
+    it('renders with a variant prop without errors', () => {
+        expect(() =>
+            render(
+                <TooltipProvider>
+                    <Tooltip open>
+                        <TooltipTrigger>Hover</TooltipTrigger>
+                        <TooltipContent variant='default'>Tip</TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>,
+            ),
+        ).not.toThrow();
+    });
+});

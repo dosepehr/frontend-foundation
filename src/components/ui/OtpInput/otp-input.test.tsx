@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import OtpInput from '.';
 
 describe('OtpInput', () => {
@@ -45,5 +45,29 @@ describe('OtpInput', () => {
     it('is disabled when disabled prop is true', () => {
         const { container } = render(<OtpInput disabled />);
         expect(container.querySelector('input')).toBeDisabled();
+    });
+
+    it('calls onChange when input value changes', () => {
+        const onChange = vi.fn();
+        const { container } = render(<OtpInput onChange={onChange} />);
+        const input = container.querySelector('input')!;
+        fireEvent.input(input, { target: { value: '1' } });
+        expect(onChange).toHaveBeenCalled();
+    });
+
+    it('normalizes Persian digits on input', () => {
+        const onChange = vi.fn();
+        const { container } = render(<OtpInput onChange={onChange} />);
+        const input = container.querySelector('input')!;
+        fireEvent.input(input, { target: { value: '۱۲۳' } });
+        expect(onChange).toHaveBeenCalled();
+    });
+
+    it('normalizes Arabic-Indic digits on input', () => {
+        const onChange = vi.fn();
+        const { container } = render(<OtpInput onChange={onChange} />);
+        const input = container.querySelector('input')!;
+        fireEvent.input(input, { target: { value: '١٢٣' } });
+        expect(onChange).toHaveBeenCalled();
     });
 });

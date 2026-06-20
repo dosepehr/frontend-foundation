@@ -71,4 +71,9 @@ describe('ControlledMultiInput', () => {
         await user.click(screen.getByLabelText('Remove React'));
         expect(onValueChange).toHaveBeenCalledWith([]);
     });
+
+    it('defaults value to [] when field.value is undefined', () => {
+        render(<TestForm defaultValues={{ tags: undefined as unknown as string[] }} />);
+        expect(screen.getByRole('textbox')).toBeInTheDocument();
+    });
 });

@@ -8,6 +8,7 @@ import {
     SheetFooter,
     SheetTitle,
     SheetDescription,
+    SheetClose,
 } from './components';
 
 describe('Sheet', () => {
@@ -121,5 +122,17 @@ describe('Sheet', () => {
         );
         await user.click(screen.getByText('Open'));
         expect(onOpenChange).toHaveBeenCalledWith(true);
+    });
+
+    it('SheetClose renders with data-slot="sheet-close"', () => {
+        render(
+            <Sheet open>
+                <SheetContent aria-describedby={undefined}>
+                    <SheetTitle>Title</SheetTitle>
+                    <SheetClose>Close</SheetClose>
+                </SheetContent>
+            </Sheet>,
+        );
+        expect(document.querySelector('[data-slot="sheet-close"]')).toBeInTheDocument();
     });
 });

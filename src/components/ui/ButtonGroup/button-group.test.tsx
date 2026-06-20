@@ -125,4 +125,11 @@ describe('ButtonGroupWrapper', () => {
         );
         expect(container.querySelectorAll('[data-slot="button-group-separator"]')).toHaveLength(0);
     });
+
+    it('renders separators with vertical orientation', () => {
+        const { container } = render(
+            <ButtonGroupWrapper items={items} separator orientation='vertical' />,
+        );
+        expect(container.querySelectorAll('[data-slot="button-group-separator"]')).toHaveLength(2);
+    });
 });

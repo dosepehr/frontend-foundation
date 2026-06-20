@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import MultiInput from '.';
@@ -90,5 +90,14 @@ describe('MultiInput', () => {
         await user.type(screen.getByRole('textbox'), 'React');
         await user.keyboard('{Enter}');
         expect(screen.getAllByText('React')).toHaveLength(1);
+    });
+
+    it('does not add an item that exceeds maxLength', async () => {
+        const user = userEvent.setup();
+        render(<ControlledMultiInput maxLength={3} />);
+        const input = screen.getByRole('textbox');
+        fireEvent.change(input, { target: { value: 'Hello' } });
+        await user.keyboard('{Enter}');
+        expect(screen.queryAllByLabelText(/Remove/)).toHaveLength(0);
     });
 });

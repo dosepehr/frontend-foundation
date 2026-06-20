@@ -126,4 +126,35 @@ describe('RadioGroupWrapper', () => {
         expect(items[0]).toBeDisabled();
         expect(items[1]).not.toBeDisabled();
     });
+
+    it('renders with horizontal orientation', () => {
+        render(
+            <RadioGroupWrapper
+                options={[{ value: 'a', label: 'A' }, { value: 'b', label: 'B' }]}
+                orientation='horizontal'
+            />,
+        );
+        expect(screen.getByText('A')).toBeInTheDocument();
+        expect(screen.getByText('B')).toBeInTheDocument();
+    });
+
+    it('renders description for an option', () => {
+        render(
+            <RadioGroupWrapper
+                options={[{ value: 'a', label: 'Option A', description: 'Helpful description' }]}
+            />,
+        );
+        expect(screen.getByText('Helpful description')).toBeInTheDocument();
+    });
+});
+
+describe('RadioGroupItem label prop', () => {
+    it('renders label text next to the item', () => {
+        render(
+            <RadioGroup>
+                <RadioGroupItem value='a' label='My Option' />
+            </RadioGroup>,
+        );
+        expect(screen.getByText('My Option')).toBeInTheDocument();
+    });
 });

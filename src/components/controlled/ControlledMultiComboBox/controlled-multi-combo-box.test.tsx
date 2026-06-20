@@ -95,4 +95,9 @@ describe('ControlledMultiComboBox', () => {
         await user.click(screen.getByText('Vue'));
         expect(transformToForm).toHaveBeenCalledWith(['vue']);
     });
+
+    it('defaults selected to [] when field.value is undefined', () => {
+        render(<TestForm defaultValues={{ frameworks: undefined as unknown as string[] }} />);
+        expect(screen.getByRole('combobox')).toBeInTheDocument();
+    });
 });

@@ -276,4 +276,28 @@ describe('DialogWrapper', () => {
         await user.click(screen.getByRole('button', { name: /close/i }));
         expect(onOpenChange).toHaveBeenCalledWith(false);
     });
+
+    it('renders icon in title when icon prop is provided', async () => {
+        const user = userEvent.setup();
+        render(
+            <DialogWrapper
+                trigger={<button>Open</button>}
+                title='My Dialog'
+                icon={<span data-testid='dialog-icon'>*</span>}
+            >
+                Content
+            </DialogWrapper>,
+        );
+        await user.click(screen.getByText('Open'));
+        expect(screen.getByTestId('dialog-icon')).toBeInTheDocument();
+    });
+
+    it('does not render header when no title, description, or icon', () => {
+        render(
+            <DialogWrapper open>
+                <span>Body only</span>
+            </DialogWrapper>,
+        );
+        expect(document.querySelector('[data-slot="dialog-header"]')).not.toBeInTheDocument();
+    });
 });

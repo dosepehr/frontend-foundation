@@ -12,6 +12,10 @@ import {
     DropdownMenuRadioGroup,
     DropdownMenuRadioItem,
     DropdownMenuShortcut,
+    DropdownMenuSub,
+    DropdownMenuSubTrigger,
+    DropdownMenuSubContent,
+    DropdownMenuPortal,
 } from './components';
 import type { DropdownGroup } from './dropdown-menu.types';
 
@@ -301,5 +305,115 @@ describe('DropdownMenuWrapper', () => {
         await user.click(screen.getByText('Options'));
         expect(screen.getByText('Option A')).toBeInTheDocument();
         expect(screen.getByText('Option B')).toBeInTheDocument();
+    });
+
+    it('renders sub-type item with sub-trigger visible', async () => {
+        const user = userEvent.setup();
+        render(
+            <DropdownMenuWrapper
+                trigger={<button>Options</button>}
+                groups={[{
+                    items: [{
+                        type: 'sub',
+                        label: 'More actions',
+                        items: [{ items: [{ label: 'Sub item' }] }],
+                    }],
+                }]}
+            />,
+        );
+        await user.click(screen.getByText('Options'));
+        expect(screen.getByText('More actions')).toBeInTheDocument();
+    });
+});
+
+describe('DropdownMenu sub primitives', () => {
+    it('renders DropdownMenuSubTrigger inside a sub menu', async () => {
+        const user = userEvent.setup();
+        render(
+            <DropdownMenu>
+                <DropdownMenuTrigger>Options</DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuSub>
+                        <DropdownMenuSubTrigger>More</DropdownMenuSubTrigger>
+                        <DropdownMenuPortal>
+                            <DropdownMenuSubContent>
+                                <DropdownMenuItem>Sub item</DropdownMenuItem>
+                            </DropdownMenuSubContent>
+                        </DropdownMenuPortal>
+                    </DropdownMenuSub>
+                </DropdownMenuContent>
+            </DropdownMenu>,
+        );
+        await user.click(screen.getByText('Options'));
+        expect(document.querySelector('[data-slot="dropdown-menu-sub-trigger"]')).toBeInTheDocument();
+    });
+});
+
+describe('DropdownMenuSubContent', () => {
+    it('renders sub-content when sub menu is forced open', () => {
+        render(
+            <DropdownMenu open>
+                <DropdownMenuContent>
+                    <DropdownMenuSub open>
+                        <DropdownMenuSubTrigger>More</DropdownMenuSubTrigger>
+                        <DropdownMenuPortal>
+                            <DropdownMenuSubContent>
+                                <DropdownMenuItem>Sub item</DropdownMenuItem>
+                            </DropdownMenuSubContent>
+                        </DropdownMenuPortal>
+                    </DropdownMenuSub>
+                </DropdownMenuContent>
+            </DropdownMenu>,
+        );
+        expect(document.querySelector('[data-slot="dropdown-menu-sub-content"]')).toBeInTheDocument();
+    });
+});
+
+describe('DropdownMenuLabel inset', () => {
+    it('renders with inset prop without errors', async () => {
+        const user = userEvent.setup();
+        render(
+            <DropdownMenu>
+                <DropdownMenuTrigger>Options</DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuLabel inset>Inset label</DropdownMenuLabel>
+                    <DropdownMenuItem>Item</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>,
+        );
+        await user.click(screen.getByText('Options'));
+        expect(screen.getByText('Inset label')).toBeInTheDocument();
+    });
+});
+
+describe('DropdownMenuItem and SubTrigger inset', () => {
+    it('renders DropdownMenuItem with inset prop', async () => {
+        const user = userEvent.setup();
+        render(
+            <DropdownMenu>
+                <DropdownMenuTrigger>Options</DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuItem inset>Inset item</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>,
+        );
+        await user.click(screen.getByText('Options'));
+        expect(screen.getByText('Inset item')).toBeInTheDocument();
+    });
+
+    it('renders DropdownMenuSubTrigger with inset prop', async () => {
+        const user = userEvent.setup();
+        render(
+            <DropdownMenu>
+                <DropdownMenuTrigger>Options</DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuSub>
+                        <DropdownMenuSubTrigger inset>Inset sub</DropdownMenuSubTrigger>
+                    </DropdownMenuSub>
+                </DropdownMenuContent>
+            </DropdownMenu>,
+        );
+        await user.click(screen.getByText('Options'));
+        expect(screen.getByText('Inset sub')).toBeInTheDocument();
     });
 });

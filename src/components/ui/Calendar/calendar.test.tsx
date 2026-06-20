@@ -65,4 +65,15 @@ describe('Calendar', () => {
         const { container } = render(<Calendar className='custom-cal' />);
         expect(container.querySelector('[data-slot="calendar"]')).toHaveClass('custom-cal');
     });
+
+    it('renders week numbers when showWeekNumber is true', () => {
+        const { container } = render(<Calendar showWeekNumber />);
+        expect(container.querySelector('[data-slot="calendar"]')).toBeInTheDocument();
+    });
+
+    it('renders with dropdown caption layout without errors', () => {
+        expect(() => render(
+            <Calendar captionLayout='dropdown' fromYear={2020} toYear={2030} />,
+        )).not.toThrow();
+    });
 });

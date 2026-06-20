@@ -38,4 +38,9 @@ describe('Slider', () => {
     it('renders with step prop', () => {
         expect(() => render(<Slider defaultValue={[0]} min={0} max={100} step={10} />)).not.toThrow();
     });
+
+    it('renders one thumb when neither defaultValue nor value is provided', () => {
+        const { container } = render(<Slider />);
+        expect(container.querySelectorAll('[data-slot="slider-thumb"]')).toHaveLength(1);
+    });
 });

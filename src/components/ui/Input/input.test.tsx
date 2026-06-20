@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import InputWrapper from '.';
-import { InputComponent as Input } from './components';
+import { InputComponent as Input, InputGroup, InputGroupInput, InputGroupAddon, InputGroupText } from './components';
 
 describe('Input', () => {
     it('renders an input element', () => {
@@ -133,5 +133,44 @@ describe('InputWrapper', () => {
     it('uses provided id for input', () => {
         render(<InputWrapper id='my-input' label='Name' />);
         expect(screen.getByRole('textbox')).toHaveAttribute('id', 'my-input');
+    });
+});
+
+describe('InputGroup', () => {
+    it('renders without errors', () => {
+        expect(() => render(<InputGroup><input /></InputGroup>)).not.toThrow();
+    });
+
+    it('has data-slot="input-group"', () => {
+        const { container } = render(<InputGroup><input /></InputGroup>);
+        expect(container.querySelector('[data-slot="input-group"]')).toBeInTheDocument();
+    });
+});
+
+describe('InputGroupInput', () => {
+    it('renders an input', () => {
+        render(<InputGroup><InputGroupInput /></InputGroup>);
+        expect(document.querySelector('[data-slot="input"]')).toBeInTheDocument();
+    });
+});
+
+describe('InputGroupAddon', () => {
+    it('has data-slot="input-group-addon"', () => {
+        const { container } = render(<InputGroup><InputGroupAddon>$</InputGroupAddon></InputGroup>);
+        expect(container.querySelector('[data-slot="input-group-addon"]')).toBeInTheDocument();
+    });
+
+    it('applies inline-end alignment', () => {
+        const { container } = render(
+            <InputGroup><InputGroupAddon align='inline-end'>.com</InputGroupAddon></InputGroup>,
+        );
+        expect(container.querySelector('[data-align="inline-end"]')).toBeInTheDocument();
+    });
+});
+
+describe('InputGroupText', () => {
+    it('has data-slot="input-group-text"', () => {
+        const { container } = render(<InputGroup><InputGroupText>kg</InputGroupText></InputGroup>);
+        expect(container.querySelector('[data-slot="input-group-text"]')).toBeInTheDocument();
     });
 });

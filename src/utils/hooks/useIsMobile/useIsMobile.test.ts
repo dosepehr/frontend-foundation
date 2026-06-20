@@ -10,7 +10,7 @@ function setupMatchMedia(innerWidth: number) {
         value: innerWidth,
     });
 
-    vi.stubGlobal('matchMedia', (_query: string) => ({
+    vi.stubGlobal('matchMedia', () => ({
         matches: false,
         addEventListener: (_event: string, cb: () => void) => listeners.push(cb),
         removeEventListener: (_event: string, cb: () => void) => {

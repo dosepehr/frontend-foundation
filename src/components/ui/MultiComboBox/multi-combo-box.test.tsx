@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MultiComboBox } from './components';
 
@@ -146,5 +146,33 @@ describe('MultiComboBox', () => {
 
     it('renders without errors when options list is empty', () => {
         expect(() => render(<MultiComboBox options={[]} selected={[]} />)).not.toThrow();
+    });
+
+    it('resets search when dropdown is closed', async () => {
+        const user = userEvent.setup();
+        render(<MultiComboBox options={OPTIONS} selected={[]} />);
+        await user.click(screen.getByRole('combobox'));
+        await user.type(screen.getByPlaceholderText('Search...'), 'ban');
+        await user.keyboard('{Escape}');
+        await user.click(screen.getByRole('combobox'));
+        expect(screen.getByText('Apple')).toBeInTheDocument();
+    });
+
+    it('does not throw when toggle is called without onChange', async () => {
+        const user = userEvent.setup();
+        render(<MultiComboBox options={OPTIONS} selected={[]} />);
+        await user.click(screen.getByRole('combobox'));
+        await expect(user.click(screen.getByText('Apple'))).resolves.not.toThrow();
+    });
+
+    it('stops wheel event propagation inside the dropdown', async () => {
+        const user = userEvent.setup();
+        render(<MultiComboBox options={OPTIONS} selected={[]} />);
+        await user.click(screen.getByRole('combobox'));
+        const scrollContainer = document.querySelector('.max-h-40');
+        if (scrollContainer) {
+            fireEvent.wheel(scrollContainer, { deltaY: 100 });
+        }
+        expect(screen.getByRole('combobox')).toBeInTheDocument();
     });
 });

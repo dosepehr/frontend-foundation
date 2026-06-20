@@ -203,3 +203,10 @@ describe('ItemWrapper', () => {
         expect(onClick).toHaveBeenCalled();
     });
 });
+
+describe('Item outline + interactive', () => {
+    it('renders as button when variant="outline" and onClick is provided', () => {
+        render(<Item variant='outline' onClick={vi.fn()}>Click</Item>);
+        expect(screen.getByRole('button')).toBeInTheDocument();
+    });
+});

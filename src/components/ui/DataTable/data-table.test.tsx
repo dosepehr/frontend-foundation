@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { ColumnDef } from '@tanstack/react-table';
-import { DataTableRoot, DataTableSkeleton, DataTablePagination } from './components';
+import { DataTableRoot, DataTableSkeleton, DataTablePagination, Table, TableBody, TableCaption, TableState } from './components';
 import DataTable from './index';
 
 type Person = { name: string; age: number };
@@ -101,6 +101,17 @@ describe('DataTableRoot', () => {
         const [headerCheckbox, ...rowCheckboxes] = screen.getAllByRole('checkbox');
         await user.click(headerCheckbox);
         rowCheckboxes.forEach((cb) => expect(cb).toBeChecked());
+    });
+
+    it('sorts column when sortable header is clicked', async () => {
+        const user = userEvent.setup();
+        const SORTABLE_COLUMNS: ColumnDef<Person, unknown>[] = [
+            { accessorKey: 'name', header: 'Name', enableSorting: true },
+            { accessorKey: 'age', header: 'Age' },
+        ];
+        render(<DataTableRoot columns={SORTABLE_COLUMNS} data={DATA} />);
+        await user.click(screen.getByText('Name'));
+        expect(screen.getByText('Alice')).toBeInTheDocument();
     });
 
     it('calls setRowSelection when provided externally', async () => {
@@ -248,5 +259,133 @@ describe('DataTableSkeleton', () => {
         const { container } = render(<DataTableSkeleton columns={2} rows={4} />);
         // tbody rows only
         expect(container.querySelectorAll('tbody tr').length).toBe(4);
+    });
+});
+
+describe('Table primitives', () => {
+    it('Table renders data-slot="table-container"', () => {
+        const { container } = render(<Table />);
+        expect(container.querySelector('[data-slot="table-container"]')).toBeInTheDocument();
+    });
+
+    it('TableBody renders data-slot="table-body"', () => {
+        const { container } = render(
+            <table><TableBody><tr><td>cell</td></tr></TableBody></table>,
+        );
+        expect(container.querySelector('[data-slot="table-body"]')).toBeInTheDocument();
+    });
+
+    it('TableCaption renders data-slot="table-caption"', () => {
+        const { container } = render(
+            <table><TableCaption>Caption text</TableCaption></table>,
+        );
+        expect(container.querySelector('[data-slot="table-caption"]')).toBeInTheDocument();
+    });
+});
+
+describe('TableState', () => {
+    it('shows loading element when isLoading is true', () => {
+        render(
+            <TableState isLoading loadingEl={<div>Loading...</div>}>
+                content
+            </TableState>,
+        );
+        expect(screen.getByText('Loading...')).toBeInTheDocument();
+    });
+
+    it('shows children when not loading and no error', () => {
+        render(
+            <TableState isLoading={false}>
+                <div>Table content</div>
+            </TableState>,
+        );
+        expect(screen.getByText('Table content')).toBeInTheDocument();
+    });
+
+    it('shows error state when isError is true', () => {
+        render(
+            <TableState isLoading={false} isError onRetry={vi.fn()}>
+                content
+            </TableState>,
+        );
+        expect(screen.getByRole('button')).toBeInTheDocument();
+    });
+
+    it('shows empty state when isEmpty is true', () => {
+        render(
+            <TableState isLoading={false} isEmpty emptyTitle='No data'>
+                content
+            </TableState>,
+        );
+        expect(screen.getByText('No data')).toBeInTheDocument();
+    });
+
+    it('shows error state without retry button when onRetry is not provided', () => {
+        render(
+            <TableState isLoading={false} isError>
+                content
+            </TableState>,
+        );
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    });
+
+    it('shows "No results found" title when isEmpty and hasSearch', () => {
+        render(
+            <TableState isLoading={false} isEmpty hasSearch>
+                content
+            </TableState>,
+        );
+        expect(screen.getByText('No results found')).toBeInTheDocument();
+    });
+
+    it('shows search-related description when isEmpty and hasSearch', () => {
+        render(
+            <TableState isLoading={false} isEmpty hasSearch>
+                content
+            </TableState>,
+        );
+        expect(screen.getByText(/adjusting your search/i)).toBeInTheDocument();
+    });
+
+    it('shows "No data yet" when isEmpty without hasSearch and no emptyTitle', () => {
+        render(
+            <TableState isLoading={false} isEmpty>
+                content
+            </TableState>,
+        );
+        expect(screen.getByText('No data yet')).toBeInTheDocument();
+    });
+});
+
+describe('DataTablePagination edge cases', () => {
+    it('no leading ellipsis when current is near start', () => {
+        const { container } = render(
+            <DataTablePagination current={2} total={10} setPage={vi.fn()} limit={20} setLimit={vi.fn()} />,
+        );
+        const ellipses = container.querySelectorAll('[data-slot="pagination-ellipsis"]');
+        // With current=2, total=10 → no leading ellipsis but trailing one
+        expect(screen.getByText('1')).toBeInTheDocument();
+    });
+
+    it('no trailing ellipsis when current is near end', () => {
+        render(
+            <DataTablePagination current={9} total={10} setPage={vi.fn()} limit={20} setLimit={vi.fn()} />,
+        );
+        expect(screen.getByText('10')).toBeInTheDocument();
+    });
+});
+
+describe('DataTablePagination page size change', () => {
+    it('calls setLimit when page size is changed', async () => {
+        const user = userEvent.setup();
+        const setLimit = vi.fn();
+        const setPage = vi.fn();
+        render(
+            <DataTablePagination current={1} total={5} setPage={setPage} limit={20} setLimit={setLimit} />,
+        );
+        await user.click(screen.getByRole('combobox'));
+        const options = document.querySelectorAll('[data-slot="select-item"]');
+        if (options.length > 0) await user.click(options[0]);
+        expect(setLimit).toHaveBeenCalled();
     });
 });

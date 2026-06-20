@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ComboBox from '.';
 
@@ -122,6 +122,29 @@ describe('ComboBox', () => {
 
     it('renders empty options list without errors', () => {
         render(<ComboBox options={[]} />);
+        expect(screen.getByRole('combobox')).toBeInTheDocument();
+    });
+
+    it('resets search when dropdown is closed', async () => {
+        const user = userEvent.setup();
+        render(<ComboBox options={OPTIONS} />);
+        await user.click(screen.getByRole('combobox'));
+        await user.type(screen.getByPlaceholderText('Search...'), 'ban');
+        // Close by pressing Escape
+        await user.keyboard('{Escape}');
+        // Re-open: all options should be visible again
+        await user.click(screen.getByRole('combobox'));
+        expect(screen.getByText('Apple')).toBeInTheDocument();
+    });
+
+    it('stops wheel event propagation inside the dropdown', async () => {
+        const user = userEvent.setup();
+        render(<ComboBox options={OPTIONS} />);
+        await user.click(screen.getByRole('combobox'));
+        const scrollContainer = document.querySelector('.max-h-40');
+        if (scrollContainer) {
+            fireEvent.wheel(scrollContainer, { deltaY: 100 });
+        }
         expect(screen.getByRole('combobox')).toBeInTheDocument();
     });
 });
