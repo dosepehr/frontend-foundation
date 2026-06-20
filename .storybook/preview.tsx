@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/nextjs-vite";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { worker } from '../src/mocks/browser';
 
@@ -18,10 +18,6 @@ import Toaster from "../src/components/ui/Toast";
 
 import "./fonts.css";
 import "../src/app/globals.css";
-
-if (typeof window !== 'undefined') {
-  worker.start({ onUnhandledRequest: 'bypass' });
-}
 
 let toasterMounted = false;
 
@@ -48,6 +44,9 @@ function GlobalToaster() {
 }
 
 const preview: Preview = {
+  async beforeAll() {
+    await worker.start({ onUnhandledRequest: 'bypass' });
+  },
   parameters: {
     layout: "padded",
     controls: {

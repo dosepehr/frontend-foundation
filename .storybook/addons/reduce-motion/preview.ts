@@ -7,7 +7,7 @@ export const reduceMotionGlobalType = {
     description: "Reduce motion for components",
     defaultValue: DEFAULT_REDUCE_MOTION,
     toolbar: {
-      icon: "play",
+      icon: "play" as const,
       items: REDUCE_MOTION_OPTIONS.map((o) => ({ value: o.value, title: o.title, icon: o.icon })),
       showName: true,
       dynamicTitle: true,

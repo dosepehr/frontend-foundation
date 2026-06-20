@@ -7,10 +7,10 @@ export const strictModeGlobalType = {
     description: "Enable React Strict Mode",
     defaultValue: DEFAULT_STRICT_MODE,
     toolbar: {
-      icon: "lock",
+      icon: "lock" as const,
       items: [
-        { value: "false", title: "Strict Mode Off", icon: "unlock" },
-        { value: "true",  title: "Strict Mode On",  icon: "lock"   },
+        { value: "false", title: "Strict Mode Off", icon: "unlock" as const },
+        { value: "true",  title: "Strict Mode On",  icon: "lock" as const   },
       ],
       showName: true,
     },

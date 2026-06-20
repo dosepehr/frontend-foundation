@@ -7,7 +7,7 @@ export const i18nGlobalType = {
     description: "Internationalization locale",
     defaultValue: DEFAULT_LOCALE,
     toolbar: {
-      icon: "globe",
+      icon: "globe" as const,
       items: [...LOCALES]
         .map((l) => ({
           value: l.value,

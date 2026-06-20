@@ -7,10 +7,10 @@ export const reactScanGlobalType = {
     description: "Enable React Scan to detect performance issues (isolation mode only)",
     defaultValue: DEFAULT_REACT_SCAN,
     toolbar: {
-      icon: "eye",
+      icon: "eye" as const,
       items: [
-        { value: "false", title: "React Scan Off", icon: "eyeclose" },
-        { value: "true",  title: "React Scan On",  icon: "eye"      },
+        { value: "false", title: "React Scan Off", icon: "eyeclose" as const },
+        { value: "true",  title: "React Scan On",  icon: "eye" as const      },
       ],
       showName: true,
     },

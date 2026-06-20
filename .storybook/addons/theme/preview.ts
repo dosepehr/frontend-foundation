@@ -7,7 +7,7 @@ export const themeGlobalType = {
     description: "Color theme for components",
     defaultValue: DEFAULT_THEME,
     toolbar: {
-      icon: "paintbrush",
+      icon: "paintbrush" as const,
       items: THEME_OPTIONS.map((o) => ({ value: o.value, title: o.title })),
       showName: true,
       dynamicTitle: true,
