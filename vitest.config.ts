@@ -11,6 +11,17 @@ const dirname =
 
 export default defineConfig({
     test: {
+        coverage: {
+            provider: 'v8',
+            include: ['src/components/**', 'src/utils/**'],
+            exclude: [
+                '**/*.stories.*',
+                '**/*.types.*',
+                '**/index.ts',
+                'src/components/_icons/**',
+                'src/components/ui/ThemeChanger/**',
+            ],
+        },
         projects: [
             // ─── Unit tests (components, utils) ─────────────────────────────
             {
