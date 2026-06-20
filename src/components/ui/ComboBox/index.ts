@@ -1,1 +1,2 @@
-export { ComboBox as default } from './components'
+import { ComboBox } from './components'
+export default ComboBox

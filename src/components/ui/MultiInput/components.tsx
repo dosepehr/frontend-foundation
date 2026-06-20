@@ -1,4 +1,6 @@
+/* c8 ignore start */
 'use client'
+/* c8 ignore stop */
 
 import { useId, useState, type KeyboardEvent } from 'react'
 import { Plus, X } from 'lucide-react'

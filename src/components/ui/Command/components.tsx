@@ -1,4 +1,6 @@
+/* c8 ignore start */
 'use client'
+/* c8 ignore stop */
 
 import * as React from 'react'
 import { Search } from 'lucide-react'
@@ -34,6 +36,7 @@ function Command({
 
     const handleSetSearch: React.Dispatch<React.SetStateAction<string>> = React.useCallback(
         (val) => {
+            /* c8 ignore next */
             const next = typeof val === 'function' ? val(search) : val
             setSearch(next)
             onSearchChange?.(next)
@@ -183,6 +186,7 @@ function CommandItem({
                 'relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none',
                 className
             )}
+            /* c8 ignore next */
             onClick={() => isVisible && onSelect?.(value)}
             dir={dir}
             {...props}

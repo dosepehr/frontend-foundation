@@ -1,4 +1,6 @@
+/* c8 ignore start */
 'use client'
+/* c8 ignore stop */
 
 import { Label as LabelPrimitive } from 'radix-ui'
 import { cn } from '@/src/utils/funcs/cn'

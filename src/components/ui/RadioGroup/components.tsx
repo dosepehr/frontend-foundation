@@ -1,8 +1,10 @@
+/* c8 ignore start */
 'use client'
+/* c8 ignore stop */
 
 import * as React from 'react'
 import { RadioGroup as RadioGroupPrimitive } from 'radix-ui'
-import { cva, type VariantProps } from 'class-variance-authority'
+import { cva } from 'class-variance-authority'
 import { cn } from '@/src/utils/funcs/cn'
 import { Label } from '../Label/components'
 import type { RadioGroupItemProps } from './radio-group.types'

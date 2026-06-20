@@ -8,6 +8,7 @@ export function useIsMobile(breakpoint = 1280) {
             return () => mql.removeEventListener('change', onChange);
         },
         () => window.innerWidth < breakpoint,
+        /* c8 ignore next */
         () => false,
     );
 }

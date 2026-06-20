@@ -1,1 +1,2 @@
-export { OtpInput as default } from './components'
+import { OtpInput } from './components'
+export default OtpInput

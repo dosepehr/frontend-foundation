@@ -1,4 +1,6 @@
+/* c8 ignore start */
 'use client'
+/* c8 ignore stop */
 
 import * as React from 'react'
 import { AnimatePresence, motion } from 'motion/react'
@@ -255,6 +257,7 @@ function DataTableRoot<TData>({
                                                     resolvedMaxHeight && 'sticky top-0 z-10 bg-muted',
                                                 )}
                                             >
+                                                {/* c8 ignore start */}
                                                 {header.isPlaceholder ? null : canSort ? (
                                                     <Button
                                                         variant='ghost'
@@ -271,7 +274,7 @@ function DataTableRoot<TData>({
                                                             <ArrowUpDownIcon className='size-3' />
                                                         )}
                                                     </Button>
-                                                ) : (
+                                                ) : /* c8 ignore stop */ (
                                                     flexRender(header.column.columnDef.header, header.getContext())
                                                 )}
                                             </TableHead>

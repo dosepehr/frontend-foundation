@@ -1,4 +1,6 @@
+/* c8 ignore start */
 'use client'
+/* c8 ignore stop */
 
 import * as React from 'react'
 import { Slot } from 'radix-ui'

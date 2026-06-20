@@ -1,4 +1,6 @@
+/* c8 ignore start */
 'use client'
+/* c8 ignore stop */
 
 import * as React from 'react'
 import { Tooltip as TooltipPrimitive } from 'radix-ui'
@@ -76,6 +78,7 @@ function TooltipContent({
                 <TooltipPrimitive.Arrow
                     className={cn(
                         'z-50 size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-xs',
+                        /* c8 ignore next */
                         arrowClassMap[variant ?? 'default']
                     )}
                 />

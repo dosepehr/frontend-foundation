@@ -1,1 +1,2 @@
-export { MultiInput as default } from './components'
+import { MultiInput } from './components'
+export default MultiInput
