@@ -1,7 +1,7 @@
 import { estedad, lato } from '@/public/fonts';
 import { ThemeProvider } from 'next-themes';
+import { MockProvider } from '../components/Providers/MockProvider/MockProvider';
 import { DirectionProvider } from '../components/ui/direction';
-import { MockProvider } from '../components/MockProvider';
 import { Toaster } from '../components/ui/Toast/components';
 import { TooltipProvider } from '../components/ui/Tooltip/components';
 import ReactQueryProvider from '../utils/api/provider/ReactQueryProvider';
@@ -19,18 +19,18 @@ export default function RootLayout({
         >
             <body>
                 <MockProvider>
-                <ReactQueryProvider>
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="system"
-                        enableSystem
-                    >
-                        <DirectionProvider dir="ltr">
-                            <Toaster />
-                            <TooltipProvider>{children}</TooltipProvider>
-                        </DirectionProvider>
-                    </ThemeProvider>
-                </ReactQueryProvider>
+                    <ReactQueryProvider>
+                        <ThemeProvider
+                            attribute="class"
+                            defaultTheme="system"
+                            enableSystem
+                        >
+                            <DirectionProvider dir="ltr">
+                                <Toaster />
+                                <TooltipProvider>{children}</TooltipProvider>
+                            </DirectionProvider>
+                        </ThemeProvider>
+                    </ReactQueryProvider>
                 </MockProvider>
             </body>
         </html>
