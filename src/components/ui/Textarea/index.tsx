@@ -1,6 +1,5 @@
 'use client';
 
-import { cn } from '@/src/utils/funcs/cn';
 import { useId } from 'react';
 import {
     Field,
@@ -25,7 +24,7 @@ function TextareaWrapper({
     return (
         <Field
             data-invalid={error ? true : undefined}
-            className={cn('relative', error && 'pb-1')}
+            className="relative pb-1"
         >
             {label && (
                 <FieldLabel

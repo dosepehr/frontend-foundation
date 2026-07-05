@@ -29,10 +29,7 @@ function InputWrapper({
     const isInvalid = !!error;
 
     return (
-        <Field
-            data-invalid={isInvalid || undefined}
-            className={cn('relative', isInvalid && 'pb-1')}
-        >
+        <Field data-invalid={isInvalid || undefined} className="relative pb-1">
             {label && (
                 <FieldLabel
                     htmlFor={inputId}

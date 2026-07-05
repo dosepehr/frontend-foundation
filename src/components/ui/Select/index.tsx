@@ -39,7 +39,7 @@ function SelectWrapper({
     return (
         <Field
             data-invalid={isInvalid || undefined}
-            className={cn('relative', isInvalid && 'pb-1', className)}
+            className={cn('relative pb-1', className)}
         >
             {label && (
                 <FieldLabel

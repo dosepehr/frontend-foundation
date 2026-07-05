@@ -20,7 +20,7 @@ export const PasswordInput = React.forwardRef<
     const isInvalid = !!error;
 
     return (
-        <Field data-invalid={isInvalid || undefined} className="relative">
+        <Field data-invalid={isInvalid || undefined} className="relative pb-1">
             {label && (
                 <FieldLabel
                     htmlFor={inputId}

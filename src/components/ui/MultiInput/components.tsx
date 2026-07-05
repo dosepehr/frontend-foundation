@@ -41,7 +41,7 @@ export const MultiInput = ({
     return (
         <Field
             data-invalid={isInvalid || undefined}
-            className={cn('relative', className)}
+            className={cn('relative pb-1', className)}
         >
             {label && (
                 <FieldLabel
