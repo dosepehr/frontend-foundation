@@ -43,10 +43,14 @@ const AlertDialogWrapper: FC<AlertDialogWrapperProps> = ({
     actionProps,
     cancelProps,
     contentProps,
+    open,
+    onOpenChange,
 }) => {
     return (
-        <AlertDialog>
-            <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
+        <AlertDialog open={open} onOpenChange={onOpenChange}>
+            {trigger && (
+                <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
+            )}
             <AlertDialogContent size={size} {...contentProps}>
                 <AlertDialogHeader>
                     {media && (

@@ -16,7 +16,7 @@ export type AlertDialogIntent =
     | 'success';
 
 export type AlertDialogWrapperProps = {
-    trigger: ReactNode;
+    trigger?: ReactNode;
     title: ReactNode;
     description: ReactNode;
     media?: ReactNode;
@@ -28,4 +28,7 @@ export type AlertDialogWrapperProps = {
     actionProps?: Omit<ActionProps, 'children'>;
     cancelProps?: Omit<CancelProps, 'children'>;
     contentProps?: ComponentProps<typeof AlertDialogPrimitive.Content>;
+    /** Controls the dialog externally instead of via `trigger`. */
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
 };
