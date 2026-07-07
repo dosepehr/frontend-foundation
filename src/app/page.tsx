@@ -3,10 +3,12 @@
 import { useTheme } from 'next-themes';
 import { useDirection } from '../components/ui/direction';
 import ThemeChanger from '../components/ui/ThemeChanger';
+import { useSidebarStore } from '../store/useSidebarStore';
 
 export default function Page() {
     const direction = useDirection();
     const { theme } = useTheme();
+    const { isOpen, toggle } = useSidebarStore();
 
     return (
         <div className="flex min-h-svh p-6">
@@ -15,6 +17,18 @@ export default function Page() {
                     <ThemeChanger />
                     <span className="text-xs text-muted-foreground">
                         Theme: {theme ?? '—'} · Direction: {direction}
+                    </span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <button
+                        type="button"
+                        onClick={toggle}
+                        className="rounded-md border px-3 py-1.5 text-xs"
+                    >
+                        Toggle sidebar
+                    </button>
+                    <span className="text-xs text-muted-foreground">
+                        Sidebar is {isOpen ? 'open' : 'closed'}
                     </span>
                 </div>
                 <div>
