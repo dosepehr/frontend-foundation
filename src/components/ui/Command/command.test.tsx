@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
     Command,
+    CommandDialog,
     CommandEmpty,
     CommandGroup,
     CommandInput,
@@ -211,5 +212,87 @@ describe('CommandInput controlled mode', () => {
         );
         await user.type(screen.getByPlaceholderText('Search...'), 'a');
         expect(onValueChange).toHaveBeenCalledWith('a');
+    });
+});
+
+describe('CommandDialog', () => {
+    it('does not render content when closed', () => {
+        render(
+            <CommandDialog open={false} onOpenChange={() => {}}>
+                <Command>
+                    <CommandList>
+                        <CommandGroup>
+                            <CommandItem value="apple">Apple</CommandItem>
+                        </CommandGroup>
+                    </CommandList>
+                </Command>
+            </CommandDialog>,
+        );
+        expect(screen.queryByText('Apple')).not.toBeInTheDocument();
+    });
+
+    it('renders content when open', () => {
+        render(
+            <CommandDialog open onOpenChange={() => {}}>
+                <Command>
+                    <CommandList>
+                        <CommandGroup>
+                            <CommandItem value="apple">Apple</CommandItem>
+                        </CommandGroup>
+                    </CommandList>
+                </Command>
+            </CommandDialog>,
+        );
+        expect(screen.getByText('Apple')).toBeInTheDocument();
+    });
+
+    it('renders an accessible title', () => {
+        render(
+            <CommandDialog open onOpenChange={() => {}} title="My Palette">
+                <Command>
+                    <CommandList />
+                </Command>
+            </CommandDialog>,
+        );
+        expect(
+            screen.getByRole('heading', { name: 'My Palette' }),
+        ).toBeInTheDocument();
+    });
+
+    it('calls onOpenChange when closed', async () => {
+        const user = userEvent.setup();
+        const onOpenChange = vi.fn();
+        render(
+            <CommandDialog open onOpenChange={onOpenChange}>
+                <Command>
+                    <CommandList />
+                </Command>
+            </CommandDialog>,
+        );
+        await user.keyboard('{Escape}');
+        expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('selecting an item can close the dialog', async () => {
+        const user = userEvent.setup();
+        const onOpenChange = vi.fn();
+        render(
+            <CommandDialog open onOpenChange={onOpenChange}>
+                <Command>
+                    <CommandList>
+                        <CommandGroup>
+                            <CommandItem
+                                value="apple"
+                                onSelect={() => onOpenChange(false)}
+                            >
+                                Apple
+                            </CommandItem>
+                        </CommandGroup>
+                    </CommandList>
+                </Command>
+            </CommandDialog>,
+        );
+        await user.click(screen.getByText('Apple'));
+        expect(onOpenChange).toHaveBeenCalledWith(false);
     });
 });
