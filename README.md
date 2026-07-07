@@ -121,3 +121,12 @@ A Next.js 16 component library and application foundation with a full-featured D
 - [ ] **`react-scan` in CI**
   - Already have the Storybook addon for local dev
   - Running it in CI flags performance regressions before they ship
+
+
+## zustand
+Middlewares worth considering for createStore, depending on what you need:
+
+persist — syncs state to localStorage/sessionStorage (or any custom storage). Useful for things like sidebar-open state, user preferences, draft form data surviving reloads.
+immer — lets you write "mutating" update logic (state.items.push(x)) instead of manual spreads. Nice once state gets nested/complex.
+subscribeWithSelector — enables subscribing to a slice of state without a full component re-render subscription; useful for imperative side effects outside React.
+combine — merges initial state + actions with better type inference (minor DX sugar, not essential).
