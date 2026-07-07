@@ -1,5 +1,6 @@
 import { estedad, lato } from '@/public/fonts';
 import { ThemeProvider } from 'next-themes';
+import NextTopLoader from 'nextjs-toploader';
 import { MockProvider } from '../components/Providers/MockProvider/MockProvider';
 import { DirectionProvider } from '../components/ui/direction';
 import { Toaster } from '../components/ui/Toast/components';
@@ -18,6 +19,7 @@ export default function RootLayout({
             className={`overflow-x-hidden antialiased ${estedad.variable} ${lato.variable}`}
         >
             <body>
+                <NextTopLoader color="#155dfc" showSpinner={false} />
                 <MockProvider>
                     <ReactQueryProvider>
                         <ThemeProvider
