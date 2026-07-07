@@ -5,6 +5,12 @@
 import { cn } from '@/src/utils/funcs/cn';
 import { Search } from 'lucide-react';
 import * as React from 'react';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogTitle,
+} from '../Dialog/components';
 
 interface CommandContextValue {
     search: string;
@@ -196,7 +202,7 @@ function CommandItem({
             aria-selected={false}
             style={{ display: isVisible ? undefined : 'none' }}
             className={cn(
-                'relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none',
+                'relative flex cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm transition-colors outline-none select-none hover:bg-accent hover:text-accent-foreground',
                 className,
             )}
             /* c8 ignore next */
@@ -209,8 +215,33 @@ function CommandItem({
     );
 }
 
+function CommandDialog({
+    title = 'Command Palette',
+    description = 'Search for a command to run...',
+    children,
+    className,
+    ...props
+}: React.ComponentProps<typeof Dialog> & {
+    title?: string;
+    description?: string;
+    className?: string;
+}) {
+    return (
+        <Dialog {...props}>
+            <DialogContent className={cn('overflow-hidden p-0', className)}>
+                <DialogTitle className="sr-only">{title}</DialogTitle>
+                <DialogDescription className="sr-only">
+                    {description}
+                </DialogDescription>
+                {children}
+            </DialogContent>
+        </Dialog>
+    );
+}
+
 export {
     Command,
+    CommandDialog,
     CommandEmpty,
     CommandGroup,
     CommandInput,
