@@ -112,7 +112,7 @@ export const OtpInput = ({
                         className,
                     )}
                 >
-                    <div className={cn('flex', separated && 'gap-2')}>
+                    <div className={cn('flex', separated && 'gap-2')} dir="ltr">
                         {Array.from({ length }, (_, i) => (
                             <OtpSlot key={i} index={i} />
                         ))}
