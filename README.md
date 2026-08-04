@@ -51,6 +51,7 @@ A Next.js 16 component library and application foundation with a full-featured D
 - [x] Error strategy layer — maps HTTP status codes to typed error shapes
 - [x] `mapErrorToToast` — surfaces API errors as toasts via Sonner
 - [x] `@storybook/addon-a11y` installed (currently set to `"todo"`, not enforcing)
+- [x] Installable PWA — manifest, service worker (offline + runtime caching), install/update prompts, notifications — see [docs/pwa.md](docs/pwa.md)
 
 ---
 
