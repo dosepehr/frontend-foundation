@@ -1,6 +1,6 @@
 import axios, {
-    type AxiosInstance,
     type AxiosError,
+    type AxiosInstance,
     type InternalAxiosRequestConfig,
 } from 'axios';
 import Cookies from 'universal-cookie';
@@ -14,10 +14,25 @@ let failedQueue: Array<{
 }> = [];
 
 const COOKIE_BASE = { path: '/' } as const;
-const ACCESS_TOKEN_OPTIONS = { ...COOKIE_BASE, maxAge: 15 * 60, secure: true, sameSite: 'strict' as const };
-const REFRESH_TOKEN_OPTIONS = { ...COOKIE_BASE, maxAge: 7 * 24 * 60 * 60, secure: true, sameSite: 'strict' as const };
+const ACCESS_TOKEN_OPTIONS = {
+    ...COOKIE_BASE,
+    maxAge: 15 * 60,
+    secure: true,
+    sameSite: 'strict' as const,
+};
+const REFRESH_TOKEN_OPTIONS = {
+    ...COOKIE_BASE,
+    maxAge: 7 * 24 * 60 * 60,
+    secure: true,
+    sameSite: 'strict' as const,
+};
 
-const AUTH_ENDPOINTS = ['/auth/login', '/auth/register', '/auth/refresh', '/auth/logout'] as const;
+const AUTH_ENDPOINTS = [
+    '/auth/login',
+    '/auth/register',
+    '/auth/refresh',
+    '/auth/logout',
+] as const;
 
 type RetryableRequest = InternalAxiosRequestConfig & { _retry?: boolean };
 
@@ -44,9 +59,15 @@ export const setupRefreshToken = (client: AxiosInstance) => {
         async (error: AxiosError) => {
             const originalRequest = error.config as RetryableRequest;
 
-            const isAuthEndpoint = AUTH_ENDPOINTS.some((ep) => originalRequest?.url?.includes(ep));
+            const isAuthEndpoint = AUTH_ENDPOINTS.some((ep) =>
+                originalRequest?.url?.includes(ep),
+            );
 
-            if (isAuthEndpoint || error.response?.status !== 401 || originalRequest._retry) {
+            if (
+                isAuthEndpoint ||
+                error.response?.status !== 401 ||
+                originalRequest._retry
+            ) {
                 return Promise.reject(error);
             }
 
@@ -59,7 +80,9 @@ export const setupRefreshToken = (client: AxiosInstance) => {
             originalRequest._retry = true;
             isRefreshing = true;
 
-            const refreshToken = cookies.get<string | undefined>('refresh-token');
+            const refreshToken = cookies.get<string | undefined>(
+                'refresh-token',
+            );
 
             if (!refreshToken) {
                 isRefreshing = false;
@@ -68,10 +91,12 @@ export const setupRefreshToken = (client: AxiosInstance) => {
             }
 
             try {
-                const { data } = await axios.post<{ accessToken: string; refreshToken?: string }>(
-                    `${process.env.NEXT_PUBLIC_APP_BASE_URL}/auth/refresh`,
-                    { refreshToken },
-                );
+                const { data } = await axios.post<{
+                    accessToken: string;
+                    refreshToken?: string;
+                }>(`${process.env.NEXT_PUBLIC_APP_BASE_URL}/auth/refresh`, {
+                    refreshToken,
+                });
 
                 if (!data.accessToken) {
                     processQueue(error);
@@ -80,9 +105,17 @@ export const setupRefreshToken = (client: AxiosInstance) => {
                     return Promise.reject(error);
                 }
 
-                cookies.set('access-token', data.accessToken, ACCESS_TOKEN_OPTIONS);
+                cookies.set(
+                    'access-token',
+                    data.accessToken,
+                    ACCESS_TOKEN_OPTIONS,
+                );
                 if (data.refreshToken) {
-                    cookies.set('refresh-token', data.refreshToken, REFRESH_TOKEN_OPTIONS);
+                    cookies.set(
+                        'refresh-token',
+                        data.refreshToken,
+                        REFRESH_TOKEN_OPTIONS,
+                    );
                 }
 
                 originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;

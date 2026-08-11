@@ -12,7 +12,10 @@ export const authHandlers = [
     ),
 
     http.post('/auth/register', () =>
-        HttpResponse.json({ status: true, message: 'Registration successful.' }, { status: 201 }),
+        HttpResponse.json(
+            { status: true, message: 'Registration successful.' },
+            { status: 201 },
+        ),
     ),
 
     http.post('/auth/refresh', () =>
@@ -40,11 +43,17 @@ export const loginScenarios = {
     ),
 
     invalidCredentials: http.post('/auth/login', () =>
-        HttpResponse.json({ message: 'Invalid email or password.' }, { status: 401 }),
+        HttpResponse.json(
+            { message: 'Invalid email or password.' },
+            { status: 401 },
+        ),
     ),
 
     serverError: http.post('/auth/login', () =>
-        HttpResponse.json({ message: 'Server error. Please try again later.' }, { status: 500 }),
+        HttpResponse.json(
+            { message: 'Server error. Please try again later.' },
+            { status: 500 },
+        ),
     ),
 
     networkError: http.post('/auth/login', () => HttpResponse.error()),

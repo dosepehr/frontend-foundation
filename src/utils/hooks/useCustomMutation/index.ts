@@ -11,8 +11,10 @@ import type { ApiError } from '../../api/types/DTO/http-errors.interface';
  * @template T - type of mutation result
  * @template E - type of error (defaults to ApiError)
  */
-interface UseCustomMutationOptions<V, T, E = ApiError>
-    extends Omit<UseMutationOptions<T, E, V>, 'mutationFn'> {
+interface UseCustomMutationOptions<V, T, E = ApiError> extends Omit<
+    UseMutationOptions<T, E, V>,
+    'mutationFn'
+> {
     /**
      * mutationFn - the function that performs the mutation
      * @param variables - the input data for the mutation
@@ -48,4 +50,3 @@ const useCustomMutation = <V, T, E = ApiError>({
     });
 
 export default useCustomMutation;
-

@@ -27,7 +27,9 @@ export function mapErrorToToast(error: AxiosError) {
 function extractErrorMessage(error: ApiError): string {
     if (error.errors && typeof error.errors === 'object') {
         const firstValue = Object.values(error.errors)[0];
-        const firstError = Array.isArray(firstValue) ? firstValue[0] : String(firstValue);
+        const firstError = Array.isArray(firstValue)
+            ? firstValue[0]
+            : String(firstValue);
         if (firstError) return firstError;
     }
 

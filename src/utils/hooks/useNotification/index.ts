@@ -4,7 +4,9 @@ import { toast } from 'sonner';
 const DEFAULT_SOUND_SRC = '/sounds/notification.mp3';
 const noop = () => {};
 
-export type NotificationPermissionState = NotificationPermission | 'unsupported';
+export type NotificationPermissionState =
+    | NotificationPermission
+    | 'unsupported';
 
 export interface NotifyOptions extends NotificationOptions {
     /** Notification heading. Defaults to `'Notification'`. */
@@ -96,9 +98,7 @@ export function useNotification(soundSrc: string = DEFAULT_SOUND_SRC) {
             options: NotifyOptions = {},
         ): Promise<NotifyResult> => {
             if (!isSupported()) {
-                toast.error(
-                    'Notifications are not supported in this browser.',
-                );
+                toast.error('Notifications are not supported in this browser.');
                 return { ok: false, reason: 'unsupported' };
             }
 

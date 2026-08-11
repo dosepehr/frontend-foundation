@@ -1,4 +1,4 @@
-import type{ Problem } from './DTO/http-errors.interface';
+import type { Problem } from './DTO/http-errors.interface';
 
 export type OperationResult<T> = {
     isSuccess: boolean;

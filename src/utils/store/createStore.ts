@@ -1,6 +1,6 @@
+import type { StateCreator } from 'zustand';
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import type { StateCreator } from 'zustand';
 
 export function createStore<T>(
     initializer: StateCreator<T, [['zustand/devtools', never]]>,

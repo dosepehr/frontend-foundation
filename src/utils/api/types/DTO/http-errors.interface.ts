@@ -45,14 +45,13 @@ type ApiError =
     | ConflictError;
 
 export type {
-    Problem,
-    BadRequestError,
-    UnauthorizedError,
-    ValidationError,
-    NotFoundError,
-    UnhandledException,
-    NetworkError,
     ApiError,
+    BadRequestError,
     ConflictError,
+    NetworkError,
+    NotFoundError,
+    Problem,
+    UnauthorizedError,
+    UnhandledException,
+    ValidationError,
 };
-
