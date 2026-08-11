@@ -6,11 +6,11 @@ import { AppleSplashScreens } from '../components/Providers/AppleSplashScreens';
 import { MockProvider } from '../components/Providers/MockProvider/MockProvider';
 import { ServiceWorkerRegister } from '../components/Providers/ServiceWorkerRegister/ServiceWorkerRegister';
 import { DirectionProvider } from '../components/ui/direction';
-import { Toaster } from '../components/ui/Toast/components';
+import { PWAInstall } from '../components/ui/PWAInstall';
+import Toaster from '../components/ui/Toast';
 import { TooltipProvider } from '../components/ui/Tooltip/components';
 import ReactQueryProvider from '../utils/api/provider/ReactQueryProvider';
 import './globals.css';
-import { PWAInstall } from '../components/ui/PWAInstall';
 
 export const metadata: Metadata = {
     applicationName: 'Frontend Foundation',
@@ -53,7 +53,7 @@ export default function RootLayout({
         <html
             suppressHydrationWarning
             className={`overflow-x-hidden antialiased ${estedad.variable} ${lato.variable}`}
-            lang='en'
+            lang="en"
         >
             <body>
                 <AppleSplashScreens />

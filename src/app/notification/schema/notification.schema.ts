@@ -1,4 +1,4 @@
-import z from "zod";
+import z from 'zod';
 
 export const notificationSchema = z.object({
     message: z
@@ -8,4 +8,4 @@ export const notificationSchema = z.object({
         .max(120, 'Message must be 120 characters or fewer'),
 });
 
-export type NotificationDTO =z.infer<typeof notificationSchema>;
+export type NotificationDTO = z.infer<typeof notificationSchema>;
