@@ -7,17 +7,12 @@ import { format } from 'date-fns';
 import { CalendarIcon, ChevronDownIcon } from 'lucide-react';
 import * as React from 'react';
 import { useId } from 'react';
-import { Calendar } from '../Calendar/components';
-import {
-    Field,
-    FieldDescription,
-    FieldError,
-    FieldLabel,
-} from '../Field/components';
-import { Popover, PopoverContent, PopoverTrigger } from '../Popover/components';
+import Calendar from '../Calendar';
+import Field, { FieldDescription, FieldError, FieldLabel } from '../Field';
+import Popover, { PopoverContent, PopoverTrigger } from '../Popover';
 import type { DatePickerProps } from './date-picker.types';
 
-function DatePicker({
+const DatePicker = ({
     value,
     onChange,
     placeholder = 'Pick a date',
@@ -33,7 +28,7 @@ function DatePicker({
     startAddon,
     open: externalOpen,
     onOpenChange: externalOnOpenChange,
-}: DatePickerProps) {
+}: DatePickerProps) => {
     const triggerId = useId();
     const [internalOpen, setInternalOpen] = React.useState(false);
     const isInvalid = !!error;
@@ -123,6 +118,6 @@ function DatePicker({
             <FieldError>{error}</FieldError>
         </Field>
     );
-}
+};
 
-export { DatePicker };
+export default DatePicker;

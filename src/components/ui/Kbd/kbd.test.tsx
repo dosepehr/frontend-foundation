@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Kbd, KbdGroup } from './components';
+import Kbd, { KbdGroup } from '.';
 
 describe('Kbd', () => {
     it('renders as a kbd element', () => {

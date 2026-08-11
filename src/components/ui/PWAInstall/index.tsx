@@ -42,7 +42,7 @@ function useIsStandalone() {
     );
 }
 
-export function PWAInstall() {
+export const PWAInstall = () => {
     const cookies = useMemo(() => new Cookies(), []);
     const isIOS = useIsIOS();
     const isStandalone = useIsStandalone();
@@ -130,9 +130,7 @@ export function PWAInstall() {
                                     <Share size={14} className="inline" /> Share
                                     button
                                 </li>
-                                <li>
-                                    Choose &quot;Add to Home Screen&quot;
-                                </li>
+                                <li>Choose &quot;Add to Home Screen&quot;</li>
                                 <li>Tap &quot;Add&quot;</li>
                             </ol>
                         </div>
@@ -171,4 +169,4 @@ export function PWAInstall() {
             </div>
         </div>
     );
-}
+};

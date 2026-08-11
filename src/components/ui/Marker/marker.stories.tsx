@@ -6,7 +6,7 @@ import {
     SearchIcon,
 } from 'lucide-react';
 import MarkerWrapper from '.';
-import { Spinner } from '../Spinner/components';
+import Spinner from '../Spinner';
 
 const meta: Meta<typeof MarkerWrapper> = {
     title: 'UI/Marker',

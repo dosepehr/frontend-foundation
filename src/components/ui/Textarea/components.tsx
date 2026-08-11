@@ -5,7 +5,7 @@
 import { cn } from '@/src/utils/funcs/cn';
 import type { ComponentProps } from 'react';
 
-function Textarea({ className, ...props }: ComponentProps<'textarea'>) {
+const Textarea = ({ className, ...props }: ComponentProps<'textarea'>) => {
     return (
         <textarea
             data-slot="textarea"
@@ -18,6 +18,6 @@ function Textarea({ className, ...props }: ComponentProps<'textarea'>) {
             {...props}
         />
     );
-}
+};
 
 export { Textarea };

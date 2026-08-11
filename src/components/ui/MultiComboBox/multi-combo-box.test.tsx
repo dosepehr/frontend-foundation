@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MultiComboBox } from './components';
+import MultiComboBox from '.';
 
 const OPTIONS = [
     { value: 'apple', label: 'Apple' },

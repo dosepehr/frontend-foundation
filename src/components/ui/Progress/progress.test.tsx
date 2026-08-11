@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Progress } from './components';
+import Progress from '.';
 
 describe('Progress', () => {
     it('renders without errors', () => {

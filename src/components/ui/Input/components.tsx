@@ -5,11 +5,11 @@
 import { cn } from '@/src/utils/funcs/cn';
 import type { ComponentProps } from 'react';
 
-function InputComponent({
+const InputComponent = ({
     className,
     type = 'text',
     ...props
-}: ComponentProps<'input'>) {
+}: ComponentProps<'input'>) => {
     return (
         <input
             type={type}
@@ -25,9 +25,9 @@ function InputComponent({
             {...props}
         />
     );
-}
+};
 
-function InputGroup({ className, ...props }: ComponentProps<'div'>) {
+const InputGroup = ({ className, ...props }: ComponentProps<'div'>) => {
     return (
         <div
             data-slot="input-group"
@@ -43,12 +43,12 @@ function InputGroup({ className, ...props }: ComponentProps<'div'>) {
             {props.children}
         </div>
     );
-}
+};
 
-function InputGroupInput({
+const InputGroupInput = ({
     className,
     ...props
-}: ComponentProps<typeof InputComponent>) {
+}: ComponentProps<typeof InputComponent>) => {
     return (
         <InputComponent
             className={cn(
@@ -58,17 +58,17 @@ function InputGroupInput({
             {...props}
         />
     );
-}
+};
 
 type InputGroupAddonProps = ComponentProps<'div'> & {
     align?: 'inline-start' | 'inline-end';
 };
 
-function InputGroupAddon({
+const InputGroupAddon = ({
     className,
     align = 'inline-start',
     ...props
-}: InputGroupAddonProps) {
+}: InputGroupAddonProps) => {
     return (
         <div
             data-slot="input-group-addon"
@@ -84,9 +84,9 @@ function InputGroupAddon({
             {...props}
         />
     );
-}
+};
 
-function InputGroupText({ className, ...props }: ComponentProps<'span'>) {
+const InputGroupText = ({ className, ...props }: ComponentProps<'span'>) => {
     return (
         <span
             data-slot="input-group-text"
@@ -97,7 +97,7 @@ function InputGroupText({ className, ...props }: ComponentProps<'span'>) {
             {...props}
         />
     );
-}
+};
 
 export {
     InputComponent,

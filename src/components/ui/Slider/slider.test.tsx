@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Slider } from './components';
+import Slider from '.';
 
 describe('Slider', () => {
     it('renders without errors', () => {

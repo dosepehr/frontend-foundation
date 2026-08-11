@@ -49,13 +49,27 @@ export const Default: Story = {
 export const AllVariants: Story = {
     render: () => (
         <div className="flex flex-col gap-3">
-            <BubbleWrapper variant="default">default — strong primary, usually the current user</BubbleWrapper>
-            <BubbleWrapper variant="secondary">secondary — standard neutral bubble for conversation</BubbleWrapper>
-            <BubbleWrapper variant="muted">muted — lower emphasis for quiet supporting content</BubbleWrapper>
-            <BubbleWrapper variant="tinted">tinted — subtle primary tint</BubbleWrapper>
-            <BubbleWrapper variant="outline">outline — bordered bubble for rich content</BubbleWrapper>
-            <BubbleWrapper variant="ghost">ghost — unframed, full-width for assistant text</BubbleWrapper>
-            <BubbleWrapper variant="destructive">destructive — error or failed action</BubbleWrapper>
+            <BubbleWrapper variant="default">
+                default — strong primary, usually the current user
+            </BubbleWrapper>
+            <BubbleWrapper variant="secondary">
+                secondary — standard neutral bubble for conversation
+            </BubbleWrapper>
+            <BubbleWrapper variant="muted">
+                muted — lower emphasis for quiet supporting content
+            </BubbleWrapper>
+            <BubbleWrapper variant="tinted">
+                tinted — subtle primary tint
+            </BubbleWrapper>
+            <BubbleWrapper variant="outline">
+                outline — bordered bubble for rich content
+            </BubbleWrapper>
+            <BubbleWrapper variant="ghost">
+                ghost — unframed, full-width for assistant text
+            </BubbleWrapper>
+            <BubbleWrapper variant="destructive">
+                destructive — error or failed action
+            </BubbleWrapper>
         </div>
     ),
     args: {},
@@ -64,10 +78,18 @@ export const AllVariants: Story = {
 export const Alignment: Story = {
     render: () => (
         <div className="flex w-full flex-col gap-3">
-            <BubbleWrapper variant="secondary" align="start">Hey, did you finish the PR review?</BubbleWrapper>
-            <BubbleWrapper variant="default" align="end">Just finished. Left some comments on the auth flow.</BubbleWrapper>
-            <BubbleWrapper variant="secondary" align="start">{"Nice, I'll address them now and push a fix."}</BubbleWrapper>
-            <BubbleWrapper variant="default" align="end">Sounds good. Ping me when ready.</BubbleWrapper>
+            <BubbleWrapper variant="secondary" align="start">
+                Hey, did you finish the PR review?
+            </BubbleWrapper>
+            <BubbleWrapper variant="default" align="end">
+                Just finished. Left some comments on the auth flow.
+            </BubbleWrapper>
+            <BubbleWrapper variant="secondary" align="start">
+                {"Nice, I'll address them now and push a fix."}
+            </BubbleWrapper>
+            <BubbleWrapper variant="default" align="end">
+                Sounds good. Ping me when ready.
+            </BubbleWrapper>
         </div>
     ),
     args: {},
@@ -77,14 +99,24 @@ export const Group: Story = {
     render: () => (
         <div className="flex flex-col gap-6">
             <BubbleGroup>
-                <BubbleWrapper variant="secondary" align="start">{"I've been looking into the issue."}</BubbleWrapper>
-                <BubbleWrapper variant="secondary" align="start">{"Turns out it's a race condition in the auth middleware."}</BubbleWrapper>
-                <BubbleWrapper variant="secondary" align="start">{"I'll have a fix ready by end of day."}</BubbleWrapper>
+                <BubbleWrapper variant="secondary" align="start">
+                    {"I've been looking into the issue."}
+                </BubbleWrapper>
+                <BubbleWrapper variant="secondary" align="start">
+                    {"Turns out it's a race condition in the auth middleware."}
+                </BubbleWrapper>
+                <BubbleWrapper variant="secondary" align="start">
+                    {"I'll have a fix ready by end of day."}
+                </BubbleWrapper>
             </BubbleGroup>
 
             <BubbleGroup>
-                <BubbleWrapper variant="default" align="end">Perfect, thanks for looking into it.</BubbleWrapper>
-                <BubbleWrapper variant="default" align="end">Let me know if you need another pair of eyes.</BubbleWrapper>
+                <BubbleWrapper variant="default" align="end">
+                    Perfect, thanks for looking into it.
+                </BubbleWrapper>
+                <BubbleWrapper variant="default" align="end">
+                    Let me know if you need another pair of eyes.
+                </BubbleWrapper>
             </BubbleGroup>
         </div>
     ),
@@ -96,7 +128,13 @@ export const WithReactions: Story = {
         <div className="flex flex-col gap-8 pb-4">
             <BubbleWrapper
                 variant="secondary"
-                reactions={<><span>👍</span><span>🔥</span><span>+3</span></>}
+                reactions={
+                    <>
+                        <span>👍</span>
+                        <span>🔥</span>
+                        <span>+3</span>
+                    </>
+                }
             >
                 Shipped the feature — finally! 🚀
             </BubbleWrapper>
@@ -119,7 +157,12 @@ export const ReactionsTop: Story = {
         <div className="flex flex-col gap-8 pt-6">
             <BubbleWrapper
                 variant="secondary"
-                reactions={<><span>👀</span><span>+2</span></>}
+                reactions={
+                    <>
+                        <span>👀</span>
+                        <span>+2</span>
+                    </>
+                }
                 reactionsSide="top"
                 reactionsAlign="start"
             >
@@ -169,7 +212,8 @@ export const AsLink: Story = {
 export const Destructive: Story = {
     args: {
         variant: 'destructive',
-        children: 'Failed to send message. Please check your connection and try again.',
+        children:
+            'Failed to send message. Please check your connection and try again.',
     },
 };
 
@@ -183,21 +227,32 @@ export const Ghost: Story = {
 
 export const Conversation: Story = {
     render: () => (
-        <div className="flex w-full max-w-sm flex-col gap-6 mx-auto">
+        <div className="mx-auto flex w-full max-w-sm flex-col gap-6">
             <BubbleGroup>
-                <BubbleWrapper variant="secondary" align="start">Hey! The deploy pipeline failed again.</BubbleWrapper>
-                <BubbleWrapper variant="secondary" align="start">Same error as last time in the build step.</BubbleWrapper>
+                <BubbleWrapper variant="secondary" align="start">
+                    Hey! The deploy pipeline failed again.
+                </BubbleWrapper>
+                <BubbleWrapper variant="secondary" align="start">
+                    Same error as last time in the build step.
+                </BubbleWrapper>
             </BubbleGroup>
 
-            <BubbleWrapper variant="default" align="end">On it — looking at the logs now.</BubbleWrapper>
+            <BubbleWrapper variant="default" align="end">
+                On it — looking at the logs now.
+            </BubbleWrapper>
 
             <BubbleWrapper variant="ghost" align="start">
-                Found it. The Node version in CI is pinned to 18 but the lockfile was generated with 20. Updating the workflow now.
+                Found it. The Node version in CI is pinned to 18 but the
+                lockfile was generated with 20. Updating the workflow now.
             </BubbleWrapper>
 
             <BubbleGroup>
-                <BubbleWrapper variant="default" align="end">Perfect. Should I bump the base image too?</BubbleWrapper>
-                <BubbleWrapper variant="default" align="end">Or just the engine field in package.json?</BubbleWrapper>
+                <BubbleWrapper variant="default" align="end">
+                    Perfect. Should I bump the base image too?
+                </BubbleWrapper>
+                <BubbleWrapper variant="default" align="end">
+                    Or just the engine field in package.json?
+                </BubbleWrapper>
             </BubbleGroup>
 
             <BubbleWrapper

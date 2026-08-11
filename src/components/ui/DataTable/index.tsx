@@ -3,7 +3,7 @@
 import { DataTablePagination, DataTableRoot } from './components';
 import type { DataTableProps } from './data-table.types';
 
-function DataTable<TData>({
+const DataTable = <TData,>({
     columns,
     data,
     current,
@@ -24,7 +24,7 @@ function DataTable<TData>({
     filterPlaceholder,
     footerRow,
     hideRowIndex,
-}: DataTableProps<TData>) {
+}: DataTableProps<TData>) => {
     const isEmpty = data.length === 0;
 
     return (
@@ -58,6 +58,6 @@ function DataTable<TData>({
             )}
         </div>
     );
-}
+};
 
 export default DataTable;

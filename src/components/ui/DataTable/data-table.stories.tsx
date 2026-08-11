@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import type { ColumnDef } from '@tanstack/react-table';
 import * as React from 'react';
 import DataTable from '.';
-import { Badge } from '../Badge/components';
+import Badge from '../Badge';
 import { DataTableSkeleton, TableState } from './components';
 
 const meta = {

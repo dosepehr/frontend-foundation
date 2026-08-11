@@ -6,16 +6,15 @@ import { cn } from '@/src/utils/funcs/cn';
 import { Popover as PopoverPrimitive } from 'radix-ui';
 import * as React from 'react';
 
-const Popover = PopoverPrimitive.Root;
 const PopoverTrigger = PopoverPrimitive.Trigger;
 const PopoverAnchor = PopoverPrimitive.Anchor;
 
-function PopoverContent({
+const PopoverContent = ({
     className,
     align = 'center',
     sideOffset = 4,
     ...props
-}: React.ComponentProps<typeof PopoverPrimitive.Content>) {
+}: React.ComponentProps<typeof PopoverPrimitive.Content>) => {
     return (
         <PopoverPrimitive.Portal>
             <PopoverPrimitive.Content
@@ -34,6 +33,6 @@ function PopoverContent({
             />
         </PopoverPrimitive.Portal>
     );
-}
+};
 
-export { Popover, PopoverAnchor, PopoverContent, PopoverTrigger };
+export { PopoverAnchor, PopoverContent, PopoverTrigger };

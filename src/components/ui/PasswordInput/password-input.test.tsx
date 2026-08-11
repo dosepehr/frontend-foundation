@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { PasswordInput } from './components';
+import PasswordInput from '.';
 
 describe('PasswordInput', () => {
     it('renders an input element', () => {

@@ -11,15 +11,7 @@ import {
     Users,
 } from 'lucide-react';
 import * as React from 'react';
-import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from '../Collapsible/components';
-import { ScrollArea } from '../ScrollArea/components';
-import { TooltipProvider } from '../Tooltip/components';
-import {
-    Sidebar,
+import Sidebar, {
     SidebarContent,
     SidebarGroup,
     SidebarHeader,
@@ -31,7 +23,13 @@ import {
     SidebarProvider,
     SidebarTrigger,
     useSidebar,
-} from './components';
+} from '.';
+import Collapsible, {
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from '../Collapsible';
+import ScrollArea from '../ScrollArea';
+import { TooltipProvider } from '../Tooltip/components';
 
 const meta = {
     title: 'UI/Sidebar',

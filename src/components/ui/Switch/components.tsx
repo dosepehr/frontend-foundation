@@ -5,7 +5,7 @@
 import { cn } from '@/src/utils/funcs/cn';
 import { cva } from 'class-variance-authority';
 import { Switch as SwitchPrimitive } from 'radix-ui';
-import { Label } from '../Label/components';
+import Label from '../Label';
 import type { SwitchProps } from './switch.types';
 
 export const switchVariants = cva(
@@ -52,7 +52,7 @@ export const switchWrapperVariants = cva(
     },
 );
 
-function Switch({
+const Switch = ({
     className,
     variant,
     size = 'default',
@@ -60,7 +60,7 @@ function Switch({
     id,
     required,
     ...props
-}: SwitchProps) {
+}: SwitchProps) => {
     return (
         <Label
             className="flex w-fit items-center gap-2 font-normal"
@@ -81,6 +81,6 @@ function Switch({
             {label && <span className="text-sm leading-none">{label}</span>}
         </Label>
     );
-}
+};
 
 export { Switch };

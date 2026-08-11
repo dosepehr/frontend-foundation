@@ -2,12 +2,7 @@
 
 import { cn } from '@/src/utils/funcs/cn';
 import { useId } from 'react';
-import {
-    Field,
-    FieldDescription,
-    FieldError,
-    FieldLabel,
-} from '../Field/components';
+import Field, { FieldDescription, FieldError, FieldLabel } from '../Field';
 import {
     Select,
     SelectContent,
@@ -17,7 +12,7 @@ import {
 } from './components';
 import type { SelectWrapperProps } from './select.types';
 
-function SelectWrapper({
+const SelectWrapper = ({
     label,
     description,
     error,
@@ -32,7 +27,7 @@ function SelectWrapper({
     className,
     triggerClassName,
     startAddon,
-}: SelectWrapperProps) {
+}: SelectWrapperProps) => {
     const generatedId = useId();
     const isInvalid = !!error;
 
@@ -104,6 +99,6 @@ function SelectWrapper({
             {error && <FieldError>{error}</FieldError>}
         </Field>
     );
-}
+};
 
 export default SelectWrapper;

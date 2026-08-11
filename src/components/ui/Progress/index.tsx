@@ -38,13 +38,13 @@ const trackVariants = cva('relative h-2 w-full overflow-hidden rounded-full', {
     defaultVariants: { variant: 'default' },
 });
 
-function Progress({
+const Progress = ({
     className,
     value,
     variant,
     ...props
 }: React.ComponentProps<typeof ProgressPrimitive.Root> &
-    VariantProps<typeof progressVariants>) {
+    VariantProps<typeof progressVariants>) => {
     return (
         <ProgressPrimitive.Root
             data-slot="progress"
@@ -59,6 +59,6 @@ function Progress({
             />
         </ProgressPrimitive.Root>
     );
-}
+};
 
-export { Progress };
+export default Progress;

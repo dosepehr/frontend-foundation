@@ -28,12 +28,12 @@ const markerVariants = cva(
     },
 );
 
-function Marker({
+const Marker = ({
     variant = 'default',
     asChild = false,
     className,
     ...props
-}: MarkerProps) {
+}: MarkerProps) => {
     const Comp = asChild ? Slot.Root : 'div';
 
     return (
@@ -44,9 +44,9 @@ function Marker({
             {...props}
         />
     );
-}
+};
 
-function MarkerIcon({ className, ...props }: MarkerIconProps) {
+const MarkerIcon = ({ className, ...props }: MarkerIconProps) => {
     return (
         <span
             data-slot="marker-icon"
@@ -58,9 +58,9 @@ function MarkerIcon({ className, ...props }: MarkerIconProps) {
             {...props}
         />
     );
-}
+};
 
-function MarkerContent({ className, ...props }: MarkerContentProps) {
+const MarkerContent = ({ className, ...props }: MarkerContentProps) => {
     return (
         <span
             data-slot="marker-content"
@@ -68,6 +68,6 @@ function MarkerContent({ className, ...props }: MarkerContentProps) {
             {...props}
         />
     );
-}
+};
 
 export { Marker, MarkerContent, MarkerIcon, markerVariants };

@@ -2,16 +2,11 @@
 
 import { cn } from '@/src/utils/funcs/cn';
 import { useId } from 'react';
-import {
-    Field,
-    FieldDescription,
-    FieldError,
-    FieldLabel,
-} from '../Field/components';
+import Field, { FieldDescription, FieldError, FieldLabel } from '../Field';
 import { InputComponent } from './components';
 import type { InputWrapperProps } from './input.types';
 
-function InputWrapper({
+const InputWrapper = ({
     label,
     description,
     error,
@@ -22,7 +17,7 @@ function InputWrapper({
     id,
     className,
     ...props
-}: InputWrapperProps) {
+}: InputWrapperProps) => {
     const generatedId = useId();
     const inputId = id ?? generatedId;
     const hasAddon = startAddon || endAddon;
@@ -99,6 +94,6 @@ function InputWrapper({
             {error && <FieldError>{error}</FieldError>}
         </Field>
     );
-}
+};
 
 export default InputWrapper;

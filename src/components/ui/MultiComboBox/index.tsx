@@ -6,19 +6,18 @@ import { cn } from '@/src/utils/funcs/cn';
 import { CheckIcon, ChevronDown, X } from 'lucide-react';
 import * as React from 'react';
 import { useCallback, useId, useMemo } from 'react';
-import { Badge } from '../Badge/components';
-import {
-    Command,
+import Badge from '../Badge';
+import Command, {
     CommandGroup,
     CommandInput,
     CommandItem,
     CommandList,
-} from '../Command/components';
-import { Field, FieldError, FieldLabel } from '../Field/components';
-import { Popover, PopoverContent, PopoverTrigger } from '../Popover/components';
+} from '../Command';
+import Field, { FieldError, FieldLabel } from '../Field';
+import Popover, { PopoverContent, PopoverTrigger } from '../Popover';
 import type { MultiComboBoxProps } from './multi-combo-box.types';
 
-export const MultiComboBox: React.FC<MultiComboBoxProps> = ({
+const MultiComboBox: React.FC<MultiComboBoxProps> = ({
     options,
     selected,
     onChange,
@@ -223,3 +222,5 @@ export const MultiComboBox: React.FC<MultiComboBoxProps> = ({
         </Field>
     );
 };
+
+export default MultiComboBox;

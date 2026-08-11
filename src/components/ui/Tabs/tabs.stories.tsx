@@ -7,7 +7,7 @@ import {
     SettingsIcon,
     UserIcon,
 } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './components';
+import Tabs, { TabsContent, TabsList, TabsTrigger } from '.';
 
 const meta: Meta<typeof Tabs> = {
     title: 'UI/Tabs',

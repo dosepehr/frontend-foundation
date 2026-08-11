@@ -7,13 +7,13 @@ import { Label as LabelPrimitive } from 'radix-ui';
 import Asteriks from '../Asteriks';
 import type { LabelProps } from './label.types';
 
-function Label({
+const Label = ({
     className,
     disabled,
     required,
     children,
     ...props
-}: LabelProps) {
+}: LabelProps) => {
     return (
         <LabelPrimitive.Root
             data-slot="label"
@@ -28,7 +28,6 @@ function Label({
             {required && <Asteriks />}
         </LabelPrimitive.Root>
     );
-}
+};
 
-export type { LabelProps } from './label.types';
-export { Label };
+export default Label;

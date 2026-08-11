@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Calendar } from './components';
+import Calendar from '.';
 
 describe('Calendar', () => {
     it('renders with data-slot="calendar"', () => {
@@ -96,8 +96,8 @@ describe('Calendar', () => {
             render(
                 <Calendar
                     captionLayout="dropdown"
-                    fromYear={2020}
-                    toYear={2030}
+                    startMonth={new Date(2020, 0, 1)}
+                    endMonth={new Date(2030, 11, 31)}
                 />,
             ),
         ).not.toThrow();

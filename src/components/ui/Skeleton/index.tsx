@@ -4,7 +4,7 @@
 
 import { cn } from '@/src/utils/funcs/cn';
 
-function Skeleton({ className, ...props }: React.ComponentProps<'div'>) {
+const Skeleton = ({ className, ...props }: React.ComponentProps<'div'>) => {
     return (
         <div
             data-slot="skeleton"
@@ -18,6 +18,6 @@ function Skeleton({ className, ...props }: React.ComponentProps<'div'>) {
             {...props}
         />
     );
-}
+};
 
-export { Skeleton };
+export default Skeleton;

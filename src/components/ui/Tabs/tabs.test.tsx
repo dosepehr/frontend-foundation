@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './components';
+import Tabs, { TabsContent, TabsList, TabsTrigger } from '.';
 
 describe('Tabs', () => {
     it('has data-slot="tabs"', () => {

@@ -23,26 +23,23 @@ describe('Attachment primitive', () => {
 
     it('defaults to state="done"', () => {
         const { container } = render(<Attachment />);
-        expect(container.querySelector('[data-slot="attachment"]')).toHaveAttribute(
-            'data-state',
-            'done',
-        );
+        expect(
+            container.querySelector('[data-slot="attachment"]'),
+        ).toHaveAttribute('data-state', 'done');
     });
 
     it('reflects state via data-state', () => {
         const { container } = render(<Attachment state="error" />);
-        expect(container.querySelector('[data-slot="attachment"]')).toHaveAttribute(
-            'data-state',
-            'error',
-        );
+        expect(
+            container.querySelector('[data-slot="attachment"]'),
+        ).toHaveAttribute('data-state', 'error');
     });
 
     it('reflects size via data-size', () => {
         const { container } = render(<Attachment size="sm" />);
-        expect(container.querySelector('[data-slot="attachment"]')).toHaveAttribute(
-            'data-size',
-            'sm',
-        );
+        expect(
+            container.querySelector('[data-slot="attachment"]'),
+        ).toHaveAttribute('data-size', 'sm');
     });
 
     it('reflects orientation via data-orientation', () => {
@@ -60,16 +57,17 @@ describe('Attachment primitive', () => {
     });
 
     it.each<'idle' | 'uploading' | 'processing' | 'error' | 'done'>([
-        'idle', 'uploading', 'processing', 'error', 'done',
-    ])(
-        'renders state "%s" without errors',
-        (state) => {
-            const { container } = render(<Attachment state={state} />);
-            expect(
-                container.querySelector('[data-slot="attachment"]'),
-            ).toHaveAttribute('data-state', state);
-        },
-    );
+        'idle',
+        'uploading',
+        'processing',
+        'error',
+        'done',
+    ])('renders state "%s" without errors', (state) => {
+        const { container } = render(<Attachment state={state} />);
+        expect(
+            container.querySelector('[data-slot="attachment"]'),
+        ).toHaveAttribute('data-state', state);
+    });
 
     it.each<'default' | 'sm' | 'xs'>(['default', 'sm', 'xs'])(
         'renders size "%s" without errors',
@@ -84,7 +82,9 @@ describe('Attachment primitive', () => {
     it.each<'horizontal' | 'vertical'>(['horizontal', 'vertical'])(
         'renders orientation "%s" without errors',
         (orientation) => {
-            const { container } = render(<Attachment orientation={orientation} />);
+            const { container } = render(
+                <Attachment orientation={orientation} />,
+            );
             expect(
                 container.querySelector('[data-slot="attachment"]'),
             ).toHaveAttribute('data-orientation', orientation);
@@ -115,7 +115,11 @@ describe('AttachmentMedia', () => {
     });
 
     it('renders children', () => {
-        render(<AttachmentMedia><span data-testid="icon" /></AttachmentMedia>);
+        render(
+            <AttachmentMedia>
+                <span data-testid="icon" />
+            </AttachmentMedia>,
+        );
         expect(screen.getByTestId('icon')).toBeInTheDocument();
     });
 });
@@ -131,7 +135,9 @@ describe('AttachmentContent', () => {
 
 describe('AttachmentTitle', () => {
     it('has data-slot="attachment-title"', () => {
-        const { container } = render(<AttachmentTitle>file.pdf</AttachmentTitle>);
+        const { container } = render(
+            <AttachmentTitle>file.pdf</AttachmentTitle>,
+        );
         expect(
             container.querySelector('[data-slot="attachment-title"]'),
         ).toBeInTheDocument();
@@ -173,7 +179,9 @@ describe('AttachmentActions', () => {
                 <button>Delete</button>
             </AttachmentActions>,
         );
-        expect(screen.getByRole('button', { name: 'Delete' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Delete' }),
+        ).toBeInTheDocument();
     });
 });
 
@@ -187,7 +195,9 @@ describe('AttachmentAction', () => {
 
     it('renders as a button', () => {
         render(<AttachmentAction>Delete</AttachmentAction>);
-        expect(screen.getByRole('button', { name: 'Delete' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Delete' }),
+        ).toBeInTheDocument();
     });
 
     it('calls onClick when clicked', async () => {
@@ -238,7 +248,9 @@ describe('AttachmentWrapper', () => {
     });
 
     it('renders description when provided', () => {
-        render(<AttachmentWrapper name="file.pdf" description="2.4 MB · PDF" />);
+        render(
+            <AttachmentWrapper name="file.pdf" description="2.4 MB · PDF" />,
+        );
         expect(screen.getByText('2.4 MB · PDF')).toBeInTheDocument();
     });
 
@@ -281,14 +293,20 @@ describe('AttachmentWrapper', () => {
                 imageAlt="A photo"
             />,
         );
-        expect(container.querySelector('img')).toHaveAttribute('alt', 'A photo');
+        expect(container.querySelector('img')).toHaveAttribute(
+            'alt',
+            'A photo',
+        );
     });
 
     it('falls back to name as img alt when imageAlt is omitted', () => {
         const { container } = render(
             <AttachmentWrapper name="photo.jpg" imageSrc="/img/photo.jpg" />,
         );
-        expect(container.querySelector('img')).toHaveAttribute('alt', 'photo.jpg');
+        expect(container.querySelector('img')).toHaveAttribute(
+            'alt',
+            'photo.jpg',
+        );
     });
 
     it('renders actions when provided', () => {
@@ -298,7 +316,9 @@ describe('AttachmentWrapper', () => {
                 actions={<button>Delete</button>}
             />,
         );
-        expect(screen.getByRole('button', { name: 'Delete' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: 'Delete' }),
+        ).toBeInTheDocument();
     });
 
     it('does not render AttachmentActions when actions is omitted', () => {
@@ -338,7 +358,9 @@ describe('AttachmentWrapper', () => {
         const { container } = render(
             <AttachmentWrapper name="file.pdf" href="/files/doc.pdf" />,
         );
-        const trigger = container.querySelector('[data-slot="attachment-trigger"]');
+        const trigger = container.querySelector(
+            '[data-slot="attachment-trigger"]',
+        );
         expect(trigger).toBeInTheDocument();
         expect(trigger?.tagName).toBe('A');
         expect(trigger).toHaveAttribute('href', '/files/doc.pdf');
@@ -375,8 +397,8 @@ describe('AttachmentWrapper', () => {
         const { container } = render(
             <AttachmentWrapper name="file.pdf" className="my-class" />,
         );
-        expect(
-            container.querySelector('[data-slot="attachment"]'),
-        ).toHaveClass('my-class');
+        expect(container.querySelector('[data-slot="attachment"]')).toHaveClass(
+            'my-class',
+        );
     });
 });

@@ -2,9 +2,12 @@
 
 import { Check, Clock, FileText, FileWarning } from 'lucide-react';
 import type { FC } from 'react';
-import { Skeleton } from '../Skeleton/components';
-import { Spinner } from '../Spinner/components';
-import type { AttachmentState, AttachmentWrapperProps } from './attachment.types';
+import Skeleton from '../Skeleton';
+import Spinner from '../Spinner';
+import type {
+    AttachmentState,
+    AttachmentWrapperProps,
+} from './attachment.types';
 import {
     Attachment,
     AttachmentActions,

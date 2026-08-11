@@ -1,8 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { TooltipProvider } from '../Tooltip/components';
-import {
-    Sidebar,
+import Sidebar, {
     SidebarContent,
     SidebarFooter,
     SidebarGroup,
@@ -26,7 +24,8 @@ import {
     SidebarSeparator,
     SidebarTrigger,
     useSidebar,
-} from './components';
+} from '.';
+import { TooltipProvider } from '../Tooltip/components';
 
 function renderWithProvider(ui: React.ReactNode) {
     return render(

@@ -4,7 +4,7 @@ import MessageWrapper from '.';
 import AttachmentWrapper from '../Attachment';
 import Button from '../Button';
 import MarkerWrapper from '../Marker';
-import { Spinner } from '../Spinner/components';
+import Spinner from '../Spinner';
 import { MessageGroup } from './components';
 
 const meta: Meta<typeof MessageWrapper> = {

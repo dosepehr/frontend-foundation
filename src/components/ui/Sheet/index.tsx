@@ -13,7 +13,7 @@ import {
 } from './components';
 import type { SheetWrapperProps } from './sheet.types';
 
-function SheetWrapper({
+const SheetWrapper = ({
     trigger,
     title,
     description,
@@ -24,7 +24,7 @@ function SheetWrapper({
     onOpenChange,
     showCloseButton = true,
     contentClassName,
-}: SheetWrapperProps) {
+}: SheetWrapperProps) => {
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
             {trigger && <SheetTrigger asChild>{trigger}</SheetTrigger>}
@@ -57,6 +57,6 @@ function SheetWrapper({
             </SheetContent>
         </Sheet>
     );
-}
+};
 
 export default SheetWrapper;

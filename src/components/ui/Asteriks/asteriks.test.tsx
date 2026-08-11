@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Asteriks } from './components';
+import Asteriks from '.';
 
 describe('Asteriks', () => {
     it('renders an asterisk character', () => {

@@ -56,13 +56,13 @@ const thumbVariants = cva(
     },
 );
 
-function Slider({
+const Slider = ({
     className,
     variant,
     defaultValue,
     ...props
 }: React.ComponentProps<typeof SliderPrimitive.Root> &
-    VariantProps<typeof rangeVariants>) {
+    VariantProps<typeof rangeVariants>) => {
     const thumbCount = (defaultValue ?? props.value ?? [0]).length;
 
     return (
@@ -95,6 +95,6 @@ function Slider({
             ))}
         </SliderPrimitive.Root>
     );
-}
+};
 
-export { Slider };
+export default Slider;

@@ -52,7 +52,7 @@ const mediaVariants = cva(
     },
 );
 
-function Item({
+const Item = ({
     variant = 'ghost',
     size = 'default',
     active = false,
@@ -61,7 +61,7 @@ function Item({
     className,
     onClick,
     ...props
-}: ItemProps) {
+}: ItemProps) => {
     const isInteractive = !!onClick || asChild;
     const Comp = asChild ? Slot.Root : 'div';
 
@@ -90,9 +90,13 @@ function Item({
             {...props}
         />
     );
-}
+};
 
-function ItemMedia({ variant = 'icon', className, ...props }: ItemMediaProps) {
+const ItemMedia = ({
+    variant = 'icon',
+    className,
+    ...props
+}: ItemMediaProps) => {
     return (
         <div
             data-slot="item-media"
@@ -101,9 +105,9 @@ function ItemMedia({ variant = 'icon', className, ...props }: ItemMediaProps) {
             {...props}
         />
     );
-}
+};
 
-function ItemContent({ className, ...props }: ItemContentProps) {
+const ItemContent = ({ className, ...props }: ItemContentProps) => {
     return (
         <div
             data-slot="item-content"
@@ -111,9 +115,9 @@ function ItemContent({ className, ...props }: ItemContentProps) {
             {...props}
         />
     );
-}
+};
 
-function ItemTitle({ className, ...props }: ItemTitleProps) {
+const ItemTitle = ({ className, ...props }: ItemTitleProps) => {
     return (
         <div
             data-slot="item-title"
@@ -124,9 +128,9 @@ function ItemTitle({ className, ...props }: ItemTitleProps) {
             {...props}
         />
     );
-}
+};
 
-function ItemDescription({ className, ...props }: ItemDescriptionProps) {
+const ItemDescription = ({ className, ...props }: ItemDescriptionProps) => {
     return (
         <div
             data-slot="item-description"
@@ -137,9 +141,9 @@ function ItemDescription({ className, ...props }: ItemDescriptionProps) {
             {...props}
         />
     );
-}
+};
 
-function ItemEnd({ className, ...props }: ItemEndProps) {
+const ItemEnd = ({ className, ...props }: ItemEndProps) => {
     return (
         <div
             data-slot="item-end"
@@ -150,6 +154,6 @@ function ItemEnd({ className, ...props }: ItemEndProps) {
             {...props}
         />
     );
-}
+};
 
 export { Item, ItemContent, ItemDescription, ItemEnd, ItemMedia, ItemTitle };

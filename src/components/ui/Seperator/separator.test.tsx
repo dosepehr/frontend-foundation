@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Separator } from './components';
+import Separator from '.';
 
 describe('Separator', () => {
     it('renders with data-slot="separator"', () => {

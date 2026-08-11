@@ -2,7 +2,7 @@
 
 import { ArrowRightCircle } from 'lucide-react';
 import type { FC } from 'react';
-import { Spinner } from '../Spinner/components';
+import Spinner from '../Spinner';
 import type { ButtonWrapperProps } from './button.types';
 import { Button as ButtonComponent } from './components';
 

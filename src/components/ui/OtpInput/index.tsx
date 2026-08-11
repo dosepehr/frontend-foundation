@@ -6,7 +6,7 @@ import { cn } from '@/src/utils/funcs/cn';
 import { OTPInput, OTPInputContext } from 'input-otp';
 import * as React from 'react';
 import { useId } from 'react';
-import { Field, FieldError, FieldLabel } from '../Field/components';
+import Field, { FieldError, FieldLabel } from '../Field';
 
 // ── Digit normalization ────────────────────────────────────────────────────────
 
@@ -28,7 +28,7 @@ const OtpContext = React.createContext<OtpCtx>({
 
 // ── Slot ──────────────────────────────────────────────────────────────────────
 
-function OtpSlot({ index }: { index: number }) {
+const OtpSlot = ({ index }: { index: number }) => {
     const { isInvalid, separated } = React.useContext(OtpContext);
     /* c8 ignore next */
     const { char, hasFakeCaret, isActive } =
@@ -62,13 +62,13 @@ function OtpSlot({ index }: { index: number }) {
             )}
         </div>
     );
-}
+};
 
 // ── Main Component ─────────────────────────────────────────────────────────────
 
 import type { OtpInputProps } from './otp-input.types';
 
-export const OtpInput = ({
+const OtpInput = ({
     length = 6,
     value,
     onChange,
@@ -124,3 +124,5 @@ export const OtpInput = ({
         </Field>
     );
 };
+
+export default OtpInput;

@@ -12,7 +12,7 @@ import type {
     MessageProps,
 } from './message.types';
 
-function MessageGroup({ className, ...props }: MessageGroupProps) {
+const MessageGroup = ({ className, ...props }: MessageGroupProps) => {
     return (
         <div
             data-slot="message-group"
@@ -20,9 +20,9 @@ function MessageGroup({ className, ...props }: MessageGroupProps) {
             {...props}
         />
     );
-}
+};
 
-function Message({ align = 'start', className, ...props }: MessageProps) {
+const Message = ({ align = 'start', className, ...props }: MessageProps) => {
     return (
         <div
             data-slot="message"
@@ -34,9 +34,9 @@ function Message({ align = 'start', className, ...props }: MessageProps) {
             {...props}
         />
     );
-}
+};
 
-function MessageAvatar({ className, ...props }: MessageAvatarProps) {
+const MessageAvatar = ({ className, ...props }: MessageAvatarProps) => {
     return (
         <div
             data-slot="message-avatar"
@@ -47,9 +47,9 @@ function MessageAvatar({ className, ...props }: MessageAvatarProps) {
             {...props}
         />
     );
-}
+};
 
-function MessageContent({ className, ...props }: MessageContentProps) {
+const MessageContent = ({ className, ...props }: MessageContentProps) => {
     return (
         <div
             data-slot="message-content"
@@ -60,9 +60,9 @@ function MessageContent({ className, ...props }: MessageContentProps) {
             {...props}
         />
     );
-}
+};
 
-function MessageHeader({ className, ...props }: MessageHeaderProps) {
+const MessageHeader = ({ className, ...props }: MessageHeaderProps) => {
     return (
         <div
             data-slot="message-header"
@@ -73,9 +73,9 @@ function MessageHeader({ className, ...props }: MessageHeaderProps) {
             {...props}
         />
     );
-}
+};
 
-function MessageFooter({ className, ...props }: MessageFooterProps) {
+const MessageFooter = ({ className, ...props }: MessageFooterProps) => {
     return (
         <div
             data-slot="message-footer"
@@ -86,7 +86,7 @@ function MessageFooter({ className, ...props }: MessageFooterProps) {
             {...props}
         />
     );
-}
+};
 
 export {
     Message,

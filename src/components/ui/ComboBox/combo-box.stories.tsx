@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import React, { useState } from 'react';
+import ComboBox from '.';
 import { type ComboBoxOption } from './combo-box.types';
-import { ComboBox } from './components';
 
 const FRUITS: ComboBoxOption[] = [
     { value: 'apple', label: 'Apple' },

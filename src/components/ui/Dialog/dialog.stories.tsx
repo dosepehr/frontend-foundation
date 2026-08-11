@@ -4,7 +4,7 @@ import * as React from 'react';
 import DialogWrapper from '.';
 import { Button } from '../Button/components';
 import { InputComponent as Input } from '../Input/components';
-import { Label } from '../Label/components';
+import Label from '../Label';
 import type { DialogMaxWidth } from './dialog.types';
 
 const meta: Meta<typeof DialogWrapper> = {

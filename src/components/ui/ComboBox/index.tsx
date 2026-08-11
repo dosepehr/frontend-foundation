@@ -7,18 +7,17 @@ import { CheckIcon, ChevronDown } from 'lucide-react';
 import type { ReactNode } from 'react';
 import * as React from 'react';
 import { useId } from 'react';
-import {
-    Command,
+import Command, {
     CommandGroup,
     CommandInput,
     CommandItem,
     CommandList,
-} from '../Command/components';
-import { Field, FieldError, FieldLabel } from '../Field/components';
-import { Popover, PopoverContent, PopoverTrigger } from '../Popover/components';
+} from '../Command';
+import Field, { FieldError, FieldLabel } from '../Field';
+import Popover, { PopoverContent, PopoverTrigger } from '../Popover';
 import type { ComboBoxProps } from './combo-box.types';
 
-export const ComboBox: React.FC<ComboBoxProps> = ({
+const ComboBox: React.FC<ComboBoxProps> = ({
     options,
     value,
     placeholder = 'Select an option',
@@ -182,3 +181,5 @@ export const ComboBox: React.FC<ComboBoxProps> = ({
         </Field>
     );
 };
+
+export default ComboBox;

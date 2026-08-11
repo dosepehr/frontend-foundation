@@ -2,7 +2,6 @@
 'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/src/utils/funcs/cn';
 import {
     ChevronRightIcon,
     FileIcon,
@@ -10,20 +9,19 @@ import {
     FolderOpenIcon,
 } from 'lucide-react';
 import * as React from 'react';
-import {
-    Collapsible,
+import Collapsible, {
     CollapsibleContent,
     CollapsibleTrigger,
-} from '../Collapsible/components';
-import { type FileTreeItem, type FileTreeProps } from './file-tree.types';
+} from '../Collapsible';
+import { type FileTreeItem } from './file-tree.types';
 
-function FolderNode({
+const FolderNode = ({
     item,
     depth,
 }: {
     item: FileTreeItem & { items: FileTreeItem[] };
     depth: number;
-}) {
+}) => {
     const [open, setOpen] = React.useState(depth === 0);
     const indent = depth * 12;
 
@@ -57,15 +55,15 @@ function FolderNode({
             </CollapsibleContent>
         </Collapsible>
     );
-}
+};
 
-function FileTreeNode({
+const FileTreeNode = ({
     item,
     depth = 0,
 }: {
     item: FileTreeItem;
     depth?: number;
-}) {
+}) => {
     if ('items' in item) {
         return <FolderNode item={item} depth={depth} />;
     }
@@ -81,16 +79,6 @@ function FileTreeNode({
             <span className="truncate">{item.name}</span>
         </button>
     );
-}
+};
 
-function FileTree({ items, className }: FileTreeProps) {
-    return (
-        <div className={cn('flex flex-col', className)}>
-            {items.map((item, i) => (
-                <FileTreeNode key={`${item.name}-${i}`} item={item} />
-            ))}
-        </div>
-    );
-}
-
-export { FileTree, FileTreeNode };
+export { FileTreeNode };

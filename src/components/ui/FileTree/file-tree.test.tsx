@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { FileTree } from './components';
+import FileTree from '.';
 import type { FileTreeItem } from './file-tree.types';
 
 const ITEMS: FileTreeItem[] = [

@@ -19,7 +19,7 @@ const dndVariants = cva(
     },
 );
 
-function DndZone({
+const DndZone = ({
     className,
     size,
     dragging,
@@ -31,7 +31,7 @@ function DndZone({
         dragging?: boolean;
         disabled?: boolean;
         invalid?: boolean;
-    }) {
+    }) => {
     return (
         <div
             data-slot="dnd-zone"
@@ -42,9 +42,9 @@ function DndZone({
             {...props}
         />
     );
-}
+};
 
-function DndInput({ className, ...props }: React.ComponentProps<'input'>) {
+const DndInput = ({ className, ...props }: React.ComponentProps<'input'>) => {
     return (
         <input
             data-slot="dnd-input"
@@ -53,9 +53,9 @@ function DndInput({ className, ...props }: React.ComponentProps<'input'>) {
             {...props}
         />
     );
-}
+};
 
-function DndList({ className, ...props }: React.ComponentProps<'div'>) {
+const DndList = ({ className, ...props }: React.ComponentProps<'div'>) => {
     return (
         <div
             data-slot="dnd-list"
@@ -66,9 +66,9 @@ function DndList({ className, ...props }: React.ComponentProps<'div'>) {
             {...props}
         />
     );
-}
+};
 
-function DndFooter({ className, ...props }: React.ComponentProps<'div'>) {
+const DndFooter = ({ className, ...props }: React.ComponentProps<'div'>) => {
     return (
         <div
             data-slot="dnd-footer"
@@ -79,13 +79,13 @@ function DndFooter({ className, ...props }: React.ComponentProps<'div'>) {
             {...props}
         />
     );
-}
+};
 
-function DndPreview({
+const DndPreview = ({
     className,
     invalid,
     ...props
-}: React.ComponentProps<'div'> & { invalid?: boolean }) {
+}: React.ComponentProps<'div'> & { invalid?: boolean }) => {
     return (
         <div
             data-slot="dnd-preview"
@@ -97,9 +97,12 @@ function DndPreview({
             {...props}
         />
     );
-}
+};
 
-function DndPreviewMedia({ className, ...props }: React.ComponentProps<'div'>) {
+const DndPreviewMedia = ({
+    className,
+    ...props
+}: React.ComponentProps<'div'>) => {
     return (
         <div
             data-slot="dnd-preview-media"
@@ -110,12 +113,12 @@ function DndPreviewMedia({ className, ...props }: React.ComponentProps<'div'>) {
             {...props}
         />
     );
-}
+};
 
-function DndPreviewFooter({
+const DndPreviewFooter = ({
     className,
     ...props
-}: React.ComponentProps<'div'>) {
+}: React.ComponentProps<'div'>) => {
     return (
         <div
             data-slot="dnd-preview-footer"
@@ -126,7 +129,7 @@ function DndPreviewFooter({
             {...props}
         />
     );
-}
+};
 
 export {
     DndFooter,

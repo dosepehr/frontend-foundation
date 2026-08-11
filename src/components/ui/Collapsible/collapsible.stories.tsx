@@ -1,12 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { ChevronRightIcon, ChevronsUpDownIcon } from 'lucide-react';
 import * as React from 'react';
+import Collapsible, { CollapsibleContent, CollapsibleTrigger } from '.';
 import Button from '../Button';
-import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from './components';
 
 const meta = {
     title: 'UI/Collapsible',

@@ -14,7 +14,7 @@ import {
 } from './components';
 import type { DrawerWrapperProps } from './drawer.types';
 
-function DrawerWrapper({
+const DrawerWrapper = ({
     trigger,
     triggerChildren,
     title,
@@ -30,7 +30,7 @@ function DrawerWrapper({
     titleClassName,
     descriptionClassName,
     ...props
-}: DrawerWrapperProps) {
+}: DrawerWrapperProps) => {
     return (
         <Drawer {...props}>
             {trigger && (
@@ -71,7 +71,7 @@ function DrawerWrapper({
             </DrawerContent>
         </Drawer>
     );
-}
+};
 
 export default DrawerWrapper;
 export { DrawerClose };

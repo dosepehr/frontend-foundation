@@ -13,12 +13,7 @@ import {
 import AlertDialogWrapper from '../AlertDialog';
 import AttachmentWrapper from '../Attachment';
 import { AttachmentAction } from '../Attachment/components';
-import {
-    Field,
-    FieldDescription,
-    FieldError,
-    FieldLabel,
-} from '../Field/components';
+import Field, { FieldDescription, FieldError, FieldLabel } from '../Field';
 import {
     DndFooter,
     DndInput,
@@ -30,7 +25,7 @@ import {
 } from './components';
 import type { DndFile, DndWrapperProps } from './dnd.types';
 
-function DndWrapper({
+const DndWrapper = ({
     value,
     onChange = () => {},
     onRemove,
@@ -50,7 +45,7 @@ function DndWrapper({
     confirmRemoveDescription = 'Are you sure you want to remove this file?',
     placeholder,
     className,
-}: DndWrapperProps) {
+}: DndWrapperProps) => {
     const [internalFiles, setInternalFiles] = React.useState<DndFile[]>([]);
     const [dragging, setDragging] = React.useState(false);
     const [pendingRemoveId, setPendingRemoveId] = React.useState<string | null>(
@@ -345,7 +340,7 @@ function DndWrapper({
             />
         </Field>
     );
-}
+};
 
 export default DndWrapper;
 export type { DndFile, DndRejection, DndWrapperProps } from './dnd.types';

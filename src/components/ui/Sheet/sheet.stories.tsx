@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import SheetWrapper from '.';
 import Button from '../Button';
 import { InputComponent as Input } from '../Input/components';
-import { Label } from '../Label/components';
+import Label from '../Label';
 
 const meta = {
     title: 'UI/Sheet',

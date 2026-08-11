@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import * as React from 'react';
-import {
-    Pagination,
+import Pagination, {
     PaginationContent,
     PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-} from './components';
+} from '.';
 
 const meta = {
     title: 'UI/Pagination',

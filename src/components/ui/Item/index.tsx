@@ -10,7 +10,7 @@ import {
 } from './components';
 import type { ItemWrapperProps } from './item.types';
 
-function ItemWrapper({
+const ItemWrapper = ({
     title,
     description,
     media,
@@ -18,7 +18,7 @@ function ItemWrapper({
     end,
     children,
     ...props
-}: ItemWrapperProps) {
+}: ItemWrapperProps) => {
     return (
         <Item {...props}>
             {media && <ItemMedia variant={mediaVariant}>{media}</ItemMedia>}
@@ -34,6 +34,6 @@ function ItemWrapper({
             {end && <ItemEnd>{end}</ItemEnd>}
         </Item>
     );
-}
+};
 
 export default ItemWrapper;

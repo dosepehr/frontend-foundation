@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { FileTree } from './components';
+import FileTree from '.';
 import { type FileTreeItem } from './file-tree.types';
 
 const meta = {

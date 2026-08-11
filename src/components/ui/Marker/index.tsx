@@ -5,7 +5,7 @@ import { cloneElement } from 'react';
 import { Marker, MarkerContent, MarkerIcon } from './components';
 import type { MarkerWrapperProps } from './marker.types';
 
-function MarkerWrapper({
+const MarkerWrapper = ({
     variant = 'default',
     icon,
     children,
@@ -14,7 +14,7 @@ function MarkerWrapper({
     shimmer = false,
     render,
     ...props
-}: MarkerWrapperProps) {
+}: MarkerWrapperProps) => {
     const content = (
         <>
             {icon && <MarkerIcon className={iconClassName}>{icon}</MarkerIcon>}
@@ -41,6 +41,6 @@ function MarkerWrapper({
             {content}
         </Marker>
     );
-}
+};
 
 export default MarkerWrapper;

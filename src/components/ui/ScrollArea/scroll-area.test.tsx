@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { ScrollArea, ScrollBar } from './components';
+import ScrollArea, { ScrollBar } from '.';
 
 describe('ScrollArea', () => {
     it('renders data-slot="scroll-area"', () => {

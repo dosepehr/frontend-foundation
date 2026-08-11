@@ -8,16 +8,15 @@ import {
     UserIcon,
 } from 'lucide-react';
 import * as React from 'react';
-import Button from '../Button';
-import {
-    Command,
+import Command, {
     CommandDialog,
     CommandEmpty,
     CommandGroup,
     CommandInput,
     CommandItem,
     CommandList,
-} from './components';
+} from '.';
+import Button from '../Button';
 
 const meta: Meta<typeof Command> = {
     title: 'UI/Command',
@@ -363,4 +362,3 @@ export const Dialog: Story = {
         );
     },
 };
-

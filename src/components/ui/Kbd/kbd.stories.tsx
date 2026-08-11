@@ -7,7 +7,7 @@ import {
     CommandIcon,
     DeleteIcon,
 } from 'lucide-react';
-import { Kbd, KbdGroup } from './components';
+import Kbd, { KbdGroup } from '.';
 
 const meta: Meta<typeof Kbd> = {
     title: 'UI/Kbd',

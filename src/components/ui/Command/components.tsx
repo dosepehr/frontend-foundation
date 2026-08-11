@@ -19,7 +19,9 @@ interface CommandContextValue {
     listRef: React.RefObject<HTMLDivElement | null>;
 }
 
-const CommandContext = React.createContext<CommandContextValue | null>(null);
+export const CommandContext = React.createContext<CommandContextValue | null>(
+    null,
+);
 
 function useCommandContext() {
     const ctx = React.useContext(CommandContext);
@@ -28,53 +30,7 @@ function useCommandContext() {
     return ctx;
 }
 
-function Command({
-    children,
-    shouldFilter = true,
-    className,
-    onSearchChange,
-    ...props
-}: React.HTMLAttributes<HTMLDivElement> & {
-    shouldFilter?: boolean;
-    onSearchChange?: (val: string) => void;
-}) {
-    const [search, setSearch] = React.useState('');
-    const listRef = React.useRef<HTMLDivElement | null>(null);
-
-    const handleSetSearch: React.Dispatch<React.SetStateAction<string>> =
-        React.useCallback(
-            (val) => {
-                /* c8 ignore next */
-                const next = typeof val === 'function' ? val(search) : val;
-                setSearch(next);
-                onSearchChange?.(next);
-            },
-            [search, onSearchChange],
-        );
-
-    return (
-        <CommandContext.Provider
-            value={{
-                search,
-                setSearch: handleSetSearch,
-                shouldFilter,
-                listRef,
-            }}
-        >
-            <div
-                className={cn(
-                    'flex flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',
-                    className,
-                )}
-                {...props}
-            >
-                {children}
-            </div>
-        </CommandContext.Provider>
-    );
-}
-
-function CommandInput({
+const CommandInput = ({
     className,
     placeholder,
     value,
@@ -82,7 +38,7 @@ function CommandInput({
     ...props
 }: Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {
     onValueChange?: (val: string) => void;
-}) {
+}) => {
     const { search, setSearch } = useCommandContext();
     const isControlled = value !== undefined;
     const inputValue = isControlled ? (value as string) : search;
@@ -106,26 +62,26 @@ function CommandInput({
             />
         </div>
     );
-}
+};
 
-function CommandList({
+const CommandList = ({
     children,
     className,
     ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: React.HTMLAttributes<HTMLDivElement>) => {
     const { listRef } = useCommandContext();
     return (
         <div ref={listRef} className={cn(className)} {...props}>
             {children}
         </div>
     );
-}
+};
 
-function CommandEmpty({
+const CommandEmpty = ({
     children,
     className,
     ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: React.HTMLAttributes<HTMLDivElement>) => {
     const { listRef } = useCommandContext();
     const [isEmpty, setIsEmpty] = React.useState(false);
 
@@ -152,13 +108,13 @@ function CommandEmpty({
             {children}
         </div>
     );
-}
+};
 
-function CommandGroup({
+const CommandGroup = ({
     children,
     className,
     ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: React.HTMLAttributes<HTMLDivElement>) => {
     return (
         <div
             className={cn('overflow-hidden p-1', className)}
@@ -168,9 +124,9 @@ function CommandGroup({
             {children}
         </div>
     );
-}
+};
 
-function CommandItem({
+const CommandItem = ({
     children,
     value = '',
     keywords = [],
@@ -183,7 +139,7 @@ function CommandItem({
     keywords?: string[];
     onSelect?: (value: string) => void;
     dir?: string;
-}) {
+}) => {
     const { search, shouldFilter } = useCommandContext();
 
     const isVisible = React.useMemo(() => {
@@ -213,9 +169,9 @@ function CommandItem({
             {children}
         </div>
     );
-}
+};
 
-function CommandDialog({
+const CommandDialog = ({
     title = 'Command Palette',
     description = 'Search for a command to run...',
     children,
@@ -225,7 +181,7 @@ function CommandDialog({
     title?: string;
     description?: string;
     className?: string;
-}) {
+}) => {
     return (
         <Dialog {...props}>
             <DialogContent className={cn('overflow-hidden p-0', className)}>
@@ -237,10 +193,9 @@ function CommandDialog({
             </DialogContent>
         </Dialog>
     );
-}
+};
 
 export {
-    Command,
     CommandDialog,
     CommandEmpty,
     CommandGroup,

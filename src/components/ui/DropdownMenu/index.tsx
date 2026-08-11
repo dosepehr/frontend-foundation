@@ -25,7 +25,7 @@ import type {
     DropdownMenuWrapperProps,
 } from './dropdown-menu.types';
 
-function RenderItem({ item }: { item: DropdownItem }) {
+const RenderItem = ({ item }: { item: DropdownItem }) => {
     if (item.type === 'radio-group') {
         return (
             <DropdownMenuRadioGroup
@@ -87,9 +87,9 @@ function RenderItem({ item }: { item: DropdownItem }) {
             )}
         </DropdownMenuItem>
     );
-}
+};
 
-function RenderGroups({ groups }: { groups: DropdownGroup[] }) {
+const RenderGroups = ({ groups }: { groups: DropdownGroup[] }) => {
     return (
         <>
             {groups.map((group, gi) => (
@@ -107,15 +107,15 @@ function RenderGroups({ groups }: { groups: DropdownGroup[] }) {
             ))}
         </>
     );
-}
+};
 
-function DropdownMenuWrapper({
+const DropdownMenuWrapper = ({
     trigger,
     groups,
     contentClassName,
     align = 'start',
     side = 'bottom',
-}: DropdownMenuWrapperProps) {
+}: DropdownMenuWrapperProps) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
@@ -128,6 +128,6 @@ function DropdownMenuWrapper({
             </DropdownMenuContent>
         </DropdownMenu>
     );
-}
+};
 
 export default DropdownMenuWrapper;

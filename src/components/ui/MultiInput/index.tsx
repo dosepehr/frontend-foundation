@@ -5,11 +5,11 @@
 import { cn } from '@/src/utils/funcs/cn';
 import { Plus, X } from 'lucide-react';
 import { useId, useState, type KeyboardEvent } from 'react';
-import { Badge } from '../Badge/components';
-import { Field, FieldError, FieldLabel } from '../Field/components';
+import Badge from '../Badge';
+import Field, { FieldError, FieldLabel } from '../Field';
 import type { MultiInputProps } from './multi-input.types';
 
-export const MultiInput = ({
+const MultiInput = ({
     value = [],
     onChange,
     label,
@@ -102,3 +102,5 @@ export const MultiInput = ({
         </Field>
     );
 };
+
+export default MultiInput;

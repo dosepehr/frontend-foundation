@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Toaster } from './components';
+import Toaster from '.';
 
 vi.mock('next-themes', () => ({
     useTheme: () => ({ theme: 'light' }),

@@ -47,16 +47,12 @@ const tabsTriggerVariants = cva(
     },
 );
 
-function Tabs({ ...props }: React.ComponentProps<typeof TabsPrimitive.Root>) {
-    return <TabsPrimitive.Root data-slot="tabs" {...props} />;
-}
-
-function TabsList({
+const TabsList = ({
     className,
     variant,
     ...props
 }: React.ComponentProps<typeof TabsPrimitive.List> &
-    VariantProps<typeof tabsListVariants>) {
+    VariantProps<typeof tabsListVariants>) => {
     return (
         <TabsPrimitive.List
             data-slot="tabs-list"
@@ -65,14 +61,14 @@ function TabsList({
             {...props}
         />
     );
-}
+};
 
-function TabsTrigger({
+const TabsTrigger = ({
     className,
     variant,
     ...props
 }: React.ComponentProps<typeof TabsPrimitive.Trigger> &
-    VariantProps<typeof tabsTriggerVariants>) {
+    VariantProps<typeof tabsTriggerVariants>) => {
     return (
         <TabsPrimitive.Trigger
             data-slot="tabs-trigger"
@@ -80,12 +76,12 @@ function TabsTrigger({
             {...props}
         />
     );
-}
+};
 
-function TabsContent({
+const TabsContent = ({
     className,
     ...props
-}: React.ComponentProps<typeof TabsPrimitive.Content>) {
+}: React.ComponentProps<typeof TabsPrimitive.Content>) => {
     return (
         <TabsPrimitive.Content
             data-slot="tabs-content"
@@ -93,10 +89,9 @@ function TabsContent({
             {...props}
         />
     );
-}
+};
 
 export {
-    Tabs,
     TabsContent,
     TabsList,
     tabsListVariants,

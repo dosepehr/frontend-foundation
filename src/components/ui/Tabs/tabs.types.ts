@@ -1,7 +1,7 @@
 import type { VariantProps } from 'class-variance-authority';
 import type { Tabs as TabsPrimitive } from 'radix-ui';
 import type * as React from 'react';
-import type { tabsListVariants, tabsTriggerVariants } from './components';
+import type { tabsListVariants, tabsTriggerVariants } from '.';
 
 export type TabsListProps = React.ComponentProps<typeof TabsPrimitive.List> &
     VariantProps<typeof tabsListVariants>;

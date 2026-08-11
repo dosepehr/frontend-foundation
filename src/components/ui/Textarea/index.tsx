@@ -1,23 +1,18 @@
 'use client';
 
 import { useId } from 'react';
-import {
-    Field,
-    FieldDescription,
-    FieldError,
-    FieldLabel,
-} from '../Field/components';
+import Field, { FieldDescription, FieldError, FieldLabel } from '../Field';
 import { Textarea } from './components';
 import type { TextareaWrapperProps } from './textarea.types';
 
-function TextareaWrapper({
+const TextareaWrapper = ({
     label,
     description,
     error,
     required,
     id,
     ...props
-}: TextareaWrapperProps) {
+}: TextareaWrapperProps) => {
     const generatedId = useId();
     const textareaId = id ?? generatedId;
 
@@ -48,6 +43,6 @@ function TextareaWrapper({
             {error && <FieldError>{error}</FieldError>}
         </Field>
     );
-}
+};
 
 export default TextareaWrapper;

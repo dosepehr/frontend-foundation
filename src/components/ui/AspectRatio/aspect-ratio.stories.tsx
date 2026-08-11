@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import Image from 'next/image';
-import { AspectRatio } from './components';
+import AspectRatio from '.';
 const meta: Meta<typeof AspectRatio> = {
     title: 'UI/AspectRatio',
     component: AspectRatio,

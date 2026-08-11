@@ -11,7 +11,7 @@ import {
 } from './components';
 import type { MessageWrapperProps } from './message.types';
 
-function MessageWrapper({
+const MessageWrapper = ({
     align = 'start',
     avatar,
     avatarSrc,
@@ -31,7 +31,7 @@ function MessageWrapper({
     headerClassName,
     footerClassName,
     ...props
-}: MessageWrapperProps) {
+}: MessageWrapperProps) => {
     const avatarContent =
         avatar ??
         (avatarFallback !== undefined ? (
@@ -76,6 +76,6 @@ function MessageWrapper({
             </MessageContent>
         </Message>
     );
-}
+};
 
 export default MessageWrapper;

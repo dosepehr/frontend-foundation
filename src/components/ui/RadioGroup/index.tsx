@@ -3,8 +3,8 @@
 import { cn } from '@/src/utils/funcs/cn';
 import type { FC } from 'react';
 import { useId } from 'react';
-import { Asteriks } from '../Asteriks/components';
-import { Label } from '../Label/components';
+import Asteriks from '../Asteriks';
+import Label from '../Label';
 import {
     RadioGroup,
     RadioGroupItem,

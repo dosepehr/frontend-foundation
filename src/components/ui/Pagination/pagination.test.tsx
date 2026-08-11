@@ -1,13 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import {
-    Pagination,
+import Pagination, {
     PaginationContent,
     PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-} from './components';
+} from '.';
 
 describe('Pagination', () => {
     it('renders without errors', () => {

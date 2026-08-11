@@ -6,7 +6,7 @@ import { cn } from '@/src/utils/funcs/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { CheckIcon } from 'lucide-react';
 import { Checkbox as CheckboxPrimitive } from 'radix-ui';
-import { Label } from '../Label/components';
+import Label from '../Label';
 import type { CheckboxProps } from './checkbox.types';
 
 export const checkboxVariants = cva(
@@ -59,14 +59,14 @@ export const checkboxWrapperVariants = cva(
     },
 );
 
-function Checkbox({
+const Checkbox = ({
     className,
     label,
     id,
     variant,
     required,
     ...props
-}: CheckboxProps) {
+}: CheckboxProps) => {
     return (
         <Label
             className="flex w-fit items-center gap-2 font-normal"
@@ -88,7 +88,7 @@ function Checkbox({
             {label && <span className="text-sm leading-none">{label}</span>}
         </Label>
     );
-}
+};
 
 export { Checkbox };
 export type { VariantProps };

@@ -1,10 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from './components';
+import Collapsible, { CollapsibleContent, CollapsibleTrigger } from '.';
 
 function TestCollapsible({
     defaultOpen = false,

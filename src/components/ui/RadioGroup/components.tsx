@@ -6,7 +6,7 @@ import { cn } from '@/src/utils/funcs/cn';
 import { cva } from 'class-variance-authority';
 import { RadioGroup as RadioGroupPrimitive } from 'radix-ui';
 import * as React from 'react';
-import { Label } from '../Label/components';
+import Label from '../Label';
 import type { RadioGroupItemProps } from './radio-group.types';
 
 export const radioGroupItemVariants = cva(
@@ -53,10 +53,10 @@ export const radioGroupWrapperVariants = cva(
     },
 );
 
-function RadioGroup({
+const RadioGroup = ({
     className,
     ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Root>) {
+}: React.ComponentProps<typeof RadioGroupPrimitive.Root>) => {
     return (
         <RadioGroupPrimitive.Root
             data-slot="radio-group"
@@ -64,15 +64,15 @@ function RadioGroup({
             {...props}
         />
     );
-}
+};
 
-function RadioGroupItem({
+const RadioGroupItem = ({
     className,
     variant,
     label,
     id,
     ...props
-}: RadioGroupItemProps) {
+}: RadioGroupItemProps) => {
     return (
         <Label className="flex w-fit items-center gap-2 font-normal">
             <RadioGroupPrimitive.Item
@@ -91,6 +91,6 @@ function RadioGroupItem({
             {label && <span className="text-sm leading-none">{label}</span>}
         </Label>
     );
-}
+};
 
 export { RadioGroup, RadioGroupItem };

@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import {
-    Field,
+import Field, {
     FieldContent,
     FieldDescription,
     FieldError,
@@ -10,7 +9,7 @@ import {
     FieldSeparator,
     FieldSet,
     FieldTitle,
-} from './components';
+} from '.';
 
 describe('Field', () => {
     it('has data-slot="field"', () => {

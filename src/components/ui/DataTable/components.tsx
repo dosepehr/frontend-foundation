@@ -29,17 +29,16 @@ import { Button } from '../Button/components';
 import { Checkbox } from '../Checkbox/components';
 import EmptyWrapper from '../Empty';
 import InputWrapper from '../Input';
-import {
-    Pagination,
+import Pagination, {
     PaginationContent,
     PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-} from '../Pagination/components';
+} from '../Pagination';
 import SelectWrapper from '../Select';
-import { Skeleton } from '../Skeleton/components';
+import Skeleton from '../Skeleton';
 import type {
     DataTablePaginationProps,
     DataTableRootProps,
@@ -58,7 +57,7 @@ const fadeProps = {
 
 // ── Table primitives ──────────────────────────────────────────────────────────
 
-function Table({ className, ...props }: React.ComponentProps<'table'>) {
+const Table = ({ className, ...props }: React.ComponentProps<'table'>) => {
     return (
         <div
             data-slot="table-container"
@@ -71,9 +70,12 @@ function Table({ className, ...props }: React.ComponentProps<'table'>) {
             />
         </div>
     );
-}
+};
 
-function TableHeader({ className, ...props }: React.ComponentProps<'thead'>) {
+const TableHeader = ({
+    className,
+    ...props
+}: React.ComponentProps<'thead'>) => {
     return (
         <thead
             data-slot="table-header"
@@ -81,9 +83,9 @@ function TableHeader({ className, ...props }: React.ComponentProps<'thead'>) {
             {...props}
         />
     );
-}
+};
 
-function TableBody({ className, ...props }: React.ComponentProps<'tbody'>) {
+const TableBody = ({ className, ...props }: React.ComponentProps<'tbody'>) => {
     return (
         <tbody
             data-slot="table-body"
@@ -91,9 +93,12 @@ function TableBody({ className, ...props }: React.ComponentProps<'tbody'>) {
             {...props}
         />
     );
-}
+};
 
-function TableFooter({ className, ...props }: React.ComponentProps<'tfoot'>) {
+const TableFooter = ({
+    className,
+    ...props
+}: React.ComponentProps<'tfoot'>) => {
     return (
         <tfoot
             data-slot="table-footer"
@@ -104,9 +109,9 @@ function TableFooter({ className, ...props }: React.ComponentProps<'tfoot'>) {
             {...props}
         />
     );
-}
+};
 
-function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
+const TableRow = ({ className, ...props }: React.ComponentProps<'tr'>) => {
     return (
         <tr
             data-slot="table-row"
@@ -117,9 +122,9 @@ function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
             {...props}
         />
     );
-}
+};
 
-function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
+const TableHead = ({ className, ...props }: React.ComponentProps<'th'>) => {
     return (
         <th
             data-slot="table-head"
@@ -130,9 +135,9 @@ function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
             {...props}
         />
     );
-}
+};
 
-function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
+const TableCell = ({ className, ...props }: React.ComponentProps<'td'>) => {
     return (
         <td
             data-slot="table-cell"
@@ -143,12 +148,12 @@ function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
             {...props}
         />
     );
-}
+};
 
-function TableCaption({
+const TableCaption = ({
     className,
     ...props
-}: React.ComponentProps<'caption'>) {
+}: React.ComponentProps<'caption'>) => {
     return (
         <caption
             data-slot="table-caption"
@@ -156,7 +161,7 @@ function TableCaption({
             {...props}
         />
     );
-}
+};
 
 // ── DataTableRoot ─────────────────────────────────────────────────────────────
 
@@ -203,7 +208,7 @@ function indexColumn<TData>(
     };
 }
 
-function DataTableRoot<TData>({
+const DataTableRoot = <TData,>({
     columns,
     data,
     maxHeight,
@@ -220,7 +225,7 @@ function DataTableRoot<TData>({
     hideRowIndex = false,
     current = 1,
     limit = 20,
-}: DataTableRootProps<TData>) {
+}: DataTableRootProps<TData>) => {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] =
         React.useState<ColumnFiltersState>([]);
@@ -434,7 +439,7 @@ function DataTableRoot<TData>({
             </div>
         </motion.div>
     );
-}
+};
 
 // ── DataTablePagination ───────────────────────────────────────────────────────
 
@@ -464,13 +469,13 @@ function getPageNumbers(
     return pages;
 }
 
-function DataTablePagination({
+const DataTablePagination = ({
     current,
     total,
     setPage,
     limit,
     setLimit,
-}: DataTablePaginationProps) {
+}: DataTablePaginationProps) => {
     const pages = getPageNumbers(current, total);
 
     return (
@@ -543,11 +548,14 @@ function DataTablePagination({
             </Pagination>
         </div>
     );
-}
+};
 
 // ── DataTableSkeleton ─────────────────────────────────────────────────────────
 
-function DataTableSkeleton({ columns = 5, rows = 8 }: DataTableSkeletonProps) {
+const DataTableSkeleton = ({
+    columns = 5,
+    rows = 8,
+}: DataTableSkeletonProps) => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 8 }}
@@ -583,11 +591,11 @@ function DataTableSkeleton({ columns = 5, rows = 8 }: DataTableSkeletonProps) {
             </table>
         </motion.div>
     );
-}
+};
 
 // ── TableState ────────────────────────────────────────────────────────────────
 
-function TableState({
+const TableState = ({
     isLoading,
     isFetching = false,
     isError = false,
@@ -598,7 +606,7 @@ function TableState({
     emptyDescription,
     hasSearch = false,
     children,
-}: TableStateProps) {
+}: TableStateProps) => {
     const showLoading = isLoading || isFetching;
     const showChildren = !showLoading && !isError && !isEmpty;
 
@@ -658,7 +666,7 @@ function TableState({
             )}
         </AnimatePresence>
     );
-}
+};
 
 export {
     DataTablePagination,

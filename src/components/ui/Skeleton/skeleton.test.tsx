@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Skeleton } from './components';
+import Skeleton from '.';
 
 describe('Skeleton', () => {
     it('renders without errors', () => {

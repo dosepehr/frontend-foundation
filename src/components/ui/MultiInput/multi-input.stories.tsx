@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import React, { useState } from 'react';
-import { MultiInput } from './components';
+import MultiInput from '.';
 
 const meta: Meta<typeof MultiInput> = {
     title: 'UI/MultiInput',
