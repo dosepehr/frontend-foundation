@@ -9,9 +9,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async rewrites() {
+  async redirects() {
     return [
-      { source: '/stories', destination: '/stories/index.html' },
+      // Storybook's built HTML uses relative asset paths (./sb-manager/...),
+      // so it must be served from a URL whose base is /stories/. Next strips
+      // trailing slashes, so redirect to the index.html file directly.
+      { source: '/stories', destination: '/stories/index.html', permanent: false },
     ]
   },
   async headers() {
