@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-export function MockProvider({ children }: { children: React.ReactNode }) {
+export const MockProvider = ({ children }: { children: React.ReactNode }) => {
     const [ready, setReady] = useState(process.env.NODE_ENV !== 'development');
 
     useEffect(() => {
@@ -14,4 +14,4 @@ export function MockProvider({ children }: { children: React.ReactNode }) {
     if (!ready) return null;
 
     return <>{children}</>;
-}
+};

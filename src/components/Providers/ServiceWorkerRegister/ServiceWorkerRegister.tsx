@@ -10,7 +10,7 @@ import { toast } from 'sonner';
  * Only runs in production: in development the app registers MSW's mock worker
  * at the same `/` scope, and a second service worker would clash with it.
  */
-export function ServiceWorkerRegister() {
+export const ServiceWorkerRegister = () => {
     useEffect(() => {
         if (process.env.NODE_ENV !== 'production') return;
         if (!('serviceWorker' in navigator)) return;
@@ -50,10 +50,13 @@ export function ServiceWorkerRegister() {
 
         const register = async () => {
             try {
-                registration = await navigator.serviceWorker.register('/sw.js', {
-                    scope: '/',
-                    updateViaCache: 'none',
-                });
+                registration = await navigator.serviceWorker.register(
+                    '/sw.js',
+                    {
+                        scope: '/',
+                        updateViaCache: 'none',
+                    },
+                );
 
                 // Ask the OS to keep our caches from being evicted under storage
                 // pressure. Best-effort; ignored where unsupported.
@@ -65,7 +68,10 @@ export function ServiceWorkerRegister() {
                 }
 
                 // An update was already waiting before this page loaded.
-                if (registration.waiting && navigator.serviceWorker.controller) {
+                if (
+                    registration.waiting &&
+                    navigator.serviceWorker.controller
+                ) {
                     promptUpdate(registration.waiting);
                 }
 
@@ -110,4 +116,4 @@ export function ServiceWorkerRegister() {
     }, []);
 
     return null;
-}
+};

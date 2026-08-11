@@ -16,7 +16,7 @@ const SPLASH_SIZES = [
     { w: 2048, h: 2732, r: 2 },
 ] as const;
 
-export function AppleSplashScreens() {
+export const AppleSplashScreens = () => {
     return (
         <>
             {SPLASH_SIZES.map(({ w, h, r }) => (
@@ -29,4 +29,4 @@ export function AppleSplashScreens() {
             ))}
         </>
     );
-}
+};
