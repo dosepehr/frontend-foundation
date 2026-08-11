@@ -9,10 +9,26 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      { source: '/stories', destination: '/stories/index.html' },
+    ]
+  },
   async headers() {
     return [
       {
-        source: '/(.*)',
+        // Storybook renders each story inside a same-origin iframe.html,
+        // so it needs SAMEORIGIN rather than the global DENY.
+        source: '/stories/:path*',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+        ],
+      },
+      {
+        source: '/((?!stories/).*)',
         headers: [
           {
             key: 'X-Content-Type-Options',
