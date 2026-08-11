@@ -1,0 +1,20 @@
+'use client';
+
+import type { FC } from 'react';
+import type { {{pascalCase name}}WrapperProps } from './{{dashCase name}}.types';
+import { {{pascalCase name}}Item, {{pascalCase name}}Root } from './components';
+
+const {{pascalCase name}}Wrapper: FC<{{pascalCase name}}WrapperProps> = ({
+    className,
+    children,
+    itemProps,
+    ...props
+}) => {
+    return (
+        <{{pascalCase name}}Root className={className} {...props}>
+            <{{pascalCase name}}Item {...itemProps}>{children}</{{pascalCase name}}Item>
+        </{{pascalCase name}}Root>
+    );
+};
+
+export default {{pascalCase name}}Wrapper;

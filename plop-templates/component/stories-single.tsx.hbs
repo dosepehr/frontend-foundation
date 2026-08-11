@@ -1,0 +1,46 @@
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import {{pascalCase name}} from '.';
+
+const meta: Meta<typeof {{pascalCase name}}> = {
+    title: 'UI/{{pascalCase name}}',
+    component: {{pascalCase name}},
+    tags: ['autodocs'],
+    argTypes: {
+        variant: {
+            control: 'select',
+            options: ['default', 'secondary'],
+            description: 'Visual variant',
+        },
+        children: {
+            control: 'text',
+            description: '{{pascalCase name}} content',
+        },
+        asChild: {
+            control: 'boolean',
+            description: 'Renders as child element via Radix Slot',
+        },
+    },
+};
+
+export default meta;
+type Story = StoryObj<typeof {{pascalCase name}}>;
+
+export const Default: Story = {
+    args: {
+        variant: 'default',
+        children: '{{pascalCase name}}',
+    },
+};
+
+export const Variants: Story = {
+    render: () => (
+        <div className="flex flex-wrap gap-2">
+            {(['default', 'secondary'] as const).map((variant) => (
+                <{{pascalCase name}} key={variant} variant={variant}>
+                    {variant}
+                </{{pascalCase name}}>
+            ))}
+        </div>
+    ),
+    args: {},
+};

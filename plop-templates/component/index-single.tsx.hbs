@@ -1,0 +1,38 @@
+import { cn } from '@/src/utils/funcs/cn';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { Slot } from 'radix-ui';
+import * as React from 'react';
+
+const {{camelCase name}}Variants = cva('inline-flex items-center', {
+    variants: {
+        variant: {
+            default: '',
+            secondary: '',
+        },
+    },
+    defaultVariants: {
+        variant: 'default',
+    },
+});
+
+function {{pascalCase name}}({
+    className,
+    variant = 'default',
+    asChild = false,
+    ...props
+}: React.ComponentProps<'div'> &
+    VariantProps<typeof {{camelCase name}}Variants> & { asChild?: boolean }) {
+    const Comp = asChild ? Slot.Root : 'div';
+
+    return (
+        <Comp
+            data-slot="{{dashCase name}}"
+            data-variant={variant}
+            className={cn({{camelCase name}}Variants({ variant }), className)}
+            {...props}
+        />
+    );
+}
+
+export { {{pascalCase name}}, {{camelCase name}}Variants };
+export default {{pascalCase name}};

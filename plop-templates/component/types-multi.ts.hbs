@@ -1,0 +1,6 @@
+import type { ComponentProps, ReactNode } from 'react';
+
+export type {{pascalCase name}}WrapperProps = ComponentProps<'div'> & {
+    children: ReactNode;
+    itemProps?: ComponentProps<'div'>;
+};

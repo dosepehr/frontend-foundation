@@ -1,0 +1,32 @@
+'use client';
+
+import { cn } from '@/src/utils/funcs/cn';
+import * as React from 'react';
+
+function {{pascalCase name}}Root({
+    className,
+    ...props
+}: React.ComponentProps<'div'>) {
+    return (
+        <div
+            data-slot="{{dashCase name}}"
+            className={cn('flex w-full flex-col', className)}
+            {...props}
+        />
+    );
+}
+
+function {{pascalCase name}}Item({
+    className,
+    ...props
+}: React.ComponentProps<'div'>) {
+    return (
+        <div
+            data-slot="{{dashCase name}}-item"
+            className={cn('', className)}
+            {...props}
+        />
+    );
+}
+
+export { {{pascalCase name}}Item, {{pascalCase name}}Root };

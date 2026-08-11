@@ -1,0 +1,40 @@
+import { render, screen } from '@testing-library/react';
+import {{pascalCase name}} from '.';
+
+describe('{{pascalCase name}}', () => {
+    it('renders its children', () => {
+        render(<{{pascalCase name}}>Content</{{pascalCase name}}>);
+        expect(screen.getByText('Content')).toBeInTheDocument();
+    });
+
+    it('has data-slot="{{dashCase name}}"', () => {
+        render(<{{pascalCase name}}>Content</{{pascalCase name}}>);
+        expect(screen.getByText('Content')).toHaveAttribute(
+            'data-slot',
+            '{{dashCase name}}',
+        );
+    });
+
+    it('reflects variant via data-variant', () => {
+        render(<{{pascalCase name}} variant="secondary">Content</{{pascalCase name}}>);
+        expect(screen.getByText('Content')).toHaveAttribute(
+            'data-variant',
+            'secondary',
+        );
+    });
+
+    it('defaults to variant="default"', () => {
+        render(<{{pascalCase name}}>Content</{{pascalCase name}}>);
+        expect(screen.getByText('Content')).toHaveAttribute(
+            'data-variant',
+            'default',
+        );
+    });
+
+    it('forwards className', () => {
+        render(
+            <{{pascalCase name}} className="custom-class">Content</{{pascalCase name}}>,
+        );
+        expect(screen.getByText('Content')).toHaveClass('custom-class');
+    });
+});

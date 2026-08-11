@@ -1,0 +1,23 @@
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import {{pascalCase name}}Wrapper from '.';
+
+const meta: Meta<typeof {{pascalCase name}}Wrapper> = {
+    title: 'UI/{{pascalCase name}}',
+    component: {{pascalCase name}}Wrapper,
+    tags: ['autodocs'],
+    argTypes: {
+        children: {
+            control: 'text',
+            description: '{{pascalCase name}} content',
+        },
+    },
+};
+
+export default meta;
+type Story = StoryObj<typeof {{pascalCase name}}Wrapper>;
+
+export const Default: Story = {
+    args: {
+        children: '{{pascalCase name}} content',
+    },
+};

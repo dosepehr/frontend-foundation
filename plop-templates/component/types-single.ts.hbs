@@ -1,0 +1,8 @@
+import type { VariantProps } from 'class-variance-authority';
+import type { ComponentProps } from 'react';
+import type { {{camelCase name}}Variants } from '.';
+
+export type {{pascalCase name}}Props = ComponentProps<'div'> &
+    VariantProps<typeof {{camelCase name}}Variants> & {
+        asChild?: boolean;
+    };

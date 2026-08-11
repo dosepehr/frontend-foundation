@@ -1,0 +1,29 @@
+import { render, screen } from '@testing-library/react';
+import {{pascalCase name}}Wrapper from '.';
+import { {{pascalCase name}}Item, {{pascalCase name}}Root } from './components';
+
+describe('{{pascalCase name}} primitives', () => {
+    it('renders {{pascalCase name}}Root with its children', () => {
+        render(
+            <{{pascalCase name}}Root>
+                <{{pascalCase name}}Item>Content</{{pascalCase name}}Item>
+            </{{pascalCase name}}Root>,
+        );
+        expect(screen.getByText('Content')).toBeInTheDocument();
+    });
+
+    it('{{pascalCase name}}Root has data-slot="{{dashCase name}}"', () => {
+        render(<{{pascalCase name}}Root>Content</{{pascalCase name}}Root>);
+        expect(screen.getByText('Content')).toHaveAttribute(
+            'data-slot',
+            '{{dashCase name}}',
+        );
+    });
+});
+
+describe('{{pascalCase name}}Wrapper', () => {
+    it('renders its children', () => {
+        render(<{{pascalCase name}}Wrapper>Content</{{pascalCase name}}Wrapper>);
+        expect(screen.getByText('Content')).toBeInTheDocument();
+    });
+});
