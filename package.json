@@ -5,8 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 5000",
-    "build": "next build && storybook build -o storybook-static && rimraf public/stories && cp -r storybook-static public/stories",
+    "build": "next build && npm run registry:build && storybook build -o storybook-static && rimraf public/stories && cp -r storybook-static public/stories",
     "start": "next start",
+    "registry:build": "node scripts/generate-registry.mjs",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
