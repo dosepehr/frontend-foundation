@@ -2,7 +2,7 @@
 'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { CheckIcon } from 'lucide-react';
 import { Checkbox as CheckboxPrimitive } from 'radix-ui';

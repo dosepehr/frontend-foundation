@@ -2,7 +2,7 @@
 'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import { FileTreeNode } from './components';
 import { type FileTreeProps } from './file-tree.types';
 

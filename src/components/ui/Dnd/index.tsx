@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import { FileIcon, Trash2Icon, UploadIcon } from 'lucide-react';
 import * as React from 'react';
 import {

@@ -2,7 +2,7 @@
 'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 
 const Skeleton = ({ className, ...props }: React.ComponentProps<'div'>) => {
     return (

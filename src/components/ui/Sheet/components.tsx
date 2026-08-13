@@ -5,7 +5,7 @@
 import { Dialog as SheetPrimitive } from 'radix-ui';
 import * as React from 'react';
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import { XIcon } from 'lucide-react';
 import Button from '../Button';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import type { FC } from 'react';
 import { Button } from '../Button/components';
 import {

@@ -1,4 +1,4 @@
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import * as React from 'react';
 
 const Card = ({

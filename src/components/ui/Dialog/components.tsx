@@ -2,8 +2,8 @@
 'use client';
 /* c8 ignore stop */
 
-import { Button } from '@/src/components/ui/Button/components';
-import { cn } from '@/src/utils/funcs/cn';
+import { Button } from '@/components/ui/Button/components';
+import { cn } from '@/utils/funcs/cn';
 import { XIcon } from 'lucide-react';
 import { Dialog as DialogPrimitive } from 'radix-ui';
 import * as React from 'react';

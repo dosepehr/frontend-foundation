@@ -8,8 +8,8 @@ import {
     SheetDescription,
     SheetHeader,
     SheetTitle,
-} from '@/src/components/ui/Sheet/components';
-import { cn } from '@/src/utils/funcs/cn';
+} from '@/components/ui/Sheet/components';
+import { cn } from '@/utils/funcs/cn';
 import * as React from 'react';
 import { useSidebar } from './components';
 

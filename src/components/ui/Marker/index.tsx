@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import { cloneElement } from 'react';
 import { Marker, MarkerContent, MarkerIcon } from './components';
 import type { MarkerWrapperProps } from './marker.types';

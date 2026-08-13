@@ -2,7 +2,7 @@
 'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import { ScrollArea as ScrollAreaPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { ScrollBar } from './components';

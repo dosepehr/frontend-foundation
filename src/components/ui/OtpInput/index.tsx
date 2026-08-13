@@ -2,7 +2,7 @@
 'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import { OTPInput, OTPInputContext } from 'input-otp';
 import * as React from 'react';
 import { useId } from 'react';

@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/src/components/ui/Button';
+import Button from '@/components/ui/Button';
 import { MoonIcon, SunIcon, SunMoonIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useSyncExternalStore } from 'react';

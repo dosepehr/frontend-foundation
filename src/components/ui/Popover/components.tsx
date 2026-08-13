@@ -2,7 +2,7 @@
 'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import { Popover as PopoverPrimitive } from 'radix-ui';
 import * as React from 'react';
 

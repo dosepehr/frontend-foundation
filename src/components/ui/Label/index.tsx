@@ -2,7 +2,7 @@
 'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import { Label as LabelPrimitive } from 'radix-ui';
 import Asteriks from '../Asteriks';
 import type { LabelProps } from './label.types';

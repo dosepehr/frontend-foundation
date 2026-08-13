@@ -9,7 +9,7 @@ import {
     type Locale,
 } from 'react-day-picker';
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import Button from '../Button';
 
 const CalendarDayButton = ({

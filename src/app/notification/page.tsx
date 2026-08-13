@@ -1,8 +1,8 @@
 'use client';
 
-import Button from '@/src/components/ui/Button';
-import Input from '@/src/components/ui/Input';
-import { useNotification } from '@/src/utils/hooks/useNotification';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import { useNotification } from '@/hooks/useNotification';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import {

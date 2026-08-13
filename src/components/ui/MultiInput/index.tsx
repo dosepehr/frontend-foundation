@@ -2,7 +2,7 @@
 'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import { Plus, X } from 'lucide-react';
 import { useId, useState, type KeyboardEvent } from 'react';
 import Badge from '../Badge';

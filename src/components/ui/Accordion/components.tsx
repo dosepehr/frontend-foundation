@@ -5,7 +5,7 @@
 import { Accordion as AccordionPrimitive } from 'radix-ui';
 import * as React from 'react';
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 
 const Accordion = ({

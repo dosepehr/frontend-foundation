@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { DayPicker, getDefaultClassNames } from 'react-day-picker';
 
-import { cn } from '@/src/utils/funcs/cn';
+import { cn } from '@/utils/funcs/cn';
 import {
     ChevronDownIcon,
     ChevronLeftIcon,
