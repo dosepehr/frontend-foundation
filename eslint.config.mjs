@@ -15,6 +15,9 @@ const eslintConfig = defineConfig([
         'out/**',
         'build/**',
         'next-env.d.ts',
+        'public/stories/**',
+        'public/r/**',
+        'storybook-static/**',
     ]),
     ...storybook.configs['flat/recommended'],
     // ── React Refresh ──────────────────────────────────────────────────────────
