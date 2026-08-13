@@ -12,10 +12,16 @@ const Button: FC<ButtonWrapperProps> = ({
     loadingText = 'Loading...',
     showArrow = false,
     disabled,
+    asChild = false,
     ...props
 }) => {
-    return (
-        <ButtonComponent disabled={disabled || isLoading} {...props}>
+    // When `asChild` is set, Radix's Slot requires exactly one element
+    // child (the thing being "merged" into) — skip the loading/arrow
+    // wrapping so `children` (e.g. a single <Link>) passes through as-is.
+    const content = asChild ? (
+        children
+    ) : (
+        <>
             {isLoading ? (
                 <>
                     {loadingText}
@@ -27,6 +33,16 @@ const Button: FC<ButtonWrapperProps> = ({
             {!isLoading && showArrow && (
                 <ArrowRightCircle className="duration-150 group-hover/button:translate-x-1" />
             )}
+        </>
+    );
+
+    return (
+        <ButtonComponent
+            asChild={asChild}
+            disabled={disabled || isLoading}
+            {...props}
+        >
+            {content}
         </ButtonComponent>
     );
 };
