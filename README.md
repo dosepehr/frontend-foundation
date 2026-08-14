@@ -64,6 +64,41 @@ A Next.js 16 component library and application foundation with a full-featured D
 
 ---
 
+## To do
+
+### Must-have before production
+
+- [ ] **Sentry PII scrubbing** — no `beforeSend`/`sendDefaultPii` config exists yet
+    - Once Sentry is capturing real user sessions, auth cookies and request headers can end up in error reports unscrubbed by default
+    - Add a `beforeSend` hook in `src/utils/sentry/` that strips cookies, auth headers, and any PII fields before events leave the browser
+
+- [ ] **App-wide Content-Security-Policy** — `next.config.ts` currently only sets a CSP on `/sw.js`; every other route has none
+    - `X-Frame-Options`/`X-Content-Type-Options` are set globally, but nothing restricts script/style/connect sources on actual pages
+
+### Important
+
+- [ ] **Web Vitals / performance monitoring** — `@sentry/nextjs` is already installed for errors; enabling its tracing (`tracesSampleRate`) surfaces Core Web Vitals and slow transactions with very little extra setup on top of what's already wired
+
+- [ ] **Refresh-token failure UX** — `refreshToken.ts`'s interceptor has a failure path, but there's no real auth flow yet to redirect to
+    - Wire it to redirect to `/login` (once that page exists) instead of leaving the user on a page silently making failed requests
+
+- [ ] **i18n** — `next-intl`
+    - Storybook's i18n addon is already wired; there's no runtime translation layer yet
+    - Set it up early — retrofitting touches every string in every component
+
+- [ ] **OpenAPI type generation** — `openapi-typescript`
+    - `src/utils/api/types/DTO` is hand-written today, so it can silently drift from what the backend actually returns
+    - Generating types from the backend's OpenAPI spec closes that gap
+
+### Nice to have
+
+- [ ] **Registry semver + changelog** — consumers install specific components by URL with no version pinning today; a breaking change to a shared primitive (e.g. `Button`) currently reaches every downstream project on their next install with no changelog to warn them
+- [ ] **Route-level `loading.tsx`** — no route in `src/app` has one yet; React Query's cache makes revisits instant, but a first visit has no skeleton/loading UI while data fetches
+- [ ] **Offline mutation queue** — the service worker already caches reads for offline use, but React Query mutations made while offline just fail; queuing and replaying them on reconnect would make the PWA's offline story consistent for writes, not just reads
+- [ ] **Feature flags** — even a simple env-var-based toggle avoids long-lived branches; `@vercel/flags` integrates cleanly with Next.js if on Vercel
+
+---
+
 ## zustand
 
 Middlewares worth considering for createStore, depending on what you need:
