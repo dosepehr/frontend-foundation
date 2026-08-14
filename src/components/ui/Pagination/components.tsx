@@ -46,6 +46,7 @@ const PaginationLink = ({
     ...props
 }: PaginationLinkProps) => {
     return (
+        // eslint-disable-next-line jsx-a11y/anchor-has-content -- generic primitive; content always comes from the consumer's children, invisible to static analysis
         <a
             aria-current={isActive ? 'page' : undefined}
             data-slot="pagination-link"

@@ -110,6 +110,7 @@ const DatePicker = ({
                         selected={value}
                         onSelect={onChange}
                         disabled={disabledDates}
+                        // eslint-disable-next-line jsx-a11y/no-autofocus -- moving focus into a popover on user-triggered open is the correct pattern; this rule targets page-load autofocus
                         autoFocus
                     />
                 </PopoverContent>
