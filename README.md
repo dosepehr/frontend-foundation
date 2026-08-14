@@ -25,15 +25,15 @@ A Next.js 16 component library and application foundation with a full-featured D
 
 ## DX & Tooling
 
-| Tool                   | Purpose                                                         |
-| ---------------------- | --------------------------------------------------------------- |
-| ESLint 9 (flat config) | Linting — next, react-refresh, tailwindcss, unicorn, typescript |
-| Prettier               | Formatting — with organize-imports and tailwindcss plugins      |
-| Vitest + happy-dom     | Unit & component tests                                          |
-| Storybook 10           | Component development & documentation                           |
-| Chromatic              | Visual regression testing                                       |
-| MSW v2                 | API mocking in tests and Storybook                              |
-| Playwright             | E2E (installed, not yet configured)                             |
+| Tool                   | Purpose                                                          |
+| ---------------------- | ---------------------------------------------------------------- |
+| ESLint 9 (flat config) | Linting — next, react-refresh, tailwindcss, unicorn, typescript  |
+| Prettier               | Formatting — with organize-imports and tailwindcss plugins       |
+| Vitest + happy-dom     | Unit & component tests                                           |
+| Storybook 10           | Component development & documentation                            |
+| Chromatic              | Visual regression testing                                        |
+| MSW v2                 | API mocking in tests and Storybook                               |
+| Playwright             | E2E — offline fallback, notification permission, SW update flows |
 
 ---
 
@@ -54,61 +54,15 @@ A Next.js 16 component library and application foundation with a full-featured D
 - [x] Installable PWA — manifest, service worker (offline + runtime caching), install/update prompts, notifications — see [docs/pwa.md](docs/pwa.md)
 - [x] Component scaffolding — `npm run gen:component <Name>` generates a `ui/<Name>/` folder with the standard `components`/`index`/`types`/`stories`/`test` file set (Plop)
 - [x] Commit hygiene — `husky` pre-commit runs `lint-staged` (ESLint + Prettier on staged files), `commit-msg` runs `commitlint` (conventional commit format)
-- [x] Environment variable validation — `src/utils/env.ts` validates `NEXT_PUBLIC_*` and server env vars with `zod`, imported from `next.config.ts` so an invalid/missing var fails the build immediately; server-only vars throw if accessed from client code
+- [x] Environment variable validation — `src/utils/env/env.ts` validates `NEXT_PUBLIC_*` and server env vars with `zod`, imported from `next.config.ts` so an invalid/missing var fails the build immediately; server-only vars throw if accessed from client code
 - [x] Error boundaries — `src/app/error.tsx` (route-segment crashes) and `src/app/global-error.tsx` (root layout crashes) for page-level errors; `<ErrorBoundary>` (`src/components/ui/ErrorBoundary`, wraps `react-error-boundary`) for isolating a single async section so the rest of the page stays interactive
 - [x] `a11y: { test: "error" }` in Storybook preview — every component story fails CI on a real contrast/ARIA/label/keyboard violation instead of just flagging it
+- [x] Client-side error tracking — `@sentry/nextjs`, initialized in `src/instrumentation-client.ts` (browser), `src/utils/sentry/sentry.server.config.ts` / `sentry.edge.config.ts` (via `src/instrumentation.ts`); `app/error.tsx`, `app/global-error.tsx`, `<ErrorBoundary>`, and the React Query `QueryCache`/`MutationCache` callbacks all forward to `Sentry.captureException`; no-ops until `NEXT_PUBLIC_SENTRY_DSN` is set
+- [x] Bundle analysis — `@next/bundle-analyzer` wired into `next.config.ts`, run with `npm run analyze`
+- [x] Playwright E2E — `playwright.config.ts` builds and serves a production build on a dedicated port (the service worker only registers in production, see [docs/pwa.md](docs/pwa.md)). Specs are co-located with what they test, next to `*.test.tsx` files: the offline fallback (`src/app/offline/offline.spec.ts`), the notification permission flow (`src/app/notification/notification.spec.ts`), and the service worker update prompt (`src/components/Providers/ServiceWorkerRegister/service-worker-update.spec.ts`) — real browser/SW flows Vitest can't reach. Shared wait helper in `src/test/e2e-helpers.ts`. Run with `npm run test:e2e`. Add more once real auth/checkout flows exist — Vitest + Chromatic already cover everything else
+- [x] Dependency update automation — `.github/dependabot.yml`, weekly npm updates grouped into `dev-dependencies` / `production-dependencies` PRs
 
 ---
-
-## To do
-
-### Must-have before production
-
-- [ ] **Client-side error tracking** — Sentry
-    - Captures unhandled errors, promise rejections, and React render failures in production
-    - Forward `QueryCache.onError` and `MutationCache.onError` to `Sentry.captureException`
-    - Without it you're blind to production bugs unless users report them
-
-### Important
-
-- [ ] **Playwright E2E** — installed, not configured
-    - Vitest covers units, Chromatic covers visuals — neither covers full user flows
-    - Write flows for: login, main navigation, critical paths
-    - Run in CI against a staging environment with MSW or a test API
-
-- [ ] **Bundle analysis** — `@next/bundle-analyzer`
-    - Run occasionally to catch accidental large imports
-    - One wrong barrel file or moment.js import can add 200kb
-
-- [ ] **i18n** — `next-intl`
-    - Storybook i18n addon is already wired; need the runtime counterpart
-    - Set it up early — retrofitting touches every string in every component
-
-- [ ] **OpenAPI type generation** — `openapi-typescript`
-    - Auto-generates TypeScript types from the backend OpenAPI spec
-    - Eliminates the entire class of "frontend type doesn't match actual API response"
-
-- [ ] **Dependency update automation** — Renovate or Dependabot
-    - Large apps accumulate dependency drift fast
-    - Renovate is more configurable; Dependabot is zero-setup on GitHub
-
-### Nice to have
-
-- [ ] **Feature flags**
-    - Even a simple env-var-based toggle avoids long-lived branches
-    - `@vercel/flags` integrates cleanly with Next.js if on Vercel
-
-- [ ] **PR size limits** — GitHub Action
-    - Warn when a PR exceeds ~400 lines diff
-    - Enforces small-PR habits before the codebase grows too large
-
-- [ ] **Storybook interaction tests in CI**
-    - `@storybook/addon-vitest` is installed — wire it into the CI pipeline
-    - Story `play` functions already double as interaction tests; just needs a CI step
-
-- [ ] **`react-scan` in CI**
-    - Already have the Storybook addon for local dev
-    - Running it in CI flags performance regressions before they ship
 
 ## zustand
 
