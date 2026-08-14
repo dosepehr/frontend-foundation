@@ -2,6 +2,7 @@
 
 import Button from '@/components/ui/Button';
 import EmptyWrapper from '@/components/ui/Empty';
+import * as Sentry from '@sentry/nextjs';
 import { AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect } from 'react';
@@ -15,6 +16,7 @@ export default function Error({
 }) {
     useEffect(() => {
         console.error(error);
+        Sentry.captureException(error);
     }, [error]);
 
     return (

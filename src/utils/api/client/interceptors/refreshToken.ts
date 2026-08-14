@@ -4,7 +4,7 @@ import axios, {
     type InternalAxiosRequestConfig,
 } from 'axios';
 import Cookies from 'universal-cookie';
-import { env } from '../../../env';
+import { env } from '../../../env/env';
 
 const cookies = new Cookies();
 

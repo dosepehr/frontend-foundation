@@ -17,6 +17,7 @@ export type ErrorBoundaryWrapperProps = {
     description?: string;
     /** Custom fallback renderer, replacing the default `Empty`-based UI entirely. */
     fallback?: (props: FallbackProps) => ReactNode;
+    /** Defaults to reporting the error to Sentry; pass to override or extend. */
     onError?: (error: unknown, info: ErrorInfo) => void;
     onReset?: (details: ErrorBoundaryResetDetails) => void;
     /** Resets the boundary whenever any value in this array changes (e.g. a route param). */

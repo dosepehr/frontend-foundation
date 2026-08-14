@@ -1,5 +1,6 @@
 'use client';
 
+import * as Sentry from '@sentry/nextjs';
 import { AlertTriangle } from 'lucide-react';
 import type { FC } from 'react';
 import {
@@ -31,7 +32,7 @@ const ErrorBoundaryWrapper: FC<ErrorBoundaryWrapperProps> = ({
     title,
     description,
     fallback,
-    onError,
+    onError = (error) => Sentry.captureException(error),
     onReset,
     resetKeys,
 }) => {

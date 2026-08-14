@@ -1,10 +1,16 @@
+import createBundleAnalyzer from '@next/bundle-analyzer';
+import { withSentryConfig } from '@sentry/nextjs';
 import type { NextConfig } from 'next';
 
 // Validates required environment variables before the dev/build/start
 // server runs, instead of letting `undefined` reach the API at runtime.
 // (Next's config loader transpiles this file to CJS and `require()`s it, so
 // this must be a plain synchronous import — no top-level await.)
-import './src/utils/env';
+import './src/utils/env/env';
+
+const withBundleAnalyzer = createBundleAnalyzer({
+    enabled: process.env.ANALYZE === 'true',
+});
 
 const nextConfig: NextConfig = {
     images: {
@@ -78,4 +84,17 @@ const nextConfig: NextConfig = {
     },
 };
 
-export default nextConfig;
+export default withSentryConfig(withBundleAnalyzer(nextConfig), {
+    org: process.env.SENTRY_ORG,
+    project: process.env.SENTRY_PROJECT,
+    authToken: process.env.SENTRY_AUTH_TOKEN,
+    // Skips the source map upload (with a warning) instead of failing the
+    // build when Sentry isn't configured yet.
+    silent: true,
+    widenClientFileUpload: true,
+    webpack: {
+        treeshake: {
+            removeDebugLogging: true,
+        },
+    },
+});

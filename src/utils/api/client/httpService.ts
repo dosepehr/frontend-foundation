@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-import { env } from '../../env';
+import { env } from '../../env/env';
 import { globalErrorHandler } from './interceptors/globalErrorHandler';
 import { setupRefreshToken } from './interceptors/refreshToken';
 

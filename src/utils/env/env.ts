@@ -17,6 +17,8 @@ const serverSchema = z.object({
 
 const clientSchema = z.object({
     NEXT_PUBLIC_APP_BASE_URL: z.url(),
+    // Optional — Sentry no-ops locally when unset instead of failing the build.
+    NEXT_PUBLIC_SENTRY_DSN: z.url().optional(),
 });
 
 type ServerEnv = z.infer<typeof serverSchema>;
@@ -48,7 +50,10 @@ function parseEnv<Schema extends z.ZodType>(
 // time, so each var must be accessed by its literal name (no dynamic keys).
 const clientEnv = parseEnv(
     clientSchema,
-    { NEXT_PUBLIC_APP_BASE_URL: process.env.NEXT_PUBLIC_APP_BASE_URL },
+    {
+        NEXT_PUBLIC_APP_BASE_URL: process.env.NEXT_PUBLIC_APP_BASE_URL,
+        NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
+    },
     'client',
 );
 

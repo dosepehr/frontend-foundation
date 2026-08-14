@@ -1,5 +1,6 @@
 'use client';
 
+import * as Sentry from '@sentry/nextjs';
 import {
     MutationCache,
     QueryCache,
@@ -11,10 +12,16 @@ import type { FC, PropsWithChildren } from 'react';
 
 const queryClient = new QueryClient({
     queryCache: new QueryCache({
-        onError: (error) => console.error('[QueryCache]', error),
+        onError: (error) => {
+            console.error('[QueryCache]', error);
+            Sentry.captureException(error);
+        },
     }),
     mutationCache: new MutationCache({
-        onError: (error) => console.error('[MutationCache]', error),
+        onError: (error) => {
+            console.error('[MutationCache]', error);
+            Sentry.captureException(error);
+        },
     }),
     defaultOptions: {
         queries: {
