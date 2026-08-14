@@ -235,14 +235,14 @@ export const WithToggle: Story = {
                 title="Push notifications"
                 description="Receive alerts on your device"
                 media={<BellIcon />}
-                end={<Switch defaultChecked />}
+                end={<Switch aria-label="Push notifications" defaultChecked />}
             />
             <ItemWrapper
                 variant="outline"
                 title="Two-factor auth"
                 description="Add an extra layer of security"
                 media={<LockIcon />}
-                end={<Switch />}
+                end={<Switch aria-label="Two-factor auth" />}
             />
         </div>
     ),
@@ -262,7 +262,11 @@ export const WithAction: Story = {
                     description={file.size}
                     media={<FileIcon />}
                     end={
-                        <Button variant="ghost" size="icon-sm">
+                        <Button
+                            variant="ghost"
+                            size="icon-sm"
+                            aria-label={`Remove ${file.name}`}
+                        >
                             <TrashIcon />
                         </Button>
                     }

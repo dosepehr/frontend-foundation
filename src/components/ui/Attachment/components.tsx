@@ -116,7 +116,7 @@ const AttachmentDescription = ({
         <span
             data-slot="attachment-description"
             className={cn(
-                'mt-0.5 block min-w-0 truncate text-xs text-muted-foreground group-data-[state=error]/attachment:text-destructive/80',
+                'mt-0.5 block min-w-0 truncate text-xs text-muted-foreground group-data-[state=error]/attachment:text-destructive-text/80',
                 'max-w-full',
                 className,
             )}
@@ -185,6 +185,8 @@ const AttachmentGroup = ({
     return (
         <div
             data-slot="attachment-group"
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- scrollable region, required by WCAG 2.1.1 (verified via axe's scrollable-region-focusable check)
+            tabIndex={0}
             className={cn(
                 'flex min-w-0 scroll-fade-x snap-x snap-mandatory scroll-px-1 scrollbar-none gap-3 overflow-x-auto overscroll-x-contain py-1 *:data-[slot=attachment]:flex-none *:data-[slot=attachment]:snap-start',
                 className,

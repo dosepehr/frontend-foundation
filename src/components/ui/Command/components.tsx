@@ -17,6 +17,41 @@ interface CommandContextValue {
     setSearch: React.Dispatch<React.SetStateAction<string>>;
     shouldFilter: boolean;
     listRef: React.RefObject<HTMLDivElement | null>;
+    listId: string;
+    activeValue: string;
+    setActiveValue: React.Dispatch<React.SetStateAction<string>>;
+    moveActive: (direction: 'next' | 'prev' | 'first' | 'last') => void;
+    selectActive: () => void;
+}
+
+function handleListNavigationKeyDown(
+    event: React.KeyboardEvent,
+    ctx: Pick<CommandContextValue, 'moveActive' | 'selectActive'>,
+) {
+    switch (event.key) {
+        case 'ArrowDown':
+            event.preventDefault();
+            ctx.moveActive('next');
+            break;
+        case 'ArrowUp':
+            event.preventDefault();
+            ctx.moveActive('prev');
+            break;
+        case 'Home':
+            event.preventDefault();
+            ctx.moveActive('first');
+            break;
+        case 'End':
+            event.preventDefault();
+            ctx.moveActive('last');
+            break;
+        case 'Enter':
+            event.preventDefault();
+            ctx.selectActive();
+            break;
+        default:
+            break;
+    }
 }
 
 export const CommandContext = React.createContext<CommandContextValue | null>(
@@ -35,11 +70,19 @@ const CommandInput = ({
     placeholder,
     value,
     onValueChange,
+    // Command used standalone (e.g. a command palette) needs its input to
+    // own the combobox role/relationship. Composites like ComboBox/
+    // MultiComboBox already expose role="combobox" on their own trigger
+    // button and use CommandInput purely as the popup's filter field, so
+    // they set this to false to avoid a second, conflicting combobox role.
+    ownsComboboxRole = true,
     ...props
 }: Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {
     onValueChange?: (val: string) => void;
+    ownsComboboxRole?: boolean;
 }) => {
-    const { search, setSearch } = useCommandContext();
+    const ctx = useCommandContext();
+    const { search, setSearch, listId, activeValue } = ctx;
     const isControlled = value !== undefined;
     const inputValue = isControlled ? (value as string) : search;
 
@@ -47,6 +90,13 @@ const CommandInput = ({
         <div className="flex items-center border-b border-border px-3">
             <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
             <input
+                role={ownsComboboxRole ? 'combobox' : undefined}
+                aria-expanded={ownsComboboxRole ? true : undefined}
+                aria-controls={ownsComboboxRole ? listId : undefined}
+                aria-autocomplete={ownsComboboxRole ? 'list' : undefined}
+                aria-activedescendant={
+                    activeValue ? `${listId}-${activeValue}` : undefined
+                }
                 className={cn(
                     'flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
                     className,
@@ -58,6 +108,7 @@ const CommandInput = ({
                     if (!isControlled) setSearch(val);
                     onValueChange?.(val);
                 }}
+                onKeyDown={(e) => handleListNavigationKeyDown(e, ctx)}
                 {...props}
             />
         </div>
@@ -69,9 +120,19 @@ const CommandList = ({
     className,
     ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
-    const { listRef } = useCommandContext();
+    const ctx = useCommandContext();
+    const { listRef, listId } = ctx;
     return (
-        <div ref={listRef} className={cn(className)} {...props}>
+        <div
+            ref={listRef}
+            id={listId}
+            role="listbox"
+            tabIndex={0}
+            aria-label="Suggestions"
+            className={cn(className)}
+            onKeyDown={(e) => handleListNavigationKeyDown(e, ctx)}
+            {...props}
+        >
             {children}
         </div>
     );
@@ -140,7 +201,9 @@ const CommandItem = ({
     onSelect?: (value: string) => void;
     dir?: string;
 }) => {
-    const { search, shouldFilter } = useCommandContext();
+    const { search, shouldFilter, listId, activeValue, setActiveValue } =
+        useCommandContext();
+    const isActive = activeValue === value;
 
     const isVisible = React.useMemo(() => {
         if (!shouldFilter || !search) return true;
@@ -152,17 +215,22 @@ const CommandItem = ({
     }, [search, shouldFilter, value, keywords]);
 
     return (
+        // eslint-disable-next-line jsx-a11y/interactive-supports-focus, jsx-a11y/click-events-have-key-events -- intentionally not focusable: keyboard nav is handled via aria-activedescendant on CommandInput/CommandList (see handleListNavigationKeyDown), matching the standard combobox/listbox pattern
         <div
             data-command-item=""
+            data-value={value}
+            id={`${listId}-${value}`}
             role="option"
-            aria-selected={false}
+            aria-selected={isActive}
             style={{ display: isVisible ? undefined : 'none' }}
             className={cn(
                 'relative flex cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm transition-colors outline-none select-none hover:bg-accent hover:text-accent-foreground',
+                isActive && 'bg-accent text-accent-foreground',
                 className,
             )}
             /* c8 ignore next */
             onClick={() => isVisible && onSelect?.(value)}
+            onMouseEnter={() => setActiveValue(value)}
             dir={dir}
             {...props}
         >

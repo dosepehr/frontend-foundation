@@ -78,7 +78,9 @@ export const Small: Story = {
 };
 
 export const NoLabel: Story = {
-    args: {},
+    args: {
+        'aria-label': 'Enable notifications',
+    },
 };
 
 export const AllVariants: Story = {

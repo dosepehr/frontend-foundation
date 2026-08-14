@@ -67,25 +67,34 @@ const Checkbox = ({
     required,
     ...props
 }: CheckboxProps) => {
+    const root = (
+        <CheckboxPrimitive.Root
+            data-slot="checkbox"
+            id={id}
+            className={cn(checkboxVariants({ variant }), className)}
+            {...props}
+        >
+            <CheckboxPrimitive.Indicator
+                data-slot="checkbox-indicator"
+                className="grid place-content-center text-current transition-none"
+            >
+                <CheckIcon className="size-3.5" />
+            </CheckboxPrimitive.Indicator>
+        </CheckboxPrimitive.Root>
+    );
+
+    // Only self-wrap in a <label> when there's text to associate — an empty
+    // wrapping label would otherwise win accessible-name computation over an
+    // outer label a consumer (e.g. CheckboxWrapper) renders with real text.
+    if (!label) return root;
+
     return (
         <Label
             className="flex w-fit items-center gap-2 font-normal"
             required={required}
         >
-            <CheckboxPrimitive.Root
-                data-slot="checkbox"
-                id={id}
-                className={cn(checkboxVariants({ variant }), className)}
-                {...props}
-            >
-                <CheckboxPrimitive.Indicator
-                    data-slot="checkbox-indicator"
-                    className="grid place-content-center text-current transition-none"
-                >
-                    <CheckIcon className="size-3.5" />
-                </CheckboxPrimitive.Indicator>
-            </CheckboxPrimitive.Root>
-            {label && <span className="text-sm leading-none">{label}</span>}
+            {root}
+            <span className="text-sm leading-none">{label}</span>
         </Label>
     );
 };

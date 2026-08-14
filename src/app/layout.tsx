@@ -1,4 +1,5 @@
 import { estedad, lato } from '@/public/fonts';
+import { MotionConfig } from 'motion/react';
 import type { Metadata, Viewport } from 'next';
 import { ThemeProvider } from 'next-themes';
 import NextTopLoader from 'nextjs-toploader';
@@ -60,20 +61,24 @@ export default function RootLayout({
                 <ServiceWorkerRegister />
                 <PWAInstall />
                 <NextTopLoader color="#155dfc" showSpinner={false} />
-                <MockProvider>
-                    <ReactQueryProvider>
-                        <ThemeProvider
-                            attribute="class"
-                            defaultTheme="system"
-                            enableSystem
-                        >
-                            <DirectionProvider dir="ltr">
-                                <Toaster />
-                                <TooltipProvider>{children}</TooltipProvider>
-                            </DirectionProvider>
-                        </ThemeProvider>
-                    </ReactQueryProvider>
-                </MockProvider>
+                <MotionConfig reducedMotion="user">
+                    <MockProvider>
+                        <ReactQueryProvider>
+                            <ThemeProvider
+                                attribute="class"
+                                defaultTheme="system"
+                                enableSystem
+                            >
+                                <DirectionProvider dir="ltr">
+                                    <Toaster />
+                                    <TooltipProvider>
+                                        {children}
+                                    </TooltipProvider>
+                                </DirectionProvider>
+                            </ThemeProvider>
+                        </ReactQueryProvider>
+                    </MockProvider>
+                </MotionConfig>
             </body>
         </html>
     );

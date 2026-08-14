@@ -157,27 +157,50 @@ const DndWrapper = ({
     const canAddMore = multiple ? files.length < maxFiles : files.length === 0;
     const hasPreview = showPreview && files.length > 0;
 
+    // DndInput is rendered as a sibling, not a child, of the role="button"
+    // zone — axe's nested-interactive rule flags a native interactive
+    // element nested inside another interactive role regardless of
+    // tabIndex/aria-hidden, since some assistive tech can still reach it.
     const dropzone = canAddMore && (
-        <DndZone
-            className={!multiple ? 'absolute inset-0' : undefined}
-            dragging={dragging}
-            disabled={disabled}
-            invalid={isInvalid}
-            role="button"
-            tabIndex={disabled ? -1 : 0}
-            aria-disabled={disabled}
-            onClick={openFilePicker}
-            onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    openFilePicker();
-                }
-            }}
-            onDrop={handleDrop}
-            onDragOver={(event) => event.preventDefault()}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-        >
+        <>
+            <DndZone
+                className={!multiple ? 'absolute inset-0' : undefined}
+                dragging={dragging}
+                disabled={disabled}
+                invalid={isInvalid}
+                role="button"
+                tabIndex={disabled ? -1 : 0}
+                aria-disabled={disabled}
+                onClick={openFilePicker}
+                onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openFilePicker();
+                    }
+                }}
+                onDrop={handleDrop}
+                onDragOver={(event) => event.preventDefault()}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+            >
+                {placeholder ?? (
+                    <>
+                        <UploadIcon
+                            strokeWidth={1.5}
+                            className="size-10 text-muted-foreground"
+                        />
+                        <div className="flex flex-col gap-1">
+                            <p className="text-sm font-medium text-foreground">
+                                Drag & drop your file here
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                                or click to browse from your device
+                            </p>
+                        </div>
+                    </>
+                )}
+            </DndZone>
+
             <DndInput
                 ref={inputRef}
                 accept={accept ? Object.keys(accept).join(',') : undefined}
@@ -193,24 +216,7 @@ const DndWrapper = ({
                     }
                 }}
             />
-
-            {placeholder ?? (
-                <>
-                    <UploadIcon
-                        strokeWidth={1.5}
-                        className="size-10 text-muted-foreground"
-                    />
-                    <div className="flex flex-col gap-1">
-                        <p className="text-sm font-medium text-foreground">
-                            Drag & drop your file here
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                            or click to browse from your device
-                        </p>
-                    </div>
-                </>
-            )}
-        </DndZone>
+        </>
     );
 
     const fileActions = (file: DndFile) => (
@@ -300,7 +306,7 @@ const DndWrapper = ({
                                             className={cn(
                                                 'truncate text-xs',
                                                 file.error
-                                                    ? 'text-destructive'
+                                                    ? 'text-destructive-text'
                                                     : 'text-muted-foreground',
                                             )}
                                         >

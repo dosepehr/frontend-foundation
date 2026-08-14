@@ -17,6 +17,7 @@ const Label = ({
     return (
         <LabelPrimitive.Root
             data-slot="label"
+            aria-disabled={disabled || undefined}
             className={cn(
                 'xs:text-sm relative flex w-fit items-center gap-2 text-xs leading-none font-medium select-none',
                 disabled && 'cursor-not-allowed opacity-50',

@@ -116,7 +116,7 @@ const DropdownMenuItem = ({
                 'relative flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors outline-none select-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-muted-foreground',
                 inset && 'ps-8',
                 variant === 'destructive' &&
-                    'text-destructive focus:bg-destructive/10 focus:text-destructive [&_svg]:text-destructive',
+                    'text-destructive-text focus:bg-destructive/10 focus:text-destructive-text [&_svg]:text-destructive-text',
                 className,
             )}
             {...props}

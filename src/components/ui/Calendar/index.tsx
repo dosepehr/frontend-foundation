@@ -189,12 +189,14 @@ const Calendar = ({
                     <CalendarDayButton locale={locale} {...props} />
                 ),
                 WeekNumber: ({ children, ...props }) => {
+                    // react-day-picker passes scope="row"/role="rowheader"
+                    // through props, which are only valid on <th>, not <td>.
                     return (
-                        <td {...props}>
+                        <th {...props}>
                             <div className="flex size-(--cell-size) items-center justify-center text-center">
                                 {children}
                             </div>
-                        </td>
+                        </th>
                     );
                 },
                 ...components,

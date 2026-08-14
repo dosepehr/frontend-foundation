@@ -40,7 +40,10 @@ const BreadcrumbWrapper: FC<BreadcrumbWrapperProps> = ({
                                         {item.label}
                                     </BreadcrumbPage>
                                 ) : (
-                                    <BreadcrumbLink href={item.href ?? '#'}>
+                                    <BreadcrumbLink
+                                        href={item.href ?? '#'}
+                                        aria-label={item['aria-label']}
+                                    >
                                         {item.label}
                                     </BreadcrumbLink>
                                 )}

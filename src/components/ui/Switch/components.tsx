@@ -61,24 +61,33 @@ const Switch = ({
     required,
     ...props
 }: SwitchProps) => {
+    const root = (
+        <SwitchPrimitive.Root
+            data-slot="switch"
+            data-size={size}
+            id={id}
+            className={cn(switchVariants({ variant }), className)}
+            {...props}
+        >
+            <SwitchPrimitive.Thumb
+                data-slot="switch-thumb"
+                className="pointer-events-none block rounded-full bg-background ring-0 transition-transform group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] rtl:group-data-[size=default]/switch:data-checked:-translate-x-[calc(100%-2px)] rtl:group-data-[size=sm]/switch:data-checked:-translate-x-[calc(100%-2px)] dark:data-checked:bg-primary-foreground group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0 dark:data-unchecked:bg-foreground"
+            />
+        </SwitchPrimitive.Root>
+    );
+
+    // Only self-wrap in a <label> when there's text to associate — an empty
+    // wrapping label would otherwise win accessible-name computation over an
+    // outer label a consumer (e.g. SwitchWrapper) renders with real text.
+    if (!label) return root;
+
     return (
         <Label
             className="flex w-fit items-center gap-2 font-normal"
             required={required}
         >
-            <SwitchPrimitive.Root
-                data-slot="switch"
-                data-size={size}
-                id={id}
-                className={cn(switchVariants({ variant }), className)}
-                {...props}
-            >
-                <SwitchPrimitive.Thumb
-                    data-slot="switch-thumb"
-                    className="pointer-events-none block rounded-full bg-background ring-0 transition-transform group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] rtl:group-data-[size=default]/switch:data-checked:-translate-x-[calc(100%-2px)] rtl:group-data-[size=sm]/switch:data-checked:-translate-x-[calc(100%-2px)] dark:data-checked:bg-primary-foreground group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0 dark:data-unchecked:bg-foreground"
-                />
-            </SwitchPrimitive.Root>
-            {label && <span className="text-sm leading-none">{label}</span>}
+            {root}
+            <span className="text-sm leading-none">{label}</span>
         </Label>
     );
 };

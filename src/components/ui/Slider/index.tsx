@@ -3,9 +3,9 @@
 /* c8 ignore stop */
 
 import { cn } from '@/utils/funcs/cn';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import { Slider as SliderPrimitive } from 'radix-ui';
-import * as React from 'react';
+import type { SliderProps } from './slider.types';
 
 const trackVariants = cva(
     'relative h-1.5 w-full grow overflow-hidden rounded-full',
@@ -60,10 +60,11 @@ const Slider = ({
     className,
     variant,
     defaultValue,
+    'aria-label': ariaLabel,
     ...props
-}: React.ComponentProps<typeof SliderPrimitive.Root> &
-    VariantProps<typeof rangeVariants>) => {
+}: SliderProps) => {
     const thumbCount = (defaultValue ?? props.value ?? [0]).length;
+    const thumbLabels = Array.isArray(ariaLabel) ? ariaLabel : [ariaLabel];
 
     return (
         <SliderPrimitive.Root
@@ -90,6 +91,7 @@ const Slider = ({
                 <SliderPrimitive.Thumb
                     key={i}
                     data-slot="slider-thumb"
+                    aria-label={thumbLabels[i] ?? thumbLabels[0]}
                     className={thumbVariants({ variant })}
                 />
             ))}

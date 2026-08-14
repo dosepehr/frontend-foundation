@@ -29,45 +29,60 @@ export default meta;
 type Story = StoryObj<typeof Slider>;
 
 export const Default: Story = {
-    args: { defaultValue: [60] },
+    args: { defaultValue: [60], 'aria-label': 'Volume' },
 };
 
 export const Success: Story = {
-    args: { defaultValue: [100], variant: 'success' },
+    args: { defaultValue: [100], variant: 'success', 'aria-label': 'Volume' },
 };
 
 export const Warning: Story = {
-    args: { defaultValue: [45], variant: 'warning' },
+    args: { defaultValue: [45], variant: 'warning', 'aria-label': 'Volume' },
 };
 
 export const Destructive: Story = {
-    args: { defaultValue: [20], variant: 'destructive' },
+    args: {
+        defaultValue: [20],
+        variant: 'destructive',
+        'aria-label': 'Volume',
+    },
 };
 
 export const Info: Story = {
-    args: { defaultValue: [70], variant: 'info' },
+    args: { defaultValue: [70], variant: 'info', 'aria-label': 'Volume' },
 };
 
 export const Disabled: Story = {
-    args: { defaultValue: [40], disabled: true },
+    args: { defaultValue: [40], disabled: true, 'aria-label': 'Volume' },
 };
 
 export const Range: Story = {
-    args: { defaultValue: [25, 75] },
+    args: {
+        defaultValue: [25, 75],
+        'aria-label': ['Minimum price', 'Maximum price'],
+    },
 };
 
 export const WithSteps: Story = {
-    args: { defaultValue: [40], step: 10 },
+    args: { defaultValue: [40], step: 10, 'aria-label': 'Volume' },
 };
 
 export const AllVariants: Story = {
     render: () => (
         <div className="flex w-80 flex-col gap-5">
-            <Slider defaultValue={[60]} variant="default" />
-            <Slider defaultValue={[100]} variant="success" />
-            <Slider defaultValue={[45]} variant="warning" />
-            <Slider defaultValue={[20]} variant="destructive" />
-            <Slider defaultValue={[70]} variant="info" />
+            <Slider defaultValue={[60]} variant="default" aria-label="Volume" />
+            <Slider
+                defaultValue={[100]}
+                variant="success"
+                aria-label="Volume"
+            />
+            <Slider defaultValue={[45]} variant="warning" aria-label="Volume" />
+            <Slider
+                defaultValue={[20]}
+                variant="destructive"
+                aria-label="Volume"
+            />
+            <Slider defaultValue={[70]} variant="info" aria-label="Volume" />
         </div>
     ),
 };

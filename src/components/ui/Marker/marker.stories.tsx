@@ -145,7 +145,9 @@ export const AsButton: Story = {
 // ─── Icon-only ───────────────────────────────────────────────────────────
 
 export const IconOnly: Story = {
-    render: () => <MarkerWrapper aria-label="Synced" icon={<CheckIcon />} />,
+    render: () => (
+        <MarkerWrapper role="img" aria-label="Synced" icon={<CheckIcon />} />
+    ),
 };
 
 // ─── Conversation ────────────────────────────────────────────────────────

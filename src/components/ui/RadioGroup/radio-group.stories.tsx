@@ -39,9 +39,9 @@ export const Default: Story = {
 export const NoLabel: Story = {
     render: () => (
         <RadioGroup defaultValue="a">
-            <RadioGroupItem value="a" />
-            <RadioGroupItem value="b" />
-            <RadioGroupItem value="c" />
+            <RadioGroupItem value="a" aria-label="Option A" />
+            <RadioGroupItem value="b" aria-label="Option B" />
+            <RadioGroupItem value="c" aria-label="Option C" />
         </RadioGroup>
     ),
     args: {},

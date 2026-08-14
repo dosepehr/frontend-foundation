@@ -17,7 +17,7 @@ export const badgeVariants = cva(
                 outline:
                     'border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground',
                 ghost: 'hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50',
-                link: 'text-primary underline-offset-4 hover:underline',
+                link: 'text-primary-text underline-offset-4 hover:underline',
             },
             appearance: {
                 solid: '',
@@ -65,7 +65,8 @@ export const badgeVariants = cva(
             {
                 variant: 'default',
                 appearance: 'soft',
-                className: 'bg-primary/10 text-primary [a]:hover:bg-primary/20',
+                className:
+                    'bg-primary/10 text-primary-text [a]:hover:bg-primary/20',
             },
             {
                 variant: 'secondary',
@@ -77,25 +78,25 @@ export const badgeVariants = cva(
                 variant: 'destructive',
                 appearance: 'soft',
                 className:
-                    'bg-destructive/10 text-destructive focus-visible:ring-destructive/20 dark:bg-destructive/20 [a]:hover:bg-destructive/20',
+                    'bg-destructive/10 text-destructive-text focus-visible:ring-destructive/20 dark:bg-destructive/20 [a]:hover:bg-destructive/20',
             },
             {
                 variant: 'success',
                 appearance: 'soft',
                 className:
-                    'bg-success/10 text-success dark:bg-success/20 [a]:hover:bg-success/20',
+                    'bg-success/10 text-success-text dark:bg-success/20 [a]:hover:bg-success/20',
             },
             {
                 variant: 'warning',
                 appearance: 'soft',
                 className:
-                    'bg-warning/10 text-warning dark:bg-warning/20 [a]:hover:bg-warning/20',
+                    'bg-warning/10 text-warning-text dark:bg-warning/20 [a]:hover:bg-warning/20',
             },
             {
                 variant: 'info',
                 appearance: 'soft',
                 className:
-                    'bg-info/10 text-info dark:bg-info/20 [a]:hover:bg-info/20',
+                    'bg-info/10 text-info-text dark:bg-info/20 [a]:hover:bg-info/20',
             },
         ],
         defaultVariants: {

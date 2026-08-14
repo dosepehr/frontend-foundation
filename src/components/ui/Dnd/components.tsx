@@ -45,10 +45,16 @@ const DndZone = ({
 };
 
 const DndInput = ({ className, ...props }: React.ComponentProps<'input'>) => {
+    // The surrounding DndZone (role="button") is the sole interactive
+    // target and already handles click/keyboard — this input is only
+    // triggered programmatically via ref, so it's excluded from the a11y
+    // tree and tab order to avoid a redundant, unlabeled nested control.
     return (
         <input
             data-slot="dnd-input"
             type="file"
+            tabIndex={-1}
+            aria-hidden="true"
             className={cn('sr-only', className)}
             {...props}
         />

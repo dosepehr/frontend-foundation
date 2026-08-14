@@ -74,7 +74,7 @@ const AttachmentWrapper: FC<AttachmentWrapperProps> = ({
             {hasTrigger &&
                 (href ? (
                     <AttachmentTrigger asChild>
-                        <a href={href} />
+                        <a href={href} aria-label={name} />
                     </AttachmentTrigger>
                 ) : (
                     <AttachmentTrigger onClick={onPress} />

@@ -76,7 +76,13 @@ export default defineConfig({
                     browser: {
                         enabled: true,
                         headless: true,
-                        provider: playwright({}),
+                        // Emulates `prefers-reduced-motion: reduce`, which
+                        // `<MotionConfig reducedMotion="user">` (see preview.tsx)
+                        // uses to skip animations — otherwise axe can sample a
+                        // mid-fade frame and report a false color-contrast failure.
+                        provider: playwright({
+                            contextOptions: { reducedMotion: 'reduce' },
+                        }),
                         instances: [{ browser: 'chromium' }],
                     },
                 },

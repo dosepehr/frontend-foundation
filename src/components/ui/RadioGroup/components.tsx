@@ -73,22 +73,31 @@ const RadioGroupItem = ({
     id,
     ...props
 }: RadioGroupItemProps) => {
+    const root = (
+        <RadioGroupPrimitive.Item
+            data-slot="radio-group-item"
+            id={id}
+            className={cn(radioGroupItemVariants({ variant }), className)}
+            {...props}
+        >
+            <RadioGroupPrimitive.Indicator
+                data-slot="radio-group-indicator"
+                className="flex size-4 items-center justify-center"
+            >
+                <span className="absolute start-1/2 top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-current rtl:translate-x-1/2" />
+            </RadioGroupPrimitive.Indicator>
+        </RadioGroupPrimitive.Item>
+    );
+
+    // Only self-wrap in a <label> when there's text to associate — an empty
+    // wrapping label would otherwise win accessible-name computation over an
+    // outer label a consumer (e.g. RadioGroupWrapper) renders with real text.
+    if (!label) return root;
+
     return (
         <Label className="flex w-fit items-center gap-2 font-normal">
-            <RadioGroupPrimitive.Item
-                data-slot="radio-group-item"
-                id={id}
-                className={cn(radioGroupItemVariants({ variant }), className)}
-                {...props}
-            >
-                <RadioGroupPrimitive.Indicator
-                    data-slot="radio-group-indicator"
-                    className="flex size-4 items-center justify-center"
-                >
-                    <span className="absolute start-1/2 top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-current rtl:translate-x-1/2" />
-                </RadioGroupPrimitive.Indicator>
-            </RadioGroupPrimitive.Item>
-            {label && <span className="text-sm leading-none">{label}</span>}
+            {root}
+            <span className="text-sm leading-none">{label}</span>
         </Label>
     );
 };

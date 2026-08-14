@@ -255,7 +255,11 @@ export const RowActions: Story = {
     render: () => (
         <DropdownMenuWrapper
             trigger={
-                <Button variant="ghost" size="icon-sm">
+                <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    aria-label="Open row actions"
+                >
                     <MoreVerticalIcon />
                 </Button>
             }

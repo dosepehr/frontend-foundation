@@ -21,4 +21,6 @@ export type SelectWrapperProps = {
     className?: string;
     triggerClassName?: string;
     startAddon?: ReactNode;
+    /** Accessible name for the trigger when the visible label isn't programmatically associated (e.g. a separate sibling element). */
+    'aria-label'?: string;
 };

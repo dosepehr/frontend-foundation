@@ -27,6 +27,7 @@ const SelectWrapper = ({
     className,
     triggerClassName,
     startAddon,
+    'aria-label': ariaLabel,
 }: SelectWrapperProps) => {
     const generatedId = useId();
     const isInvalid = !!error;
@@ -58,6 +59,7 @@ const SelectWrapper = ({
                 <SelectTrigger
                     id={generatedId}
                     aria-invalid={isInvalid || undefined}
+                    aria-label={label ? undefined : ariaLabel}
                     className={triggerClassName}
                 >
                     <span className="flex flex-1 items-center gap-2 overflow-hidden">

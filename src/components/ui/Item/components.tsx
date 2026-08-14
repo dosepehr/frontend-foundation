@@ -71,6 +71,7 @@ const Item = ({
             data-size={size}
             data-active={active || undefined}
             data-disabled={disabled || undefined}
+            aria-disabled={disabled || undefined}
             onClick={disabled ? undefined : onClick}
             role={isInteractive ? 'button' : undefined}
             tabIndex={isInteractive && !disabled ? 0 : undefined}
@@ -83,7 +84,7 @@ const Item = ({
                     isInteractive &&
                     !disabled &&
                     'hover:bg-muted/50',
-                active && 'bg-primary/10 text-primary',
+                active && 'bg-primary/10 text-primary-text',
                 disabled && 'cursor-not-allowed opacity-50',
                 className,
             )}

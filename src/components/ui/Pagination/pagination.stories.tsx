@@ -155,6 +155,7 @@ export const Controlled: Story = {
                     <PaginationContent>
                         <PaginationItem>
                             <PaginationPrevious
+                                aria-disabled={page === 1 || undefined}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setPage((p) => Math.max(1, p - 1));
@@ -181,6 +182,7 @@ export const Controlled: Story = {
                         ))}
                         <PaginationItem>
                             <PaginationNext
+                                aria-disabled={page === total || undefined}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setPage((p) => Math.min(total, p + 1));

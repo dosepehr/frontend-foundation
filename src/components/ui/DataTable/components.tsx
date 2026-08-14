@@ -271,6 +271,7 @@ const DataTableRoot = <TData,>({
     return (
         <motion.div
             {...fadeProps}
+            initial={false}
             className={cn('flex flex-col gap-2', className)}
         >
             {filterColumn && (
@@ -294,6 +295,8 @@ const DataTableRoot = <TData,>({
             )}
 
             <div
+                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- scrollable region, required by WCAG 2.1.1 (verified via axe's scrollable-region-focusable check)
+                tabIndex={resolvedMaxHeight ? 0 : undefined}
                 style={
                     resolvedMaxHeight
                         ? { maxHeight: resolvedMaxHeight }
@@ -370,6 +373,7 @@ const DataTableRoot = <TData,>({
                             <motion.tbody
                                 key="empty"
                                 {...fadeProps}
+                                initial={false}
                                 data-slot="table-body"
                                 className="[&_tr:last-child]:border-0"
                             >
@@ -391,6 +395,7 @@ const DataTableRoot = <TData,>({
                             <motion.tbody
                                 key="rows"
                                 {...fadeProps}
+                                initial={false}
                                 data-slot="table-body"
                                 className="[&_tr:last-child]:border-0"
                             >
@@ -490,6 +495,7 @@ const DataTablePagination = ({
                     }}
                     options={PAGE_SIZE_OPTIONS}
                     triggerClassName="h-8 w-20"
+                    aria-label="Rows per page"
                 />
             </div>
 
@@ -568,7 +574,11 @@ const DataTableSkeleton = ({
                 <thead>
                     <tr className="border-b border-border bg-muted/50">
                         {Array.from({ length: columns }).map((_, i) => (
-                            <th key={i} className="h-10 px-3">
+                            <th
+                                key={i}
+                                className="h-10 px-3"
+                                aria-hidden="true"
+                            >
                                 <Skeleton className="mx-auto h-4 w-24" />
                             </th>
                         ))}

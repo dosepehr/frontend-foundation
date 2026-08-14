@@ -92,10 +92,26 @@ export const WithIcons: Story = {
         variant: 'outline',
         spacing: 0,
         items: [
-            { value: 'left', label: <AlignLeftIcon /> },
-            { value: 'center', label: <AlignCenterIcon /> },
-            { value: 'right', label: <AlignRightIcon /> },
-            { value: 'justify', label: <AlignJustifyIcon /> },
+            {
+                value: 'left',
+                label: <AlignLeftIcon />,
+                'aria-label': 'Align left',
+            },
+            {
+                value: 'center',
+                label: <AlignCenterIcon />,
+                'aria-label': 'Align center',
+            },
+            {
+                value: 'right',
+                label: <AlignRightIcon />,
+                'aria-label': 'Align right',
+            },
+            {
+                value: 'justify',
+                label: <AlignJustifyIcon />,
+                'aria-label': 'Align justify',
+            },
         ],
     },
 };
@@ -107,9 +123,13 @@ export const Multiple: Story = {
         variant: 'outline',
         spacing: 0,
         items: [
-            { value: 'bold', label: <BoldIcon /> },
-            { value: 'italic', label: <ItalicIcon /> },
-            { value: 'underline', label: <UnderlineIcon /> },
+            { value: 'bold', label: <BoldIcon />, 'aria-label': 'Bold' },
+            { value: 'italic', label: <ItalicIcon />, 'aria-label': 'Italic' },
+            {
+                value: 'underline',
+                label: <UnderlineIcon />,
+                'aria-label': 'Underline',
+            },
         ],
     },
 };

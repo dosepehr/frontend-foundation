@@ -73,7 +73,9 @@ export const DisabledChecked: Story = {
 };
 
 export const NoLabel: Story = {
-    args: {},
+    args: {
+        'aria-label': 'Accept terms and conditions',
+    },
 };
 
 export const AllVariants: Story = {

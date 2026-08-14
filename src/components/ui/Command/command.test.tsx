@@ -172,6 +172,187 @@ describe('Command', () => {
     });
 });
 
+describe('Command keyboard navigation', () => {
+    it('marks the first visible item active by default', () => {
+        render(
+            <Command>
+                <CommandList>
+                    <CommandGroup>
+                        <CommandItem value="apple">Apple</CommandItem>
+                        <CommandItem value="banana">Banana</CommandItem>
+                    </CommandGroup>
+                </CommandList>
+            </Command>,
+        );
+        expect(screen.getByText('Apple')).toHaveAttribute(
+            'aria-selected',
+            'true',
+        );
+        expect(screen.getByText('Banana')).toHaveAttribute(
+            'aria-selected',
+            'false',
+        );
+    });
+
+    it('moves the active item down and up with arrow keys', async () => {
+        const user = userEvent.setup();
+        render(
+            <Command>
+                <CommandInput placeholder="Search..." />
+                <CommandList>
+                    <CommandGroup>
+                        <CommandItem value="apple">Apple</CommandItem>
+                        <CommandItem value="banana">Banana</CommandItem>
+                        <CommandItem value="cherry">Cherry</CommandItem>
+                    </CommandGroup>
+                </CommandList>
+            </Command>,
+        );
+        const input = screen.getByPlaceholderText('Search...');
+        await user.click(input);
+
+        await user.keyboard('{ArrowDown}');
+        expect(screen.getByText('Banana')).toHaveAttribute(
+            'aria-selected',
+            'true',
+        );
+
+        await user.keyboard('{ArrowDown}');
+        expect(screen.getByText('Cherry')).toHaveAttribute(
+            'aria-selected',
+            'true',
+        );
+
+        await user.keyboard('{ArrowUp}');
+        expect(screen.getByText('Banana')).toHaveAttribute(
+            'aria-selected',
+            'true',
+        );
+    });
+
+    it('wraps from the last item to the first on ArrowDown', async () => {
+        const user = userEvent.setup();
+        render(
+            <Command>
+                <CommandInput placeholder="Search..." />
+                <CommandList>
+                    <CommandGroup>
+                        <CommandItem value="apple">Apple</CommandItem>
+                        <CommandItem value="banana">Banana</CommandItem>
+                    </CommandGroup>
+                </CommandList>
+            </Command>,
+        );
+        const input = screen.getByPlaceholderText('Search...');
+        await user.click(input);
+
+        await user.keyboard('{ArrowDown}{ArrowDown}');
+        expect(screen.getByText('Apple')).toHaveAttribute(
+            'aria-selected',
+            'true',
+        );
+    });
+
+    it('jumps to the first/last item with Home/End', async () => {
+        const user = userEvent.setup();
+        render(
+            <Command>
+                <CommandInput placeholder="Search..." />
+                <CommandList>
+                    <CommandGroup>
+                        <CommandItem value="apple">Apple</CommandItem>
+                        <CommandItem value="banana">Banana</CommandItem>
+                        <CommandItem value="cherry">Cherry</CommandItem>
+                    </CommandGroup>
+                </CommandList>
+            </Command>,
+        );
+        const input = screen.getByPlaceholderText('Search...');
+        await user.click(input);
+
+        await user.keyboard('{End}');
+        expect(screen.getByText('Cherry')).toHaveAttribute(
+            'aria-selected',
+            'true',
+        );
+
+        await user.keyboard('{Home}');
+        expect(screen.getByText('Apple')).toHaveAttribute(
+            'aria-selected',
+            'true',
+        );
+    });
+
+    it('selects the active item on Enter', async () => {
+        const user = userEvent.setup();
+        const onSelect = vi.fn();
+        render(
+            <Command>
+                <CommandInput placeholder="Search..." />
+                <CommandList>
+                    <CommandGroup>
+                        <CommandItem value="apple" onSelect={onSelect}>
+                            Apple
+                        </CommandItem>
+                        <CommandItem value="banana" onSelect={onSelect}>
+                            Banana
+                        </CommandItem>
+                    </CommandGroup>
+                </CommandList>
+            </Command>,
+        );
+        const input = screen.getByPlaceholderText('Search...');
+        await user.click(input);
+
+        await user.keyboard('{ArrowDown}{Enter}');
+        expect(onSelect).toHaveBeenCalledWith('banana');
+    });
+
+    it('keeps aria-activedescendant on the input in sync with the active item', async () => {
+        const user = userEvent.setup();
+        render(
+            <Command>
+                <CommandInput placeholder="Search..." />
+                <CommandList>
+                    <CommandGroup>
+                        <CommandItem value="apple">Apple</CommandItem>
+                        <CommandItem value="banana">Banana</CommandItem>
+                    </CommandGroup>
+                </CommandList>
+            </Command>,
+        );
+        const input = screen.getByPlaceholderText('Search...');
+        await user.click(input);
+
+        await user.keyboard('{ArrowDown}');
+        const bananaId = screen.getByText('Banana').id;
+        expect(input).toHaveAttribute('aria-activedescendant', bananaId);
+    });
+
+    it('re-highlights the first match after the search filters the list', async () => {
+        const user = userEvent.setup();
+        render(
+            <Command>
+                <CommandInput placeholder="Search..." />
+                <CommandList>
+                    <CommandGroup>
+                        <CommandItem value="apple">Apple</CommandItem>
+                        <CommandItem value="apricot">Apricot</CommandItem>
+                        <CommandItem value="banana">Banana</CommandItem>
+                    </CommandGroup>
+                </CommandList>
+            </Command>,
+        );
+        const input = screen.getByPlaceholderText('Search...');
+        await user.type(input, 'ap');
+
+        expect(screen.getByText('Apple')).toHaveAttribute(
+            'aria-selected',
+            'true',
+        );
+    });
+});
+
 describe('CommandInput controlled mode', () => {
     it('displays controlled value', () => {
         render(

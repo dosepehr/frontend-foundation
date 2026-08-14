@@ -26,37 +26,49 @@ export default meta;
 type Story = StoryObj<typeof Progress>;
 
 export const Default: Story = {
-    args: { value: 60 },
+    args: { value: 60, 'aria-label': 'Upload progress' },
 };
 
 export const Success: Story = {
-    args: { value: 100, variant: 'success' },
+    args: {
+        value: 100,
+        variant: 'success',
+        'aria-label': 'Upload progress',
+    },
 };
 
 export const Warning: Story = {
-    args: { value: 45, variant: 'warning' },
+    args: {
+        value: 45,
+        variant: 'warning',
+        'aria-label': 'Upload progress',
+    },
 };
 
 export const Destructive: Story = {
-    args: { value: 20, variant: 'destructive' },
+    args: {
+        value: 20,
+        variant: 'destructive',
+        'aria-label': 'Upload progress',
+    },
 };
 
 export const Info: Story = {
-    args: { value: 70, variant: 'info' },
+    args: { value: 70, variant: 'info', 'aria-label': 'Upload progress' },
 };
 
 export const Empty: Story = {
-    args: { value: 0 },
+    args: { value: 0, 'aria-label': 'Upload progress' },
 };
 
 export const AllVariants: Story = {
     render: () => (
         <div className="flex w-80 flex-col gap-3">
-            <Progress value={60} variant="default" />
-            <Progress value={100} variant="success" />
-            <Progress value={45} variant="warning" />
-            <Progress value={20} variant="destructive" />
-            <Progress value={70} variant="info" />
+            <Progress value={60} variant="default" aria-label="Progress" />
+            <Progress value={100} variant="success" aria-label="Progress" />
+            <Progress value={45} variant="warning" aria-label="Progress" />
+            <Progress value={20} variant="destructive" aria-label="Progress" />
+            <Progress value={70} variant="info" aria-label="Progress" />
         </div>
     ),
 };

@@ -120,7 +120,10 @@ const ComboBox: React.FC<ComboBoxProps> = ({
                     sideOffset={5}
                 >
                     <Command onSearchChange={setCommandSearch}>
-                        <CommandInput placeholder={searchPlaceholder} />
+                        <CommandInput
+                            placeholder={searchPlaceholder}
+                            ownsComboboxRole={false}
+                        />
                         <div
                             className="max-h-40 overflow-y-auto"
                             onWheel={(e) => e.stopPropagation()}

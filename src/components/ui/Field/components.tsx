@@ -107,7 +107,7 @@ const FieldDescription = ({
             className={cn(
                 'text-start text-sm leading-normal font-normal text-muted-foreground group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5',
                 'last:mt-0 nth-last-2:-mt-1',
-                '[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary',
+                '[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary-text',
                 className,
             )}
             {...props}
@@ -189,7 +189,7 @@ const FieldError = ({
             role="alert"
             data-slot="field-error"
             className={cn(
-                'absolute -bottom-5 text-xs text-destructive',
+                'absolute -bottom-5 text-xs text-destructive-text',
                 className,
             )}
             {...props}

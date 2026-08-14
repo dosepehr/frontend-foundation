@@ -17,14 +17,14 @@ export const toggleVariants = cva(
                 outline:
                     'border border-input bg-transparent text-foreground hover:bg-muted data-[state=on]:bg-muted',
                 primary:
-                    'border border-primary/30 bg-transparent text-primary hover:bg-primary/10 data-[state=on]:bg-primary/15 data-[state=on]:border-primary',
+                    'border border-primary/30 bg-transparent text-primary-text hover:bg-primary/10 data-[state=on]:bg-primary/15 data-[state=on]:border-primary',
                 success:
-                    'border border-success/30 bg-transparent text-success hover:bg-success/10 data-[state=on]:bg-success/15 data-[state=on]:border-success',
+                    'border border-success/30 bg-transparent text-success-text hover:bg-success/10 data-[state=on]:bg-success/15 data-[state=on]:border-success',
                 warning:
-                    'border border-warning/30 bg-transparent text-warning hover:bg-warning/10 data-[state=on]:bg-warning/15 data-[state=on]:border-warning',
+                    'border border-warning/30 bg-transparent text-warning-text hover:bg-warning/10 data-[state=on]:bg-warning/15 data-[state=on]:border-warning',
                 destructive:
-                    'border border-destructive/30 bg-transparent text-destructive hover:bg-destructive/10 data-[state=on]:bg-destructive/15 data-[state=on]:border-destructive',
-                info: 'border border-info/30 bg-transparent text-info hover:bg-info/10 data-[state=on]:bg-info/15 data-[state=on]:border-info',
+                    'border border-destructive/30 bg-transparent text-destructive-text hover:bg-destructive/10 data-[state=on]:bg-destructive/15 data-[state=on]:border-destructive',
+                info: 'border border-info/30 bg-transparent text-info-text hover:bg-info/10 data-[state=on]:bg-info/15 data-[state=on]:border-info',
             },
             size: {
                 sm: 'h-7 min-w-7 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5 [&_svg:not([class*="size-"])]:size-3.5',

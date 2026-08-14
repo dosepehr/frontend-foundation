@@ -137,7 +137,12 @@ export const IconSizes: Story = {
         <div className="flex flex-wrap items-center gap-3">
             {(['icon-xs', 'icon-sm', 'icon', 'icon-lg'] as const).map(
                 (size) => (
-                    <Button key={size} size={size} variant="outline">
+                    <Button
+                        key={size}
+                        size={size}
+                        variant="outline"
+                        aria-label="Git branch"
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"

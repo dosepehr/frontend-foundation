@@ -83,9 +83,24 @@ export const VerticalWithSeparator: Story = {
 export const IconGroup: Story = {
     args: {
         items: [
-            { children: <AlignLeftIcon />, variant: 'outline', size: 'icon' },
-            { children: <AlignCenterIcon />, variant: 'outline', size: 'icon' },
-            { children: <AlignRightIcon />, variant: 'outline', size: 'icon' },
+            {
+                children: <AlignLeftIcon />,
+                variant: 'outline',
+                size: 'icon',
+                'aria-label': 'Align left',
+            },
+            {
+                children: <AlignCenterIcon />,
+                variant: 'outline',
+                size: 'icon',
+                'aria-label': 'Align center',
+            },
+            {
+                children: <AlignRightIcon />,
+                variant: 'outline',
+                size: 'icon',
+                'aria-label': 'Align right',
+            },
         ],
     },
 };
@@ -104,9 +119,24 @@ export const FormatToolbar: Story = {
     args: {
         separator: true,
         items: [
-            { children: <BoldIcon />, variant: 'outline', size: 'icon' },
-            { children: <ItalicIcon />, variant: 'outline', size: 'icon' },
-            { children: <UnderlineIcon />, variant: 'outline', size: 'icon' },
+            {
+                children: <BoldIcon />,
+                variant: 'outline',
+                size: 'icon',
+                'aria-label': 'Bold',
+            },
+            {
+                children: <ItalicIcon />,
+                variant: 'outline',
+                size: 'icon',
+                'aria-label': 'Italic',
+            },
+            {
+                children: <UnderlineIcon />,
+                variant: 'outline',
+                size: 'icon',
+                'aria-label': 'Underline',
+            },
         ],
     },
 };

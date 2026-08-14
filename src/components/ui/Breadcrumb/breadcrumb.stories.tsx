@@ -93,7 +93,11 @@ export const CustomSeparator: Story = {
 export const WithHomeIcon: Story = {
     args: {
         items: [
-            { label: <HomeIcon className="size-4" />, href: '/' },
+            {
+                label: <HomeIcon className="size-4" />,
+                href: '/',
+                'aria-label': 'Home',
+            },
             { label: 'Components', href: '/components' },
             { label: 'Breadcrumb' },
         ],

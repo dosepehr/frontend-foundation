@@ -87,6 +87,7 @@ export const WithIcon: Story = {
         children: <BoldIcon />,
         variant: 'outline',
         size: 'default',
+        'aria-label': 'Toggle bold',
     },
 };
 
@@ -152,13 +153,13 @@ export const AllSizes: Story = {
 export const IconToggles: Story = {
     render: () => (
         <div className="flex items-center gap-2">
-            <Toggle variant="outline" defaultPressed>
+            <Toggle variant="outline" defaultPressed aria-label="Toggle bold">
                 <BoldIcon />
             </Toggle>
-            <Toggle variant="outline">
+            <Toggle variant="outline" aria-label="Toggle italic">
                 <ItalicIcon />
             </Toggle>
-            <Toggle variant="outline">
+            <Toggle variant="outline" aria-label="Toggle underline">
                 <UnderlineIcon />
             </Toggle>
         </div>

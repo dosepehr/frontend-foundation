@@ -30,15 +30,19 @@ const CollapsibleContent = ({
 >) => {
     const isOpen = React.useContext(CollapsibleContext);
 
+    // AnimatePresence must wrap the conditional render, not sit *inside* the
+    // asChild target — it doesn't forward unknown props (id, aria-*) to its
+    // children, so Radix's Slot merge onto it would never reach the real DOM
+    // node, leaving the trigger's aria-controls pointing at a nonexistent id.
     return (
-        <CollapsiblePrimitive.CollapsibleContent
-            data-slot="collapsible-content"
-            forceMount
-            asChild
-            {...props}
-        >
-            <AnimatePresence initial={false}>
-                {isOpen && (
+        <AnimatePresence initial={false}>
+            {isOpen && (
+                <CollapsiblePrimitive.CollapsibleContent
+                    data-slot="collapsible-content"
+                    forceMount
+                    asChild
+                    {...props}
+                >
                     <motion.div
                         key="collapsible-content"
                         initial={{ height: 0, opacity: 0 }}
@@ -50,9 +54,9 @@ const CollapsibleContent = ({
                     >
                         {children}
                     </motion.div>
-                )}
-            </AnimatePresence>
-        </CollapsiblePrimitive.CollapsibleContent>
+                </CollapsiblePrimitive.CollapsibleContent>
+            )}
+        </AnimatePresence>
     );
 };
 
