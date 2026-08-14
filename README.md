@@ -82,20 +82,12 @@ A Next.js 16 component library and application foundation with a full-featured D
 - [ ] **Refresh-token failure UX** — `refreshToken.ts`'s interceptor has a failure path, but there's no real auth flow yet to redirect to
     - Wire it to redirect to `/login` (once that page exists) instead of leaving the user on a page silently making failed requests
 
-- [ ] **i18n** — `next-intl`
-    - Storybook's i18n addon is already wired; there's no runtime translation layer yet
-    - Set it up early — retrofitting touches every string in every component
-
-- [ ] **OpenAPI type generation** — `openapi-typescript`
-    - `src/utils/api/types/DTO` is hand-written today, so it can silently drift from what the backend actually returns
-    - Generating types from the backend's OpenAPI spec closes that gap
-
 ### Nice to have
 
 - [ ] **Registry semver + changelog** — consumers install specific components by URL with no version pinning today; a breaking change to a shared primitive (e.g. `Button`) currently reaches every downstream project on their next install with no changelog to warn them
 - [ ] **Route-level `loading.tsx`** — no route in `src/app` has one yet; React Query's cache makes revisits instant, but a first visit has no skeleton/loading UI while data fetches
 - [ ] **Offline mutation queue** — the service worker already caches reads for offline use, but React Query mutations made while offline just fail; queuing and replaying them on reconnect would make the PWA's offline story consistent for writes, not just reads
-- [ ] **Feature flags** — even a simple env-var-based toggle avoids long-lived branches; `@vercel/flags` integrates cleanly with Next.js if on Vercel
+- [ ] **Feature flags** — a simple env-var-based toggle (e.g. `NEXT_PUBLIC_FEATURE_X=true`, checked where the feature branches) avoids long-lived branches for work that ships gradually
 
 ---
 
