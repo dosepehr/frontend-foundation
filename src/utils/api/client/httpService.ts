@@ -1,10 +1,11 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import { env } from '../../env';
 import { globalErrorHandler } from './interceptors/globalErrorHandler';
 import { setupRefreshToken } from './interceptors/refreshToken';
 
 export const httpService = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_APP_BASE_URL,
+    baseURL: env.NEXT_PUBLIC_APP_BASE_URL,
 });
 
 httpService.interceptors.request.use(

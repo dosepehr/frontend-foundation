@@ -4,6 +4,7 @@ import axios, {
     type InternalAxiosRequestConfig,
 } from 'axios';
 import Cookies from 'universal-cookie';
+import { env } from '../../../env';
 
 const cookies = new Cookies();
 
@@ -94,7 +95,7 @@ export const setupRefreshToken = (client: AxiosInstance) => {
                 const { data } = await axios.post<{
                     accessToken: string;
                     refreshToken?: string;
-                }>(`${process.env.NEXT_PUBLIC_APP_BASE_URL}/auth/refresh`, {
+                }>(`${env.NEXT_PUBLIC_APP_BASE_URL}/auth/refresh`, {
                     refreshToken,
                 });
 

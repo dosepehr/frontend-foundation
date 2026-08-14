@@ -127,6 +127,7 @@ const hookKebab = new Map(hookDirNames.map((d) => [hookDisplayName(d), kebabCase
 // own imports) follow automatically.
 const LIB_FILES = [
     { name: 'utils', srcRelPath: 'utils/funcs/cn.ts' },
+    { name: 'env', srcRelPath: 'utils/env.ts' },
     { name: 'dnd-utils', srcRelPath: 'utils/funcs/dnd.utils.ts' },
     { name: 'http-errors', srcRelPath: 'utils/api/types/DTO/http-errors.interface.ts' },
     { name: 'operation-result', srcRelPath: 'utils/api/types/operation-result.type.ts' },
