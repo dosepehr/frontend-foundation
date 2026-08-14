@@ -1,13 +1,15 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
+import react from '@vitejs/plugin-react';
 import { playwright } from '@vitest/browser-playwright';
+import { defineConfig } from 'vitest/config';
 
 const dirname =
-    typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
+    typeof __dirname !== 'undefined'
+        ? __dirname
+        : path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
     test: {
@@ -35,9 +37,29 @@ export default defineConfig({
                     exclude: ['src/**/*.stories.{ts,tsx}', 'node_modules'],
                 },
                 resolve: {
-                    alias: {
-                        '@': path.resolve(dirname, '.'),
-                    },
+                    // Mirrors tsconfig.json's `paths` — most specific first,
+                    // since Vite picks the first matching alias.
+                    alias: [
+                        {
+                            find: '@/components',
+                            replacement: path.resolve(
+                                dirname,
+                                './src/components',
+                            ),
+                        },
+                        {
+                            find: '@/utils',
+                            replacement: path.resolve(dirname, './src/utils'),
+                        },
+                        {
+                            find: '@/hooks',
+                            replacement: path.resolve(
+                                dirname,
+                                './src/utils/hooks',
+                            ),
+                        },
+                        { find: '@', replacement: path.resolve(dirname, '.') },
+                    ],
                 },
             },
 
@@ -45,7 +67,9 @@ export default defineConfig({
             {
                 extends: true,
                 plugins: [
-                    storybookTest({ configDir: path.join(dirname, '.storybook') }),
+                    storybookTest({
+                        configDir: path.join(dirname, '.storybook'),
+                    }),
                 ],
                 test: {
                     name: 'storybook',
