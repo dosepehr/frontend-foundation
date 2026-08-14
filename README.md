@@ -6,34 +6,34 @@ A Next.js 16 component library and application foundation with a full-featured D
 
 ## Stack
 
-| Layer | Tool |
-|---|---|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript 5 |
-| Styling | Tailwind CSS 4 + shadcn/ui |
-| Components | Radix UI + Base UI |
-| Forms | React Hook Form + Zod |
-| Server state | TanStack Query v5 |
-| Tables | TanStack Table v8 |
-| HTTP | Axios |
-| Animations | Motion |
-| Toasts | Sonner |
-| Theming | next-themes |
-| Icons | Lucide React |
+| Layer        | Tool                       |
+| ------------ | -------------------------- |
+| Framework    | Next.js 16 (App Router)    |
+| Language     | TypeScript 5               |
+| Styling      | Tailwind CSS 4 + shadcn/ui |
+| Components   | Radix UI + Base UI         |
+| Forms        | React Hook Form + Zod      |
+| Server state | TanStack Query v5          |
+| Tables       | TanStack Table v8          |
+| HTTP         | Axios                      |
+| Animations   | Motion                     |
+| Toasts       | Sonner                     |
+| Theming      | next-themes                |
+| Icons        | Lucide React               |
 
 ---
 
 ## DX & Tooling
 
-| Tool | Purpose |
-|---|---|
+| Tool                   | Purpose                                                         |
+| ---------------------- | --------------------------------------------------------------- |
 | ESLint 9 (flat config) | Linting — next, react-refresh, tailwindcss, unicorn, typescript |
-| Prettier | Formatting — with organize-imports and tailwindcss plugins |
-| Vitest + happy-dom | Unit & component tests |
-| Storybook 10 | Component development & documentation |
-| Chromatic | Visual regression testing |
-| MSW v2 | API mocking in tests and Storybook |
-| Playwright | E2E (installed, not yet configured) |
+| Prettier               | Formatting — with organize-imports and tailwindcss plugins      |
+| Vitest + happy-dom     | Unit & component tests                                          |
+| Storybook 10           | Component development & documentation                           |
+| Chromatic              | Visual regression testing                                       |
+| MSW v2                 | API mocking in tests and Storybook                              |
+| Playwright             | E2E (installed, not yet configured)                             |
 
 ---
 
@@ -53,6 +53,10 @@ A Next.js 16 component library and application foundation with a full-featured D
 - [x] `@storybook/addon-a11y` installed (currently set to `"todo"`, not enforcing)
 - [x] Installable PWA — manifest, service worker (offline + runtime caching), install/update prompts, notifications — see [docs/pwa.md](docs/pwa.md)
 - [x] Component scaffolding — `npm run gen:component <Name>` generates a `ui/<Name>/` folder with the standard `components`/`index`/`types`/`stories`/`test` file set (Plop)
+- [x] Commit hygiene — `husky` pre-commit runs `lint-staged` (ESLint + Prettier on staged files), `commit-msg` runs `commitlint` (conventional commit format)
+- [x] Environment variable validation — `src/utils/env.ts` validates `NEXT_PUBLIC_*` and server env vars with `zod`, imported from `next.config.ts` so an invalid/missing var fails the build immediately; server-only vars throw if accessed from client code
+- [x] Error boundaries — `src/app/error.tsx` (route-segment crashes) and `src/app/global-error.tsx` (root layout crashes) for page-level errors; `<ErrorBoundary>` (`src/components/ui/ErrorBoundary`, wraps `react-error-boundary`) for isolating a single async section so the rest of the page stays interactive
+- [x] `a11y: { test: "error" }` in Storybook preview — every component story fails CI on a real contrast/ARIA/label/keyboard violation instead of just flagging it
 
 ---
 
@@ -60,72 +64,54 @@ A Next.js 16 component library and application foundation with a full-featured D
 
 ### Must-have before production
 
-- [ ] **Commit hygiene** — `husky` + `lint-staged` + `commitlint`
-  - `lint-staged` runs ESLint + Prettier only on staged files (fast pre-commit)
-  - `commitlint` enforces conventional commit format on every commit
-  - Prevents broken or unformatted code from entering the repo
-
-- [ ] **Environment variable validation** — `@t3-oss/env-nextjs` (already have `zod`)
-  - Validates all `NEXT_PUBLIC_*` and server env vars at build time
-  - App fails to start rather than silently sending `undefined` to the API
-
-- [ ] **Error boundaries**
-  - `error.tsx` in Next.js App Router for page-level crashes
-  - Component-level `<ErrorBoundary>` wrappers (`react-error-boundary`) around async data sections
-  - Without these, one runtime error kills the whole page
-
 - [ ] **Client-side error tracking** — Sentry
-  - Captures unhandled errors, promise rejections, and React render failures in production
-  - Forward `QueryCache.onError` and `MutationCache.onError` to `Sentry.captureException`
-  - Without it you're blind to production bugs unless users report them
-
-- [ ] **Flip a11y to `"error"`** — already have `@storybook/addon-a11y`
-  - Change `a11y: { test: "todo" }` to `a11y: { test: "error" }` in Storybook preview
-  - Catches contrast, ARIA, keyboard, and focus issues at the component level
+    - Captures unhandled errors, promise rejections, and React render failures in production
+    - Forward `QueryCache.onError` and `MutationCache.onError` to `Sentry.captureException`
+    - Without it you're blind to production bugs unless users report them
 
 ### Important
 
 - [ ] **Playwright E2E** — installed, not configured
-  - Vitest covers units, Chromatic covers visuals — neither covers full user flows
-  - Write flows for: login, main navigation, critical paths
-  - Run in CI against a staging environment with MSW or a test API
+    - Vitest covers units, Chromatic covers visuals — neither covers full user flows
+    - Write flows for: login, main navigation, critical paths
+    - Run in CI against a staging environment with MSW or a test API
 
 - [ ] **Bundle analysis** — `@next/bundle-analyzer`
-  - Run occasionally to catch accidental large imports
-  - One wrong barrel file or moment.js import can add 200kb
+    - Run occasionally to catch accidental large imports
+    - One wrong barrel file or moment.js import can add 200kb
 
 - [ ] **i18n** — `next-intl`
-  - Storybook i18n addon is already wired; need the runtime counterpart
-  - Set it up early — retrofitting touches every string in every component
+    - Storybook i18n addon is already wired; need the runtime counterpart
+    - Set it up early — retrofitting touches every string in every component
 
 - [ ] **OpenAPI type generation** — `openapi-typescript`
-  - Auto-generates TypeScript types from the backend OpenAPI spec
-  - Eliminates the entire class of "frontend type doesn't match actual API response"
+    - Auto-generates TypeScript types from the backend OpenAPI spec
+    - Eliminates the entire class of "frontend type doesn't match actual API response"
 
 - [ ] **Dependency update automation** — Renovate or Dependabot
-  - Large apps accumulate dependency drift fast
-  - Renovate is more configurable; Dependabot is zero-setup on GitHub
+    - Large apps accumulate dependency drift fast
+    - Renovate is more configurable; Dependabot is zero-setup on GitHub
 
 ### Nice to have
 
 - [ ] **Feature flags**
-  - Even a simple env-var-based toggle avoids long-lived branches
-  - `@vercel/flags` integrates cleanly with Next.js if on Vercel
+    - Even a simple env-var-based toggle avoids long-lived branches
+    - `@vercel/flags` integrates cleanly with Next.js if on Vercel
 
 - [ ] **PR size limits** — GitHub Action
-  - Warn when a PR exceeds ~400 lines diff
-  - Enforces small-PR habits before the codebase grows too large
+    - Warn when a PR exceeds ~400 lines diff
+    - Enforces small-PR habits before the codebase grows too large
 
 - [ ] **Storybook interaction tests in CI**
-  - `@storybook/addon-vitest` is installed — wire it into the CI pipeline
-  - Story `play` functions already double as interaction tests; just needs a CI step
+    - `@storybook/addon-vitest` is installed — wire it into the CI pipeline
+    - Story `play` functions already double as interaction tests; just needs a CI step
 
 - [ ] **`react-scan` in CI**
-  - Already have the Storybook addon for local dev
-  - Running it in CI flags performance regressions before they ship
-
+    - Already have the Storybook addon for local dev
+    - Running it in CI flags performance regressions before they ship
 
 ## zustand
+
 Middlewares worth considering for createStore, depending on what you need:
 
 persist — syncs state to localStorage/sessionStorage (or any custom storage). Useful for things like sidebar-open state, user preferences, draft form data surviving reloads.
