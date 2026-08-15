@@ -50,7 +50,7 @@ A Next.js 16 component library and application foundation with a full-featured D
 - [x] Cookie-based auth token management
 - [x] Error strategy layer — maps HTTP status codes to typed error shapes
 - [x] `mapErrorToToast` — surfaces API errors as toasts via Sonner
-- [x] `@storybook/addon-a11y` installed (currently set to `"todo"`, not enforcing)
+- [x] `@storybook/addon-a11y` installed and enforcing — see a11y bullet below
 - [x] Installable PWA — manifest, service worker (offline + runtime caching), install/update prompts, notifications — see [docs/pwa.md](docs/pwa.md)
 - [x] Component scaffolding — `npm run gen:component <Name>` generates a `ui/<Name>/` folder with the standard `components`/`index`/`types`/`stories`/`test` file set (Plop)
 - [x] Commit hygiene — `husky` pre-commit runs `lint-staged` (ESLint + Prettier on staged files), `commit-msg` runs `commitlint` (conventional commit format)
@@ -63,6 +63,7 @@ A Next.js 16 component library and application foundation with a full-featured D
 - [x] Dependency update automation — `.github/dependabot.yml`, weekly npm updates grouped into `dev-dependencies` / `production-dependencies` PRs
 - [x] Sentry PII scrubbing — `beforeSend` hook (`src/utils/sentry/scrubPii.ts`) strips cookies, auth/session headers, and identifying user fields from every event before it leaves the browser/server; wired into all three `Sentry.init` calls (client, server, edge)
 - [x] App-wide Content-Security-Policy — `src/proxy.ts` sets a per-request nonce-based CSP (`script-src` uses `'nonce-<value>' 'strict-dynamic'`) on every page route; `next-themes`' no-flash script picks up the nonce via `<ThemeProvider nonce>` in `src/app/layout.tsx`. `/sw.js` keeps its separate static CSP and `/stories` is excluded (Storybook's own inline scripts)
+- [x] Baseline security headers — `next.config.ts`'s `headers()` sets `X-Content-Type-Options: nosniff`, `X-Frame-Options` (`DENY` app-wide, `SAMEORIGIN` under `/stories` since Storybook renders each story in a same-origin iframe), `Referrer-Policy: strict-origin-when-cross-origin`, and `Permissions-Policy` denying camera/microphone/geolocation/payment/usb/sensors — features the app doesn't use
 - [x] Web Vitals / performance monitoring — `tracesSampleRate` enabled on all three Sentry configs, surfacing Core Web Vitals and slow transactions alongside error tracking
 - [x] Refresh-token failure UX — `refreshToken.ts`'s interceptor logic is covered by `refreshToken.test.ts`: non-401s and already-retried requests pass through, 401s from auth endpoints don't loop, a missing/invalid/failed refresh clears cookies and redirects to `/auth`, a successful refresh retries the original request with the new token, and concurrent 401s during an in-flight refresh queue instead of double-refreshing. The `/auth` route itself still doesn't exist, so the redirect 404s until that page is built
 - [x] Route-level `loading.tsx` — `src/app/loading.tsx` is the default Suspense fallback for every route without its own `loading.tsx`; pairs with `useCustomSuspenseQuery` (`src/utils/hooks/useCustomSuspenseQuery`), the `useSuspenseQuery`-based sibling of `useCustomQuery`, so a first visit shows a skeleton while the query suspends and a revisit is instant from cache. No page uses it yet — add a route-local `loading.tsx` to override the default for a specific segment

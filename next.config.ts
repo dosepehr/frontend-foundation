@@ -61,6 +61,13 @@ const nextConfig: NextConfig = {
                         key: 'Referrer-Policy',
                         value: 'strict-origin-when-cross-origin',
                     },
+                    {
+                        // Denies browser features this app doesn't use, on
+                        // every frame (including third-party embeds, unlike
+                        // frame-ancestors which only governs embedding us).
+                        key: 'Permissions-Policy',
+                        value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), interest-cohort=()',
+                    },
                 ],
             },
             {
