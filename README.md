@@ -61,26 +61,14 @@ A Next.js 16 component library and application foundation with a full-featured D
 - [x] Bundle analysis — `@next/bundle-analyzer` wired into `next.config.ts`, run with `npm run analyze`
 - [x] Playwright E2E — `playwright.config.ts` builds and serves a production build on a dedicated port (the service worker only registers in production, see [docs/pwa.md](docs/pwa.md)). Specs are co-located with what they test, next to `*.test.tsx` files: the offline fallback (`src/app/offline/offline.spec.ts`), the notification permission flow (`src/app/notification/notification.spec.ts`), and the service worker update prompt (`src/components/Providers/ServiceWorkerRegister/service-worker-update.spec.ts`) — real browser/SW flows Vitest can't reach. Shared wait helper in `src/test/e2e-helpers.ts`. Run with `npm run test:e2e`. Add more once real auth/checkout flows exist — Vitest + Chromatic already cover everything else
 - [x] Dependency update automation — `.github/dependabot.yml`, weekly npm updates grouped into `dev-dependencies` / `production-dependencies` PRs
+- [x] Sentry PII scrubbing — `beforeSend` hook (`src/utils/sentry/scrubPii.ts`) strips cookies, auth/session headers, and identifying user fields from every event before it leaves the browser/server; wired into all three `Sentry.init` calls (client, server, edge)
+- [x] App-wide Content-Security-Policy — `src/proxy.ts` sets a per-request nonce-based CSP (`script-src` uses `'nonce-<value>' 'strict-dynamic'`) on every page route; `next-themes`' no-flash script picks up the nonce via `<ThemeProvider nonce>` in `src/app/layout.tsx`. `/sw.js` keeps its separate static CSP and `/stories` is excluded (Storybook's own inline scripts)
+- [x] Web Vitals / performance monitoring — `tracesSampleRate` enabled on all three Sentry configs, surfacing Core Web Vitals and slow transactions alongside error tracking
+- [x] Refresh-token failure UX — `refreshToken.ts`'s interceptor logic is covered by `refreshToken.test.ts`: non-401s and already-retried requests pass through, 401s from auth endpoints don't loop, a missing/invalid/failed refresh clears cookies and redirects to `/auth`, a successful refresh retries the original request with the new token, and concurrent 401s during an in-flight refresh queue instead of double-refreshing. The `/auth` route itself still doesn't exist, so the redirect 404s until that page is built
 
 ---
 
 ## To do
-
-### Must-have before production
-
-- [ ] **Sentry PII scrubbing** — no `beforeSend`/`sendDefaultPii` config exists yet
-    - Once Sentry is capturing real user sessions, auth cookies and request headers can end up in error reports unscrubbed by default
-    - Add a `beforeSend` hook in `src/utils/sentry/` that strips cookies, auth headers, and any PII fields before events leave the browser
-
-- [ ] **App-wide Content-Security-Policy** — `next.config.ts` currently only sets a CSP on `/sw.js`; every other route has none
-    - `X-Frame-Options`/`X-Content-Type-Options` are set globally, but nothing restricts script/style/connect sources on actual pages
-
-### Important
-
-- [ ] **Web Vitals / performance monitoring** — `@sentry/nextjs` is already installed for errors; enabling its tracing (`tracesSampleRate`) surfaces Core Web Vitals and slow transactions with very little extra setup on top of what's already wired
-
-- [ ] **Refresh-token failure UX** — `refreshToken.ts`'s interceptor has a failure path, but there's no real auth flow yet to redirect to
-    - Wire it to redirect to `/login` (once that page exists) instead of leaving the user on a page silently making failed requests
 
 ### Nice to have
 
