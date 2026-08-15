@@ -1,14 +1,12 @@
 'use client';
 
 import * as Sentry from '@sentry/nextjs';
-import {
-    MutationCache,
-    QueryCache,
-    QueryClient,
-    QueryClientProvider,
-} from '@tanstack/react-query';
+import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
+import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import type { FC, PropsWithChildren } from 'react';
+import { OfflineMutationSync } from '../../../components/Providers/OfflineMutationSync/OfflineMutationSync';
 
 const queryClient = new QueryClient({
     queryCache: new QueryCache({
@@ -34,11 +32,35 @@ const queryClient = new QueryClient({
     },
 });
 
+// Queues mutations made while offline in localStorage and replays them on
+// reconnect, even across a reload. Only *paused* mutations are persisted —
+// the query cache itself is left alone since reads are already served
+// offline by the service worker's cache (see public/sw.js).
+const persister = createAsyncStoragePersister({
+    storage: typeof window === 'undefined' ? undefined : window.localStorage,
+    key: 'ff-offline-mutation-queue',
+});
+
 const ReactQueryProvider: FC<PropsWithChildren> = ({ children }) => (
-    <QueryClientProvider client={queryClient}>
+    <PersistQueryClientProvider
+        client={queryClient}
+        persistOptions={{
+            persister,
+            maxAge: 1000 * 60 * 60 * 24, // 24h — matches queries.gcTime above
+            dehydrateOptions: {
+                shouldDehydrateQuery: () => false,
+                shouldDehydrateMutation: (mutation) => mutation.state.isPaused,
+            },
+        }}
+        // Fires once the persisted cache has been restored — replay any
+        // mutations that were queued before the last reload/close. A no-op
+        // if the device is still offline (they just stay paused).
+        onSuccess={() => queryClient.resumePausedMutations()}
+    >
         {children}
+        <OfflineMutationSync />
         <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    </PersistQueryClientProvider>
 );
 
 export default ReactQueryProvider;

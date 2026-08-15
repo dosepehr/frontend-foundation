@@ -65,17 +65,8 @@ A Next.js 16 component library and application foundation with a full-featured D
 - [x] App-wide Content-Security-Policy — `src/proxy.ts` sets a per-request nonce-based CSP (`script-src` uses `'nonce-<value>' 'strict-dynamic'`) on every page route; `next-themes`' no-flash script picks up the nonce via `<ThemeProvider nonce>` in `src/app/layout.tsx`. `/sw.js` keeps its separate static CSP and `/stories` is excluded (Storybook's own inline scripts)
 - [x] Web Vitals / performance monitoring — `tracesSampleRate` enabled on all three Sentry configs, surfacing Core Web Vitals and slow transactions alongside error tracking
 - [x] Refresh-token failure UX — `refreshToken.ts`'s interceptor logic is covered by `refreshToken.test.ts`: non-401s and already-retried requests pass through, 401s from auth endpoints don't loop, a missing/invalid/failed refresh clears cookies and redirects to `/auth`, a successful refresh retries the original request with the new token, and concurrent 401s during an in-flight refresh queue instead of double-refreshing. The `/auth` route itself still doesn't exist, so the redirect 404s until that page is built
-
----
-
-## To do
-
-### Nice to have
-
-- [ ] **Registry semver + changelog** — consumers install specific components by URL with no version pinning today; a breaking change to a shared primitive (e.g. `Button`) currently reaches every downstream project on their next install with no changelog to warn them
-- [ ] **Route-level `loading.tsx`** — no route in `src/app` has one yet; React Query's cache makes revisits instant, but a first visit has no skeleton/loading UI while data fetches
-- [ ] **Offline mutation queue** — the service worker already caches reads for offline use, but React Query mutations made while offline just fail; queuing and replaying them on reconnect would make the PWA's offline story consistent for writes, not just reads
-- [ ] **Feature flags** — a simple env-var-based toggle (e.g. `NEXT_PUBLIC_FEATURE_X=true`, checked where the feature branches) avoids long-lived branches for work that ships gradually
+- [x] Route-level `loading.tsx` — `src/app/loading.tsx` is the default Suspense fallback for every route without its own `loading.tsx`; pairs with `useCustomSuspenseQuery` (`src/utils/hooks/useCustomSuspenseQuery`), the `useSuspenseQuery`-based sibling of `useCustomQuery`, so a first visit shows a skeleton while the query suspends and a revisit is instant from cache. No page uses it yet — add a route-local `loading.tsx` to override the default for a specific segment
+- [x] Offline mutation queue — `ReactQueryProvider` wraps the app in `PersistQueryClientProvider` (`@tanstack/react-query-persist-client` + `@tanstack/query-async-storage-persister`), persisting only _paused_ mutations to `localStorage` and calling `resumePausedMutations()` once restored, so a mutation made offline is queued and replayed on reconnect even across a reload — not just for the lifetime of the tab. `OfflineMutationSync` (`src/components/Providers/OfflineMutationSync`) surfaces this as sonner toasts: "You're offline" while disconnected, "Back online — syncing N queued change(s)" on reconnect. Because a `mutationFn` can't be serialized, `useCustomMutation` now requires a `mutationKey` and registers the function via `queryClient.setMutationDefaults` so a restored mutation can find it again — this only works if the component using that `mutationKey` has mounted (and thus re-registered its default) before the queue is resumed, so long-lived mutation types are safest
 
 ---
 
