@@ -2,6 +2,7 @@ import { estedad, lato } from '@/public/fonts';
 import { MotionConfig } from 'motion/react';
 import type { Metadata, Viewport } from 'next';
 import { ThemeProvider } from 'next-themes';
+import { headers } from 'next/headers';
 import NextTopLoader from 'nextjs-toploader';
 import { AppleSplashScreens } from '../components/Providers/AppleSplashScreens';
 import { MockProvider } from '../components/Providers/MockProvider/MockProvider';
@@ -45,11 +46,15 @@ export const viewport: Viewport = {
     ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    // Set by `src/proxy.ts` on every request; threaded through so
+    // next-themes' no-flash script satisfies the nonce-scoped CSP.
+    const nonce = (await headers()).get('x-nonce') ?? undefined;
+
     return (
         <html
             suppressHydrationWarning
@@ -68,6 +73,7 @@ export default function RootLayout({
                                 attribute="class"
                                 defaultTheme="system"
                                 enableSystem
+                                nonce={nonce}
                             >
                                 <DirectionProvider dir="ltr">
                                     <Toaster />
