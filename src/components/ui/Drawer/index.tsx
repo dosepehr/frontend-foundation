@@ -40,7 +40,11 @@ const DrawerWrapper = ({
                         : trigger}
                 </DrawerTrigger>
             )}
-            <DrawerContent className={contentClassName} showHandle={showHandle}>
+            <DrawerContent
+                className={contentClassName}
+                showHandle={showHandle}
+                {...(!description && { 'aria-describedby': undefined })}
+            >
                 {!hideHeader && (title || description) && (
                     <DrawerHeader className={headerClassName}>
                         {title && (
