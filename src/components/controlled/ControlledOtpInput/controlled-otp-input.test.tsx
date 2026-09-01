@@ -31,6 +31,17 @@ function TestForm({
 }
 
 describe('ControlledOtpInput', () => {
+    // input-otp schedules real 2s/5s/6s timeouts on focus to detect password
+    // manager badges; fake timers keep them from firing after teardown.
+    beforeEach(() => {
+        vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+        vi.clearAllTimers();
+        vi.useRealTimers();
+    });
+
     it('renders without errors', () => {
         expect(() => render(<TestForm />)).not.toThrow();
     });
