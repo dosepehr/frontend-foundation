@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import DrawerWrapper from '.';
 import {
     Drawer,
@@ -13,7 +13,58 @@ import {
     DrawerTrigger,
 } from './components';
 
+// happy-dom's getComputedStyle returns "" for an unset `transform`, but vaul
+// (drag-to-close physics) assumes the real-browser default of "none" and
+// calls .match() on it unconditionally — patch it to avoid a TypeError when
+// vaul recalculates position on release.
+beforeAll(() => {
+    const original = window.getComputedStyle;
+    vi.spyOn(window, 'getComputedStyle').mockImplementation((...args) => {
+        const style = original.apply(window, args);
+        return new Proxy(style, {
+            get(target, prop) {
+                if (
+                    prop === 'transform' &&
+                    !Reflect.get(target, prop, target)
+                ) {
+                    return 'none';
+                }
+                const value = Reflect.get(target, prop, target);
+                return typeof value === 'function' ? value.bind(target) : value;
+            },
+        });
+    });
+});
+
+afterAll(() => {
+    vi.restoreAllMocks();
+});
+
 describe('Drawer primitives', () => {
+    // These tests exercise the raw primitives without DrawerWrapper's
+    // `aria-describedby` opt-out, so Radix's benign "no description" a11y
+    // advisory (logged via console.warn) is expected noise here rather than
+    // a real regression signal.
+    let consoleWarn: ReturnType<typeof vi.spyOn>;
+
+    beforeAll(() => {
+        consoleWarn = vi
+            .spyOn(console, 'warn')
+            .mockImplementation((message, ...rest) => {
+                if (
+                    typeof message === 'string' &&
+                    message.includes('Missing `Description`')
+                ) {
+                    return;
+                }
+                console.info(message, ...rest);
+            });
+    });
+
+    afterAll(() => {
+        consoleWarn.mockRestore();
+    });
+
     it('renders the trigger', () => {
         render(
             <Drawer>
@@ -299,7 +350,7 @@ describe('DrawerWrapper', () => {
                 onOpenChange={onOpenChange}
                 title="T"
                 footer={
-                    <DrawerClose>
+                    <DrawerClose asChild>
                         <button type="button">Cancel</button>
                     </DrawerClose>
                 }
@@ -312,6 +363,12 @@ describe('DrawerWrapper', () => {
     });
 
     it('does not render a header when no title or description is given', () => {
+        // Radix requires a DrawerTitle for a11y even in this deliberately
+        // headerless variant — expected advisory, not a regression signal.
+        const consoleError = vi
+            .spyOn(console, 'error')
+            .mockImplementation(() => {});
+
         render(
             <DrawerWrapper open>
                 <span>Body only</span>
@@ -320,9 +377,15 @@ describe('DrawerWrapper', () => {
         expect(
             document.querySelector('[data-slot="drawer-header"]'),
         ).not.toBeInTheDocument();
+
+        consoleError.mockRestore();
     });
 
     it('hides the header when hideHeader is true even with a title', () => {
+        const consoleError = vi
+            .spyOn(console, 'error')
+            .mockImplementation(() => {});
+
         render(
             <DrawerWrapper open title="Hidden title" hideHeader>
                 Content
@@ -332,6 +395,8 @@ describe('DrawerWrapper', () => {
             document.querySelector('[data-slot="drawer-header"]'),
         ).not.toBeInTheDocument();
         expect(screen.queryByText('Hidden title')).not.toBeInTheDocument();
+
+        consoleError.mockRestore();
     });
 
     it('passes direction through to the content', () => {
