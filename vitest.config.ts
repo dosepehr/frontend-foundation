@@ -19,9 +19,16 @@ export default defineConfig({
             exclude: [
                 '**/*.stories.*',
                 '**/*.types.*',
+                '**/*.type.ts',
+                '**/*.interface.ts',
                 '**/index.ts',
                 'src/components/_icons/**',
                 'src/components/ui/ThemeChanger/**',
+                // Next.js instrumentation entry points — pure Sentry.init
+                // wiring with no branching logic; the actual logic they call
+                // (scrubPii, env) is unit tested directly.
+                'src/utils/sentry/sentry.server.config.ts',
+                'src/utils/sentry/sentry.edge.config.ts',
             ],
         },
         projects: [
