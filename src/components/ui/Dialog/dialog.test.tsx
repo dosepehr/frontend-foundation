@@ -316,6 +316,12 @@ describe('DialogWrapper', () => {
     });
 
     it('does not render header when no title, description, or icon', () => {
+        // Radix requires a DialogTitle for a11y even in this deliberately
+        // headerless variant — expected advisory, not a regression signal.
+        const consoleError = vi
+            .spyOn(console, 'error')
+            .mockImplementation(() => {});
+
         render(
             <DialogWrapper open>
                 <span>Body only</span>
@@ -324,5 +330,7 @@ describe('DialogWrapper', () => {
         expect(
             document.querySelector('[data-slot="dialog-header"]'),
         ).not.toBeInTheDocument();
+
+        consoleError.mockRestore();
     });
 });
