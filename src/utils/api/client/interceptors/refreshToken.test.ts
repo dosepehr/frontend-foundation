@@ -13,14 +13,19 @@ vi.mock('axios', async (importOriginal) => {
 });
 
 type RejectedHandler = (error: AxiosError) => Promise<unknown>;
+type FulfilledHandler = (response: unknown) => unknown;
 
 function createFakeClient() {
     const call = vi.fn().mockResolvedValue('retried-response');
-    const ref: { handler?: RejectedHandler } = {};
+    const ref: { handler?: RejectedHandler; fulfilled?: FulfilledHandler } = {};
     const client = Object.assign(call, {
         interceptors: {
             response: {
-                use: (_fulfilled: unknown, rejected: RejectedHandler) => {
+                use: (
+                    fulfilled: FulfilledHandler,
+                    rejected: RejectedHandler,
+                ) => {
+                    ref.fulfilled = fulfilled;
                     ref.handler = rejected;
                 },
             },
@@ -208,5 +213,45 @@ describe('setupRefreshToken', () => {
         await expect(firstCall).resolves.toBe('retried-response');
         await expect(secondCall).resolves.toBe('retried-response');
         expect(call).toHaveBeenCalledTimes(2);
+    });
+
+    it('rejects queued concurrent 401s when the in-flight refresh ultimately fails', async () => {
+        setCookie('refresh-token', 'valid-refresh-token');
+        let rejectPost!: (reason: unknown) => void;
+        vi.mocked(axios.post).mockReturnValue(
+            new Promise((_resolve, reject) => {
+                rejectPost = reject;
+            }) as never,
+        );
+        const { client, call, ref } = createFakeClient();
+        setupRefreshToken(client);
+        const handler = ref.handler as RejectedHandler;
+
+        const firstError = makeError({ url: '/orders' });
+        const secondError = makeError({ url: '/profile' });
+
+        const firstCall = handler(firstError);
+        const secondCall = handler(secondError);
+
+        // The second 401 queues behind the first instead of triggering its
+        // own refresh request.
+        expect(axios.post).toHaveBeenCalledTimes(1);
+
+        const refreshError = new Error('refresh failed');
+        rejectPost(refreshError);
+
+        await expect(firstCall).rejects.toBe(refreshError);
+        await expect(secondCall).rejects.toBe(refreshError);
+        expect(call).not.toHaveBeenCalled();
+        expect(window.location.href).toBe('/auth');
+    });
+
+    it('returns the response unchanged from the fulfilled handler', () => {
+        const { client, ref } = createFakeClient();
+        setupRefreshToken(client);
+
+        const response = { data: 'ok' };
+
+        expect(ref.fulfilled?.(response)).toBe(response);
     });
 });
