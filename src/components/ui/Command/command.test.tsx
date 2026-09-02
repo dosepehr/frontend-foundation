@@ -395,6 +395,63 @@ describe('CommandInput controlled mode', () => {
     });
 });
 
+describe('CommandInput ownsComboboxRole', () => {
+    it('omits combobox aria attributes when ownsComboboxRole is false', () => {
+        render(
+            <Command>
+                <CommandInput
+                    placeholder="Search..."
+                    ownsComboboxRole={false}
+                />
+                <CommandList />
+            </Command>,
+        );
+        const input = screen.getByPlaceholderText('Search...');
+        expect(input).not.toHaveAttribute('role');
+        expect(input).not.toHaveAttribute('aria-expanded');
+        expect(input).not.toHaveAttribute('aria-controls');
+        expect(input).not.toHaveAttribute('aria-autocomplete');
+    });
+});
+
+describe('Command context guard', () => {
+    it('throws when a Command sub-component is used outside <Command>', () => {
+        // Suppress the expected React error boundary console noise.
+        const consoleErrorSpy = vi
+            .spyOn(console, 'error')
+            .mockImplementation(() => {});
+
+        expect(() => render(<CommandList />)).toThrow(
+            'Command components must be used within <Command>',
+        );
+
+        consoleErrorSpy.mockRestore();
+    });
+});
+
+describe('Command list keyboard navigation via the list element', () => {
+    it('moves the active item when ArrowDown is fired directly on the list', () => {
+        render(
+            <Command>
+                <CommandList>
+                    <CommandGroup>
+                        <CommandItem value="apple">Apple</CommandItem>
+                        <CommandItem value="banana">Banana</CommandItem>
+                    </CommandGroup>
+                </CommandList>
+            </Command>,
+        );
+        const list = screen.getByRole('listbox');
+
+        fireEvent.keyDown(list, { key: 'ArrowDown' });
+
+        expect(screen.getByText('Banana')).toHaveAttribute(
+            'aria-selected',
+            'true',
+        );
+    });
+});
+
 describe('CommandDialog', () => {
     it('does not render content when closed', () => {
         render(

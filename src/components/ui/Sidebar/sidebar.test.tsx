@@ -52,6 +52,23 @@ function setupDesktop() {
     }));
 }
 
+function setupMobile() {
+    const listeners: Array<() => void> = [];
+    Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 375,
+    });
+    vi.stubGlobal('matchMedia', (_query: string) => ({
+        matches: false,
+        addEventListener: (_e: string, cb: () => void) => listeners.push(cb),
+        removeEventListener: (_e: string, cb: () => void) => {
+            const idx = listeners.indexOf(cb);
+            if (idx !== -1) listeners.splice(idx, 1);
+        },
+    }));
+}
+
 describe('SidebarProvider', () => {
     it('renders without errors', () => {
         expect(() =>
@@ -468,6 +485,38 @@ describe('Sidebar offcanvas collapsible', () => {
         );
         if (trigger) await user.click(trigger as Element);
         expect(onOpenChange).toHaveBeenCalled();
+    });
+});
+
+describe('Sidebar mobile behavior', () => {
+    beforeEach(() => setupMobile());
+    afterEach(() => vi.unstubAllGlobals());
+
+    it('toggles openMobile (not the desktop open state) when SidebarTrigger is clicked on mobile', async () => {
+        const user = userEvent.setup();
+
+        function OpenMobileProbe() {
+            const { openMobile } = useSidebar();
+            return <span data-testid="open-mobile">{String(openMobile)}</span>;
+        }
+
+        const { container } = render(
+            <TooltipProvider>
+                <SidebarProvider>
+                    <SidebarTrigger />
+                    <OpenMobileProbe />
+                </SidebarProvider>
+            </TooltipProvider>,
+        );
+
+        expect(screen.getByTestId('open-mobile')).toHaveTextContent('false');
+
+        const trigger = container.querySelector(
+            '[data-slot="sidebar-trigger"]',
+        );
+        if (trigger) await user.click(trigger);
+
+        expect(screen.getByTestId('open-mobile')).toHaveTextContent('true');
     });
 });
 

@@ -141,6 +141,30 @@ describe('DataTableRoot', () => {
         expect(screen.getByText('Alice')).toBeInTheDocument();
     });
 
+    it('applies a computed max-height and scroll styles when stickyOffset is provided', () => {
+        const { container } = render(
+            <DataTableRoot columns={COLUMNS} data={DATA} stickyOffset={64} />,
+        );
+        const scrollRegion = container.querySelector(
+            '.overflow-auto',
+        ) as HTMLElement;
+        expect(scrollRegion).toBeInTheDocument();
+        expect(scrollRegion.style.maxHeight).toBe('calc(100dvh - 64px)');
+        expect(scrollRegion).toHaveAttribute('tabindex', '0');
+    });
+
+    it('applies an explicit maxHeight and sticky header styling', () => {
+        const { container } = render(
+            <DataTableRoot columns={COLUMNS} data={DATA} maxHeight="400px" />,
+        );
+        const scrollRegion = container.querySelector(
+            '.overflow-auto',
+        ) as HTMLElement;
+        expect(scrollRegion.style.maxHeight).toBe('400px');
+        const stickyHead = container.querySelector('.sticky');
+        expect(stickyHead).toBeInTheDocument();
+    });
+
     it('calls setRowSelection when provided externally', async () => {
         const user = userEvent.setup();
         const setRowSelection = vi.fn();

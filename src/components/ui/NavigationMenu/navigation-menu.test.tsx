@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import {
     NavigationMenu,
     NavigationMenuContent,
+    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
@@ -153,6 +154,24 @@ describe('NavigationMenuContent', () => {
         await screen.findByText('Link');
         expect(
             document.querySelector('[data-slot="navigation-menu-content"]'),
+        ).toBeTruthy();
+    });
+});
+
+describe('NavigationMenuIndicator', () => {
+    it('renders with data-slot', () => {
+        const { container } = render(
+            <NavigationMenu>
+                <NavigationMenuList>
+                    <NavigationMenuItem>
+                        <NavigationMenuLink href="#">Item</NavigationMenuLink>
+                        <NavigationMenuIndicator />
+                    </NavigationMenuItem>
+                </NavigationMenuList>
+            </NavigationMenu>,
+        );
+        expect(
+            container.querySelector('[data-slot="navigation-menu-indicator"]'),
         ).toBeTruthy();
     });
 });
