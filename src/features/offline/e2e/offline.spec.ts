@@ -1,5 +1,5 @@
+import { waitForServiceWorkerControl } from '@/test/e2e-helpers';
 import { expect, test } from '@playwright/test';
-import { waitForServiceWorkerControl } from '../../test/e2e-helpers';
 
 test.describe('offline fallback', () => {
     test('falls back to the precached offline page for a route never visited this session', async ({

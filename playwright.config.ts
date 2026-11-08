@@ -8,10 +8,11 @@ const PORT = 4300;
 const baseURL = `http://localhost:${PORT}`;
 
 export default defineConfig({
-    // Specs live next to what they test (e.g. src/app/offline/offline.spec.ts),
-    // matching the *.test.tsx co-location convention Vitest already uses.
+    // Each spec lives in an e2e/ folder inside the unit it tests (e.g.
+    // src/features/offline/e2e/offline.spec.ts) - never inside src/app, whose
+    // route folders hold only their page.tsx.
     testDir: './src',
-    testMatch: '**/*.spec.ts',
+    testMatch: '**/e2e/**/*.spec.ts',
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 2 : 0,

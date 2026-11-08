@@ -1,5 +1,5 @@
+import { waitForServiceWorkerControl } from '@/test/e2e-helpers';
 import { expect, test, type Page } from '@playwright/test';
-import { waitForServiceWorkerControl } from '../../test/e2e-helpers';
 
 type ShownNotification = { title: string; options?: NotificationOptions };
 type NotificationWindow = Window & { __shown: ShownNotification[] };
