@@ -2,11 +2,11 @@
 'use client';
 /* c8 ignore stop */
 
+import { buttonVariants } from '@/components/ui/Button/components';
 import { cn } from '@/utils/funcs/cn';
 import type { VariantProps } from 'class-variance-authority';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import * as React from 'react';
-import { buttonVariants } from '../Button/components';
 
 const PaginationContent = ({
     className,

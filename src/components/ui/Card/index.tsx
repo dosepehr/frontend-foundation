@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import type { CardWrapperProps } from './card.types';
+import type { CardWrapperProps } from './Card.types';
 import {
     Card,
     CardAction,

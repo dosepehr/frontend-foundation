@@ -9,7 +9,7 @@ import type {
     MarkerContentProps,
     MarkerIconProps,
     MarkerProps,
-} from './marker.types';
+} from './Marker.types';
 
 const markerVariants = cva(
     'flex w-full items-center gap-2 text-xs text-muted-foreground',

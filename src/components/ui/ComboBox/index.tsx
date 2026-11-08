@@ -2,20 +2,23 @@
 'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/utils/funcs/cn';
-import { CheckIcon, ChevronDown } from 'lucide-react';
-import type { ReactNode } from 'react';
-import * as React from 'react';
-import { useId } from 'react';
 import Command, {
     CommandGroup,
     CommandInput,
     CommandItem,
     CommandList,
-} from '../Command';
-import Field, { FieldError, FieldLabel } from '../Field';
-import Popover, { PopoverContent, PopoverTrigger } from '../Popover';
-import type { ComboBoxProps } from './combo-box.types';
+} from '@/components/ui/Command';
+import Field, { FieldError, FieldLabel } from '@/components/ui/Field';
+import Popover, {
+    PopoverContent,
+    PopoverTrigger,
+} from '@/components/ui/Popover';
+import { cn } from '@/utils/funcs/cn';
+import { CheckIcon, ChevronDown } from 'lucide-react';
+import type { ReactNode } from 'react';
+import * as React from 'react';
+import { useId } from 'react';
+import type { ComboBoxProps } from './ComboBox.types';
 
 const ComboBox: React.FC<ComboBoxProps> = ({
     options,

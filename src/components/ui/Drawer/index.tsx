@@ -12,7 +12,7 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from './components';
-import type { DrawerWrapperProps } from './drawer.types';
+import type { DrawerWrapperProps } from './Drawer.types';
 
 const DrawerWrapper = ({
     trigger,

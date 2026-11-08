@@ -2,6 +2,20 @@
 'use client';
 /* c8 ignore stop */
 
+import { Button } from '@/components/ui/Button/components';
+import { Checkbox } from '@/components/ui/Checkbox/components';
+import EmptyWrapper from '@/components/ui/Empty';
+import InputWrapper from '@/components/ui/Input';
+import Pagination, {
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from '@/components/ui/Pagination';
+import SelectWrapper from '@/components/ui/Select';
+import Skeleton from '@/components/ui/Skeleton';
 import { cn } from '@/utils/funcs/cn';
 import {
     flexRender,
@@ -25,26 +39,12 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import * as React from 'react';
-import { Button } from '../Button/components';
-import { Checkbox } from '../Checkbox/components';
-import EmptyWrapper from '../Empty';
-import InputWrapper from '../Input';
-import Pagination, {
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from '../Pagination';
-import SelectWrapper from '../Select';
-import Skeleton from '../Skeleton';
 import type {
     DataTablePaginationProps,
     DataTableRootProps,
     DataTableSkeletonProps,
     TableStateProps,
-} from './data-table.types';
+} from './DataTable.types';
 
 // ── Shared ────────────────────────────────────────────────────────────────────
 

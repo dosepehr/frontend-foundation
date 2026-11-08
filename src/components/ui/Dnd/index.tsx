@@ -1,19 +1,23 @@
 'use client';
 
+import AlertDialogWrapper from '@/components/ui/AlertDialog';
+import AttachmentWrapper from '@/components/ui/Attachment';
+import { AttachmentAction } from '@/components/ui/Attachment/components';
+import Field, {
+    FieldDescription,
+    FieldError,
+    FieldLabel,
+} from '@/components/ui/Field';
 import { cn } from '@/utils/funcs/cn';
-import { FileIcon, Trash2Icon, UploadIcon } from 'lucide-react';
-import * as React from 'react';
 import {
     createDndFile,
     formatAcceptedExtensions,
     formatFileSize,
     isPreviewableImage,
     validateFiles,
-} from '../../../utils/funcs/dnd.utils';
-import AlertDialogWrapper from '../AlertDialog';
-import AttachmentWrapper from '../Attachment';
-import { AttachmentAction } from '../Attachment/components';
-import Field, { FieldDescription, FieldError, FieldLabel } from '../Field';
+} from '@/utils/funcs/dnd';
+import { FileIcon, Trash2Icon, UploadIcon } from 'lucide-react';
+import * as React from 'react';
 import {
     DndFooter,
     DndInput,
@@ -23,7 +27,7 @@ import {
     DndPreviewMedia,
     DndZone,
 } from './components';
-import type { DndFile, DndWrapperProps } from './dnd.types';
+import type { DndFile, DndWrapperProps } from './Dnd.types';
 
 const DndWrapper = ({
     value,
@@ -349,4 +353,4 @@ const DndWrapper = ({
 };
 
 export default DndWrapper;
-export type { DndFile, DndRejection, DndWrapperProps } from './dnd.types';
+export type { DndFile, DndRejection, DndWrapperProps } from './Dnd.types';

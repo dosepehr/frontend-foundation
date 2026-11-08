@@ -1,16 +1,16 @@
 'use client';
 
+import Asterisk from '@/components/ui/Asterisk';
+import Label from '@/components/ui/Label';
 import { cn } from '@/utils/funcs/cn';
 import type { FC } from 'react';
 import { useId } from 'react';
-import Asteriks from '../Asteriks';
-import Label from '../Label';
 import {
     RadioGroup,
     RadioGroupItem,
     radioGroupWrapperVariants,
 } from './components';
-import type { RadioGroupWrapperProps } from './radio-group.types';
+import type { RadioGroupWrapperProps } from './RadioGroup.types';
 
 const RadioGroupWrapper: FC<RadioGroupWrapperProps> = ({
     options,
@@ -60,7 +60,7 @@ const RadioGroupWrapper: FC<RadioGroupWrapperProps> = ({
                         <div className="grid gap-1 font-normal">
                             <span className="flex items-center gap-1 text-sm leading-none font-medium">
                                 {option.label}
-                                {required && <Asteriks />}
+                                {required && <Asterisk />}
                             </span>
                             {option.description && (
                                 <span className="text-xs text-muted-foreground">

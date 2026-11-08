@@ -4,7 +4,7 @@ import Button from '@/components/ui/Button';
 import { MoonIcon, SunIcon, SunMoonIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useSyncExternalStore } from 'react';
-import type { Theme } from './theme-changer.types';
+import type { Theme } from './ThemeChanger.types';
 
 const icons: Record<Theme, React.ReactNode> = {
     light: <SunIcon />,

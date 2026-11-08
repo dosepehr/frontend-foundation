@@ -3,7 +3,7 @@
 import { cn } from '@/utils/funcs/cn';
 import { cloneElement } from 'react';
 import { Marker, MarkerContent, MarkerIcon } from './components';
-import type { MarkerWrapperProps } from './marker.types';
+import type { MarkerWrapperProps } from './Marker.types';
 
 const MarkerWrapper = ({
     variant = 'default',

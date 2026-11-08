@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '../Button';
+import Button from '@/components/ui/Button';
 import {
     Sheet,
     SheetClose,
@@ -11,7 +11,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from './components';
-import type { SheetWrapperProps } from './sheet.types';
+import type { SheetWrapperProps } from './Sheet.types';
 
 const SheetWrapper = ({
     trigger,

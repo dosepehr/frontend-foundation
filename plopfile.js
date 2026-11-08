@@ -49,17 +49,17 @@ export default function (plop) {
                 },
                 {
                     type: 'add',
-                    path: `${dir}/{{dashCase name}}.types.ts`,
+                    path: `${dir}/{{pascalCase name}}.types.ts`,
                     templateFile: tpl(`types-${suffix}.ts.hbs`),
                 },
                 {
                     type: 'add',
-                    path: `${dir}/{{dashCase name}}.stories.tsx`,
+                    path: `${dir}/{{pascalCase name}}.stories.tsx`,
                     templateFile: tpl(`stories-${suffix}.tsx.hbs`),
                 },
                 {
                     type: 'add',
-                    path: `${dir}/{{dashCase name}}.test.tsx`,
+                    path: `${dir}/{{pascalCase name}}.test.tsx`,
                     templateFile: tpl(`test-${suffix}.tsx.hbs`),
                 },
             ];

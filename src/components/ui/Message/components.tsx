@@ -10,7 +10,7 @@ import type {
     MessageGroupProps,
     MessageHeaderProps,
     MessageProps,
-} from './message.types';
+} from './Message.types';
 
 const MessageGroup = ({ className, ...props }: MessageGroupProps) => {
     return (

@@ -4,7 +4,7 @@
 
 import { cn } from '@/utils/funcs/cn';
 import { FileTreeNode } from './components';
-import { type FileTreeProps } from './file-tree.types';
+import { type FileTreeProps } from './FileTree.types';
 
 const FileTree = ({ items, className }: FileTreeProps) => {
     return (

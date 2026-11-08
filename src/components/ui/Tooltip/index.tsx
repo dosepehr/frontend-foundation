@@ -7,7 +7,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from './components';
-import type { TooltipWrapperProps } from './tooltip.types';
+import type { TooltipWrapperProps } from './Tooltip.types';
 
 const TooltipWrapper: FC<TooltipWrapperProps> = ({
     content,

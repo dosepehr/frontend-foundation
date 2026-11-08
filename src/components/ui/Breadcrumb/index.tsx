@@ -2,7 +2,7 @@
 
 import type { FC } from 'react';
 import React from 'react';
-import type { BreadcrumbWrapperProps } from './breadcrumb.types';
+import type { BreadcrumbWrapperProps } from './Breadcrumb.types';
 import {
     Breadcrumb,
     BreadcrumbEllipsis,
@@ -66,7 +66,7 @@ export default BreadcrumbWrapper;
 export type {
     BreadcrumbItemDef,
     BreadcrumbWrapperProps,
-} from './breadcrumb.types';
+} from './Breadcrumb.types';
 export {
     Breadcrumb,
     BreadcrumbEllipsis,

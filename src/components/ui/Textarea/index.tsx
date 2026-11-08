@@ -1,9 +1,13 @@
 'use client';
 
+import Field, {
+    FieldDescription,
+    FieldError,
+    FieldLabel,
+} from '@/components/ui/Field';
 import { useId } from 'react';
-import Field, { FieldDescription, FieldError, FieldLabel } from '../Field';
 import { Textarea } from './components';
-import type { TextareaWrapperProps } from './textarea.types';
+import type { TextareaWrapperProps } from './Textarea.types';
 
 const TextareaWrapper = ({
     label,

@@ -8,7 +8,7 @@ import {
     ItemMedia,
     ItemTitle,
 } from './components';
-import type { ItemWrapperProps } from './item.types';
+import type { ItemWrapperProps } from './Item.types';
 
 const ItemWrapper = ({
     title,

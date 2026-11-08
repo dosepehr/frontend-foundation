@@ -2,12 +2,12 @@
 'use client';
 /* c8 ignore stop */
 
+import Label from '@/components/ui/Label';
 import { cn } from '@/utils/funcs/cn';
 import { cva } from 'class-variance-authority';
 import { RadioGroup as RadioGroupPrimitive } from 'radix-ui';
 import * as React from 'react';
-import Label from '../Label';
-import type { RadioGroupItemProps } from './radio-group.types';
+import type { RadioGroupItemProps } from './RadioGroup.types';
 
 export const radioGroupItemVariants = cva(
     'group/radio-item peer relative flex aspect-square size-4 shrink-0 rounded-full border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30',

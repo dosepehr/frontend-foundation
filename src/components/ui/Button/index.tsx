@@ -1,9 +1,9 @@
 'use client';
 
+import Spinner from '@/components/ui/Spinner';
 import { ArrowRightCircle } from 'lucide-react';
 import type { FC } from 'react';
-import Spinner from '../Spinner';
-import type { ButtonWrapperProps } from './button.types';
+import type { ButtonWrapperProps } from './Button.types';
 import { Button as ButtonComponent } from './components';
 
 const Button: FC<ButtonWrapperProps> = ({

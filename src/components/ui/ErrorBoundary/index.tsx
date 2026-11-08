@@ -1,5 +1,7 @@
 'use client';
 
+import Button from '@/components/ui/Button';
+import EmptyWrapper from '@/components/ui/Empty';
 import * as Sentry from '@sentry/nextjs';
 import { AlertTriangle } from 'lucide-react';
 import type { FC } from 'react';
@@ -8,9 +10,7 @@ import {
     getErrorMessage,
     type FallbackProps,
 } from 'react-error-boundary';
-import Button from '../Button';
-import EmptyWrapper from '../Empty';
-import type { ErrorBoundaryWrapperProps } from './error-boundary.types';
+import type { ErrorBoundaryWrapperProps } from './ErrorBoundary.types';
 
 const DefaultFallback: FC<
     FallbackProps & Pick<ErrorBoundaryWrapperProps, 'title' | 'description'>

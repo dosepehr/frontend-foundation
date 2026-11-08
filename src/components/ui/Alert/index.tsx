@@ -2,7 +2,7 @@
 
 import { AlertTriangle, CheckCircle, Info, XCircle } from 'lucide-react';
 import type { FC } from 'react';
-import type { AlertWrapperProps } from './alert.types';
+import type { AlertWrapperProps } from './Alert.types';
 import { Alert, AlertDescription, AlertTitle } from './components';
 
 const iconMap = {

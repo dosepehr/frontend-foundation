@@ -1,13 +1,13 @@
 'use client';
 
+import Dnd from '@/components/ui/Dnd';
+import type { DndFile, DndWrapperProps } from '@/components/ui/Dnd/Dnd.types';
 import {
     Controller,
     type Control,
     type FieldValues,
     type Path,
 } from 'react-hook-form';
-import Dnd from '../../ui/Dnd';
-import type { DndFile, DndWrapperProps } from '../../ui/Dnd/dnd.types';
 
 export type ControlledDndProps<T extends FieldValues> = Omit<
     DndWrapperProps,

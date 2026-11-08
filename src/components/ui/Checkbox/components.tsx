@@ -2,12 +2,12 @@
 'use client';
 /* c8 ignore stop */
 
+import Label from '@/components/ui/Label';
 import { cn } from '@/utils/funcs/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { CheckIcon } from 'lucide-react';
 import { Checkbox as CheckboxPrimitive } from 'radix-ui';
-import Label from '../Label';
-import type { CheckboxProps } from './checkbox.types';
+import type { CheckboxProps } from './Checkbox.types';
 
 export const checkboxVariants = cva(
     'peer border shadow-xs transition-shadow outline-none rounded-[4px] size-4 shrink-0 flex items-center justify-center focus-visible:ring-[3px] focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',

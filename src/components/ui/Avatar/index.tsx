@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import type { AvatarWrapperProps } from './avatar.types';
+import type { AvatarWrapperProps } from './Avatar.types';
 import { Avatar, AvatarBadge, AvatarFallback, AvatarImage } from './components';
 
 const AvatarWrapper: FC<AvatarWrapperProps> = ({
@@ -28,7 +28,7 @@ const AvatarWrapper: FC<AvatarWrapperProps> = ({
 
 export default AvatarWrapper;
 
-export type { AvatarWrapperProps } from './avatar.types';
+export type { AvatarWrapperProps } from './Avatar.types';
 export {
     Avatar,
     AvatarBadge,

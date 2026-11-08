@@ -2,20 +2,23 @@
 'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/utils/funcs/cn';
-import { CheckIcon, ChevronDown, X } from 'lucide-react';
-import * as React from 'react';
-import { useCallback, useId, useMemo } from 'react';
-import Badge from '../Badge';
+import Badge from '@/components/ui/Badge';
 import Command, {
     CommandGroup,
     CommandInput,
     CommandItem,
     CommandList,
-} from '../Command';
-import Field, { FieldError, FieldLabel } from '../Field';
-import Popover, { PopoverContent, PopoverTrigger } from '../Popover';
-import type { MultiComboBoxProps } from './multi-combo-box.types';
+} from '@/components/ui/Command';
+import Field, { FieldError, FieldLabel } from '@/components/ui/Field';
+import Popover, {
+    PopoverContent,
+    PopoverTrigger,
+} from '@/components/ui/Popover';
+import { cn } from '@/utils/funcs/cn';
+import { CheckIcon, ChevronDown, X } from 'lucide-react';
+import * as React from 'react';
+import { useCallback, useId, useMemo } from 'react';
+import type { MultiComboBoxProps } from './MultiComboBox.types';
 
 const MultiComboBox: React.FC<MultiComboBoxProps> = ({
     options,

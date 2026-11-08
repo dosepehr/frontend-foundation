@@ -2,12 +2,12 @@
 'use client';
 /* c8 ignore stop */
 
+import Badge from '@/components/ui/Badge';
+import Field, { FieldError, FieldLabel } from '@/components/ui/Field';
 import { cn } from '@/utils/funcs/cn';
 import { Plus, X } from 'lucide-react';
 import { useId, useState, type KeyboardEvent } from 'react';
-import Badge from '../Badge';
-import Field, { FieldError, FieldLabel } from '../Field';
-import type { MultiInputProps } from './multi-input.types';
+import type { MultiInputProps } from './MultiInput.types';
 
 const MultiInput = ({
     value = [],

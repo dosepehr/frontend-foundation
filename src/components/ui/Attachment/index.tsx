@@ -1,13 +1,13 @@
 'use client';
 
+import Skeleton from '@/components/ui/Skeleton';
+import Spinner from '@/components/ui/Spinner';
 import { Check, Clock, FileText, FileWarning } from 'lucide-react';
 import type { FC } from 'react';
-import Skeleton from '../Skeleton';
-import Spinner from '../Spinner';
 import type {
     AttachmentState,
     AttachmentWrapperProps,
-} from './attachment.types';
+} from './Attachment.types';
 import {
     Attachment,
     AttachmentActions,

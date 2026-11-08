@@ -7,7 +7,7 @@ import {
     EmptyMedia,
     EmptyTitle,
 } from './components';
-import type { EmptyWrapperProps } from './empty.types';
+import type { EmptyWrapperProps } from './Empty.types';
 
 const EmptyWrapper: FC<EmptyWrapperProps> = ({
     title,

@@ -5,14 +5,14 @@
 import * as React from 'react';
 import { DayPicker, getDefaultClassNames } from 'react-day-picker';
 
+import type Button from '@/components/ui/Button';
+import { buttonVariants } from '@/components/ui/Button/components';
 import { cn } from '@/utils/funcs/cn';
 import {
     ChevronDownIcon,
     ChevronLeftIcon,
     ChevronRightIcon,
 } from 'lucide-react';
-import type Button from '../Button';
-import { buttonVariants } from '../Button/components';
 import { CalendarDayButton } from './components';
 
 const Calendar = ({

@@ -1,8 +1,8 @@
 'use client';
 
+import { Button } from '@/components/ui/Button/components';
 import { cn } from '@/utils/funcs/cn';
 import type { FC } from 'react';
-import { Button } from '../Button/components';
 import {
     Dialog,
     DialogBody,
@@ -14,7 +14,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from './components';
-import type { DialogMaxWidth, DialogWrapperProps } from './dialog.types';
+import type { DialogMaxWidth, DialogWrapperProps } from './Dialog.types';
 
 const maxWidthMap: Record<DialogMaxWidth, string> = {
     sm: 'max-w-sm',

@@ -1,8 +1,12 @@
 'use client';
 
+import Field, {
+    FieldDescription,
+    FieldError,
+    FieldLabel,
+} from '@/components/ui/Field';
 import { cn } from '@/utils/funcs/cn';
 import { useId } from 'react';
-import Field, { FieldDescription, FieldError, FieldLabel } from '../Field';
 import {
     Select,
     SelectContent,
@@ -10,7 +14,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from './components';
-import type { SelectWrapperProps } from './select.types';
+import type { SelectWrapperProps } from './Select.types';
 
 const SelectWrapper = ({
     label,

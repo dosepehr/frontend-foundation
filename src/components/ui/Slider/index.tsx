@@ -5,7 +5,7 @@
 import { cn } from '@/utils/funcs/cn';
 import { cva } from 'class-variance-authority';
 import { Slider as SliderPrimitive } from 'radix-ui';
-import type { SliderProps } from './slider.types';
+import type { SliderProps } from './Slider.types';
 
 const trackVariants = cva(
     'relative h-1.5 w-full grow overflow-hidden rounded-full',

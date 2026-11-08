@@ -1,12 +1,12 @@
 'use client';
 
+import Asterisk from '@/components/ui/Asterisk';
+import Label from '@/components/ui/Label';
 import { cn } from '@/utils/funcs/cn';
 import type { FC } from 'react';
 import { useId } from 'react';
-import Asteriks from '../Asteriks';
-import Label from '../Label';
 import { Switch, switchWrapperVariants } from './components';
-import type { SwitchWrapperProps } from './switch.types';
+import type { SwitchWrapperProps } from './Switch.types';
 
 const SwitchWrapper: FC<SwitchWrapperProps> = ({
     id,
@@ -43,7 +43,7 @@ const SwitchWrapper: FC<SwitchWrapperProps> = ({
                 {label && (
                     <span className="flex items-center gap-1 text-sm leading-none font-medium">
                         {label}
-                        {required && <Asteriks />}
+                        {required && <Asterisk />}
                     </span>
                 )}
                 {description && (

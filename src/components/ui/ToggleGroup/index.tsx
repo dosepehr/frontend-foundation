@@ -2,7 +2,7 @@
 
 import type { FC } from 'react';
 import { ToggleGroup, ToggleGroupItem } from './components';
-import type { ToggleGroupWrapperProps } from './toggle-group.types';
+import type { ToggleGroupWrapperProps } from './ToggleGroup.types';
 
 const ToggleGroupWrapper: FC<ToggleGroupWrapperProps> = ({
     items,

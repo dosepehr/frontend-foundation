@@ -2,7 +2,7 @@
 
 import { cva } from 'class-variance-authority';
 import type { FC } from 'react';
-import type { AlertDialogWrapperProps } from './alert-dialog.types';
+import type { AlertDialogWrapperProps } from './AlertDialog.types';
 import {
     AlertDialog,
     AlertDialogAction,

@@ -23,7 +23,7 @@ import type {
     DropdownGroup,
     DropdownItem,
     DropdownMenuWrapperProps,
-} from './dropdown-menu.types';
+} from './DropdownMenu.types';
 
 const RenderItem = ({ item }: { item: DropdownItem }) => {
     if (item.type === 'radio-group') {

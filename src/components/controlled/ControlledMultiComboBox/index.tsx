@@ -1,13 +1,13 @@
 'use client';
 
+import MultiComboBox from '@/components/ui/MultiComboBox';
+import { type MultiComboBoxProps } from '@/components/ui/MultiComboBox/MultiComboBox.types';
 import {
     Controller,
     type Control,
     type FieldValues,
     type Path,
 } from 'react-hook-form';
-import MultiComboBox from '../../ui/MultiComboBox';
-import { type MultiComboBoxProps } from '../../ui/MultiComboBox/multi-combo-box.types';
 
 export type ControlledMultiComboBoxProps<T extends FieldValues> = Omit<
     MultiComboBoxProps,

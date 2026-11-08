@@ -2,11 +2,11 @@
 'use client';
 /* c8 ignore stop */
 
+import Field, { FieldError, FieldLabel } from '@/components/ui/Field';
 import { cn } from '@/utils/funcs/cn';
 import { OTPInput, OTPInputContext } from 'input-otp';
 import * as React from 'react';
 import { useId } from 'react';
-import Field, { FieldError, FieldLabel } from '../Field';
 
 // ── Digit normalization ────────────────────────────────────────────────────────
 
@@ -66,7 +66,7 @@ const OtpSlot = ({ index }: { index: number }) => {
 
 // ── Main Component ─────────────────────────────────────────────────────────────
 
-import type { OtpInputProps } from './otp-input.types';
+import type { OtpInputProps } from './OtpInput.types';
 
 const OtpInput = ({
     length = 6,

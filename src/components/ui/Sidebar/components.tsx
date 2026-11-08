@@ -8,13 +8,17 @@ import * as React from 'react';
 
 import { useIsMobile } from '@/hooks/useIsMobile';
 
+import { Button } from '@/components/ui/Button/components';
+import { InputComponent as Input } from '@/components/ui/Input/components';
+import Separator from '@/components/ui/Separator';
+import Skeleton from '@/components/ui/Skeleton';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from '@/components/ui/Tooltip/components';
 import { cn } from '@/utils/funcs/cn';
 import { PanelLeftIcon } from 'lucide-react';
-import { Button } from '../Button/components';
-import { InputComponent as Input } from '../Input/components';
-import Separator from '../Seperator';
-import Skeleton from '../Skeleton';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../Tooltip/components';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;

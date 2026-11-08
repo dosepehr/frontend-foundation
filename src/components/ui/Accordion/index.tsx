@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import type { AccordionWrapperProps } from './accordion.types';
+import type { AccordionWrapperProps } from './Accordion.types';
 import {
     AccordionContent,
     AccordionItem,

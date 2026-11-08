@@ -14,7 +14,7 @@ import type {
     DrawerOverlayProps,
     DrawerProps,
     DrawerTitleProps,
-} from './drawer.types';
+} from './Drawer.types';
 
 const Drawer = ({ direction = 'bottom', ...props }: DrawerProps) => {
     return (

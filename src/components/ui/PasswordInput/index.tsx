@@ -2,13 +2,13 @@
 'use client';
 /* c8 ignore stop */
 
+import Field, { FieldError, FieldLabel } from '@/components/ui/Field';
+import { InputComponent as Input } from '@/components/ui/Input/components';
 import { cn } from '@/utils/funcs/cn';
 import { Eye, EyeOff } from 'lucide-react';
 import * as React from 'react';
 import { useId, useState } from 'react';
-import Field, { FieldError, FieldLabel } from '../Field';
-import { InputComponent as Input } from '../Input/components';
-import type { PasswordInputProps } from './password-input.types';
+import type { PasswordInputProps } from './PasswordInput.types';
 
 const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
     ({ label, error, required, className, id, ...props }, ref) => {

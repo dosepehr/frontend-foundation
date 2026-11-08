@@ -12,7 +12,7 @@ import type {
     ItemMediaProps,
     ItemProps,
     ItemTitleProps,
-} from './item.types';
+} from './Item.types';
 
 const itemVariants = cva(
     'group/item flex w-full items-center gap-3 rounded-lg text-sm text-foreground transition-colors outline-none',

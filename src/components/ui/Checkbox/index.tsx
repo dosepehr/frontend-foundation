@@ -1,11 +1,11 @@
 'use client';
 
+import Asterisk from '@/components/ui/Asterisk';
+import Label from '@/components/ui/Label';
 import { cn } from '@/utils/funcs/cn';
 import type { FC } from 'react';
 import { useId } from 'react';
-import Asteriks from '../Asteriks';
-import Label from '../Label';
-import type { CheckboxWrapperProps } from './checkbox.types';
+import type { CheckboxWrapperProps } from './Checkbox.types';
 import { Checkbox, checkboxWrapperVariants } from './components';
 
 const CheckboxWrapper: FC<CheckboxWrapperProps> = ({
@@ -41,7 +41,7 @@ const CheckboxWrapper: FC<CheckboxWrapperProps> = ({
                 {label && (
                     <span className="flex items-center gap-1 text-sm leading-none font-medium">
                         {label}
-                        {required && <Asteriks />}
+                        {required && <Asterisk />}
                     </span>
                 )}
                 {description && (

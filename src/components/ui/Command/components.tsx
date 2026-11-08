@@ -2,15 +2,15 @@
 'use client';
 /* c8 ignore stop */
 
-import { cn } from '@/utils/funcs/cn';
-import { Search } from 'lucide-react';
-import * as React from 'react';
 import {
     Dialog,
     DialogContent,
     DialogDescription,
     DialogTitle,
-} from '../Dialog/components';
+} from '@/components/ui/Dialog/components';
+import { cn } from '@/utils/funcs/cn';
+import { Search } from 'lucide-react';
+import * as React from 'react';
 
 interface CommandContextValue {
     search: string;

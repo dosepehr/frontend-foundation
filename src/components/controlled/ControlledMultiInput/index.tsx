@@ -1,13 +1,13 @@
 'use client';
 
+import MultiInput from '@/components/ui/MultiInput';
+import { type MultiInputProps } from '@/components/ui/MultiInput/MultiInput.types';
 import {
     Controller,
     type Control,
     type FieldValues,
     type Path,
 } from 'react-hook-form';
-import MultiInput from '../../ui/MultiInput';
-import { type MultiInputProps } from '../../ui/MultiInput/multi-input.types';
 
 export type ControlledMultiInputProps<T extends FieldValues> = Omit<
     MultiInputProps,

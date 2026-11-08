@@ -1,9 +1,9 @@
 'use client';
 
+import Button from '@/components/ui/Button';
 import type { FC } from 'react';
 import { Fragment } from 'react';
-import Button from '../Button';
-import type { ButtonGroupWrapperProps } from './button-group.types';
+import type { ButtonGroupWrapperProps } from './ButtonGroup.types';
 import { ButtonGroup, ButtonGroupSeparator } from './components';
 
 const ButtonGroupWrapper: FC<ButtonGroupWrapperProps> = ({
@@ -42,7 +42,7 @@ export default ButtonGroupWrapper;
 export type {
     ButtonGroupItemDef,
     ButtonGroupWrapperProps,
-} from './button-group.types';
+} from './ButtonGroup.types';
 export {
     ButtonGroup,
     ButtonGroupSeparator,

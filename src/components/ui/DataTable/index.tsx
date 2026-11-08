@@ -1,7 +1,7 @@
 'use client';
 
 import { DataTablePagination, DataTableRoot } from './components';
-import type { DataTableProps } from './data-table.types';
+import type { DataTableProps } from './DataTable.types';
 
 const DataTable = <TData,>({
     columns,

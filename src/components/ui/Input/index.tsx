@@ -1,10 +1,14 @@
 'use client';
 
+import Field, {
+    FieldDescription,
+    FieldError,
+    FieldLabel,
+} from '@/components/ui/Field';
 import { cn } from '@/utils/funcs/cn';
 import { useId } from 'react';
-import Field, { FieldDescription, FieldError, FieldLabel } from '../Field';
 import { InputComponent } from './components';
-import type { InputWrapperProps } from './input.types';
+import type { InputWrapperProps } from './Input.types';
 
 const InputWrapper = ({
     label,

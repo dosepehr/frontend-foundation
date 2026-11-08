@@ -2,10 +2,10 @@
 'use client';
 /* c8 ignore stop */
 
+import Asterisk from '@/components/ui/Asterisk';
 import { cn } from '@/utils/funcs/cn';
 import { Label as LabelPrimitive } from 'radix-ui';
-import Asteriks from '../Asteriks';
-import type { LabelProps } from './label.types';
+import type { LabelProps } from './Label.types';
 
 const Label = ({
     className,
@@ -26,7 +26,7 @@ const Label = ({
             {...props}
         >
             {children}
-            {required && <Asteriks />}
+            {required && <Asterisk />}
         </LabelPrimitive.Root>
     );
 };

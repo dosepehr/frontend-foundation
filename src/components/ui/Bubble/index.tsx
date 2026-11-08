@@ -1,6 +1,6 @@
 'use client';
 import type { FC } from 'react';
-import type { BubbleWrapperProps } from './bubble.types';
+import type { BubbleWrapperProps } from './Bubble.types';
 import { Bubble, BubbleContent, BubbleReactions } from './components';
 
 const BubbleWrapper: FC<BubbleWrapperProps> = ({

@@ -2,10 +2,10 @@
 'use client';
 /* c8 ignore stop */
 
+import Label from '@/components/ui/Label';
+import Separator from '@/components/ui/Separator';
 import { cn } from '@/utils/funcs/cn';
 import { useMemo } from 'react';
-import Label from '../Label';
-import Separator from '../Seperator';
 
 const FieldSet = ({
     className,

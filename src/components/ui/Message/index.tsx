@@ -1,7 +1,7 @@
 'use client';
 
-import AvatarWrapper from '../Avatar';
-import BubbleWrapper from '../Bubble';
+import AvatarWrapper from '@/components/ui/Avatar';
+import BubbleWrapper from '@/components/ui/Bubble';
 import {
     Message,
     MessageAvatar,
@@ -9,7 +9,7 @@ import {
     MessageFooter,
     MessageHeader,
 } from './components';
-import type { MessageWrapperProps } from './message.types';
+import type { MessageWrapperProps } from './Message.types';
 
 const MessageWrapper = ({
     align = 'start',

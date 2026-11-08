@@ -2,15 +2,22 @@
 'use client';
 /* c8 ignore stop */
 
+import Calendar from '@/components/ui/Calendar';
+import Field, {
+    FieldDescription,
+    FieldError,
+    FieldLabel,
+} from '@/components/ui/Field';
+import Popover, {
+    PopoverContent,
+    PopoverTrigger,
+} from '@/components/ui/Popover';
 import { cn } from '@/utils/funcs/cn';
 import { format } from 'date-fns';
 import { CalendarIcon, ChevronDownIcon } from 'lucide-react';
 import * as React from 'react';
 import { useId } from 'react';
-import Calendar from '../Calendar';
-import Field, { FieldDescription, FieldError, FieldLabel } from '../Field';
-import Popover, { PopoverContent, PopoverTrigger } from '../Popover';
-import type { DatePickerProps } from './date-picker.types';
+import type { DatePickerProps } from './DatePicker.types';
 
 const DatePicker = ({
     value,

@@ -2,6 +2,10 @@
 'use client';
 /* c8 ignore stop */
 
+import Collapsible, {
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from '@/components/ui/Collapsible';
 import {
     ChevronRightIcon,
     FileIcon,
@@ -9,11 +13,7 @@ import {
     FolderOpenIcon,
 } from 'lucide-react';
 import * as React from 'react';
-import Collapsible, {
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from '../Collapsible';
-import { type FileTreeItem } from './file-tree.types';
+import { type FileTreeItem } from './FileTree.types';
 
 const FolderNode = ({
     item,

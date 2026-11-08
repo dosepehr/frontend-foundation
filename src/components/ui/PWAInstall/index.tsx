@@ -1,10 +1,10 @@
 'use client';
 
+import Button from '@/components/ui/Button';
 import { Download, Share, X } from 'lucide-react';
 import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import Cookies from 'universal-cookie';
-import Button from '../Button';
-import type { BeforeInstallPromptEvent } from './pwa-install.types';
+import type { BeforeInstallPromptEvent } from './PWAInstall.types';
 
 const PWA_DISMISS_COOKIE = 'pwa_install_dismissed';
 const DISMISS_DURATION_HOURS = 24;
