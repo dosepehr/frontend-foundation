@@ -1,7 +1,7 @@
+import { waitForServiceWorkerControl } from '@/test/e2e-helpers';
 import { expect, test } from '@playwright/test';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { waitForServiceWorkerControl } from '../../../test/e2e-helpers';
 
 // `registration.update()`'s own network request for /sw.js is dispatched by
 // the browser's internal service worker machinery, not the page — Playwright

@@ -1,17 +1,17 @@
+import { AppleSplashScreens } from '@/components/providers/AppleSplashScreens';
+import { MockProvider } from '@/components/providers/MockProvider';
+import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
+import { ServiceWorkerRegister } from '@/components/providers/ServiceWorkerRegister';
+import { DirectionProvider } from '@/components/ui/Direction';
+import { PWAInstall } from '@/components/ui/PWAInstall';
+import Toaster from '@/components/ui/Toast';
+import { TooltipProvider } from '@/components/ui/Tooltip/components';
 import { estedad, lato } from '@/public/fonts';
 import { MotionConfig } from 'motion/react';
 import type { Metadata, Viewport } from 'next';
 import { ThemeProvider } from 'next-themes';
 import { headers } from 'next/headers';
 import NextTopLoader from 'nextjs-toploader';
-import { AppleSplashScreens } from '../components/Providers/AppleSplashScreens';
-import { MockProvider } from '../components/Providers/MockProvider/MockProvider';
-import { ServiceWorkerRegister } from '../components/Providers/ServiceWorkerRegister/ServiceWorkerRegister';
-import { DirectionProvider } from '../components/ui/direction';
-import { PWAInstall } from '../components/ui/PWAInstall';
-import Toaster from '../components/ui/Toast';
-import { TooltipProvider } from '../components/ui/Tooltip/components';
-import ReactQueryProvider from '../utils/api/provider/ReactQueryProvider';
 import './globals.css';
 
 export const metadata: Metadata = {

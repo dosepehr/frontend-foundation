@@ -1,6 +1,6 @@
 import { act, cleanup, render, waitFor } from '@testing-library/react';
 import { toast } from 'sonner';
-import { ServiceWorkerRegister } from './ServiceWorkerRegister';
+import { ServiceWorkerRegister } from '.';
 
 vi.mock('sonner', () => ({
     toast: vi.fn(),

@@ -1,12 +1,12 @@
 'use client';
 
+import { OfflineMutationSync } from '@/components/providers/OfflineMutationSync';
 import * as Sentry from '@sentry/nextjs';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import type { FC, PropsWithChildren } from 'react';
-import { OfflineMutationSync } from '../../../components/Providers/OfflineMutationSync/OfflineMutationSync';
 
 const queryClient = new QueryClient({
     queryCache: new QueryCache({

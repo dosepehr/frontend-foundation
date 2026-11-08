@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { act, render, screen, waitFor } from '@testing-library/react';
-import ReactQueryProvider from './ReactQueryProvider';
+import ReactQueryProvider from '.';
 
 vi.mock('@sentry/nextjs', () => ({
     captureException: vi.fn(),

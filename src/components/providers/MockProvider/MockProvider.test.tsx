@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { MockProvider } from './MockProvider';
+import { MockProvider } from '.';
 
-vi.mock('../../../mocks/browser', () => ({
-    worker: { start: vi.fn().mockResolvedValue() },
+vi.mock('@/mocks/browser', () => ({
+    worker: { start: vi.fn(async () => {}) },
 }));
 
 describe('MockProvider', () => {

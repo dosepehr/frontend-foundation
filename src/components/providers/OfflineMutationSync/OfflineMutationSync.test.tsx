@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-query';
 import { act, render, waitFor } from '@testing-library/react';
 import { toast } from 'sonner';
-import { OfflineMutationSync } from './OfflineMutationSync';
+import { OfflineMutationSync } from '.';
 
 vi.mock('sonner', () => ({
     toast: Object.assign(vi.fn(), {
