@@ -36,7 +36,7 @@ const NotificationPage = () => {
                 <div className="flex-1">
                     <Input
                         {...register('message')}
-                        placeholder="Type a message…"
+                        placeholder="Enter the message"
                         error={errors?.message?.message}
                     />
                 </div>

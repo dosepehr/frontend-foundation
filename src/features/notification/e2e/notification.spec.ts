@@ -55,7 +55,7 @@ test.describe('notification flow', () => {
 
         await page.goto('/notification');
         await waitForServiceWorkerControl(page);
-        const input = page.getByPlaceholder('Type a message…');
+        const input = page.getByPlaceholder('Enter the message');
         await input.fill('Build finished');
         await page.getByRole('button', { name: 'Notify' }).click();
 
@@ -72,7 +72,7 @@ test.describe('notification flow', () => {
 
         await page.goto('/notification');
         await waitForServiceWorkerControl(page);
-        const input = page.getByPlaceholder('Type a message…');
+        const input = page.getByPlaceholder('Enter the message');
         await input.fill('Should not send');
         await page.getByRole('button', { name: 'Notify' }).click();
 
