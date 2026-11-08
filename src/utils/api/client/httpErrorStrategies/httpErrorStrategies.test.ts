@@ -1,5 +1,5 @@
+import type { ApiError } from '@/utils/api/types/http-errors.types';
 import { describe, expect, it } from 'vitest';
-import type { ApiError } from '../types/DTO/http-errors.interface';
 import {
     badRequestErrorStrategy,
     conflictErrorStrategy,
@@ -9,7 +9,7 @@ import {
     unauthorizedErrorStrategy,
     unhandledExceptionStrategy,
     validationErrorStrategy,
-} from './http-error-strategies';
+} from '.';
 
 const baseError = { status: false, message: 'original message' } as ApiError;
 

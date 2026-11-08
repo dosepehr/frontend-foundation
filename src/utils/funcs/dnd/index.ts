@@ -1,4 +1,4 @@
-import type { DndFile, DndRejection } from '../../components/ui/Dnd/dnd.types';
+import type { DndFile, DndRejection } from '@/components/ui/Dnd/Dnd.types';
 
 const PREVIEWABLE_IMAGE_TYPES = [
     'image/jpeg',

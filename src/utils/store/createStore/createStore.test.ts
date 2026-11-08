@@ -1,4 +1,4 @@
-import { createStore } from './createStore';
+import { createStore } from '.';
 
 type CounterState = {
     count: number;

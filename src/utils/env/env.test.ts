@@ -14,7 +14,7 @@ describe('env', () => {
     it('bypasses validation under Vitest, passing values through unvalidated', async () => {
         vi.stubEnv('NEXT_PUBLIC_APP_BASE_URL', 'not-a-url');
 
-        const { env } = await import('./env');
+        const { env } = await import('.');
 
         expect(env.NEXT_PUBLIC_APP_BASE_URL).toBe('not-a-url');
     });
@@ -27,7 +27,7 @@ describe('env', () => {
         vi.stubEnv('NEXT_PUBLIC_APP_BASE_URL', 'not-a-url');
         delete process.env.VITEST;
 
-        await expect(import('./env')).rejects.toThrow(
+        await expect(import('.')).rejects.toThrow(
             'Invalid client environment variables, see console output above',
         );
 
@@ -41,13 +41,13 @@ describe('env', () => {
         vi.stubEnv('NEXT_PUBLIC_APP_BASE_URL', 'https://example.com');
         delete process.env.VITEST;
 
-        const { env } = await import('./env');
+        const { env } = await import('.');
 
         expect(env.NEXT_PUBLIC_APP_BASE_URL).toBe('https://example.com');
     });
 
     it('throws when accessing a server-only variable from the client', async () => {
-        const { env } = await import('./env');
+        const { env } = await import('.');
 
         expect(
             () => (env as unknown as Record<string, unknown>).BACKEND_URL,
@@ -57,7 +57,7 @@ describe('env', () => {
     });
 
     it('allows accessing a client variable normally', async () => {
-        const { env } = await import('./env');
+        const { env } = await import('.');
 
         expect(() => env.NEXT_PUBLIC_APP_BASE_URL).not.toThrow();
     });

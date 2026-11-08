@@ -1,12 +1,12 @@
+import { env } from '@/utils/env';
 import type { InternalAxiosRequestConfig } from 'axios';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { env } from '../../env/env';
-import { httpService } from './httpService';
+import { httpService } from '.';
 
-vi.mock('./interceptors/refreshToken', () => ({
+vi.mock('@/utils/api/client/interceptors/refreshToken', () => ({
     setupRefreshToken: vi.fn(),
 }));
-vi.mock('./interceptors/globalErrorHandler', () => ({
+vi.mock('@/utils/api/client/interceptors/globalErrorHandler', () => ({
     globalErrorHandler: vi.fn(),
 }));
 

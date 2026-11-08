@@ -1,5 +1,5 @@
+import { env } from '@/utils/env';
 import * as Sentry from '@sentry/nextjs';
-import { env } from '../env/env';
 import { scrubPii } from './scrubPii';
 
 Sentry.init({

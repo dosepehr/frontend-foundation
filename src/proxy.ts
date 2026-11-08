@@ -13,7 +13,7 @@ export function proxy(request: NextRequest) {
     const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
     // Backend API origin — must be reachable from `connect-src` since axios
-    // calls it directly from the browser (see `src/utils/env/env.ts`).
+    // calls it directly from the browser (see `src/utils/env/index.ts`).
     const apiOrigin = process.env.NEXT_PUBLIC_APP_BASE_URL
         ? new URL(process.env.NEXT_PUBLIC_APP_BASE_URL).origin
         : '';

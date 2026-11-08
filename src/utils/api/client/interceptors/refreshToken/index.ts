@@ -1,10 +1,10 @@
+import { env } from '@/utils/env';
 import axios, {
     type AxiosError,
     type AxiosInstance,
     type InternalAxiosRequestConfig,
 } from 'axios';
 import Cookies from 'universal-cookie';
-import { env } from '../../../env/env';
 
 const cookies = new Cookies();
 

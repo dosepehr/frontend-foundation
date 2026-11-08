@@ -1,9 +1,11 @@
+import { mapErrorToToast } from '@/utils/api/client/mapErrorToToast';
 import type { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import { describe, expect, it, vi } from 'vitest';
-import { mapErrorToToast } from '../mapErrorToToast';
-import { globalErrorHandler } from './globalErrorHandler';
+import { globalErrorHandler } from '.';
 
-vi.mock('../mapErrorToToast', () => ({ mapErrorToToast: vi.fn() }));
+vi.mock('@/utils/api/client/mapErrorToToast', () => ({
+    mapErrorToToast: vi.fn(),
+}));
 
 type FulfilledHandler = (response: AxiosResponse) => AxiosResponse;
 type RejectedHandler = (error: AxiosError) => Promise<unknown>;

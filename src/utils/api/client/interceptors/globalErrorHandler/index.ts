@@ -1,5 +1,5 @@
+import { mapErrorToToast } from '@/utils/api/client/mapErrorToToast';
 import type { AxiosError, AxiosInstance } from 'axios';
-import { mapErrorToToast } from '../mapErrorToToast';
 
 export const globalErrorHandler = (client: AxiosInstance) => {
     client.interceptors.response.use(

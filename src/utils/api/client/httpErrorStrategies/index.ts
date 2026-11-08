@@ -7,7 +7,7 @@ import type {
     UnauthorizedError,
     UnhandledException,
     ValidationError,
-} from '../types/DTO/http-errors.interface';
+} from '@/utils/api/types/http-errors.types';
 
 export type ApiErrorHandler = (errorData: ApiError) => ApiError;
 

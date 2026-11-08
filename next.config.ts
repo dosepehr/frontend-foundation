@@ -6,7 +6,7 @@ import type { NextConfig } from 'next';
 // server runs, instead of letting `undefined` reach the API at runtime.
 // (Next's config loader transpiles this file to CJS and `require()`s it, so
 // this must be a plain synchronous import — no top-level await.)
-import './src/utils/env/env';
+import './src/utils/env';
 
 const withBundleAnalyzer = createBundleAnalyzer({
     enabled: process.env.ANALYZE === 'true',

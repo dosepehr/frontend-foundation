@@ -2,7 +2,7 @@ import type * as AxiosModule from 'axios';
 import type { AxiosError, AxiosInstance } from 'axios';
 import axios from 'axios';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { setupRefreshToken } from './refreshToken';
+import { setupRefreshToken } from '.';
 
 vi.mock('axios', async (importOriginal) => {
     const actual = await importOriginal<typeof AxiosModule>();

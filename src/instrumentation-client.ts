@@ -1,6 +1,6 @@
+import { scrubPii } from '@/utils/sentry/scrubPii';
 import * as Sentry from '@sentry/nextjs';
-import { env } from './utils/env/env';
-import { scrubPii } from './utils/sentry/scrubPii';
+import { env } from './utils/env';
 
 // Loaded automatically by Next.js before the app boots in the browser.
 // Also captures unhandled errors and unhandled promise rejections globally.

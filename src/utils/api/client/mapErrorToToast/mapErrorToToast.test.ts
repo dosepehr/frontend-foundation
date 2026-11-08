@@ -1,7 +1,7 @@
 import type { AxiosError } from 'axios';
 import { toast } from 'sonner';
 import { describe, expect, it, vi } from 'vitest';
-import { mapErrorToToast } from './mapErrorToToast';
+import { mapErrorToToast } from '.';
 
 vi.mock('sonner', () => ({ toast: { error: vi.fn() } }));
 

@@ -1,10 +1,10 @@
+import type { ApiError } from '@/utils/api/types/http-errors.types';
 import {
     useQuery,
     type QueryKey,
     type UseQueryOptions,
     type UseQueryResult,
 } from '@tanstack/react-query';
-import type { ApiError } from '../../api/types/DTO/http-errors.interface';
 
 /**
  * UseCustomQueryOptions - options for useCustomQuery hook

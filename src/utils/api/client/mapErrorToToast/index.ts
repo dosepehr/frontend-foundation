@@ -1,7 +1,10 @@
+import {
+    errorHandler,
+    networkErrorStrategy,
+} from '@/utils/api/client/httpErrorStrategies';
+import type { ApiError } from '@/utils/api/types/http-errors.types';
 import type { AxiosError } from 'axios';
 import { toast } from 'sonner';
-import type { ApiError } from '../types/DTO/http-errors.interface';
-import { errorHandler, networkErrorStrategy } from './http-error-strategies';
 
 export function mapErrorToToast(error: AxiosError) {
     const res = error.response;

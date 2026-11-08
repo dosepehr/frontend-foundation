@@ -1,5 +1,5 @@
 import type { ErrorEvent, EventHint } from '@sentry/nextjs';
-import { scrubPii } from './scrubPii';
+import { scrubPii } from '.';
 
 function makeHint(): EventHint {
     return {} as EventHint;
