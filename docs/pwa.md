@@ -1,3 +1,15 @@
+---
+title: PWA & Web Push
+app: global
+document_type: guide
+author: dosepehr
+created_at: 2026-08-05
+updated_at: 2026-11-08
+reviewed_at: null
+status: needs-review
+version: 1.0
+---
+
 # PWA & Web Push
 
 This app is an installable Progressive Web App: it ships a web app manifest, a
@@ -12,17 +24,17 @@ and what it takes to add _real_ remote push.
 
 ## Files at a glance
 
-| Concern                                   | File                                                                                                                                                                                                    |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Web app manifest                          | [`src/app/manifest.ts`](../src/app/manifest.ts) → served at `/manifest.webmanifest`                                                                                                                     |
-| Service worker (caching, offline, push)   | [`public/sw.js`](../public/sw.js)                                                                                                                                                                       |
-| SW registration + update prompt           | [`src/components/Providers/ServiceWorkerRegister/`](../src/components/Providers/ServiceWorkerRegister)                                                                                                  |
-| Offline mutation queue (persist + resume) | [`src/utils/api/provider/ReactQueryProvider.tsx`](../src/utils/api/provider/ReactQueryProvider.tsx), [`src/components/Providers/OfflineMutationSync/`](../src/components/Providers/OfflineMutationSync) |
-| Local notifications + sound hook          | [`src/utils/hooks/useNotification/`](../src/utils/hooks/useNotification)                                                                                                                                |
-| Notification demo form (Zod + RHF)        | [`src/app/notification/page.tsx`](../src/app/notification/page.tsx)                                                                                                                                     |
-| Install prompt (Android/iOS)              | [`src/components/ui/PWAInstall/`](../src/components/ui/PWAInstall)                                                                                                                                      |
-| iOS launch (splash) screens               | [`src/components/Providers/AppleSplashScreens/`](../src/components/Providers/AppleSplashScreens)                                                                                                        |
-| Icons / screenshots / splash images       | `public/pwa/`                                                                                                                                                                                           |
+| Concern                                   | File                                                                                                                                                                                                                    |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Web app manifest                          | [`src/app/manifest.ts`](../src/app/manifest.ts) → served at `/manifest.webmanifest`                                                                                                                                     |
+| Service worker (caching, offline, push)   | [`public/sw.js`](../public/sw.js)                                                                                                                                                                                       |
+| SW registration + update prompt           | [`src/components/providers/ServiceWorkerRegister/`](../src/components/providers/ServiceWorkerRegister)                                                                                                                  |
+| Offline mutation queue (persist + resume) | [`src/components/providers/ReactQueryProvider/index.tsx`](../src/components/providers/ReactQueryProvider/index.tsx), [`src/components/providers/OfflineMutationSync/`](../src/components/providers/OfflineMutationSync) |
+| Local notifications + sound hook          | [`src/utils/hooks/useNotification/`](../src/utils/hooks/useNotification)                                                                                                                                                |
+| Notification demo form (Zod + RHF)        | [`src/features/notification/NotificationPage.tsx`](../src/features/notification/NotificationPage.tsx)                                                                                                                   |
+| Install prompt (Android/iOS)              | [`src/components/ui/PWAInstall/`](../src/components/ui/PWAInstall)                                                                                                                                                      |
+| iOS launch (splash) screens               | [`src/components/providers/AppleSplashScreens/`](../src/components/providers/AppleSplashScreens)                                                                                                                        |
+| Icons / screenshots / splash images       | `public/pwa/`                                                                                                                                                                                                           |
 
 > The service worker registers in **production only**. In development the app
 > registers MSW's mock worker at the same `/` scope, and a second worker would
@@ -36,7 +48,7 @@ and what it takes to add _real_ remote push.
 The service worker ([`public/sw.js`](../public/sw.js)) does three jobs: runtime
 caching (with expiration), an offline fallback, and receiving push. Registration
 and the update prompt live in
-[`ServiceWorkerRegister`](../src/components/Providers/ServiceWorkerRegister).
+[`ServiceWorkerRegister`](../src/components/providers/ServiceWorkerRegister).
 
 ### Caching strategies
 
@@ -118,7 +130,7 @@ them once connectivity returns:
    for most of the session (e.g. a persistent toolbar action); for a
    rarely-mounted one-off mutation, register its default eagerly (e.g. in
    `ReactQueryProvider` itself) instead of relying on the consuming component.
-5. **UX.** [`OfflineMutationSync`](../src/components/Providers/OfflineMutationSync)
+5. **UX.** [`OfflineMutationSync`](../src/components/providers/OfflineMutationSync)
    subscribes to React Query's `onlineManager` and shows a persistent sonner
    toast while offline, then a "Back online — syncing N queued change(s)" toast
    once reconnecting finds paused mutations to replay.

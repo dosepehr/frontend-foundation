@@ -1,3 +1,15 @@
+---
+title: Turning a React App into a Good PWA
+app: global
+document_type: guide
+author: dosepehr
+created_at: 2026-08-11
+updated_at: 2026-11-08
+reviewed_at: null
+status: needs-review
+version: 1.0
+---
+
 # Turning a React App into a Good PWA
 
 A practical guide for taking a plain **React SPA** (Vite, or Create React App)
@@ -7,7 +19,7 @@ and correct **revalidation / update flow**.
 
 It ports the patterns from this repo — [`public/sw.js`](../public/sw.js),
 [`src/app/manifest.ts`](../src/app/manifest.ts), and
-[`ServiceWorkerRegister`](../src/components/Providers/ServiceWorkerRegister) —
+[`ServiceWorkerRegister`](../src/components/providers/ServiceWorkerRegister) —
 into a framework-agnostic React setup. Where a client-only SPA has to do
 something different from Next.js, it's called out.
 
@@ -23,12 +35,12 @@ something different from Next.js, it's called out.
 
 A good PWA is four separable concerns. Treat them independently:
 
-| Concern | The question it answers | Where it lives |
-|---|---|---|
-| **Installability** | Can the user add it to their home screen? | Web app manifest + icons |
-| **Caching** | What's served from disk vs. the network, and for how long? | Service worker fetch handler |
-| **Revalidation** | How does fresh content reach a user who already has a cached copy? | Caching strategy per request type |
-| **Versioning / updates** | How does a *new deploy* replace the *old service worker* safely? | SW lifecycle + registration code |
+| Concern                  | The question it answers                                            | Where it lives                    |
+| ------------------------ | ------------------------------------------------------------------ | --------------------------------- |
+| **Installability**       | Can the user add it to their home screen?                          | Web app manifest + icons          |
+| **Caching**              | What's served from disk vs. the network, and for how long?         | Service worker fetch handler      |
+| **Revalidation**         | How does fresh content reach a user who already has a cached copy? | Caching strategy per request type |
+| **Versioning / updates** | How does a _new deploy_ replace the _old service worker_ safely?   | SW lifecycle + registration code  |
 
 Most broken PWAs get installability right and the other three wrong — users get
 stuck on a stale version with no way to update. The back half of this guide is
@@ -58,24 +70,44 @@ ship a **static file** in `public/` and link it from `index.html`.
 
 ```json
 {
-  "id": "/",
-  "name": "Your App",
-  "short_name": "App",
-  "description": "What your app does.",
-  "lang": "en",
-  "dir": "ltr",
-  "start_url": "/?source=pwa",
-  "scope": "/",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#ffffff",
-  "theme_color": "#155dfc",
-  "icons": [
-    { "src": "/pwa/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/pwa/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/pwa/icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "/pwa/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
-  ]
+    "id": "/",
+    "name": "Your App",
+    "short_name": "App",
+    "description": "What your app does.",
+    "lang": "en",
+    "dir": "ltr",
+    "start_url": "/?source=pwa",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#ffffff",
+    "theme_color": "#155dfc",
+    "icons": [
+        {
+            "src": "/pwa/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/pwa/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/pwa/icon-192-maskable.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/pwa/icon-512-maskable.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
 }
 ```
 
@@ -107,13 +139,13 @@ Key fields, same as this app's manifest:
 
 Put these in `public/pwa/`:
 
-| File | Size | Purpose |
-|---|---|---|
-| `icon-192.png` | 192×192 | Android home screen |
-| `icon-512.png` | 512×512 | Splash / install dialog |
+| File                    | Size    | Purpose                             |
+| ----------------------- | ------- | ----------------------------------- |
+| `icon-192.png`          | 192×192 | Android home screen                 |
+| `icon-512.png`          | 512×512 | Splash / install dialog             |
 | `icon-192-maskable.png` | 192×192 | Android adaptive (safe-zone padded) |
-| `icon-512-maskable.png` | 512×512 | Android adaptive |
-| `apple-touch-icon.png` | 180×180 | iOS home screen |
+| `icon-512-maskable.png` | 512×512 | Android adaptive                    |
+| `apple-touch-icon.png`  | 180×180 | iOS home screen                     |
 
 Test maskable padding at [maskable.app](https://maskable.app).
 
@@ -343,12 +375,12 @@ self.addEventListener('fetch', (event) => {
 
 The whole design is: **match the strategy to how the content changes.**
 
-| Request | Strategy | Why | Cache |
-|---|---|---|---|
-| Navigations (HTML) | network-first → app shell | HTML must be fresh; it references the current hashed assets | `app-pages-*` |
-| `/assets/*`, `/fonts/*` (hashed, immutable) | cache-first | The hash *is* the version — the URL never serves different bytes | `app-assets-*` |
-| Other same-origin GET (images, icons, API-ish) | stale-while-revalidate | Instant paint from cache, silent refresh for next time | `app-runtime-*` |
-| Cross-origin / non-GET | not handled → network | Don't cache other people's origins or mutations | — |
+| Request                                        | Strategy                  | Why                                                              | Cache           |
+| ---------------------------------------------- | ------------------------- | ---------------------------------------------------------------- | --------------- |
+| Navigations (HTML)                             | network-first → app shell | HTML must be fresh; it references the current hashed assets      | `app-pages-*`   |
+| `/assets/*`, `/fonts/*` (hashed, immutable)    | cache-first               | The hash _is_ the version — the URL never serves different bytes | `app-assets-*`  |
+| Other same-origin GET (images, icons, API-ish) | stale-while-revalidate    | Instant paint from cache, silent refresh for next time           | `app-runtime-*` |
+| Cross-origin / non-GET                         | not handled → network     | Don't cache other people's origins or mutations                  | —               |
 
 Why network-first for HTML matters: `index.html` is the one file that is **not**
 content-hashed (its URL is always `/`). It points at `/assets/app-<hash>.js`. If
@@ -363,11 +395,11 @@ one. It's per-strategy, not a separate feature:
 
 - **cache-first** never revalidates by content — it relies on the URL changing
   (new hash). Old entries age out via `max-age` / `max-entries`.
-- **stale-while-revalidate** revalidates on *every* request: it serves the cached
+- **stale-while-revalidate** revalidates on _every_ request: it serves the cached
   copy instantly, then fetches in the background and overwrites the cache, so the
-  *next* view is fresh. This is the right default for images and non-critical
+  _next_ view is fresh. This is the right default for images and non-critical
   data — zero perceived latency, at most one view stale.
-- **network-first** revalidates *now*: it always tries the network and only falls
+- **network-first** revalidates _now_: it always tries the network and only falls
   back to cache when offline. Right for HTML and anything that must be current.
 
 If you add data fetching, don't cache authenticated/mutating API calls in the
@@ -379,11 +411,11 @@ static assets and shell.
 Every runtime cache is bounded two ways so it can't grow forever or serve
 ancient content:
 
-| Cache | Max entries | Max age |
-|---|---|---|
-| `app-assets-*` | 100 | 30 days |
-| `app-runtime-*` | 64 | 7 days |
-| `app-pages-*` | 50 | 1 day |
+| Cache           | Max entries | Max age |
+| --------------- | ----------- | ------- |
+| `app-assets-*`  | 100         | 30 days |
+| `app-runtime-*` | 64          | 7 days  |
+| `app-pages-*`   | 50          | 1 day   |
 
 - **max-entries** — cap on responses per cache. On every write, oldest entries
   beyond the cap are deleted (FIFO). Bounds disk usage.
@@ -400,7 +432,7 @@ Tune these in the `EXPIRATION` map at the top of `sw.js`.
 ## 3. Registering the SW + the update flow
 
 This is where most hand-rolled PWAs go wrong. The registration component below is
-this repo's [`ServiceWorkerRegister`](../src/components/Providers/ServiceWorkerRegister/ServiceWorkerRegister.tsx),
+this repo's [`ServiceWorkerRegister`](../src/components/providers/ServiceWorkerRegister/index.tsx),
 adapted for a plain React app (drop the MSW/`NODE_ENV` production gate unless you
 also run a mock worker in dev).
 
@@ -453,10 +485,13 @@ export function ServiceWorkerRegister() {
 
         const register = async () => {
             try {
-                registration = await navigator.serviceWorker.register('/sw.js', {
-                    scope: '/',
-                    updateViaCache: 'none', // always byte-check sw.js on update
-                });
+                registration = await navigator.serviceWorker.register(
+                    '/sw.js',
+                    {
+                        scope: '/',
+                        updateViaCache: 'none', // always byte-check sw.js on update
+                    },
+                );
 
                 // Ask the OS not to evict our caches under storage pressure.
                 if (navigator.storage?.persist) {
@@ -464,7 +499,10 @@ export function ServiceWorkerRegister() {
                 }
 
                 // An update was already waiting before this page loaded.
-                if (registration.waiting && navigator.serviceWorker.controller) {
+                if (
+                    registration.waiting &&
+                    navigator.serviceWorker.controller
+                ) {
                     promptUpdate(registration.waiting);
                 }
 
@@ -555,7 +593,7 @@ can hide a new deploy for hours. Also make sure your host serves **`sw.js` with
 Keep these straight; conflating them is the #1 source of "why won't it update"
 confusion.
 
-### A. `VERSION` in `sw.js` — the *cache* version
+### A. `VERSION` in `sw.js` — the _cache_ version
 
 Bumping `VERSION` renames every cache (`app-assets-v1` → `app-assets-v2`), so
 `activate` deletes all the old-named caches — a **full cache reset for every
@@ -570,7 +608,7 @@ You do **not** bump it for ordinary app deploys. Vite content-hashes `/assets`,
 so new builds get new URLs and old entries age out via the expiration limits on
 their own.
 
-### B. The `sw.js` file itself — the *worker* version
+### B. The `sw.js` file itself — the _worker_ version
 
 The browser installs a new worker whenever **`sw.js`'s bytes change** — no
 constant required, it's a byte-for-byte comparison. So **any edit to `sw.js`**
@@ -581,12 +619,12 @@ edit; so is changing a handler.
 only bump `VERSION` when you specifically want to **wipe existing caches**.
 
 > ⚠️ **SPA caveat the Next.js app doesn't have:** your app's JS is hashed, but
-> `sw.js` is a *static file whose content only changes if you edit it*. If a
+> `sw.js` is a _static file whose content only changes if you edit it_. If a
 > deploy changes only your React code (new `/assets/app-<hash>.js`) and not
 > `sw.js`, the SW file is byte-identical → **no new worker installs**. That's
 > fine, because the SW serves `index.html` network-first, so the fresh HTML
-> pulls the new hashed assets anyway. The SW only needs to update when *its own
-> logic* changes. Don't try to force a SW reinstall on every deploy — you don't
+> pulls the new hashed assets anyway. The SW only needs to update when _its own
+> logic_ changes. Don't try to force a SW reinstall on every deploy — you don't
 > need it.
 
 ### The manifest has no version
@@ -631,7 +669,7 @@ npm run build && npm run preview   # Vite; serves the production build
 
 Then, in Chrome DevTools:
 
-1. **Application → Service Workers** — confirm `sw.js` is *activated and running*.
+1. **Application → Service Workers** — confirm `sw.js` is _activated and running_.
    Tick **Update on reload** while developing the SW itself.
 2. **Application → Manifest** — check icons resolve and there are no errors; use
    the **Install** button.
@@ -650,7 +688,7 @@ Then, in Chrome DevTools:
 4. Click **Reload** → the page reloads once, and **Cache Storage** now shows
    `app-*-v2` with the `-v1` caches gone.
 
-If step 3 shows the new worker jumping straight to *activated* without waiting,
+If step 3 shows the new worker jumping straight to _activated_ without waiting,
 you left a `skipWaiting()` in `install` — remove it.
 
 ---
@@ -662,7 +700,7 @@ same as this repo's [`public/sw.js`](../public/sw.js) — a `push` listener that
 calls `showNotification`, and a `notificationclick` listener that focuses/open a
 tab. **Displaying** a push is client-side; **sending** one requires a server
 (VAPID keys, stored subscriptions, the `web-push` library). The full recipe is in
-[`docs/pwa.md`](./pwa.md) under *"What real Web Push requires"* — it's
+[`docs/pwa.md`](./pwa.md) under _"What real Web Push requires"_ — it's
 framework-agnostic and applies unchanged to a React app.
 
 > **iOS:** Web Push only works once the app is **installed to the Home Screen**
@@ -681,4 +719,7 @@ framework-agnostic and applies unchanged to a React app.
 - [ ] `/assets/*` served `immutable`
 - [ ] Understood: bump `VERSION` only to wipe caches; edits to `sw.js` auto-update
 - [ ] Verified offline + the update prompt in a real build (not `dev`)
+
+```
+
 ```

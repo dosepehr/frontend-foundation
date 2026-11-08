@@ -1,3 +1,15 @@
+---
+title: Zustand
+app: global
+document_type: guide
+author: dosepehr
+created_at: 2026-08-15
+updated_at: 2026-11-08
+reviewed_at: null
+status: needs-review
+version: 1.0
+---
+
 # Zustand
 
 Client-side state that doesn't belong in React Query (which owns _server_
@@ -10,17 +22,17 @@ beyond what `createStore` gives you by default.
 
 ## Files at a glance
 
-| Concern                          | File                                                                  |
-| -------------------------------- | --------------------------------------------------------------------- |
-| Store factory (devtools wrapper) | [`src/utils/store/createStore.ts`](../src/utils/store/createStore.ts) |
-| Example store                    | [`src/store/useSidebarStore.ts`](../src/store/useSidebarStore.ts)     |
+| Concern                          | File                                                                              |
+| -------------------------------- | --------------------------------------------------------------------------------- |
+| Store factory (devtools wrapper) | [`src/utils/store/createStore/index.ts`](../src/utils/store/createStore/index.ts) |
+| Example store                    | [`src/store/useSidebarStore.ts`](../src/store/useSidebarStore.ts)                 |
 
 ---
 
 ## `createStore`: the baseline every store gets
 
 ```ts
-// src/utils/store/createStore.ts
+// src/utils/store/createStore/index.ts
 import type { StateCreator } from 'zustand';
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
@@ -75,7 +87,8 @@ export const useCartStore = createStore<CartState>(
 
 Conventions, following [`useSidebarStore`](../src/store/useSidebarStore.ts):
 
-- One file per store under `src/store/`, named `use<Thing>Store.ts`.
+- One file per store under `src/store/`, named `use<Thing>Store.ts`. Stores
+  used by a single feature only may live in that feature's `store.ts`.
 - Pass a unique, human-readable `name` (second argument) — it's what shows up
   in Redux DevTools.
 - Label every `set` call with an action name (third argument) instead of
