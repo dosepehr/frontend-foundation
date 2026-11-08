@@ -1,5 +1,5 @@
+import * as Icons from '@/components/icons';
 import type { Meta } from '@storybook/nextjs-vite';
-import * as Icons from '../../src/components/_icons';
 
 const meta: Meta = {
     title: 'tokens/Icons',
