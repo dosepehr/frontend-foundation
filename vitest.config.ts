@@ -21,8 +21,7 @@ export default defineConfig({
                 '**/*.types.*',
                 '**/*.type.ts',
                 '**/*.interface.ts',
-                '**/index.ts',
-                'src/components/_icons/**',
+                'src/components/icons/**',
                 'src/components/ui/ThemeChanger/**',
                 // Next.js instrumentation entry points — pure Sentry.init
                 // wiring with no branching logic; the actual logic they call
@@ -48,24 +47,16 @@ export default defineConfig({
                     // since Vite picks the first matching alias.
                     alias: [
                         {
-                            find: '@/components',
-                            replacement: path.resolve(
-                                dirname,
-                                './src/components',
-                            ),
-                        },
-                        {
-                            find: '@/utils',
-                            replacement: path.resolve(dirname, './src/utils'),
-                        },
-                        {
                             find: '@/hooks',
                             replacement: path.resolve(
                                 dirname,
                                 './src/utils/hooks',
                             ),
                         },
-                        { find: '@', replacement: path.resolve(dirname, '.') },
+                        {
+                            find: '@',
+                            replacement: path.resolve(dirname, './src'),
+                        },
                     ],
                 },
             },

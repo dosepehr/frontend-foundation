@@ -1,4 +1,4 @@
-import Skeleton from '../components/ui/Skeleton';
+import Skeleton from '@/components/ui/Skeleton';
 
 /**
  * Default Suspense fallback for every route under `src/app` that doesn't

@@ -1,4 +1,4 @@
-import { createStore } from '@/src/utils/store/createStore';
+import { createStore } from '@/utils/store/createStore';
 
 interface SidebarState {
     isOpen: boolean;
