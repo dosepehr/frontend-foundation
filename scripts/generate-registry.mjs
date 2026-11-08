@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Generates registry.json from src/components/{ui,controlled,Providers},
+// Generates registry.json from src/components/{ui,controlled,providers},
 // src/utils/{hooks,funcs,api,store}, and src/app/globals.css, so this script
 // can publish a self-hosted component registry (writes public/r/*.json
 // directly - see the note near OUTPUT_DIR for why `shadcn build` isn't used).
@@ -15,7 +15,7 @@ const ROOT = path.resolve(__dirname, '..');
 const SRC = path.join(ROOT, 'src');
 const UI_DIR = path.join(SRC, 'components/ui');
 const CONTROLLED_DIR = path.join(SRC, 'components/controlled');
-const PROVIDERS_DIR = path.join(SRC, 'components/Providers');
+const PROVIDERS_DIR = path.join(SRC, 'components/providers');
 const HOOKS_DIR = path.join(SRC, 'utils/hooks');
 const GLOBALS_CSS = path.join(SRC, 'app/globals.css');
 
@@ -41,7 +41,7 @@ function kebabCase(str) {
 }
 
 function isSourceFile(filename) {
-    return /\.(ts|tsx)$/.test(filename) && !/\.(test|stories)\./.test(filename);
+    return /\.(ts|tsx)$/.test(filename) && !/\.(test|spec|stories)\./.test(filename);
 }
 
 function listDirs(dir) {
@@ -56,13 +56,15 @@ function listSourceFiles(dir) {
 }
 
 // Maps a path relative to SRC (no extension, e.g. "utils/api/client/httpService")
-// to its canonical `@/...` alias form. Everything under src/utils/* (hooks
-// included) mirrors its on-disk structure under the consumer's `lib` alias
-// root (so utils/api/client/httpService -> @/lib/api/client/httpService,
-// utils/hooks/useIsMobile -> @/lib/hooks/useIsMobile), matching how
+// to its canonical `@/...` alias form. Hooks (src/utils/hooks/<name>/index)
+// map to a flat `@/hooks/<name>`, which the shadcn CLI rewrites to the
+// consumer's `hooks` alias. Everything else under src/utils/* mirrors its
+// on-disk structure under the consumer's `lib` alias root (so
+// utils/api/client/httpService -> @/lib/api/client/httpService), matching how
 // src/components/* mirrors 1:1 under `@/components/*` already.
 function canonicalFromRel(rel) {
     if (rel.startsWith('components/')) return '@/' + rel;
+    if (rel.startsWith('utils/hooks/')) return '@/hooks/' + rel.split('/')[2];
     if (rel.startsWith('utils/')) return '@/lib/' + rel.slice('utils/'.length);
     throw new Error(`No canonical alias mapping for "${rel}"`);
 }
@@ -74,17 +76,17 @@ function toCanonical(fromFile, spec) {
     return canonicalFromRel(rel);
 }
 
-// Canonicalizes deep relative imports (../x) and rewrites the two aliases we
+// Canonicalizes deep relative imports (../x) and rewrites the one alias we
 // deliberately keep non-canonical in our own source: everything under
 // src/utils/* stays where it is locally, but publishes as if it lived under
-// `lib/` (including hooks, which our own tsconfig separately aliases to
-// `@/hooks/*` - that alias gets folded into `lib/hooks/` on publish too).
+// `lib/`. Hooks are the exception - our tsconfig already aliases them to
+// `@/hooks/*`, which is shadcn's own canonical form, so they publish as-is.
 function processContent(fromFile, raw) {
     let content = raw.replace(/from(\s+)(['"])(\.\.[^'"]*)\2/g, (_m, ws, q, spec) => {
         return `from${ws}${q}${toCanonical(fromFile, spec)}${q}`;
     });
+    content = content.replace(/@\/utils\/hooks\//g, '@/hooks/');
     content = content.replace(/@\/utils\//g, '@/lib/');
-    content = content.replace(/@\/hooks\//g, '@/lib/hooks/');
     return content;
 }
 
@@ -97,8 +99,8 @@ function scanSpecifiers(fromFile, raw) {
     while ((m = re.exec(raw))) specifiers.push(m[2]);
     return specifiers
         .map((spec) => (spec.startsWith('.') ? toCanonical(fromFile, spec) : spec))
-        .map((spec) => spec.replace(/^@\/utils\//, '@/lib/'))
-        .map((spec) => spec.replace(/^@\/hooks\//, '@/lib/hooks/'));
+        .map((spec) => spec.replace(/^@\/utils\/hooks\//, '@/hooks/'))
+        .map((spec) => spec.replace(/^@\/utils\//, '@/lib/'));
 }
 
 function externalPackageName(spec) {
@@ -110,15 +112,8 @@ const uiDirNames = listDirs(UI_DIR);
 const controlledDirNames = listDirs(CONTROLLED_DIR);
 const hookDirNames = listDirs(HOOKS_DIR);
 
-// One hook folder is named "useCustomQuery.ts" (containing useCustomQuery.ts
-// inside it) instead of "useCustomQuery" like its siblings - not something
-// we rename here, just something the name/target derivation has to tolerate.
-function hookDisplayName(dirName) {
-    return dirName.replace(/\.ts$/, '');
-}
-
 const uiKebab = new Map(uiDirNames.map((d) => [d, kebabCase(d)]));
-const hookKebab = new Map(hookDirNames.map((d) => [hookDisplayName(d), kebabCase(hookDisplayName(d))]));
+const hookKebab = new Map(hookDirNames.map((d) => [d, kebabCase(d)]));
 
 // Every file under src/utils/{funcs,api,store} that gets published, one
 // registry:lib item per file, mirroring its on-disk subpath under `lib/` in
@@ -126,28 +121,28 @@ const hookKebab = new Map(hookDirNames.map((d) => [hookDisplayName(d), kebabCase
 // its target location and its registryDependencies (auto-detected from its
 // own imports) follow automatically.
 const LIB_FILES = [
-    { name: 'utils', srcRelPath: 'utils/funcs/cn.ts' },
-    { name: 'env', srcRelPath: 'utils/env.ts' },
-    { name: 'dnd-utils', srcRelPath: 'utils/funcs/dnd.utils.ts' },
-    { name: 'http-errors', srcRelPath: 'utils/api/types/DTO/http-errors.interface.ts' },
-    { name: 'operation-result', srcRelPath: 'utils/api/types/operation-result.type.ts' },
-    { name: 'http-error-strategies', srcRelPath: 'utils/api/client/http-error-strategies.ts' },
-    { name: 'map-error-to-toast', srcRelPath: 'utils/api/client/mapErrorToToast.ts' },
-    { name: 'global-error-handler', srcRelPath: 'utils/api/client/interceptors/globalErrorHandler.ts' },
-    { name: 'refresh-token', srcRelPath: 'utils/api/client/interceptors/refreshToken.ts' },
-    { name: 'http-service', srcRelPath: 'utils/api/client/httpService.ts' },
-    { name: 'react-query-provider', srcRelPath: 'utils/api/provider/ReactQueryProvider.tsx' },
-    { name: 'create-store', srcRelPath: 'utils/store/createStore.ts' },
+    { name: 'utils', srcRelPath: 'utils/funcs/cn/index.ts' },
+    { name: 'env', srcRelPath: 'utils/env/index.ts' },
+    { name: 'dnd-utils', srcRelPath: 'utils/funcs/dnd/index.ts' },
+    { name: 'http-errors', srcRelPath: 'utils/api/types/http-errors.types.ts' },
+    { name: 'api-response', srcRelPath: 'utils/api/types/api-response.types.ts' },
+    { name: 'operation-result', srcRelPath: 'utils/api/types/operation-result.types.ts' },
+    { name: 'http-error-strategies', srcRelPath: 'utils/api/client/httpErrorStrategies/index.ts' },
+    { name: 'map-error-to-toast', srcRelPath: 'utils/api/client/mapErrorToToast/index.ts' },
+    { name: 'global-error-handler', srcRelPath: 'utils/api/client/interceptors/globalErrorHandler/index.ts' },
+    { name: 'refresh-token', srcRelPath: 'utils/api/client/interceptors/refreshToken/index.ts' },
+    { name: 'http-service', srcRelPath: 'utils/api/client/httpService/index.ts' },
+    { name: 'create-store', srcRelPath: 'utils/store/createStore/index.ts' },
 ];
-// Hooks are lib items too (see the build loop below) - a flat @/lib/hooks/*
-// path per hook, matching how their source imports already read (our own
-// tsconfig aliases @/hooks/* to utils/hooks/* as flat names already).
+// Hooks get a flat @/hooks/* path per hook, matching how their source imports
+// already read (our own tsconfig aliases @/hooks/* to utils/hooks/*).
 const libPathToName = new Map([
-    ...LIB_FILES.map(({ name, srcRelPath }) => [canonicalFromRel(srcRelPath.replace(/\.(ts|tsx)$/, '')), name]),
-    ...hookDirNames.map((d) => {
-        const displayName = hookDisplayName(d);
-        return [`@/lib/hooks/${displayName}`, hookKebab.get(displayName) ?? kebabCase(displayName)];
-    }),
+    // A folder module (`<name>/index.ts`) is imported by its folder path.
+    ...LIB_FILES.map(({ name, srcRelPath }) => [
+        canonicalFromRel(srcRelPath.replace(/\.(ts|tsx)$/, '').replace(/\/index$/, '')),
+        name,
+    ]),
+    ...hookDirNames.map((d) => [`@/hooks/${d}`, hookKebab.get(d)]),
 ]);
 
 // Sorts a canonical `@/...` import into a registryDependency (another item
@@ -160,9 +155,12 @@ function classifySpecifier(spec, { registryDeps, dependencies, self, fromFile })
     } else if (spec.startsWith('@/components/controlled/')) {
         const name = spec.slice('@/components/controlled/'.length).split('/')[0];
         registryDeps.add(kebabCase(name));
-    } else if (spec.startsWith('@/lib/')) {
+    } else if (spec.startsWith('@/components/providers/')) {
+        const name = spec.slice('@/components/providers/'.length).split('/')[0];
+        registryDeps.add(kebabCase(name));
+    } else if (spec.startsWith('@/lib/') || spec.startsWith('@/hooks/')) {
         const depName = libPathToName.get(spec);
-        if (!depName) throw new Error(`Unmapped lib import "${spec}" in ${fromFile}`);
+        if (!depName) throw new Error(`Unmapped lib/hook import "${spec}" in ${fromFile}`);
         if (depName !== self) registryDeps.add(depName);
     } else if (spec.startsWith('@/')) {
         throw new Error(`Unmapped internal import "${spec}" in ${fromFile}`);
@@ -175,7 +173,7 @@ function classifySpecifier(spec, { registryDeps, dependencies, self, fromFile })
 const items = [];
 
 // ---------------------------------------------------------------------------
-// ui/ + controlled/ + Providers/ items
+// ui/ + controlled/ + providers/ items
 // ---------------------------------------------------------------------------
 
 function buildComponentItem({
@@ -241,7 +239,7 @@ for (const dirName of controlledDirNames) {
     );
 }
 
-// Providers/ items are app infrastructure, not design-system primitives, so
+// providers/ items are app infrastructure, not design-system primitives, so
 // they get no utils/theme baseline and their own registry:component type.
 const PROVIDERS_DOCS = {
     AppleSplashScreens:
@@ -250,13 +248,13 @@ const PROVIDERS_DOCS = {
         "Registers a service worker at public/sw.js - this component only registers it, it does not generate one. Only activates when NODE_ENV === 'production'.",
 };
 
-for (const dirName of ['AppleSplashScreens', 'ServiceWorkerRegister']) {
+for (const dirName of ['AppleSplashScreens', 'OfflineMutationSync', 'ReactQueryProvider', 'ServiceWorkerRegister']) {
     items.push(
         buildComponentItem({
             dirName,
             dirPath: path.join(PROVIDERS_DIR, dirName),
             targetAlias: '@components/',
-            targetPrefix: 'Providers/',
+            targetPrefix: 'providers/',
             type: 'registry:component',
             baseline: [],
             docs: PROVIDERS_DOCS[dirName],
@@ -265,14 +263,14 @@ for (const dirName of ['AppleSplashScreens', 'ServiceWorkerRegister']) {
 }
 
 // ---------------------------------------------------------------------------
-// registry:lib items - every file listed in LIB_FILES above, plus every
-// hook under src/utils/hooks/* (hooks are lib items too, just published as
-// flat files under lib/hooks/ instead of mirroring their own folder-per-hook
-// layout, since that layout only exists locally to pair each hook with its
-// test file).
+// registry:lib items - every file listed in LIB_FILES above - plus one
+// registry:hook item per hook under src/utils/hooks/*. Hooks publish as flat
+// files under the consumer's `hooks` alias (e.g. src/shared/hooks/ in a
+// feature-based app) instead of mirroring their own folder-per-hook layout,
+// since that layout only exists locally to pair each hook with its test file.
 // ---------------------------------------------------------------------------
 
-function buildLibItem({ name, absPath, target }) {
+function buildLibItem({ name, absPath, target, type = 'registry:lib' }) {
     const raw = fs.readFileSync(absPath, 'utf8');
     const content = processContent(absPath, raw);
     const specifiers = scanSpecifiers(absPath, raw);
@@ -283,12 +281,12 @@ function buildLibItem({ name, absPath, target }) {
     }
     return {
         name,
-        type: 'registry:lib',
+        type,
         title: name,
         files: [
             {
                 path: path.relative(ROOT, absPath).split(path.sep).join('/'),
-                type: 'registry:lib',
+                type,
                 target,
                 content,
             },
@@ -309,7 +307,7 @@ for (const { name, srcRelPath } of LIB_FILES) {
 }
 
 for (const hookDirName of hookDirNames) {
-    const displayName = hookDisplayName(hookDirName);
+    const displayName = hookDirName;
     const dirPath = path.join(HOOKS_DIR, hookDirName);
     const [entryFile] = listSourceFiles(dirPath);
     if (!entryFile) throw new Error(`No source file found for hook ${hookDirName}`);
@@ -317,7 +315,8 @@ for (const hookDirName of hookDirNames) {
         buildLibItem({
             name: hookKebab.get(displayName) ?? kebabCase(displayName),
             absPath: entryFile,
-            target: `@lib/hooks/${displayName}.ts`,
+            target: `@hooks/${displayName}.ts`,
+            type: 'registry:hook',
         }),
     );
 }
