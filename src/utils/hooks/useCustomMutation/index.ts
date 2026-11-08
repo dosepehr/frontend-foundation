@@ -1,3 +1,4 @@
+import type { ApiError } from '@/utils/api/types/http-errors.types';
 import {
     useMutation,
     useQueryClient,
@@ -6,7 +7,6 @@ import {
     type UseMutationResult,
 } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import type { ApiError } from '../../api/types/DTO/http-errors.interface';
 
 /**
  * UseCustomMutationOptions - options for useCustomMutation hook

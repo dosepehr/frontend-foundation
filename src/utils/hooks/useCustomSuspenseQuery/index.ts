@@ -1,10 +1,10 @@
+import type { ApiError } from '@/utils/api/types/http-errors.types';
 import {
     useSuspenseQuery,
     type QueryKey,
     type UseSuspenseQueryOptions,
     type UseSuspenseQueryResult,
 } from '@tanstack/react-query';
-import type { ApiError } from '../../api/types/DTO/http-errors.interface';
 
 /**
  * UseCustomSuspenseQueryOptions - options for useCustomSuspenseQuery hook
