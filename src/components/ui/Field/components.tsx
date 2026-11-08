@@ -41,12 +41,16 @@ const FieldLegend = ({
     );
 };
 
+// The vertical stack for a form's inputs. gap-8 (32px) is the form-wide
+// spacing between fields, nested groups included; it also leaves room for the
+// absolutely positioned FieldError under each field. Checkbox groups keep a
+// tighter gap since their items are options of one field, not separate fields.
 const FieldGroup = ({ className, ...props }: React.ComponentProps<'div'>) => {
     return (
         <div
             data-slot="field-group"
             className={cn(
-                'group/field-group @container/field-group flex w-full flex-col gap-5 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4',
+                'group/field-group @container/field-group flex w-full flex-col gap-8 data-[slot=checkbox-group]:gap-3',
                 className,
             )}
             {...props}

@@ -104,6 +104,20 @@ describe('FieldGroup', () => {
         );
         expect(screen.getByText('group child')).toBeInTheDocument();
     });
+
+    it('stacks fields 32px apart (gap-8), nested groups included', () => {
+        const { container } = render(
+            <FieldGroup>
+                <FieldGroup data-testid="nested" />
+            </FieldGroup>,
+        );
+        const [outer, nested] = container.querySelectorAll(
+            '[data-slot="field-group"]',
+        );
+        expect(outer).toHaveClass('gap-8');
+        expect(nested).toHaveClass('gap-8');
+        expect(outer.className).not.toMatch(/data-\[slot=field-group\]:gap-/);
+    });
 });
 
 describe('FieldContent', () => {
