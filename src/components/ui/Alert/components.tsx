@@ -8,13 +8,15 @@ const alertVariants = cva(
         variants: {
             variant: {
                 default: 'bg-card text-card-foreground',
+                // Status variants use the theme tokens, so they follow dark mode
+                // and custom themes instead of fixed palette colors.
                 destructive:
-                    'bg-red-50 border-red-200 text-destructive-text *:data-[slot=alert-description]:text-destructive-text/90 *:[svg]:text-current',
-                info: 'bg-blue-50 text-blue-800 border-blue-200 *:data-[slot=alert-description]:text-blue-700/90 *:[svg]:text-blue-600',
+                    'border-destructive/30 bg-destructive/10 text-destructive-text *:data-[slot=alert-description]:text-destructive-text/90 *:[svg]:text-current',
+                info: 'border-info/30 bg-info/10 text-info-text *:data-[slot=alert-description]:text-info-text/90 *:[svg]:text-info',
                 success:
-                    'bg-green-50 text-green-900 border-green-200 *:data-[slot=alert-description]:text-green-800/90 *:[svg]:text-green-700',
+                    'border-success/30 bg-success/10 text-success-text *:data-[slot=alert-description]:text-success-text/90 *:[svg]:text-success',
                 warning:
-                    'bg-yellow-50 text-yellow-900 border-yellow-200 *:data-[slot=alert-description]:text-yellow-800/90 *:[svg]:text-yellow-700',
+                    'border-warning/30 bg-warning/10 text-warning-text *:data-[slot=alert-description]:text-warning-text/90 *:[svg]:text-warning-text',
             },
         },
         defaultVariants: {
