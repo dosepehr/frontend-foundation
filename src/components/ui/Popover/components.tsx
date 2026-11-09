@@ -4,35 +4,78 @@
 
 import { cn } from '@/utils/funcs/cn';
 import { Popover as PopoverPrimitive } from 'radix-ui';
-import * as React from 'react';
+import type { ComponentProps } from 'react';
 
-const PopoverTrigger = PopoverPrimitive.Trigger;
-const PopoverAnchor = PopoverPrimitive.Anchor;
+/** Root of a popover: holds the open state for its trigger and content. */
+const Popover = (props: ComponentProps<typeof PopoverPrimitive.Root>) => (
+    <PopoverPrimitive.Root data-slot="popover" {...props} />
+);
 
+/** The element that toggles the popover. Use `asChild` to render your own button. */
+const PopoverTrigger = (
+    props: ComponentProps<typeof PopoverPrimitive.Trigger>,
+) => <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
+
+/**
+ * The floating panel, rendered in a portal. It has its own padding and gap;
+ * pass `p-0` for content that brings its own (a list, a calendar).
+ */
 const PopoverContent = ({
     className,
     align = 'center',
     sideOffset = 4,
     ...props
-}: React.ComponentProps<typeof PopoverPrimitive.Content>) => {
-    return (
-        <PopoverPrimitive.Portal>
-            <PopoverPrimitive.Content
-                align={align}
-                sideOffset={sideOffset}
-                className={cn(
-                    'z-50 w-72 rounded-md border border-border bg-popover text-popover-foreground shadow-md outline-none',
-                    'data-[state=closed]:animate-out data-[state=open]:animate-in',
-                    'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
-                    'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
-                    'data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2',
-                    'data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
-                    className,
-                )}
-                {...props}
-            />
-        </PopoverPrimitive.Portal>
-    );
-};
+}: ComponentProps<typeof PopoverPrimitive.Content>) => (
+    <PopoverPrimitive.Portal>
+        <PopoverPrimitive.Content
+            data-slot="popover-content"
+            align={align}
+            sideOffset={sideOffset}
+            className={cn(
+                'z-50 flex w-72 origin-(--radix-popover-content-transform-origin) flex-col gap-2.5 rounded-lg bg-popover p-2.5 text-sm text-popover-foreground shadow-md ring-1 ring-foreground/10 outline-hidden duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
+                className,
+            )}
+            {...props}
+        />
+    </PopoverPrimitive.Portal>
+);
 
-export { PopoverAnchor, PopoverContent, PopoverTrigger };
+/** Positions the content against an element other than the trigger. */
+const PopoverAnchor = (
+    props: ComponentProps<typeof PopoverPrimitive.Anchor>,
+) => <PopoverPrimitive.Anchor data-slot="popover-anchor" {...props} />;
+
+/** Groups a title and description at the top of the content. */
+const PopoverHeader = ({ className, ...props }: ComponentProps<'div'>) => (
+    <div
+        data-slot="popover-header"
+        className={cn('flex flex-col gap-0.5 text-sm', className)}
+        {...props}
+    />
+);
+
+const PopoverTitle = ({ className, ...props }: ComponentProps<'div'>) => (
+    <div
+        data-slot="popover-title"
+        className={cn('font-medium', className)}
+        {...props}
+    />
+);
+
+const PopoverDescription = ({ className, ...props }: ComponentProps<'p'>) => (
+    <p
+        data-slot="popover-description"
+        className={cn('text-muted-foreground', className)}
+        {...props}
+    />
+);
+
+export {
+    Popover,
+    PopoverAnchor,
+    PopoverContent,
+    PopoverDescription,
+    PopoverHeader,
+    PopoverTitle,
+    PopoverTrigger,
+};

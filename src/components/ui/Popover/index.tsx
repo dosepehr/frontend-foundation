@@ -1,10 +1,4 @@
-/* c8 ignore start */
-'use client';
-/* c8 ignore stop */
-
-import { Popover as PopoverPrimitive } from 'radix-ui';
-
-const Popover = PopoverPrimitive.Root;
+import { Popover } from './components';
 
 export * from './components';
 
