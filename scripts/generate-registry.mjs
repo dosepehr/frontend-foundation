@@ -124,6 +124,7 @@ const LIB_FILES = [
     { name: 'utils', srcRelPath: 'utils/funcs/cn/index.ts' },
     { name: 'env', srcRelPath: 'utils/env/index.ts' },
     { name: 'dnd-utils', srcRelPath: 'utils/funcs/dnd/index.ts' },
+    { name: 'highlighter', srcRelPath: 'utils/funcs/highlighter/index.tsx' },
     { name: 'http-errors', srcRelPath: 'utils/api/types/http-errors.types.ts' },
     { name: 'api-response', srcRelPath: 'utils/api/types/api-response.types.ts' },
     { name: 'operation-result', srcRelPath: 'utils/api/types/operation-result.types.ts' },
@@ -399,6 +400,25 @@ items.push({
     cssVars,
     css,
 });
+
+// Companions: items an item should install although it doesn't import them,
+// matching shadcn (its code-block also installs the highlighting hook).
+const COMPANIONS = {
+    'code-block': ['use-highlighted-code'],
+};
+
+for (const [name, companions] of Object.entries(COMPANIONS)) {
+    const item = items.find((i) => i.name === name);
+    if (!item) throw new Error(`Companion target "${name}" is not a registry item`);
+    for (const companion of companions) {
+        if (!items.some((i) => i.name === companion)) {
+            throw new Error(`Companion "${companion}" of "${name}" is not a registry item`);
+        }
+    }
+    item.registryDependencies = [
+        ...new Set([...(item.registryDependencies ?? []), ...companions.map(depUrl)]),
+    ].sort();
+}
 
 // A meta-item with no files of its own, just every other item as a
 // registryDependency - installing it pulls in the entire registry through
