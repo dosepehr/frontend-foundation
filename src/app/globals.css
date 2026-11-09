@@ -167,6 +167,16 @@
     [role='button']:not(:disabled) {
         cursor: pointer;
     }
+    /* Persian by default; English (the page, or any element marked lang="en")
+       uses Lato. Set on the lang-bearing element and inherited, inside the base
+       layer, so font utilities such as font-mono and font-sans still apply. */
+    html {
+        font-family: var(--font-estedad);
+        scroll-behavior: smooth;
+    }
+    [lang|='en'] {
+        font-family: var(--font-lato);
+    }
 }
 
 @layer utilities {
@@ -175,17 +185,8 @@
     }
 }
 
-html {
-    font-family: var(--font-estedad);
-    scroll-behavior: smooth;
-}
-
 svg {
     flex-shrink: 0;
-}
-
-:lang(en) {
-    font-family: var(--font-lato);
 }
 
 input:-webkit-autofill,
