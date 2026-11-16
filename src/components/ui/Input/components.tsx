@@ -33,7 +33,8 @@ const InputGroup = ({ className, ...props }: ComponentProps<'div'>) => {
             data-slot="input-group"
             className={cn(
                 'flex h-9 w-full items-stretch rounded-md border border-input/50 shadow-xs transition-[color,box-shadow,border]',
-                'has-[input:hover]:border-primary',
+                'has-[input:enabled]:hover:border-primary',
+                'has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50',
                 'has-[input:not([aria-invalid]):focus-visible]:border-primary has-[input:not([aria-invalid]):focus-visible]:ring-3 has-[input:not([aria-invalid]):focus-visible]:ring-primary/50',
                 'has-[input[aria-invalid=true]]:border-destructive has-[input[aria-invalid=true]]:hover:border-destructive',
                 'has-[input[aria-invalid=true]:focus-visible]:border-destructive has-[input[aria-invalid=true]:focus-visible]:ring-3 has-[input[aria-invalid=true]:focus-visible]:ring-destructive/50',
@@ -52,7 +53,7 @@ const InputGroupInput = ({
     return (
         <InputComponent
             className={cn(
-                'h-auto flex-1 rounded-none border-0 shadow-none ring-0 focus-visible:border-0 focus-visible:ring-0',
+                'h-auto flex-1 rounded-none border-0 shadow-none ring-0 focus-visible:border-0 focus-visible:ring-0 disabled:opacity-100',
                 className,
             )}
             {...props}

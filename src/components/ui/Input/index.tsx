@@ -69,9 +69,11 @@ const Input = ({
                 <div
                     className={cn(
                         'flex h-9 w-full items-stretch rounded-md border shadow-xs transition-[color,box-shadow,border]',
+                        // Mirrors InputComponent's disabled state for the whole group.
+                        'has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50',
                         isInvalid
                             ? 'border-destructive has-[input:focus-visible]:ring-3 has-[input:focus-visible]:ring-destructive/50'
-                            : 'border-input/50 has-[input:focus-visible]:border-primary has-[input:focus-visible]:ring-3 has-[input:focus-visible]:ring-primary/50 has-[input:hover]:border-primary',
+                            : 'border-input/50 has-[input:enabled]:hover:border-primary has-[input:focus-visible]:border-primary has-[input:focus-visible]:ring-3 has-[input:focus-visible]:ring-primary/50',
                     )}
                 >
                     {startAddon && (
@@ -82,7 +84,7 @@ const Input = ({
                     <InputComponent
                         id={inputId}
                         className={cn(
-                            'h-auto flex-1 rounded-none border-0 shadow-none focus-visible:border-0 focus-visible:ring-0 aria-invalid:border-0 aria-invalid:ring-0 aria-invalid:focus-visible:ring-0',
+                            'h-auto flex-1 rounded-none border-0 shadow-none focus-visible:border-0 focus-visible:ring-0 disabled:opacity-100 aria-invalid:border-0 aria-invalid:ring-0 aria-invalid:focus-visible:ring-0',
                             className,
                         )}
                         {...props}

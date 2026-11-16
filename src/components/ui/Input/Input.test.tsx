@@ -159,9 +159,43 @@ describe('Input', () => {
         render(<Input id="my-input" label="Name" />);
         expect(screen.getByRole('textbox')).toHaveAttribute('id', 'my-input');
     });
+
+    it('highlights the addon group on hover only while the input is enabled', () => {
+        render(<Input startAddon="$" />);
+        const group = screen.getByRole('textbox').parentElement;
+        expect(group).toHaveClass('has-[input:enabled]:hover:border-primary');
+        expect(group).not.toHaveClass('has-[input:hover]:border-primary');
+    });
+
+    it('fades the whole addon group, not just the input, when disabled', () => {
+        render(<Input startAddon="$" disabled />);
+        const input = screen.getByRole('textbox');
+        expect(input.parentElement).toHaveClass(
+            'has-[input:disabled]:opacity-50',
+            'has-[input:disabled]:cursor-not-allowed',
+        );
+        // The group already fades, so the input must not fade a second time.
+        expect(input).toHaveClass('disabled:opacity-100');
+        expect(input).not.toHaveClass('disabled:opacity-50');
+    });
 });
 
 describe('InputGroup', () => {
+    it('matches the input hover and disabled states', () => {
+        const { container } = render(
+            <InputGroup>
+                <InputGroupInput disabled />
+            </InputGroup>,
+        );
+        const group = container.querySelector('[data-slot="input-group"]');
+        expect(group).toHaveClass(
+            'has-[input:enabled]:hover:border-primary',
+            'has-[input:disabled]:opacity-50',
+        );
+        expect(group).not.toHaveClass('has-[input:hover]:border-primary');
+        expect(screen.getByRole('textbox')).toHaveClass('disabled:opacity-100');
+    });
+
     it('renders without errors', () => {
         expect(() =>
             render(
