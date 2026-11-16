@@ -13,6 +13,7 @@ import type { InputProps } from './Input.types';
 const Input = ({
     label,
     description,
+    hint,
     error,
     required,
     startAddon,
@@ -43,7 +44,6 @@ const Input = ({
                     {description}
                 </FieldDescription>
             )}
-
             {!hasAddon && !action && (
                 <InputComponent
                     id={inputId}
@@ -95,6 +95,18 @@ const Input = ({
                         </div>
                     )}
                 </div>
+            )}
+
+            {/* Rendered even while empty (e.g. a value-based hint before any
+                input) so the line is reserved and the layout doesn't shift. */}
+            {hint !== undefined && hint !== null && hint !== false && (
+                <FieldDescription
+                    data-slot="input-hint"
+                    dir="auto"
+                    className="min-h-lh text-muted-foreground"
+                >
+                    {hint}
+                </FieldDescription>
             )}
 
             {error && <FieldError>{error}</FieldError>}

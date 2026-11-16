@@ -10,6 +10,7 @@ const meta: Meta<typeof Input> = {
     argTypes: {
         label: { control: 'text' },
         description: { control: 'text' },
+        hint: { control: 'text' },
         error: { control: 'text' },
         placeholder: { control: 'text' },
         disabled: { control: 'boolean' },
@@ -53,6 +54,14 @@ export const WithDescription: Story = {
         description: 'We will never share your email with anyone.',
         placeholder: 'you@example.com',
         type: 'email',
+    },
+};
+
+export const WithHint: Story = {
+    args: {
+        label: 'Username',
+        placeholder: 'Enter the username',
+        hint: 'Letters, numbers and underscores only.',
     },
 };
 

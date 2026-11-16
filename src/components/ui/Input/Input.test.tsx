@@ -160,6 +160,39 @@ describe('Input', () => {
         expect(screen.getByRole('textbox')).toHaveAttribute('id', 'my-input');
     });
 
+    it('renders a hint under the input, before the error', () => {
+        const { container } = render(
+            <Input hint="Letters only" error="Required" />,
+        );
+        const hint = screen.getByText('Letters only');
+        expect(hint).toHaveAttribute('data-slot', 'input-hint');
+        expect(hint).toHaveAttribute('dir', 'auto');
+        // DOM order: input, then hint, then error.
+        const input = container.querySelector('input') as HTMLInputElement;
+        expect(
+            input.compareDocumentPosition(hint) &
+                Node.DOCUMENT_POSITION_FOLLOWING,
+        ).toBeTruthy();
+        expect(
+            hint.compareDocumentPosition(screen.getByText('Required')) &
+                Node.DOCUMENT_POSITION_FOLLOWING,
+        ).toBeTruthy();
+    });
+
+    it('reserves the hint line while the hint is empty', () => {
+        const { container } = render(<Input hint="" />);
+        const hint = container.querySelector('[data-slot="input-hint"]');
+        expect(hint).toBeEmptyDOMElement();
+        expect(hint).toHaveClass('min-h-lh');
+    });
+
+    it('renders no hint element without a hint', () => {
+        const { container } = render(<Input />);
+        expect(
+            container.querySelector('[data-slot="input-hint"]'),
+        ).not.toBeInTheDocument();
+    });
+
     it('highlights the addon group on hover only while the input is enabled', () => {
         render(<Input startAddon="$" />);
         const group = screen.getByRole('textbox').parentElement;
