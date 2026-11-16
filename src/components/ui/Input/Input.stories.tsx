@@ -1,11 +1,11 @@
 import Button from '@/components/ui/Button';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { InfoIcon, MailIcon, SearchIcon } from 'lucide-react';
-import InputWrapper from '.';
+import Input from '.';
 
-const meta: Meta<typeof InputWrapper> = {
+const meta: Meta<typeof Input> = {
     title: 'UI/Input',
-    component: InputWrapper,
+    component: Input,
     tags: ['autodocs'],
     argTypes: {
         label: { control: 'text' },
@@ -38,7 +38,7 @@ const meta: Meta<typeof InputWrapper> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof InputWrapper>;
+type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {
     args: {
@@ -135,10 +135,7 @@ export const WithAddonInvalid: Story = {
 
 export const WithActionButton: Story = {
     render: (args) => (
-        <InputWrapper
-            {...args}
-            action={<Button variant="outline">Search</Button>}
-        />
+        <Input {...args} action={<Button variant="outline">Search</Button>} />
     ),
     args: {
         label: 'Search',
@@ -148,7 +145,7 @@ export const WithActionButton: Story = {
 
 export const WithActionButtonPrefix: Story = {
     render: (args) => (
-        <InputWrapper
+        <Input
             {...args}
             startAddon={
                 <Button variant="outline" className="rounded-e-none border-0">

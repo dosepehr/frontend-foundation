@@ -8,9 +8,9 @@ import Field, {
 import { cn } from '@/utils/funcs/cn';
 import { useId } from 'react';
 import { InputComponent } from './components';
-import type { InputWrapperProps } from './Input.types';
+import type { InputProps } from './Input.types';
 
-const InputWrapper = ({
+const Input = ({
     label,
     description,
     error,
@@ -21,7 +21,7 @@ const InputWrapper = ({
     id,
     className,
     ...props
-}: InputWrapperProps) => {
+}: InputProps) => {
     const generatedId = useId();
     const inputId = id ?? generatedId;
     const hasAddon = startAddon || endAddon;
@@ -100,4 +100,4 @@ const InputWrapper = ({
     );
 };
 
-export default InputWrapper;
+export default Input;

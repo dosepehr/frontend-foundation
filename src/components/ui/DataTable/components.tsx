@@ -5,7 +5,7 @@
 import { Button } from '@/components/ui/Button/components';
 import { Checkbox } from '@/components/ui/Checkbox/components';
 import EmptyWrapper from '@/components/ui/Empty';
-import InputWrapper from '@/components/ui/Input';
+import Input from '@/components/ui/Input';
 import Pagination, {
     PaginationContent,
     PaginationEllipsis,
@@ -276,7 +276,7 @@ const DataTableRoot = <TData,>({
         >
             {filterColumn && (
                 <div className="px-1">
-                    <InputWrapper
+                    <Input
                         startAddon={<SearchIcon />}
                         placeholder={filterPlaceholder}
                         value={

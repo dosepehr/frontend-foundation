@@ -1,8 +1,8 @@
 import type { ComponentProps, ReactNode } from 'react';
 
-export type InputProps = ComponentProps<'input'>;
+export type InputComponentProps = ComponentProps<'input'>;
 
-export type InputWrapperProps = InputProps & {
+export type InputProps = InputComponentProps & {
     label?: string;
     description?: string;
     error?: string;
