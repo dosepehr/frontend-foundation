@@ -125,6 +125,7 @@ const LIB_FILES = [
     { name: 'env', srcRelPath: 'utils/env/index.ts' },
     { name: 'dnd-utils', srcRelPath: 'utils/funcs/dnd/index.ts' },
     { name: 'highlighter', srcRelPath: 'utils/funcs/highlighter/index.tsx' },
+    { name: 'number-format', srcRelPath: 'utils/funcs/numberFormat/index.ts' },
     { name: 'http-errors', srcRelPath: 'utils/api/types/http-errors.types.ts' },
     { name: 'api-response', srcRelPath: 'utils/api/types/api-response.types.ts' },
     { name: 'operation-result', srcRelPath: 'utils/api/types/operation-result.types.ts' },
