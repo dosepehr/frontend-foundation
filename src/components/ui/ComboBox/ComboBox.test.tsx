@@ -155,3 +155,85 @@ describe('ComboBox', () => {
         expect(screen.getByRole('combobox')).toBeInTheDocument();
     });
 });
+
+describe('ComboBox — server options', () => {
+    it('reports searches and does not filter on the client', async () => {
+        const user = userEvent.setup();
+        const onSearchChange = vi.fn();
+        render(<ComboBox options={OPTIONS} onSearchChange={onSearchChange} />);
+        await user.click(screen.getByRole('combobox'));
+
+        await user.type(screen.getByPlaceholderText('Search...'), 'zzz');
+
+        expect(onSearchChange).toHaveBeenLastCalledWith('zzz');
+        // Server results are shown as given, even when they don't match.
+        expect(screen.getByText('Apple')).toBeVisible();
+        expect(screen.queryByText('No results found.')).not.toBeInTheDocument();
+    });
+
+    it('clears the server search when it closes', async () => {
+        const user = userEvent.setup();
+        const onSearchChange = vi.fn();
+        render(<ComboBox options={OPTIONS} onSearchChange={onSearchChange} />);
+        await user.click(screen.getByRole('combobox'));
+        await user.type(screen.getByPlaceholderText('Search...'), 'ap');
+
+        await user.keyboard('{Escape}');
+
+        expect(onSearchChange).toHaveBeenLastCalledWith('');
+    });
+
+    it('shows that no server results came back', async () => {
+        const user = userEvent.setup();
+        render(<ComboBox options={[]} onSearchChange={vi.fn()} />);
+        await user.click(screen.getByRole('combobox'));
+
+        expect(screen.getByText('No results found.')).toBeInTheDocument();
+    });
+
+    it('shows the next page loading at the end of the list', async () => {
+        const user = userEvent.setup();
+        render(
+            <ComboBox
+                options={OPTIONS}
+                hasNextPage
+                isFetchingNextPage
+                loadingMoreText="Loading more"
+            />,
+        );
+        await user.click(screen.getByRole('combobox'));
+
+        expect(screen.getByText('Loading more')).toBeInTheDocument();
+    });
+
+    it('loads the next page when the end of the list scrolls into view', async () => {
+        let notify:
+            | ((entries: { isIntersecting: boolean }[]) => void)
+            | undefined;
+        vi.stubGlobal(
+            'IntersectionObserver',
+            class {
+                constructor(callback: NonNullable<typeof notify>) {
+                    notify = callback;
+                }
+                observe = vi.fn();
+                disconnect = vi.fn();
+            },
+        );
+        const user = userEvent.setup();
+        const onFetchNextPage = vi.fn();
+        render(
+            <ComboBox
+                options={OPTIONS}
+                hasNextPage
+                onFetchNextPage={onFetchNextPage}
+            />,
+        );
+        await user.click(screen.getByRole('combobox'));
+
+        notify?.([{ isIntersecting: true }]);
+
+        expect(onFetchNextPage).toHaveBeenCalled();
+        vi.unstubAllGlobals();
+    });
+});

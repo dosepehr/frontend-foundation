@@ -9,6 +9,7 @@ import Command, {
     CommandList,
 } from '@/components/ui/Command';
 import Field, { FieldError, FieldLabel } from '@/components/ui/Field';
+import LoadMoreSentinel from '@/components/ui/LoadMoreSentinel';
 import Popover, {
     PopoverContent,
     PopoverTrigger,
@@ -30,9 +31,15 @@ const ComboBox: React.FC<ComboBoxProps> = ({
     className,
     disabled = false,
     label,
+    'aria-label': ariaLabel,
     error,
     isPending,
     isError,
+    onSearchChange,
+    hasNextPage,
+    isFetchingNextPage,
+    onFetchNextPage,
+    loadingMoreText,
     required = false,
 }) => {
     const [open, setOpen] = React.useState(false);
@@ -43,13 +50,18 @@ const ComboBox: React.FC<ComboBoxProps> = ({
 
     const handleOpenChange = (isOpen: boolean) => {
         setOpen(isOpen);
-        if (!isOpen) setCommandSearch('');
+        if (isOpen) return;
+        setCommandSearch('');
+        // The search box empties on close, so the server list must too.
+        if (commandSearch) onSearchChange?.('');
     };
 
     const selected = options.find((opt) => opt.value === value);
     const displayLabel: ReactNode = selected ? selected.label : placeholder;
 
     const hasVisibleItems = React.useMemo(() => {
+        // Server-searched options are already filtered.
+        if (onSearchChange) return options.length > 0;
         const q = commandSearch.toLowerCase();
         if (!q) return options.length > 0;
         return options.some((opt) => {
@@ -60,7 +72,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
                 label.toLowerCase().includes(q)
             );
         });
-    }, [commandSearch, options]);
+    }, [commandSearch, options, onSearchChange]);
 
     return (
         <Field
@@ -87,6 +99,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
                         aria-expanded={open}
                         aria-controls={listboxId}
                         aria-invalid={isInvalid || undefined}
+                        aria-label={label ? undefined : ariaLabel}
                         className={cn(
                             'group/trigger flex h-9 w-full items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-1 text-sm shadow-xs transition-[color,box-shadow,border] outline-none select-none',
                             'border-input/50 hover:enabled:not-aria-invalid:border-primary',
@@ -119,10 +132,17 @@ const ComboBox: React.FC<ComboBoxProps> = ({
                 </PopoverTrigger>
 
                 <PopoverContent
+                    aria-label={label ?? ariaLabel ?? placeholder}
                     className="popover-content-width-full rounded-lg border-0 p-0 shadow-md ring-1 ring-foreground/10"
                     sideOffset={5}
                 >
-                    <Command onSearchChange={setCommandSearch}>
+                    <Command
+                        shouldFilter={!onSearchChange}
+                        onSearchChange={(search) => {
+                            setCommandSearch(search);
+                            onSearchChange?.(search);
+                        }}
+                    >
                         <CommandInput
                             placeholder={searchPlaceholder}
                             ownsComboboxRole={false}
@@ -177,6 +197,12 @@ const ComboBox: React.FC<ComboBoxProps> = ({
                                         </CommandItem>
                                     ))}
                                 </CommandGroup>
+                                <LoadMoreSentinel
+                                    hasNextPage={hasNextPage}
+                                    isFetchingNextPage={isFetchingNextPage}
+                                    onFetchNextPage={onFetchNextPage}
+                                    loadingText={loadingMoreText}
+                                />
                             </CommandList>
                         </div>
                     </Command>

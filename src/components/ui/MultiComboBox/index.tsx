@@ -10,6 +10,7 @@ import Command, {
     CommandList,
 } from '@/components/ui/Command';
 import Field, { FieldError, FieldLabel } from '@/components/ui/Field';
+import LoadMoreSentinel from '@/components/ui/LoadMoreSentinel';
 import Popover, {
     PopoverContent,
     PopoverTrigger,
@@ -28,10 +29,16 @@ const MultiComboBox: React.FC<MultiComboBoxProps> = ({
     searchPlaceholder = 'Search...',
     notFoundText = 'No results found.',
     label,
+    'aria-label': ariaLabel,
     required = false,
     disabled = false,
     isPending = false,
     isError = false,
+    onSearchChange,
+    hasNextPage,
+    isFetchingNextPage,
+    onFetchNextPage,
+    loadingMoreText,
     error,
     hideSelectedBadges = false,
     className,
@@ -44,7 +51,10 @@ const MultiComboBox: React.FC<MultiComboBoxProps> = ({
 
     const handleOpenChange = (isOpen: boolean) => {
         setOpen(isOpen);
-        if (!isOpen) setCommandSearch('');
+        if (isOpen) return;
+        setCommandSearch('');
+        // The search box empties on close, so the server list must too.
+        if (commandSearch) onSearchChange?.('');
     };
 
     const toggle = useCallback(
@@ -72,6 +82,8 @@ const MultiComboBox: React.FC<MultiComboBoxProps> = ({
     );
 
     const hasVisibleItems = useMemo(() => {
+        // Server-searched options are already filtered.
+        if (onSearchChange) return options.length > 0;
         const q = commandSearch.toLowerCase();
         if (!q) return options.length > 0;
         return options.some(
@@ -79,7 +91,7 @@ const MultiComboBox: React.FC<MultiComboBoxProps> = ({
                 opt.value.toLowerCase().includes(q) ||
                 opt.label.toLowerCase().includes(q),
         );
-    }, [commandSearch, options]);
+    }, [commandSearch, options, onSearchChange]);
 
     const triggerText = isPending
         ? 'Loading...'
@@ -114,6 +126,7 @@ const MultiComboBox: React.FC<MultiComboBoxProps> = ({
                         aria-expanded={open}
                         aria-controls={listboxId}
                         aria-invalid={isInvalid || undefined}
+                        aria-label={label ? undefined : ariaLabel}
                         className={cn(
                             'group/trigger flex h-9 w-full items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-1 text-sm shadow-xs transition-[color,box-shadow,border] outline-none select-none',
                             'border-input/50 hover:enabled:not-aria-invalid:border-primary',
@@ -142,10 +155,17 @@ const MultiComboBox: React.FC<MultiComboBoxProps> = ({
                 </PopoverTrigger>
 
                 <PopoverContent
+                    aria-label={label ?? ariaLabel ?? placeholder}
                     className="popover-content-width-full rounded-lg border-0 p-0 shadow-md ring-1 ring-foreground/10"
                     sideOffset={5}
                 >
-                    <Command onSearchChange={setCommandSearch}>
+                    <Command
+                        shouldFilter={!onSearchChange}
+                        onSearchChange={(search) => {
+                            setCommandSearch(search);
+                            onSearchChange?.(search);
+                        }}
+                    >
                         <CommandInput
                             placeholder={searchPlaceholder}
                             ownsComboboxRole={false}
@@ -195,6 +215,12 @@ const MultiComboBox: React.FC<MultiComboBoxProps> = ({
                                         );
                                     })}
                                 </CommandGroup>
+                                <LoadMoreSentinel
+                                    hasNextPage={hasNextPage}
+                                    isFetchingNextPage={isFetchingNextPage}
+                                    onFetchNextPage={onFetchNextPage}
+                                    loadingText={loadingMoreText}
+                                />
                             </CommandList>
                         </div>
                     </Command>
