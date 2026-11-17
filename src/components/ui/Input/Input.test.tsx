@@ -179,6 +179,20 @@ describe('Input', () => {
         ).toBeTruthy();
     });
 
+    it('marks the field invalid without a message via invalid', () => {
+        const { container } = render(<Input invalid startAddon="$" />);
+        expect(screen.getByRole('textbox')).toHaveAttribute(
+            'aria-invalid',
+            'true',
+        );
+        expect(screen.getByRole('textbox').parentElement).toHaveClass(
+            'border-destructive',
+        );
+        expect(
+            container.querySelector('[data-slot="field-error"]'),
+        ).not.toBeInTheDocument();
+    });
+
     it('reserves the hint line while the hint is empty', () => {
         const { container } = render(<Input hint="" />);
         const hint = container.querySelector('[data-slot="input-hint"]');

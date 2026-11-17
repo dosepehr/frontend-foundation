@@ -15,6 +15,7 @@ const Input = ({
     description,
     hint,
     error,
+    invalid = false,
     required,
     startAddon,
     endAddon,
@@ -26,7 +27,7 @@ const Input = ({
     const generatedId = useId();
     const inputId = id ?? generatedId;
     const hasAddon = startAddon || endAddon;
-    const isInvalid = !!error;
+    const isInvalid = !!error || invalid;
 
     return (
         <Field data-invalid={isInvalid || undefined} className="relative pb-1">
@@ -83,6 +84,7 @@ const Input = ({
                     )}
                     <InputComponent
                         id={inputId}
+                        aria-invalid={isInvalid || undefined}
                         className={cn(
                             'h-auto flex-1 rounded-none border-0 shadow-none focus-visible:border-0 focus-visible:ring-0 disabled:opacity-100 aria-invalid:border-0 aria-invalid:ring-0 aria-invalid:focus-visible:ring-0',
                             className,

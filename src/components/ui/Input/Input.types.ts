@@ -9,6 +9,8 @@ export type InputProps = InputComponentProps & {
     /** Shown under the input, above the error. */
     hint?: ReactNode;
     error?: string;
+    /** Marks the field invalid without a message, e.g. when a parent shows the error. */
+    invalid?: boolean;
     required?: boolean;
     startAddon?: ReactNode;
     endAddon?: ReactNode;
