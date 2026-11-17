@@ -10,7 +10,7 @@ import CodeBlock, {
 } from '@/components/ui/CodeBlock';
 import { WrapTextIcon } from 'lucide-react';
 import { useState } from 'react';
-import { longLine } from './codeSamples';
+import { longLine } from '../codeSamples/codeSamples';
 
 const WrapToggleDemo = () => {
     const [wrap, setWrap] = useState(false);

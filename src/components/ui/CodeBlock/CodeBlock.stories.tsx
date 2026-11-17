@@ -1,8 +1,8 @@
-import HighlightedBlock from '@/utils/funcs/codeblock/HighlightedBlock';
-import LanguagesDemo from '@/utils/funcs/codeblock/LanguagesDemo';
-import ShowMoreDemo from '@/utils/funcs/codeblock/ShowMoreDemo';
-import StreamingDemo from '@/utils/funcs/codeblock/StreamingDemo';
-import WrapToggleDemo from '@/utils/funcs/codeblock/WrapToggleDemo';
+import HighlightedBlock from '@/stories/helpers/codeblock/HighlightedBlock/HighlightedBlock';
+import LanguagesDemo from '@/stories/helpers/codeblock/LanguagesDemo/LanguagesDemo';
+import ShowMoreDemo from '@/stories/helpers/codeblock/ShowMoreDemo/ShowMoreDemo';
+import StreamingDemo from '@/stories/helpers/codeblock/StreamingDemo/StreamingDemo';
+import WrapToggleDemo from '@/stories/helpers/codeblock/WrapToggleDemo/WrapToggleDemo';
 import {
     ansiOutput,
     componentCode,
@@ -10,7 +10,7 @@ import {
     installOutput,
     longFile,
     longLine,
-} from '@/utils/funcs/codeblock/codeSamples';
+} from '@/stories/helpers/codeblock/codeSamples/codeSamples';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { FileCodeIcon } from 'lucide-react';
 import CodeBlock, {

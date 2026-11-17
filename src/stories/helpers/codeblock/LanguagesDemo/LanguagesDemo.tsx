@@ -2,8 +2,8 @@
 
 import Tabs, { TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { useState } from 'react';
-import { languageSamples } from './codeSamples';
-import HighlightedBlock from './HighlightedBlock';
+import { languageSamples } from '../codeSamples/codeSamples';
+import HighlightedBlock from '../HighlightedBlock/HighlightedBlock';
 
 const LanguagesDemo = () => {
     const [language, setLanguage] = useState('tsx');

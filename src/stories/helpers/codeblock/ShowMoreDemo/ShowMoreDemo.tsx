@@ -6,7 +6,7 @@ import CodeBlock, {
     CodeBlockFooter,
 } from '@/components/ui/CodeBlock';
 import { useId, useState } from 'react';
-import { longFile } from './codeSamples';
+import { longFile } from '../codeSamples/codeSamples';
 
 const ShowMoreDemo = ({
     expandedClassName,

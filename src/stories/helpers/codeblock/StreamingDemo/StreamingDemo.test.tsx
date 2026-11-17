@@ -1,5 +1,5 @@
 import { act, render } from '@testing-library/react';
-import { componentCode } from './codeSamples';
+import { componentCode } from '../codeSamples/codeSamples';
 import StreamingDemo from './StreamingDemo';
 
 // Line text without the newlines that keep empty lines copyable.

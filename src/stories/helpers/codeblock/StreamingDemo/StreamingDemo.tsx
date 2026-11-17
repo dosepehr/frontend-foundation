@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { componentCode } from './codeSamples';
-import HighlightedBlock from './HighlightedBlock';
+import { componentCode } from '../codeSamples/codeSamples';
+import HighlightedBlock from '../HighlightedBlock/HighlightedBlock';
 
 // Types the sample out a few characters at a time, then starts over.
 const StreamingDemo = () => {
