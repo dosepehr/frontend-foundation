@@ -55,6 +55,16 @@ function listSourceFiles(dir) {
     return fs.readdirSync(dir).filter(isSourceFile).map((f) => path.join(dir, f));
 }
 
+// A component folder with its own hooks/ and utils/ subfolders: every source
+// file at any depth ships with the component, keeping its subpath.
+function listSourceFilesDeep(dir) {
+    return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) return listSourceFilesDeep(full);
+        return isSourceFile(entry.name) ? [full] : [];
+    });
+}
+
 // Maps a path relative to SRC (no extension, e.g. "utils/api/client/httpService")
 // to its canonical `@/...` alias form. Hooks (src/utils/hooks/<name>/index)
 // map to a flat `@/hooks/<name>`, which the shadcn CLI rewrites to the
@@ -123,10 +133,13 @@ const hookKebab = new Map(hookDirNames.map((d) => [d, kebabCase(d)]));
 const LIB_FILES = [
     { name: 'utils', srcRelPath: 'utils/funcs/cn/index.ts' },
     { name: 'env', srcRelPath: 'utils/env/index.ts' },
-    { name: 'dnd-utils', srcRelPath: 'utils/funcs/dnd/index.ts' },
     { name: 'highlighter', srcRelPath: 'utils/funcs/highlighter/index.tsx' },
     { name: 'number-format', srcRelPath: 'utils/funcs/numberFormat/index.ts' },
     { name: 'number-to-words', srcRelPath: 'utils/funcs/numberToWords/index.ts' },
+    { name: 'refs', srcRelPath: 'utils/funcs/refs/index.ts' },
+    { name: 'focus-utils', srcRelPath: 'utils/funcs/focus/index.ts' },
+    { name: 'filter-utils', srcRelPath: 'utils/funcs/filters/index.ts' },
+    { name: 'filter-parsers', srcRelPath: 'utils/funcs/filterParsers/index.ts' },
     { name: 'http-errors', srcRelPath: 'utils/api/types/http-errors.types.ts' },
     { name: 'api-response', srcRelPath: 'utils/api/types/api-response.types.ts' },
     { name: 'operation-result', srcRelPath: 'utils/api/types/operation-result.types.ts' },
@@ -188,7 +201,7 @@ function buildComponentItem({
     baseline = ['utils', 'theme'],
     docs,
 }) {
-    const files = listSourceFiles(dirPath);
+    const files = listSourceFilesDeep(dirPath);
     const registryDeps = new Set(baseline);
     const dependencies = new Set();
 
@@ -204,7 +217,7 @@ function buildComponentItem({
         return {
             path: path.relative(ROOT, absPath).split(path.sep).join('/'),
             type,
-            target: `${targetAlias}${targetPrefix}${dirName}/${path.basename(absPath)}`,
+            target: `${targetAlias}${targetPrefix}${dirName}/${path.relative(dirPath, absPath).split(path.sep).join('/')}`,
             content,
         };
     });
