@@ -3,8 +3,8 @@
 /* c8 ignore stop */
 
 import Input from '@/components/ui/Input';
-import { useNumberInput } from '@/hooks/useNumberInput';
 import { NumberInputStepper } from './components';
+import { useNumberInput } from './hooks/useNumberInput/useNumberInput';
 import type { NumberInputProps } from './NumberInput.types';
 
 const NumberInput = ({

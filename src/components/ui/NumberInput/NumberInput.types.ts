@@ -1,6 +1,6 @@
 import type { InputProps } from '@/components/ui/Input/Input.types';
-import type { UseNumberInputOptions } from '@/hooks/useNumberInput';
 import type { ReactNode } from 'react';
+import type { UseNumberInputOptions } from './hooks/useNumberInput/useNumberInput';
 
 export type NumberInputProps = Omit<
     InputProps,

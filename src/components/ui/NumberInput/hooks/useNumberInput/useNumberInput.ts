@@ -11,6 +11,7 @@ import {
     parseNumber,
     sanitizeNumber,
 } from '@/utils/funcs/numberFormat';
+import { assignRef } from '@/utils/funcs/refs';
 import {
     useCallback,
     useLayoutEffect,
@@ -41,11 +42,6 @@ export type UseNumberInputOptions = NumberFormatOptions & {
 type Display = { text: string; caret: number | null };
 
 const PAGE_MULTIPLIER = 10;
-
-function assignRef<T>(ref: Ref<T> | undefined, node: T | null) {
-    if (typeof ref === 'function') ref(node);
-    else if (ref) ref.current = node;
-}
 
 /**
  * State and handlers for a text input that edits a number: sanitizes typing,

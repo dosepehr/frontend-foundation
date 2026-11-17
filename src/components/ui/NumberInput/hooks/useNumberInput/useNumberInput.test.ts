@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 import type { ChangeEvent, FocusEvent, KeyboardEvent } from 'react';
-import { useNumberInput, type UseNumberInputOptions } from '.';
+import { useNumberInput, type UseNumberInputOptions } from './useNumberInput';
 
 function changeEvent(value: string, caret = value.length) {
     return {
