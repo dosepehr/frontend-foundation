@@ -247,6 +247,8 @@ export const CustomLinkComponent: Story = {
 // ─── RTL ─────────────────────────────────────────────────────────────────
 
 export const RTL: Story = {
+    // Persian page: lang sets the Estedad font, dir the direction (also for portals).
+    globals: { i18n: 'fa-IR' },
     render: () => (
         <DirectionProvider direction="rtl">
             <div dir="rtl">

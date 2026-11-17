@@ -32,6 +32,8 @@ export default meta;
 type Story = StoryObj<typeof DirectionProvider>;
 
 export const RightToLeft: Story = {
+    // Persian page: lang sets the Estedad font, dir the direction (also for portals).
+    globals: { i18n: 'fa-IR' },
     render: () => (
         <DirectionProvider dir="rtl">
             <DirectionDemo />

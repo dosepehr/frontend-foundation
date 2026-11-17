@@ -190,6 +190,8 @@ export const ControlledRange: Story = {
 };
 
 export const RightToLeft: Story = {
+    // Persian page: lang sets the Estedad font, dir the direction (also for portals).
+    globals: { i18n: 'fa-IR' },
     render: (args) => (
         <div dir="rtl">
             <PriceInput {...args} />

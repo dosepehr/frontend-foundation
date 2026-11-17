@@ -95,6 +95,8 @@ export const WithForm: Story = {
 };
 
 export const Rtl: Story = {
+    // Persian page: lang sets the Estedad font, dir the direction (also for portals).
+    globals: { i18n: 'fa-IR' },
     name: 'RTL',
     render: () => (
         <div dir="rtl">
