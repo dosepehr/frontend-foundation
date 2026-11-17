@@ -6,8 +6,14 @@ import Badge from '@/components/ui/Badge';
 import Field, { FieldError, FieldLabel } from '@/components/ui/Field';
 import { cn } from '@/utils/funcs/cn';
 import { Plus, X } from 'lucide-react';
-import { useId, useState, type KeyboardEvent } from 'react';
+import {
+    useId,
+    useState,
+    type ClipboardEvent,
+    type KeyboardEvent,
+} from 'react';
 import type { MultiInputProps } from './MultiInput.types';
+import { addTags, splitTags } from './utils/tags/tags';
 
 const MultiInput = ({
     value = [],
@@ -18,19 +24,41 @@ const MultiInput = ({
     error,
     disabled = false,
     maxLength,
+    maxItems,
+    separators = ['Enter', ','],
+    addOnBlur = false,
     className,
 }: MultiInputProps) => {
     const [inputValue, setInputValue] = useState('');
     const inputId = useId();
     const isInvalid = !!error;
 
-    const add = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key !== 'Enter') return;
+    const commit = (candidates: string[]) => {
+        const next = addTags(value, candidates, { maxItems, maxLength });
+        if (next.length !== value.length) onChange?.(next);
+    };
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (separators.includes(e.key)) {
+            e.preventDefault();
+            if (!inputValue.trim()) return;
+            commit([inputValue]);
+            setInputValue('');
+        } else if (e.key === 'Backspace' && !inputValue && value.length > 0) {
+            onChange?.(value.slice(0, -1));
+        }
+    };
+
+    const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
+        const parts = splitTags(e.clipboardData.getData('text'), separators);
+        if (parts.length < 2) return;
         e.preventDefault();
-        const trimmed = inputValue.trim();
-        if (!trimmed || value.includes(trimmed)) return;
-        if (maxLength && trimmed.length > maxLength) return;
-        onChange?.([...value, trimmed]);
+        commit(parts);
+    };
+
+    const handleBlur = () => {
+        if (!addOnBlur || !inputValue.trim()) return;
+        commit([inputValue]);
         setInputValue('');
     };
 
@@ -72,7 +100,9 @@ const MultiInput = ({
                     disabled={disabled}
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={add}
+                    onKeyDown={handleKeyDown}
+                    onPaste={handlePaste}
+                    onBlur={handleBlur}
                     maxLength={maxLength}
                     placeholder={placeholder}
                     className="flex-1 bg-transparent text-foreground outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed"

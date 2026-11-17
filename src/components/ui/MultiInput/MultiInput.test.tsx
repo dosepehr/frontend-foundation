@@ -109,4 +109,103 @@ describe('MultiInput', () => {
         await user.keyboard('{Enter}');
         expect(screen.queryAllByLabelText(/Remove/)).toHaveLength(0);
     });
+
+    it('adds an item when a comma is typed', async () => {
+        const user = userEvent.setup();
+        render(<ControlledMultiInput />);
+
+        await user.type(screen.getByRole('textbox'), 'react,vue,');
+
+        expect(screen.getByText('react')).toBeInTheDocument();
+        expect(screen.getByText('vue')).toBeInTheDocument();
+        expect(screen.getByRole('textbox')).toHaveValue('');
+    });
+
+    it('uses custom separators', async () => {
+        const user = userEvent.setup();
+        render(<ControlledMultiInput separators={['Enter', ';']} />);
+
+        await user.type(screen.getByRole('textbox'), 'a,b;');
+
+        expect(screen.getByText('a,b')).toBeInTheDocument();
+    });
+
+    it('removes the last item on Backspace in an empty input', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+        render(
+            <ControlledMultiInput value={['one', 'two']} onChange={onChange} />,
+        );
+
+        await user.click(screen.getByRole('textbox'));
+        await user.keyboard('{Backspace}');
+
+        expect(onChange).toHaveBeenLastCalledWith(['one']);
+        expect(screen.queryByText('two')).not.toBeInTheDocument();
+    });
+
+    it('does not remove items on Backspace while typing', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+        render(<ControlledMultiInput value={['one']} onChange={onChange} />);
+
+        await user.type(screen.getByRole('textbox'), 'ab{Backspace}');
+
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('textbox')).toHaveValue('a');
+    });
+
+    it('splits a pasted list into items', async () => {
+        const user = userEvent.setup();
+        render(<ControlledMultiInput value={['a']} />);
+
+        await user.click(screen.getByRole('textbox'));
+        await user.paste('a, b, c\nd');
+
+        for (const tag of ['a', 'b', 'c', 'd']) {
+            expect(screen.getByText(tag)).toBeInTheDocument();
+        }
+        expect(screen.getAllByText('a')).toHaveLength(1);
+    });
+
+    it('pastes a single value as text', async () => {
+        const user = userEvent.setup();
+        render(<ControlledMultiInput />);
+
+        await user.click(screen.getByRole('textbox'));
+        await user.paste('single');
+
+        expect(screen.getByRole('textbox')).toHaveValue('single');
+        expect(screen.queryAllByLabelText(/Remove/)).toHaveLength(0);
+    });
+
+    it('stops adding at maxItems', async () => {
+        const user = userEvent.setup();
+        render(<ControlledMultiInput value={['a']} maxItems={2} />);
+
+        await user.type(screen.getByRole('textbox'), 'b,c,');
+
+        expect(screen.getAllByLabelText(/Remove/)).toHaveLength(2);
+        expect(screen.queryByText('c')).not.toBeInTheDocument();
+    });
+
+    it('adds the typed item on blur with addOnBlur', async () => {
+        const user = userEvent.setup();
+        render(<ControlledMultiInput addOnBlur />);
+
+        await user.type(screen.getByRole('textbox'), 'draft');
+        await user.tab();
+
+        expect(screen.getByText('draft')).toBeInTheDocument();
+    });
+
+    it('keeps the typed text on blur by default', async () => {
+        const user = userEvent.setup();
+        render(<ControlledMultiInput />);
+
+        await user.type(screen.getByRole('textbox'), 'draft');
+        await user.tab();
+
+        expect(screen.getByRole('textbox')).toHaveValue('draft');
+    });
 });

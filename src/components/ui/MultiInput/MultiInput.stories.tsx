@@ -81,3 +81,46 @@ export const WithMaxLength: Story = {
         maxLength: 10,
     },
 };
+
+export const CommaSeparated: Story = {
+    render: (args) => <Controlled {...args} />,
+    args: {
+        label: 'Skills',
+        placeholder: 'Type, then press Enter or a comma',
+    },
+};
+
+export const PasteAList: Story = {
+    render: (args) => <Controlled {...args} />,
+    args: {
+        label: 'Emails',
+        placeholder: 'Paste a comma or line separated list',
+    },
+};
+
+export const WithMaxItems: Story = {
+    render: (args) => <Controlled {...args} />,
+    args: {
+        label: 'Top 3 colors',
+        placeholder: 'Up to 3 items',
+        maxItems: 3,
+    },
+};
+
+export const CustomSeparators: Story = {
+    render: (args) => <Controlled {...args} />,
+    args: {
+        label: 'Keywords',
+        placeholder: 'Separate with Enter or ;',
+        separators: ['Enter', ';'],
+    },
+};
+
+export const AddOnBlur: Story = {
+    render: (args) => <Controlled {...args} />,
+    args: {
+        label: 'Labels',
+        placeholder: 'The typed text is added when you leave the field',
+        addOnBlur: true,
+    },
+};
