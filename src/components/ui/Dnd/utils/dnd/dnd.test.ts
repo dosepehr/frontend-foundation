@@ -4,7 +4,7 @@ import {
     formatFileSize,
     isPreviewableImage,
     validateFiles,
-} from '.';
+} from './dnd';
 
 function makeFile(name: string, type: string, sizeBytes = 10) {
     const content = new Array(sizeBytes).fill('a').join('');

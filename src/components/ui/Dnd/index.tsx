@@ -9,13 +9,6 @@ import Field, {
     FieldLabel,
 } from '@/components/ui/Field';
 import { cn } from '@/utils/funcs/cn';
-import {
-    createDndFile,
-    formatAcceptedExtensions,
-    formatFileSize,
-    isPreviewableImage,
-    validateFiles,
-} from '@/utils/funcs/dnd';
 import { FileIcon, Trash2Icon, UploadIcon } from 'lucide-react';
 import * as React from 'react';
 import {
@@ -28,6 +21,13 @@ import {
     DndZone,
 } from './components';
 import type { DndFile, DndWrapperProps } from './Dnd.types';
+import {
+    createDndFile,
+    formatAcceptedExtensions,
+    formatFileSize,
+    isPreviewableImage,
+    validateFiles,
+} from './utils/dnd/dnd';
 
 const DndWrapper = ({
     value,
