@@ -4,7 +4,7 @@ app: global
 document_type: guide
 author: dosepehr
 created_at: 2026-08-13
-updated_at: 2026-11-08
+updated_at: 2026-11-16
 reviewed_at: null
 status: active
 version: 2.0
@@ -66,6 +66,12 @@ For a project on the standard feature-based layout (`src/shared/…`), set:
 Published providers: `AppleSplashScreens`, `OfflineMutationSync` (required by
 `react-query-provider`), `ReactQueryProvider` and `ServiceWorkerRegister`. `MockProvider` is
 dev-only and not published.
+
+`use-query-filter` keeps filter, search and sort values in the URL with
+[nuqs](https://nuqs.dev), so the consuming app must wrap its tree in a nuqs adapter
+(for the Next.js App Router, `NuqsAdapter` from `nuqs/adapters/next/app` in the root
+layout). This repo does that in `src/app/layout.tsx` and, for Storybook, in
+`.storybook/preview.tsx` (`nuqs/adapters/react`).
 
 ## Rebuilding
 

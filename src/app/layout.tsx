@@ -12,6 +12,7 @@ import type { Metadata, Viewport } from 'next';
 import { ThemeProvider } from 'next-themes';
 import { headers } from 'next/headers';
 import NextTopLoader from 'nextjs-toploader';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -68,21 +69,23 @@ export default async function RootLayout({
                 <NextTopLoader color="#155dfc" showSpinner={false} />
                 <MotionConfig reducedMotion="user">
                     <MockProvider>
-                        <ReactQueryProvider>
-                            <ThemeProvider
-                                attribute="class"
-                                defaultTheme="system"
-                                enableSystem
-                                nonce={nonce}
-                            >
-                                <DirectionProvider dir="ltr">
-                                    <Toaster />
-                                    <TooltipProvider>
-                                        {children}
-                                    </TooltipProvider>
-                                </DirectionProvider>
-                            </ThemeProvider>
-                        </ReactQueryProvider>
+                        <NuqsAdapter>
+                            <ReactQueryProvider>
+                                <ThemeProvider
+                                    attribute="class"
+                                    defaultTheme="system"
+                                    enableSystem
+                                    nonce={nonce}
+                                >
+                                    <DirectionProvider dir="ltr">
+                                        <Toaster />
+                                        <TooltipProvider>
+                                            {children}
+                                        </TooltipProvider>
+                                    </DirectionProvider>
+                                </ThemeProvider>
+                            </ReactQueryProvider>
+                        </NuqsAdapter>
                     </MockProvider>
                 </MotionConfig>
             </body>

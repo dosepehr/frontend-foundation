@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/nextjs-vite';
 import { MotionConfig } from 'motion/react';
+import { NuqsAdapter } from 'nuqs/adapters/react';
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { worker } from '../src/mocks/browser';
@@ -109,10 +110,13 @@ const preview: Preview = {
         withReduceMotion,
         withReactScan,
         (Story) => (
-            <MotionConfig reducedMotion="user">
-                <GlobalToaster />
-                <Story />
-            </MotionConfig>
+            // Lets stories keep state in the URL (filters, search, sort).
+            <NuqsAdapter>
+                <MotionConfig reducedMotion="user">
+                    <GlobalToaster />
+                    <Story />
+                </MotionConfig>
+            </NuqsAdapter>
         ),
     ],
     globalTypes: {
