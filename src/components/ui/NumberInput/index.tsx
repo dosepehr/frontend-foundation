@@ -23,6 +23,7 @@ const NumberInput = ({
     endAddon,
     name,
     error,
+    invalid,
     disabled,
     readOnly,
     ref,
@@ -83,9 +84,10 @@ const NumberInput = ({
                 onBlur={handleBlur}
                 hint={typeof hint === 'function' ? hint(current) : hint}
                 error={error}
+                invalid={invalid}
                 disabled={disabled}
                 readOnly={readOnly}
-                aria-invalid={!!error || undefined}
+                aria-invalid={!!error || invalid || undefined}
                 aria-valuenow={current ?? undefined}
                 aria-valuemin={min}
                 aria-valuemax={max}
