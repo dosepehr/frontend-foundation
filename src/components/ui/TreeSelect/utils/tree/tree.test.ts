@@ -93,6 +93,16 @@ describe('toggleOption', () => {
 });
 
 describe('filterTree', () => {
+    it('matches digits in any script', () => {
+        const rooms: TreeOption[] = [
+            { value: 'a', label: 'Room ۱۲' },
+            { value: 'b', label: 'Room 34' },
+        ];
+        expect(filterTree(rooms, '12').map((o) => o.value)).toEqual(['a']);
+        expect(filterTree(rooms, '۳۴').map((o) => o.value)).toEqual(['b']);
+        expect(filterTree(rooms, '١٢').map((o) => o.value)).toEqual(['a']);
+    });
+
     it('returns everything for an empty query', () => {
         expect(filterTree(TREE, '  ')).toBe(TREE);
     });

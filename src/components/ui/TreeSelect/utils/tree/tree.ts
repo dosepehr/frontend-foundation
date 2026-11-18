@@ -1,6 +1,8 @@
 // Helpers for selecting from nested options. Selection is stored as leaf
 // values only; a parent's state is derived from its leaves.
 
+import { toLatinDigits } from '@/utils/funcs/numberFormat';
+
 export type TreeOption = {
     value: string;
     label: string;
@@ -46,14 +48,15 @@ export function toggleOption(option: TreeOption, selected: string[]) {
 }
 
 /**
- * Keeps options whose label matches `query` (case-insensitive) with their
- * whole subtree, plus the ancestors of matches.
+ * Keeps options whose label matches `query` (case-insensitive, digits in any
+ * script) with their whole subtree, plus the ancestors of matches.
  */
 export function filterTree(options: TreeOption[], query: string): TreeOption[] {
-    const needle = query.trim().toLowerCase();
+    const needle = toLatinDigits(query.trim()).toLowerCase();
     if (!needle) return options;
     return options.flatMap((option) => {
-        if (option.label.toLowerCase().includes(needle)) return [option];
+        if (toLatinDigits(option.label).toLowerCase().includes(needle))
+            return [option];
         const children = filterTree(option.children ?? [], needle);
         return children.length > 0 ? [{ ...option, children }] : [];
     });

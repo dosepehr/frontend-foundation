@@ -185,6 +185,16 @@ describe('TreeSelect — multiple', () => {
         expect(screen.getByRole('status')).toHaveTextContent('none');
     });
 
+    it('converts Persian and Arabic digits in the search to English', async () => {
+        const user = userEvent.setup();
+        render(<Controlled />);
+        await openTree(user);
+
+        await user.type(screen.getByRole('searchbox'), '۱٢');
+
+        expect(screen.getByRole('searchbox')).toHaveValue('12');
+    });
+
     it('filters by search, showing ancestors of matches', async () => {
         const user = userEvent.setup();
         render(<Controlled />);

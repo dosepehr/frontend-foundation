@@ -533,3 +533,74 @@ describe('CommandDialog', () => {
         expect(onOpenChange).toHaveBeenCalledWith(false);
     });
 });
+
+const visibleItems = () =>
+    Array.from(document.querySelectorAll<HTMLElement>('[data-command-item]'))
+        .filter((el) => el.style.display !== 'none')
+        .map((el) => el.textContent);
+
+describe('Command — digits', () => {
+    const renderCommand = (props: { normalizeDigits?: boolean } = {}) =>
+        render(
+            <Command>
+                <CommandInput placeholder="Search..." {...props} />
+                <CommandList>
+                    <CommandGroup>
+                        <CommandItem value="Room 12">Room 12</CommandItem>
+                        <CommandItem value="Room ۳۴">Room ۳۴</CommandItem>
+                        <CommandItem value="Room 56">Room 56</CommandItem>
+                    </CommandGroup>
+                </CommandList>
+            </Command>,
+        );
+
+    it.each([
+        ['Persian', '۱۲'],
+        ['Arabic', '١٢'],
+        ['English', '12'],
+    ])('converts %s digits to English while typing', async (_, digits) => {
+        const user = userEvent.setup();
+        renderCommand();
+
+        await user.type(screen.getByPlaceholderText('Search...'), digits);
+
+        expect(screen.getByPlaceholderText('Search...')).toHaveValue('12');
+        expect(visibleItems()).toEqual(['Room 12']);
+    });
+
+    it('matches items written with Persian digits', async () => {
+        const user = userEvent.setup();
+        renderCommand();
+
+        await user.type(screen.getByPlaceholderText('Search...'), '34');
+
+        expect(visibleItems()).toEqual(['Room ۳۴']);
+    });
+
+    it('keeps digits as typed without normalizeDigits', async () => {
+        const user = userEvent.setup();
+        renderCommand({ normalizeDigits: false });
+
+        await user.type(screen.getByPlaceholderText('Search...'), '۵۶');
+
+        expect(screen.getByPlaceholderText('Search...')).toHaveValue('۵۶');
+        expect(visibleItems()).toEqual(['Room 56']);
+    });
+
+    it('reports the converted search through onValueChange', async () => {
+        const user = userEvent.setup();
+        const onValueChange = vi.fn();
+        render(
+            <Command>
+                <CommandInput
+                    placeholder="Search..."
+                    onValueChange={onValueChange}
+                />
+            </Command>,
+        );
+
+        await user.type(screen.getByPlaceholderText('Search...'), '۷');
+
+        expect(onValueChange).toHaveBeenLastCalledWith('7');
+    });
+});

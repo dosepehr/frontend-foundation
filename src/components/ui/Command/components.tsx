@@ -9,6 +9,7 @@ import {
     DialogTitle,
 } from '@/components/ui/Dialog/components';
 import { cn } from '@/utils/funcs/cn';
+import { toLatinDigits } from '@/utils/funcs/numberFormat';
 import { Search } from 'lucide-react';
 import * as React from 'react';
 
@@ -76,10 +77,13 @@ const CommandInput = ({
     // button and use CommandInput purely as the popup's filter field, so
     // they set this to false to avoid a second, conflicting combobox role.
     ownsComboboxRole = true,
+    normalizeDigits = true,
     ...props
 }: Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {
     onValueChange?: (val: string) => void;
     ownsComboboxRole?: boolean;
+    /** Converts Persian and Arabic-Indic digits to Latin while typing. */
+    normalizeDigits?: boolean;
 }) => {
     const ctx = useCommandContext();
     const { search, setSearch, listId, activeValue } = ctx;
@@ -104,7 +108,9 @@ const CommandInput = ({
                 placeholder={placeholder}
                 value={inputValue}
                 onChange={(e) => {
-                    const val = e.target.value;
+                    const val = normalizeDigits
+                        ? toLatinDigits(e.target.value)
+                        : e.target.value;
                     if (!isControlled) setSearch(val);
                     onValueChange?.(val);
                 }}
@@ -207,10 +213,12 @@ const CommandItem = ({
 
     const isVisible = React.useMemo(() => {
         if (!shouldFilter || !search) return true;
-        const q = search.toLowerCase();
+        // Digits match in any script: "۱۲" finds "12" and the other way round.
+        const normalize = (text: string) => toLatinDigits(text).toLowerCase();
+        const q = normalize(search);
         return (
-            value.toLowerCase().includes(q) ||
-            keywords.some((k) => k.toLowerCase().includes(q))
+            normalize(value).includes(q) ||
+            keywords.some((k) => normalize(k).includes(q))
         );
     }, [search, shouldFilter, value, keywords]);
 

@@ -15,6 +15,7 @@ import Popover, {
 import Spinner from '@/components/ui/Spinner';
 import { cn } from '@/utils/funcs/cn';
 import { handleListKeyDown, moveFocus } from '@/utils/funcs/focus';
+import { toLatinDigits } from '@/utils/funcs/numberFormat';
 import { ChevronDownIcon, SearchIcon, XIcon } from 'lucide-react';
 import { useId, useRef, useState } from 'react';
 import { TreeSelectNode } from './components';
@@ -153,7 +154,9 @@ const TreeSelect = ({
                             placeholder={searchPlaceholder}
                             value={tree.search}
                             onChange={(event) =>
-                                tree.setSearch(event.target.value)
+                                tree.setSearch(
+                                    toLatinDigits(event.target.value),
+                                )
                             }
                             onKeyDown={(event) => {
                                 if (
