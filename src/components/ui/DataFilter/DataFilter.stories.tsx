@@ -1,7 +1,7 @@
 import DataTable from '@/components/ui/DataTable';
 import { useQueryFilter } from '@/hooks/useQueryFilter';
 import { dateRangeParams } from '@/utils/funcs/filterParsers';
-import type { NumberRange } from '@/utils/funcs/filters';
+import type { Filters, NumberRange } from '@/utils/funcs/filters';
 import { faIR, getDateLib } from '@daypicker/persian';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import type { ColumnDef } from '@tanstack/react-table';
@@ -9,6 +9,7 @@ import { useState } from 'react';
 import type { DateRange } from 'react-day-picker';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import DataFilter from '.';
+import type { DataFilterProps } from './DataFilter.types';
 
 const SORT_OPTIONS = [
     { value: '-created_at', label: 'Newest' },
@@ -74,20 +75,138 @@ function useToolbar() {
     };
 }
 
-const FullDemo = () => {
-    const toolbar = useToolbar();
+const ROLES = [
+    { value: 'admin', label: 'Admin' },
+    { value: 'editor', label: 'Editor' },
+    { value: 'viewer', label: 'Viewer' },
+];
+
+const PEOPLE = Array.from({ length: 80 }, (_, index) => ({
+    value: `user-${index + 1}`,
+    label: `User ${index + 1}`,
+}));
+
+/** Pages through PEOPLE as if it were a server endpoint. */
+function useFakeServerOptions(pageSize = 20) {
+    const [search, setSearch] = useState('');
+    const [pages, setPages] = useState(1);
+    const [isFetching, setIsFetching] = useState(false);
+    const matches = PEOPLE.filter((person) =>
+        person.label.toLowerCase().includes(search.toLowerCase()),
+    );
+    return {
+        options: matches.slice(0, pages * pageSize),
+        hasNextPage: pages * pageSize < matches.length,
+        isFetchingNextPage: isFetching,
+        onFetchNextPage: () => {
+            setIsFetching(true);
+            setTimeout(() => {
+                setPages((count) => count + 1);
+                setIsFetching(false);
+            }, 500);
+        },
+        onSearchChange: (next: string) => {
+            setSearch(next);
+            setPages(1);
+        },
+    };
+}
+
+/** Every filter type of the FilterBox, in local state. */
+function useAllFilters(): Filters {
+    const [status, setStatus] = useState<string[] | null>(null);
+    const [role, setRole] = useState<string | null>(null);
+    const [owner, setOwner] = useState<string | null>(null);
+    const [members, setMembers] = useState<string[] | null>(null);
+    const [email, setEmail] = useState<string | null>(null);
+    const [created, setCreated] = useState<DateRange | null>(null);
+    const [seats, setSeats] = useState<NumberRange | null>(null);
+    const server = useFakeServerOptions();
+
+    return {
+        status: {
+            type: 'multiselect',
+            label: 'Status',
+            options: STATUS,
+            value: status,
+            onChange: setStatus,
+        },
+        role: {
+            type: 'select',
+            label: 'Role',
+            options: ROLES,
+            value: role,
+            onChange: setRole,
+        },
+        owner: {
+            type: 'select',
+            label: 'Owner',
+            ...server,
+            value: owner,
+            onChange: setOwner,
+        },
+        members: {
+            type: 'multiselect',
+            label: 'Members',
+            ...server,
+            value: members,
+            onChange: setMembers,
+        },
+        email: {
+            type: 'text',
+            label: 'Email',
+            value: email,
+            onChange: setEmail,
+        },
+        created: {
+            type: 'date',
+            label: 'Created',
+            value: created,
+            onChange: setCreated,
+        },
+        seats: {
+            type: 'number-range',
+            label: 'Seats',
+            max: 300,
+            value: seats,
+            onChange: setSeats,
+        },
+    };
+}
+
+const FullDemo = (args: Partial<DataFilterProps>) => {
+    const [search, setSearch] = useState('');
+    const [ordering, setOrdering] = useState<string | null>('-created_at');
+    const filters = useAllFilters();
+    const values = Object.fromEntries(
+        Object.entries(filters).map(([id, filter]) => [id, filter.value]),
+    );
     return (
         <div className="flex flex-col gap-4">
-            <DataFilter {...toolbar.props} />
+            <DataFilter
+                {...args}
+                search={{
+                    value: search,
+                    onChange: setSearch,
+                    placeholder: 'Search name, email...',
+                }}
+                sort={{
+                    value: ordering,
+                    onChange: setOrdering,
+                    options: SORT_OPTIONS,
+                }}
+                filters={filters}
+            />
             <pre className="rounded-md bg-muted p-3 text-xs">
-                {JSON.stringify(toolbar.values, null, 2)}
+                {JSON.stringify({ search, ordering, ...values }, null, 2)}
             </pre>
         </div>
     );
 };
 
 export const Default: Story = {
-    render: () => <FullDemo />,
+    render: (args) => <FullDemo {...args} />,
+    args: { locale: 'en' },
 };
 
 const SearchAndSortDemo = () => {
