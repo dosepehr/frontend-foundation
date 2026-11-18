@@ -198,18 +198,18 @@ describe('SearchInput — searching', () => {
 });
 
 describe('SearchInput — digits', () => {
-    it('converts Persian and Arabic digits with normalizeDigits', async () => {
+    it('converts Persian and Arabic digits by default', async () => {
         const user = userEvent.setup();
-        render(<SearchInput normalizeDigits />);
+        render(<SearchInput />);
 
         await user.type(getInput(), '۰۹۱۲٣');
 
         expect(getInput()).toHaveValue('09123');
     });
 
-    it('keeps digits as typed by default', async () => {
+    it('keeps digits as typed without normalizeDigits', async () => {
         const user = userEvent.setup();
-        render(<SearchInput />);
+        render(<SearchInput normalizeDigits={false} />);
 
         await user.type(getInput(), '۱۲');
 

@@ -16,6 +16,7 @@ import { useDateRangePicker } from '@/hooks/useDateRangePicker';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { cn } from '@/utils/funcs/cn';
 import { isSearchableSelect, remoteOptionProps } from '@/utils/funcs/filters';
+import { toLatinDigits } from '@/utils/funcs/numberFormat';
 import { CalendarIcon } from 'lucide-react';
 import type {
     DateInputProps,
@@ -67,7 +68,7 @@ const TextFilterInput = ({ filter, labels }: TextInputProps) => (
     <Input
         aria-label={filter.label}
         value={filter.value ?? ''}
-        onChange={(event) => filter.onChange(event.target.value)}
+        onChange={(event) => filter.onChange(toLatinDigits(event.target.value))}
         placeholder={
             filter.placeholder ?? labels.searchPlaceholder(filter.label)
         }

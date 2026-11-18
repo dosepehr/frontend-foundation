@@ -27,7 +27,7 @@ const SearchInput = ({
     isLoading = false,
     clearLabel = 'Clear search',
     searchLabel = 'Search',
-    normalizeDigits = false,
+    normalizeDigits = true,
     placeholder = 'Search',
     disabled,
     readOnly,

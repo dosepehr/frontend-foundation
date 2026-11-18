@@ -69,7 +69,6 @@ const DataFilter = ({
                         onSearch={toolbar.commitSearch}
                         debounceMs={search.debounceMs ?? 400}
                         disabled={search.disabled}
-                        normalizeDigits
                     />
                 </div>
             )}

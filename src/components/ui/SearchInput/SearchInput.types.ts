@@ -17,6 +17,9 @@ export type SearchInputProps = Omit<
     clearLabel?: string;
     /** Accessible name of the end button while empty (it focuses the box). */
     searchLabel?: string;
-    /** Converts Persian and Arabic-Indic digits to Latin while typing. */
+    /**
+     * Converts Persian and Arabic-Indic digits to Latin while typing (default);
+     * pass `false` to keep them as typed.
+     */
     normalizeDigits?: boolean;
 };

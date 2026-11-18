@@ -122,6 +122,20 @@ describe('FilterInput — multiselect', () => {
 });
 
 describe('FilterInput — text, number range and date', () => {
+    it.each([
+        ['Persian', '۱۲'],
+        ['Arabic', '١٢'],
+    ])('converts %s digits in text to English', async (_, digits) => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+        renderInput({ type: 'text', label: 'Code', value: null, onChange });
+
+        await user.type(screen.getByRole('textbox', { name: 'Code' }), digits);
+
+        expect(onChange).toHaveBeenCalledWith('1');
+        expect(onChange).not.toHaveBeenCalledWith(digits[0]);
+    });
+
     it('edits text', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
