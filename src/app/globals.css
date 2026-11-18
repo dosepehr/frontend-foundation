@@ -168,14 +168,18 @@
         cursor: pointer;
     }
     /* Persian by default; English (the page, or any element marked lang="en")
-       uses Lato. Set on the lang-bearing element and inherited, inside the base
-       layer, so font utilities such as font-mono and font-sans still apply. */
+       uses Lato, and a lang="fa" element inside an English page switches back.
+       Set on the lang-bearing element and inherited, inside the base layer, so
+       font utilities such as font-mono and font-sans still apply. */
     html {
         font-family: var(--font-estedad);
         scroll-behavior: smooth;
     }
     [lang|='en'] {
         font-family: var(--font-lato);
+    }
+    [lang|='fa'] {
+        font-family: var(--font-estedad);
     }
 }
 

@@ -1,33 +1,46 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import type { ComponentType } from "react";
-import type { Decorator } from "@storybook/react";
-import { useEffect } from "react";
-import { useGlobals } from "storybook/preview-api";
-import { DEFAULT_LOCALE, I18N_GLOBAL_TYPE_ID, LOCALES } from "./constants";
+import type { Decorator } from '@storybook/react';
+import type { ComponentType } from 'react';
+import { useEffect } from 'react';
+import { DEFAULT_LOCALE, I18N_GLOBAL_TYPE_ID, LOCALES } from './constants';
 
-export const withInternationalization: Decorator = (Story) => {
-  const [globals] = useGlobals();
-  const selectedLocale = (globals[I18N_GLOBAL_TYPE_ID] as string) || DEFAULT_LOCALE;
-
-  useEffect(() => {
+function resolveLocale(selected: unknown) {
+    const value = (selected as string) || DEFAULT_LOCALE;
     const localeValue =
-      selectedLocale === "Auto"
-        ? typeof navigator !== "undefined"
-          ? navigator.language
-          : "en-US"
-        : selectedLocale;
+        value === 'Auto'
+            ? typeof navigator !== 'undefined'
+                ? navigator.language
+                : 'en-US'
+            : value;
 
-    const localeConfig =
-      LOCALES.find((l) => l.value === localeValue) ||
-      LOCALES.find((l) => l.value.startsWith((localeValue as string).split("-")[0])) ||
-      LOCALES[0];
+    return (
+        LOCALES.find((l) => l.value === localeValue) ||
+        LOCALES.find((l) => l.value.startsWith(localeValue.split('-')[0])) ||
+        LOCALES[0]
+    );
+}
 
-    if (localeConfig) {
-      document.documentElement.lang = localeConfig.value;
-      document.documentElement.dir = localeConfig.direction;
-    }
-  }, [selectedLocale]);
+export const withInternationalization: Decorator = (Story, context) => {
+    const storyLocale = resolveLocale(context.globals[I18N_GLOBAL_TYPE_ID]);
+    // A docs page renders every story in one document, so a story's own
+    // locale (e.g. `globals: { i18n: 'fa-IR' }`) must not flip the whole page:
+    // the page follows the toolbar and such a story is wrapped instead.
+    const isDocs = context.viewMode === 'docs';
+    const pageLocale = isDocs
+        ? resolveLocale(context.userGlobals?.[I18N_GLOBAL_TYPE_ID])
+        : storyLocale;
 
-  const S = Story as ComponentType;
-  return <S />;
+    useEffect(() => {
+        document.documentElement.lang = pageLocale.value;
+        document.documentElement.dir = pageLocale.direction;
+    }, [pageLocale.value, pageLocale.direction]);
+
+    const S = Story as ComponentType;
+    if (storyLocale.value === pageLocale.value) return <S />;
+
+    return (
+        <div lang={storyLocale.value} dir={storyLocale.direction}>
+            <S />
+        </div>
+    );
 };
