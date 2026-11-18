@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import type { DateRange } from 'react-day-picker';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import FilterBox from '.';
+import type { FilterBoxProps } from './FilterBox.types';
 
 const STATUS: FilterOption[] = [
     { value: 'active', label: 'Active' },
@@ -124,13 +125,16 @@ const meta: Meta<typeof FilterBox> = {
 export default meta;
 type Story = StoryObj<typeof FilterBox>;
 
-const AllTypesDemo = ({ prefilled = false }: { prefilled?: boolean }) => {
+const AllTypesDemo = ({
+    prefilled = false,
+    ...props
+}: Partial<FilterBoxProps> & { prefilled?: boolean }) => {
     const filters = useDemoFilters(
         prefilled ? { status: 'active', roles: ['admin', 'editor'] } : {},
     );
     return (
         <div className="flex flex-col gap-4">
-            <FilterBox filters={filters} />
+            <FilterBox {...props} filters={filters} />
             <pre className="rounded-md bg-muted p-3 text-xs">
                 {JSON.stringify(valuesOf(filters), null, 2)}
             </pre>
@@ -139,7 +143,8 @@ const AllTypesDemo = ({ prefilled = false }: { prefilled?: boolean }) => {
 };
 
 export const Default: Story = {
-    render: () => <AllTypesDemo />,
+    render: (args) => <AllTypesDemo {...args} />,
+    args: { align: 'start', disabled: false },
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
         const body = within(canvasElement.ownerDocument.body);
@@ -163,7 +168,7 @@ export const Default: Story = {
 };
 
 export const WithActiveFilters: Story = {
-    render: () => <AllTypesDemo prefilled />,
+    render: (args) => <AllTypesDemo {...args} prefilled />,
 };
 
 const LoadingDemo = () => {
