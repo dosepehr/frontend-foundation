@@ -21,6 +21,7 @@ const meta: Meta<typeof SearchInput> = {
         isLoading: { control: 'boolean' },
         disabled: { control: 'boolean' },
     },
+    args: { placeholder: 'Search' },
 };
 
 export default meta;

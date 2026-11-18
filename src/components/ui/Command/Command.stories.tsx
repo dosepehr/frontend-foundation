@@ -46,11 +46,12 @@ function CommandGroupHeading({ children }: { children: React.ReactNode }) {
     );
 }
 
-// ─── Basic ───────────────────────────────────────────────────────────────
+// ─── Default ─────────────────────────────────────────────────────────────
 
-export const Basic: Story = {
-    render: () => (
-        <Command className="rounded-lg border">
+export const Default: Story = {
+    args: { shouldFilter: true },
+    render: (args) => (
+        <Command {...args} className="rounded-lg border">
             <CommandInput placeholder="Type a command or search..." />
             <CommandList>
                 <CommandEmpty>No results found.</CommandEmpty>
