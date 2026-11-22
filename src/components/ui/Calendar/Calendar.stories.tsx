@@ -8,6 +8,11 @@ const meta: Meta<typeof Calendar> = {
     component: Calendar,
     tags: ['autodocs'],
     argTypes: {
+        calendar: {
+            control: 'inline-radio',
+            options: ['gregorian', 'jalali'],
+            description: 'Calendar system; values stay Gregorian dates',
+        },
         captionLayout: {
             control: 'select',
             options: ['label', 'dropdown', 'dropdown-months', 'dropdown-years'],
@@ -162,5 +167,34 @@ export const TwoMonths: Story = {
         numberOfMonths: 2,
         showOutsideDays: true,
         captionLayout: 'label',
+    },
+};
+
+// One prop switches the grid to Jalali; selections stay plain Dates.
+export const Jalali: Story = {
+    globals: { i18n: 'fa-IR' },
+    render: (args) => {
+        const [range, setRange] = useState<DateRange | undefined>();
+        return (
+            <div dir="rtl" className="flex flex-col items-center gap-3">
+                <Calendar
+                    {...args}
+                    mode="range"
+                    selected={range}
+                    onSelect={setRange}
+                    className="rounded-lg border"
+                />
+                <code className="text-xs text-muted-foreground" dir="ltr">
+                    {range?.from?.toDateString() ?? '—'} →{' '}
+                    {range?.to?.toDateString() ?? '—'}
+                </code>
+            </div>
+        );
+    },
+    args: {
+        calendar: 'jalali',
+        captionLayout: 'dropdown',
+        numberOfMonths: 2,
+        showWeekNumber: false,
     },
 };

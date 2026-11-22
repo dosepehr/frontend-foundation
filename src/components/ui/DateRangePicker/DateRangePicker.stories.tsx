@@ -1,4 +1,3 @@
-import { faIR, getDateLib } from '@daypicker/persian';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { addDays } from 'date-fns';
 import { useState } from 'react';
@@ -95,14 +94,6 @@ export const Disabled: Story = {
     args: { value: { from: today, to: addDays(today, 2) }, disabled: true },
 };
 
-// Jalali (Persian) calendar via the @daypicker/persian add-on.
-const jalaliCalendar = {
-    dateLib: getDateLib({ locale: faIR, numerals: 'arabext' }),
-    locale: faIR,
-    dir: 'rtl' as const,
-    numerals: 'arabext' as const,
-};
-
 export const JalaliCalendar: Story = {
     // Persian page: lang sets the Estedad font, dir the direction (also for portals).
     globals: { i18n: 'fa-IR' },
@@ -115,8 +106,7 @@ export const JalaliCalendar: Story = {
         label: 'تاریخ سفر',
         placeholder: 'تاریخ سفر را انتخاب کنید',
         description: 'تقویم شمسی؛ تاریخ رفت و برگشت را انتخاب کنید.',
-        format: 'd LLLL y',
-        calendarProps: jalaliCalendar,
+        calendar: 'jalali',
         value: { from: today, to: addDays(today, 4) },
     },
 };

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DatePicker from '.';
 
@@ -108,5 +108,61 @@ describe('DatePicker', () => {
     it('renders custom startAddon', () => {
         render(<DatePicker startAddon={<span data-testid="addon">@</span>} />);
         expect(screen.getByTestId('addon')).toBeInTheDocument();
+    });
+});
+
+describe('DatePicker — calendar="jalali"', () => {
+    // 1 Azar 1405 (Sunday) is 22 November 2026.
+    const AZAR_1 = new Date(2026, 10, 22);
+
+    beforeEach(() => {
+        vi.useFakeTimers({ toFake: ['Date'] });
+        vi.setSystemTime(AZAR_1);
+    });
+    afterEach(() => vi.useRealTimers());
+
+    it('shows the value as a Jalali date', () => {
+        render(<DatePicker calendar="jalali" value={AZAR_1} />);
+        expect(screen.getByRole('button')).toHaveTextContent('۱ آذر ۱۴۰۵');
+    });
+
+    it('keeps an explicit format', () => {
+        render(
+            <DatePicker calendar="jalali" value={AZAR_1} format="yyyy/MM/dd" />,
+        );
+        expect(screen.getByRole('button')).toHaveTextContent('۱۴۰۵/۰۹/۰۱');
+    });
+
+    it('opens a Jalali grid and returns a Gregorian date', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+        render(<DatePicker calendar="jalali" onChange={onChange} />);
+        await user.click(screen.getByRole('button'));
+
+        const grid = screen.getByRole('grid');
+        expect(grid).toHaveAccessibleName(/آذر ۱۴۰۵/);
+        const day = within(grid)
+            .getAllByRole('button')
+            .find((button) => button.textContent === '۱۵');
+        if (!day) throw new Error('Day ۱۵ not found');
+        await user.click(day);
+
+        // 15 Azar 1405 is 6 December 2026.
+        expect(onChange.mock.calls[0][0]).toEqual(new Date(2026, 11, 6));
+    });
+
+    it('disables days with Gregorian matchers', async () => {
+        const user = userEvent.setup();
+        render(
+            <DatePicker
+                calendar="jalali"
+                disabledDates={{ after: new Date(2026, 11, 1) }}
+            />,
+        );
+        await user.click(screen.getByRole('button'));
+        const days = within(screen.getByRole('grid')).getAllByRole('button');
+        // 10 Azar is 1 December; 11 Azar is the first disabled day.
+        expect(days.find((b) => b.textContent === '۱۰')).toBeEnabled();
+        expect(days.find((b) => b.textContent === '۱۱')).toBeDisabled();
     });
 });

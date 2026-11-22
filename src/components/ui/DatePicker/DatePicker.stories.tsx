@@ -22,6 +22,7 @@ const meta: Meta<typeof DatePicker> = {
         required: { control: 'boolean' },
         disabled: { control: 'boolean' },
         format: { control: 'text' },
+        calendar: { control: 'inline-radio', options: ['gregorian', 'jalali'] },
     },
     decorators: [
         (Story) => (
@@ -236,5 +237,25 @@ export const ControlledOpen: Story = {
                 </Button>
             </div>
         );
+    },
+};
+
+export const Jalali: Story = {
+    globals: { i18n: 'fa-IR' },
+    render: (args) => {
+        const [date, setDate] = React.useState<Date | undefined>(
+            startOfToday(),
+        );
+        return (
+            <div dir="rtl">
+                <DatePicker {...args} value={date} onChange={setDate} />
+            </div>
+        );
+    },
+    args: {
+        calendar: 'jalali',
+        label: 'تاریخ تولد',
+        placeholder: 'تاریخ تولد را انتخاب کنید',
+        description: 'تقویم شمسی؛ مقدار انتخاب‌شده یک تاریخ میلادی است.',
     },
 };

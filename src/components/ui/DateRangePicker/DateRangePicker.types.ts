@@ -1,3 +1,4 @@
+import type { CalendarSystem } from '@/utils/funcs/calendarSystem';
 import type { ReactNode } from 'react';
 import type { DateRange, DayPickerProps, Matcher } from 'react-day-picker';
 
@@ -17,11 +18,16 @@ export type DateRangePickerProps = {
     /** Minimum and maximum number of nights in the range. */
     minDays?: number;
     maxDays?: number;
-    /** date-fns format of each end. */
+    /** date-fns format of each end; "d LLLL y" by default in Jalali. */
     format?: string;
     /**
-     * Passed to the calendar, e.g. a Jalali `dateLib`, `locale`, `dir` and
-     * `numerals` from `@daypicker/persian`. The trigger formats dates with
+     * Calendar shown in the popover and the trigger. `value` stays plain
+     * `Date`s, so forms send the Gregorian range either way.
+     */
+    calendar?: CalendarSystem;
+    /**
+     * Fine-tunes the calendar, e.g. `weekStartsOn` or `numerals`; these win
+     * over the `calendar` defaults. The trigger formats dates with
      * `calendarProps.dateLib.format` when there is one.
      */
     calendarProps?: Pick<

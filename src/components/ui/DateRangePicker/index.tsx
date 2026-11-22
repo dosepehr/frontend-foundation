@@ -13,6 +13,7 @@ import Popover, {
     PopoverTrigger,
 } from '@/components/ui/Popover';
 import { useDateRangePicker } from '@/hooks/useDateRangePicker';
+import { formatJalali, JALALI_DATE_FORMAT } from '@/utils/funcs/calendarSystem';
 import { cn } from '@/utils/funcs/cn';
 import { CalendarRangeIcon, ChevronDownIcon } from 'lucide-react';
 import { useId } from 'react';
@@ -42,6 +43,7 @@ const DateRangePicker = ({
     minDays,
     maxDays,
     format,
+    calendar = 'gregorian',
     calendarProps,
     closeOnSelect,
     className,
@@ -51,11 +53,14 @@ const DateRangePicker = ({
     onOpenChange,
 }: DateRangePickerProps) => {
     const triggerId = useId();
+    const isJalali = calendar === 'jalali';
     const picker = useDateRangePicker({
         value,
         onChange,
-        format,
-        formatDate: calendarProps?.dateLib?.format,
+        format: format ?? (isJalali ? JALALI_DATE_FORMAT : undefined),
+        formatDate:
+            calendarProps?.dateLib?.format ??
+            (isJalali ? formatJalali : undefined),
         closeOnSelect,
         open: externalOpen,
         onOpenChange,
@@ -120,6 +125,7 @@ const DateRangePicker = ({
                     sideOffset={5}
                 >
                     <Calendar
+                        calendar={calendar}
                         {...calendarProps}
                         mode="range"
                         selected={value}

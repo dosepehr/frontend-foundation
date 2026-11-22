@@ -12,8 +12,11 @@ import Popover, {
     PopoverContent,
     PopoverTrigger,
 } from '@/components/ui/Popover';
+import {
+    getDateFormatter,
+    JALALI_DATE_FORMAT,
+} from '@/utils/funcs/calendarSystem';
 import { cn } from '@/utils/funcs/cn';
-import { format } from 'date-fns';
 import { CalendarIcon, ChevronDownIcon } from 'lucide-react';
 import * as React from 'react';
 import { useId } from 'react';
@@ -31,7 +34,8 @@ const DatePicker = ({
     disabledDates,
     className,
     triggerClassName,
-    format: dateFormat = 'PPP',
+    format: formatProp,
+    calendar = 'gregorian',
     startAddon,
     open: externalOpen,
     onOpenChange: externalOnOpenChange,
@@ -39,6 +43,9 @@ const DatePicker = ({
     const triggerId = useId();
     const [internalOpen, setInternalOpen] = React.useState(false);
     const isInvalid = !!error;
+    const formatDate = getDateFormatter(calendar);
+    const dateFormat =
+        formatProp ?? (calendar === 'jalali' ? JALALI_DATE_FORMAT : 'PPP');
 
     const open = externalOpen ?? internalOpen;
     const setOpen = externalOnOpenChange ?? setInternalOpen;
@@ -96,7 +103,9 @@ const DatePicker = ({
                                     : 'text-muted-foreground',
                             )}
                         >
-                            {value ? format(value, dateFormat) : placeholder}
+                            {value
+                                ? formatDate(value, dateFormat)
+                                : placeholder}
                         </span>
                         <ChevronDownIcon
                             className={cn(
@@ -113,6 +122,7 @@ const DatePicker = ({
                     sideOffset={5}
                 >
                     <Calendar
+                        calendar={calendar}
                         mode="single"
                         selected={value}
                         onSelect={onChange}

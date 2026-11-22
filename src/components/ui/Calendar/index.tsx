@@ -7,6 +7,11 @@ import { DayPicker, getDefaultClassNames } from 'react-day-picker';
 
 import type Button from '@/components/ui/Button';
 import { buttonVariants } from '@/components/ui/Button/components';
+import {
+    JALALI_CALENDAR_PROPS,
+    JALALI_FORMATTERS,
+    type CalendarSystem,
+} from '@/utils/funcs/calendarSystem';
 import { cn } from '@/utils/funcs/cn';
 import {
     ChevronDownIcon,
@@ -16,6 +21,7 @@ import {
 import { CalendarDayButton } from './components';
 
 const Calendar = ({
+    calendar = 'gregorian',
     className,
     classNames,
     showOutsideDays = true,
@@ -27,11 +33,18 @@ const Calendar = ({
     ...props
 }: React.ComponentProps<typeof DayPicker> & {
     buttonVariant?: React.ComponentProps<typeof Button>['variant'];
+    /** Calendar shown in the grid; values stay plain (Gregorian) dates. */
+    calendar?: CalendarSystem;
 }) => {
     const defaultClassNames = getDefaultClassNames();
+    const isJalali = calendar === 'jalali';
+    // Explicit dateLib, dir and numerals props still win (spread below).
+    const { locale: jalaliLocale, ...jalaliProps } = JALALI_CALENDAR_PROPS;
+    const calendarLocale = locale ?? (isJalali ? jalaliLocale : undefined);
 
     return (
         <DayPicker
+            {...(isJalali && jalaliProps)}
             showOutsideDays={showOutsideDays}
             className={cn(
                 'group/calendar bg-background p-2 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(7)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent',
@@ -40,10 +53,11 @@ const Calendar = ({
                 className,
             )}
             captionLayout={captionLayout}
-            locale={locale}
+            locale={calendarLocale}
             formatters={{
                 formatMonthDropdown: (date) =>
                     date.toLocaleString(locale?.code, { month: 'short' }),
+                ...(isJalali && JALALI_FORMATTERS),
                 ...formatters,
             }}
             classNames={{
@@ -186,7 +200,7 @@ const Calendar = ({
                     );
                 },
                 DayButton: ({ ...props }) => (
-                    <CalendarDayButton locale={locale} {...props} />
+                    <CalendarDayButton locale={calendarLocale} {...props} />
                 ),
                 WeekNumber: ({ children, ...props }) => {
                     // react-day-picker passes scope="row"/role="rowheader"

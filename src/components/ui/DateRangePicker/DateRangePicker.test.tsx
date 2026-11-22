@@ -203,3 +203,61 @@ describe('DateRangePicker — Jalali calendar', () => {
         ).toEqual([2, 21, 2, 30]);
     });
 });
+
+describe('DateRangePicker — calendar="jalali"', () => {
+    // 1 Farvardin 1405 – 5 Farvardin 1405
+    const NOWRUZ = { from: new Date(2026, 2, 21), to: new Date(2026, 2, 25) };
+
+    it('labels the range in Jalali with the Persian default format', () => {
+        render(<DateRangePicker calendar="jalali" value={NOWRUZ} />);
+        expect(trigger()).toHaveTextContent('۱ فروردین ۱۴۰۵ – ۵ فروردین ۱۴۰۵');
+    });
+
+    it('keeps an explicit format', () => {
+        render(
+            <DateRangePicker
+                calendar="jalali"
+                value={NOWRUZ}
+                format="yyyy/MM/dd"
+            />,
+        );
+        expect(trigger()).toHaveTextContent('۱۴۰۵/۰۱/۰۱ – ۱۴۰۵/۰۱/۰۵');
+    });
+
+    it('picks a new range as Gregorian dates', async () => {
+        vi.useFakeTimers({ toFake: ['Date'] });
+        vi.setSystemTime(NOWRUZ.from);
+        const user = userEvent.setup();
+        render(<Controlled calendar="jalali" numberOfMonths={1} />);
+        await user.click(trigger());
+        expect(screen.getByRole('grid')).toHaveAccessibleName(/فروردین ۱۴۰۵/);
+
+        const day = (label: string) =>
+            within(screen.getByRole('grid'))
+                .getAllByRole('button')
+                .find((button) => button.textContent === label)!;
+        await user.click(day('۱۰'));
+        await user.click(day('۱۲'));
+        // 10–12 Farvardin 1405 is 30 March – 1 April 2026.
+        expect(screen.getByTestId('range')).toHaveTextContent('30..1');
+        vi.useRealTimers();
+    });
+
+    it('lets calendarProps override the Jalali defaults', async () => {
+        const user = userEvent.setup();
+        render(
+            <DateRangePicker
+                calendar="jalali"
+                value={NOWRUZ}
+                numberOfMonths={1}
+                calendarProps={{ numerals: 'latn' }}
+            />,
+        );
+        await user.click(trigger());
+        expect(
+            within(screen.getByRole('grid'))
+                .getAllByRole('button')
+                .some((button) => button.textContent === '10'),
+        ).toBe(true);
+    });
+});
