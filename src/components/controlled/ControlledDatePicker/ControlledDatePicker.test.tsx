@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { toIsoDay } from '@/utils/funcs/filterParsers';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useForm } from 'react-hook-form';
 import { ControlledDatePicker } from '.';
@@ -75,5 +76,53 @@ describe('ControlledDatePicker', () => {
         );
         if (dayButton) await user.click(dayButton);
         expect(onValueChange).toHaveBeenCalled();
+    });
+});
+
+describe('ControlledDatePicker — calendar="jalali"', () => {
+    beforeEach(() => {
+        vi.useFakeTimers({ toFake: ['Date'] });
+        // 1 Azar 1405
+        vi.setSystemTime(new Date(2026, 10, 22));
+    });
+    afterEach(() => vi.useRealTimers());
+
+    function JalaliForm({ onSubmit }: { onSubmit: (date: string) => void }) {
+        const { control, handleSubmit } = useForm<TestForm>({
+            defaultValues: { date: undefined },
+        });
+        return (
+            <form
+                onSubmit={handleSubmit(({ date }) =>
+                    onSubmit(date ? toIsoDay(date) : ''),
+                )}
+            >
+                <ControlledDatePicker
+                    name="date"
+                    control={control}
+                    calendar="jalali"
+                />
+                <button type="submit">Submit</button>
+            </form>
+        );
+    }
+
+    it('shows a Jalali day and submits its Gregorian date', async () => {
+        const user = userEvent.setup();
+        const onSubmit = vi.fn();
+        render(<JalaliForm onSubmit={onSubmit} />);
+
+        await user.click(screen.getAllByRole('button')[0]);
+        const day = within(screen.getByRole('grid'))
+            .getAllByRole('button')
+            .find((button) => button.textContent === '۱۵');
+        if (!day) throw new Error('Day ۱۵ not found');
+        await user.click(day);
+
+        expect(screen.getAllByRole('button')[0]).toHaveTextContent(
+            '۱۵ آذر ۱۴۰۵',
+        );
+        await user.click(screen.getByRole('button', { name: 'Submit' }));
+        expect(onSubmit).toHaveBeenCalledWith('2026-12-06');
     });
 });

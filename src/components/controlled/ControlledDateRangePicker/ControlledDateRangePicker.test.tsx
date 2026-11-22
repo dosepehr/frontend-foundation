@@ -1,3 +1,4 @@
+import { toIsoDay } from '@/utils/funcs/filterParsers';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -102,5 +103,70 @@ describe('ControlledDateRangePicker', () => {
     it('prefers the error prop', () => {
         render(<TestForm error="Pick your dates" />);
         expect(screen.getByText('Pick your dates')).toBeInTheDocument();
+    });
+});
+
+/** A day by its rendered label, e.g. the Persian "۱۰". */
+const getDayByLabel = (label: string) => {
+    const button = within(screen.getByRole('grid'))
+        .getAllByRole('button')
+        .find((item) => item.textContent === label);
+    if (!button) throw new Error(`Day ${label} not found`);
+    return button;
+};
+
+describe('ControlledDateRangePicker — calendar="jalali"', () => {
+    beforeEach(() => {
+        vi.useFakeTimers({ toFake: ['Date'] });
+        // 1 Farvardin 1405
+        vi.setSystemTime(new Date(2026, 2, 21));
+    });
+    afterEach(() => vi.useRealTimers());
+
+    function JalaliForm({
+        onSubmit,
+    }: {
+        onSubmit: (range: { from?: string; to?: string }) => void;
+    }) {
+        const { control, handleSubmit } = useForm<TestForm>({
+            resolver: zodResolver(schema),
+        });
+        return (
+            <form
+                onSubmit={handleSubmit(({ stay }) =>
+                    onSubmit({
+                        from: stay?.from && toIsoDay(stay.from),
+                        to: stay?.to && toIsoDay(stay.to),
+                    }),
+                )}
+            >
+                <ControlledDateRangePicker
+                    name="stay"
+                    control={control}
+                    calendar="jalali"
+                    numberOfMonths={1}
+                />
+                <button type="submit">Submit</button>
+            </form>
+        );
+    }
+
+    it('shows a Jalali range and submits its Gregorian days', async () => {
+        const user = userEvent.setup();
+        const onSubmit = vi.fn();
+        render(<JalaliForm onSubmit={onSubmit} />);
+
+        await user.click(trigger());
+        await user.click(getDayByLabel('۱۰'));
+        await user.click(getDayByLabel('۱۲'));
+
+        expect(trigger()).toHaveTextContent(
+            '۱۰ فروردین ۱۴۰۵ – ۱۲ فروردین ۱۴۰۵',
+        );
+        await user.click(submit());
+        expect(onSubmit).toHaveBeenCalledWith({
+            from: '2026-03-30',
+            to: '2026-04-01',
+        });
     });
 });
