@@ -1,3 +1,4 @@
+import type { CalendarSystem } from '@/utils/funcs/calendarSystem';
 import type {
     DateFilter,
     Filter,
@@ -8,7 +9,10 @@ import type {
 } from '@/utils/funcs/filters';
 import type { DayPickerProps } from 'react-day-picker';
 
-/** Calendar settings for date filters, e.g. a Jalali calendar. */
+/**
+ * Fine-tunes the calendar of date filters, e.g. `weekStartsOn`; these win
+ * over the `calendar` defaults.
+ */
 export type FilterCalendarProps = Pick<
     DayPickerProps,
     'dateLib' | 'locale' | 'dir' | 'numerals' | 'weekStartsOn'
@@ -27,6 +31,8 @@ export type FilterInputLabels = {
 
 export type FilterInputProps = {
     filter: Filter;
+    /** Calendar of date filters; values stay plain (Gregorian) dates. */
+    calendar?: CalendarSystem;
     calendarProps?: FilterCalendarProps;
     /** Formats the dates of date filters; defaults to "d LLLL". */
     formatDate?: (date: Date) => string;
@@ -43,6 +49,7 @@ export type MultiSelectInputProps = InputProps<MultiSelectFilter>;
 export type TextInputProps = InputProps<TextFilter>;
 export type NumberRangeInputProps = InputProps<NumberRangeFilter>;
 export type DateInputProps = InputProps<DateFilter> & {
+    calendar?: CalendarSystem;
     calendarProps?: FilterCalendarProps;
     formatDate: (date: Date) => string;
 };

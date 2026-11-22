@@ -2,7 +2,6 @@ import DataTable from '@/components/ui/DataTable';
 import { useQueryFilter } from '@/hooks/useQueryFilter';
 import { dateRangeParams } from '@/utils/funcs/filterParsers';
 import type { Filters, NumberRange } from '@/utils/funcs/filters';
-import { faIR, getDateLib } from '@daypicker/persian';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import type { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
@@ -287,14 +286,7 @@ const PersianDemo = () => {
                     onChange: setRegistered,
                 },
             }}
-            filterBox={{
-                calendarProps: {
-                    dateLib: getDateLib({ locale: faIR, numerals: 'arabext' }),
-                    locale: faIR,
-                    dir: 'rtl',
-                    numerals: 'arabext',
-                },
-            }}
+            calendar="jalali"
         />
     );
 };

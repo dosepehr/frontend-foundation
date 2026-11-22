@@ -252,3 +252,31 @@ describe('DataFilter — sort and filters', () => {
         });
     });
 });
+
+describe('DataFilter — calendar="jalali"', () => {
+    it('passes the calendar to the date filters', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataFilter
+                locale="fa"
+                calendar="jalali"
+                filters={{
+                    created: {
+                        type: 'date',
+                        label: 'تاریخ ثبت',
+                        // 1 Azar 1405
+                        value: {
+                            from: new Date(2026, 10, 22),
+                            to: new Date(2026, 10, 22),
+                        },
+                        onChange: vi.fn(),
+                    },
+                }}
+            />,
+        );
+        await user.click(screen.getByRole('button', { name: /^فیلتر/ }));
+        expect(
+            screen.getByRole('button', { name: /^تاریخ ثبت/ }),
+        ).toHaveTextContent('۱۴۰۵/۰۹/۰۱');
+    });
+});

@@ -1,3 +1,4 @@
+import { toIsoDay } from '@/utils/funcs/filterParsers';
 import type { Filters, NumberRange } from '@/utils/funcs/filters';
 import { act, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -12,7 +13,7 @@ const STATUS = [
     { value: 'closed', label: 'Closed' },
 ];
 
-type Initial = { status?: string; tags?: string[] };
+type Initial = { status?: string; tags?: string[]; created?: DateRange };
 
 function Harness({
     initial = {},
@@ -22,7 +23,9 @@ function Harness({
     const [tags, setTags] = useState<string[] | null>(initial.tags ?? null);
     const [owner, setOwner] = useState<string | null>(null);
     const [name, setName] = useState<string | null>(null);
-    const [created, setCreated] = useState<DateRange | null>(null);
+    const [created, setCreated] = useState<DateRange | null>(
+        initial.created ?? null,
+    );
     const [price, setPrice] = useState<NumberRange | null>(null);
 
     const filters: Filters = {
@@ -75,6 +78,10 @@ function Harness({
                     name,
                     price,
                     created: created?.from?.getDate(),
+                    createdDays: created && [
+                        created.from && toIsoDay(created.from),
+                        created.to && toIsoDay(created.to),
+                    ],
                 })}
             </span>
         </>
@@ -349,5 +356,60 @@ describe('FilterBox — debounced filters', () => {
         act(() => vi.advanceTimersByTime(200));
 
         expect(state()).toMatchObject({ status: null, name: null });
+    });
+});
+
+describe('FilterBox — calendar="jalali"', () => {
+    // 1 Azar 1405 is 22 November 2026.
+    beforeEach(() => {
+        vi.useFakeTimers({ toFake: ['Date'] });
+        vi.setSystemTime(new Date(2026, 10, 22));
+    });
+    afterEach(() => vi.useRealTimers());
+
+    it('summarizes a date filter with Jalali dates', async () => {
+        const user = userEvent.setup();
+        render(
+            <Harness
+                calendar="jalali"
+                initial={{
+                    created: {
+                        from: new Date(2026, 10, 22),
+                        to: new Date(2026, 10, 26),
+                    },
+                }}
+            />,
+        );
+        await user.click(trigger());
+        expect(row('Created')).toHaveTextContent('۱۴۰۵/۰۹/۰۱ - ۱۴۰۵/۰۹/۰۵');
+    });
+
+    it('picks Jalali days and stores Gregorian ones', async () => {
+        const user = userEvent.setup();
+        render(<Harness calendar="jalali" />);
+        await user.click(trigger());
+        await user.click(row('Created'));
+        await user.click(screen.getByRole('button', { name: 'Created' }));
+
+        expect(screen.getByRole('grid')).toHaveAccessibleName(/آذر ۱۴۰۵/);
+        await user.click(day('۱۰'));
+        await user.click(day('۱۴'));
+
+        // 10–14 Azar 1405 is 1–5 December 2026.
+        expect(state().createdDays).toEqual(['2026-12-01', '2026-12-05']);
+        expect(
+            screen.getByRole('button', { name: 'Created' }),
+        ).toHaveTextContent(/۱۰ آذر.*۱۴ آذر/);
+    });
+
+    it('lets calendarProps fine-tune the Jalali calendar', async () => {
+        const user = userEvent.setup();
+        render(
+            <Harness calendar="jalali" calendarProps={{ numerals: 'latn' }} />,
+        );
+        await user.click(trigger());
+        await user.click(row('Created'));
+        await user.click(screen.getByRole('button', { name: 'Created' }));
+        expect(day('10')).toBeInTheDocument();
     });
 });

@@ -35,6 +35,7 @@ const DataFilter = ({
     filterBox,
     sort,
     locale = 'en',
+    calendar,
     labels: custom,
     tourIds,
     className,
@@ -80,6 +81,7 @@ const DataFilter = ({
                                 {...filterBox}
                                 filters={filters}
                                 locale={locale}
+                                calendar={calendar}
                             />
                         </div>
                     )}

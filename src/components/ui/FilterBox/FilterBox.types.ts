@@ -2,6 +2,7 @@ import type {
     FilterCalendarProps,
     FilterInputLabels,
 } from '@/components/ui/FilterInput/FilterInput.types';
+import type { CalendarSystem } from '@/utils/funcs/calendarSystem';
 import type { Filter, Filters } from '@/utils/funcs/filters';
 import type { ReactNode } from 'react';
 
@@ -25,7 +26,12 @@ export type FilterBoxProps = {
     filters: Filters;
     /** Clears the filters; defaults to calling every `onChange` with null. */
     onReset?: () => void;
-    /** Calendar of date filters, e.g. Jalali; also formats their dates. */
+    /**
+     * Calendar of date filters and their summaries. Values stay plain
+     * `Date`s, so the URL and the API keep Gregorian days.
+     */
+    calendar?: CalendarSystem;
+    /** Fine-tunes that calendar; its `dateLib` also formats the dates. */
     calendarProps?: FilterCalendarProps;
     /** date-fns format of dates in the list's summaries. */
     dateFormat?: string;

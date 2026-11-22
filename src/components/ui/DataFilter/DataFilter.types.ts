@@ -3,6 +3,7 @@ import type {
     FilterBoxProps,
 } from '@/components/ui/FilterBox/FilterBox.types';
 import type { SelectOption } from '@/components/ui/Select/Select.types';
+import type { CalendarSystem } from '@/utils/funcs/calendarSystem';
 import type { Filters } from '@/utils/funcs/filters';
 
 export type DataFilterSearch = {
@@ -41,12 +42,14 @@ export type DataFilterProps = {
     search?: DataFilterSearch;
     /** The filters of the FilterBox; hidden without any. */
     filters?: Filters;
-    /** Other FilterBox props, e.g. a Jalali `calendarProps` or `onReset`. */
-    filterBox?: Omit<FilterBoxProps, 'filters' | 'locale'>;
+    /** Other FilterBox props, e.g. `onReset` or `dateFormat`. */
+    filterBox?: Omit<FilterBoxProps, 'filters' | 'locale' | 'calendar'>;
     /** The sort select; hidden without it or with no options. */
     sort?: DataFilterSort;
     /** Built-in texts of every control; `labels` overrides single texts. */
     locale?: FilterBoxLocale;
+    /** Calendar of the date filters; values stay Gregorian dates. */
+    calendar?: CalendarSystem;
     labels?: Partial<DataFilterLabels>;
     /** `data-tour` anchors for a guided tour. */
     tourIds?: { search?: string; filters?: string };

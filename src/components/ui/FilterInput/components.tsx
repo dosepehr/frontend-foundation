@@ -96,6 +96,7 @@ const DateField = ({
  */
 const DateFilterInput = ({
     filter,
+    calendar,
     calendarProps,
     formatDate,
     labels,
@@ -153,6 +154,7 @@ const DateFilterInput = ({
             >
                 {single ? (
                     <Calendar
+                        calendar={calendar}
                         {...calendarProps}
                         mode="single"
                         selected={range?.from}
@@ -166,6 +168,7 @@ const DateFilterInput = ({
                     />
                 ) : (
                     <Calendar
+                        calendar={calendar}
                         {...calendarProps}
                         mode="range"
                         selected={range}

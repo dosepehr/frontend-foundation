@@ -4,8 +4,8 @@
 
 import FilterInput from '@/components/ui/FilterInput';
 import Popover, { PopoverContent } from '@/components/ui/Popover';
+import { getDateFormatter } from '@/utils/funcs/calendarSystem';
 import { formatNumber } from '@/utils/funcs/numberFormat';
-import { format as formatWithDateFns } from 'date-fns';
 import { FilterList, FilterPanel, FilterTrigger } from './components';
 import type {
     FilterBoxLabels,
@@ -52,6 +52,7 @@ const LABELS: Record<FilterBoxLocale, FilterBoxLabels> = {
 const FilterBox = ({
     filters,
     onReset,
+    calendar,
     calendarProps,
     dateFormat = 'yyyy/MM/dd',
     dateInputFormat = 'd LLLL',
@@ -63,7 +64,7 @@ const FilterBox = ({
     className,
 }: FilterBoxProps) => {
     const labels = { ...LABELS[locale], ...custom };
-    const format = calendarProps?.dateLib?.format ?? formatWithDateFns;
+    const format = calendarProps?.dateLib?.format ?? getDateFormatter(calendar);
     const box = useFilterBox({
         filters,
         onReset,
@@ -100,6 +101,7 @@ const FilterBox = ({
                     >
                         <FilterInput
                             filter={box.activeFilter}
+                            calendar={calendar}
                             calendarProps={calendarProps}
                             formatDate={(date) => format(date, dateInputFormat)}
                             labels={labels}

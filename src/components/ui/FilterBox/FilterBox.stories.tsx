@@ -1,7 +1,6 @@
 import DataTable from '@/components/ui/DataTable';
 import { useQueryFilter } from '@/hooks/useQueryFilter';
 import type { FilterOption, Filters, NumberRange } from '@/utils/funcs/filters';
-import { faIR, getDateLib } from '@daypicker/persian';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import type { ColumnDef } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
@@ -198,13 +197,6 @@ export const LoadingOptions: Story = {
     render: () => <LoadingDemo />,
 };
 
-const jalaliCalendar = {
-    dateLib: getDateLib({ locale: faIR, numerals: 'arabext' }),
-    locale: faIR,
-    dir: 'rtl' as const,
-    numerals: 'arabext' as const,
-};
-
 const PersianDemo = () => {
     const [operators, setOperators] = useState<string[] | null>(['1', '2']);
     const [registered, setRegistered] = useState<DateRange | null>(null);
@@ -213,7 +205,7 @@ const PersianDemo = () => {
         <div dir="rtl">
             <FilterBox
                 locale="fa"
-                calendarProps={jalaliCalendar}
+                calendar="jalali"
                 filters={{
                     operators: {
                         type: 'multiselect',

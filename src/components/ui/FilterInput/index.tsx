@@ -2,7 +2,7 @@
 'use client';
 /* c8 ignore stop */
 
-import { format as formatWithDateFns } from 'date-fns';
+import { getDateFormatter } from '@/utils/funcs/calendarSystem';
 import {
     DateFilterInput,
     MultiSelectFilterInput,
@@ -23,6 +23,7 @@ const DEFAULT_LABELS: FilterInputLabels = {
 /** The input of one filter, picked by its `type`. */
 const FilterInput = ({
     filter,
+    calendar,
     calendarProps,
     formatDate,
     labels: custom,
@@ -43,13 +44,14 @@ const FilterInput = ({
                 <DateFilterInput
                     filter={filter}
                     labels={labels}
+                    calendar={calendar}
                     calendarProps={calendarProps}
                     formatDate={
                         formatDate ??
                         ((date) =>
                             (
                                 calendarProps?.dateLib?.format ??
-                                formatWithDateFns
+                                getDateFormatter(calendar)
                             )(date, 'd LLLL'))
                     }
                 />
