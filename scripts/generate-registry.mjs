@@ -141,6 +141,7 @@ const LIB_FILES = [
     { name: 'filter-utils', srcRelPath: 'utils/funcs/filters/index.ts' },
     { name: 'filter-parsers', srcRelPath: 'utils/funcs/filterParsers/index.ts' },
     { name: 'calendar-system', srcRelPath: 'utils/funcs/calendarSystem/index.ts' },
+    { name: 'chart-utils', srcRelPath: 'utils/funcs/charts/index.ts' },
     { name: 'http-errors', srcRelPath: 'utils/api/types/http-errors.types.ts' },
     { name: 'api-response', srcRelPath: 'utils/api/types/api-response.types.ts' },
     { name: 'operation-result', srcRelPath: 'utils/api/types/operation-result.types.ts' },
