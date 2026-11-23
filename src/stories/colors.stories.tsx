@@ -60,6 +60,9 @@ const COLOR_GROUPS = [
             { name: 'Chart 3', variable: '--chart-3' },
             { name: 'Chart 4', variable: '--chart-4' },
             { name: 'Chart 5', variable: '--chart-5' },
+            { name: 'Chart 6', variable: '--chart-6' },
+            { name: 'Chart 7', variable: '--chart-7' },
+            { name: 'Chart 8', variable: '--chart-8' },
         ],
     },
     {
