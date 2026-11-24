@@ -4,10 +4,10 @@ app: global
 document_type: documentation-index
 author: dosepehr
 created_at: 2026-11-08
-updated_at: 2026-11-08
+updated_at: 2026-11-24
 reviewed_at: null
 status: active
-version: 1.0
+version: 1.1
 ---
 
 # Documentation Index
@@ -24,6 +24,8 @@ been written yet (see **Known gaps** at the bottom).
   and notifications / Web Push.
 - [react-pwa-guide.md](react-pwa-guide.md) — porting this repo's PWA setup
   to a plain React SPA (Vite / CRA).
+- [changelog.md](changelog.md) — writing the `changelog/` entries that the
+  docs site publishes as its changelog and each component's history.
 - [zustand.md](zustand.md) — client state: the `createStore` factory,
   conventions for new stores, useful middlewares.
 
