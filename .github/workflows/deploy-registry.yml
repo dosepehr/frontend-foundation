@@ -35,3 +35,16 @@ jobs:
           path: dist
       - uses: actions/deploy-pages@v4
         id: deployment
+      # Rebuild dosepehr.github.io so its docs and changelog pick up this push.
+      # Needs SITE_DISPATCH_TOKEN: a fine-grained token with Contents: read and
+      # write on dosepehr/dosepehr.github.io. Without it the site still picks
+      # the push up on its daily rebuild.
+      - name: Trigger docs site rebuild
+        env:
+          GH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "SITE_DISPATCH_TOKEN is not set; skipping the docs site rebuild."
+            exit 0
+          fi
+          gh api repos/dosepehr/dosepehr.github.io/dispatches -f event_type=foundation-updated
